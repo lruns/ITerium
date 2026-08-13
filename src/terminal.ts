@@ -99,7 +99,10 @@ function menuHtml(): string {
     <ul class="menu" id="menu" role="listbox" aria-label="выбор зала" tabindex="0">${rows}</ul>
     <p class="menu-foot">${menuFootnote}</p>
     <pre class="term-log" id="term-log"></pre>
-    <p class="menu-hint">[&uarr;&darr;] выбор &middot; [enter] войти &middot; [1&ndash;4] быстро &middot; можно мышкой</p>`;
+    <p class="menu-hint"><b>тыкни строчку</b> &mdash; и ты внутри
+      <span class="mh-sep">&middot;</span> или [&uarr;&darr;] выбор
+      <span class="mh-sep">&middot;</span> [enter] войти
+      <span class="mh-sep">&middot;</span> [1&ndash;4] быстро</p>`;
 }
 
 /**
@@ -107,7 +110,7 @@ function menuHtml(): string {
  * in the middle of an endless dark room — chamfered case, curved glass, glare,
  * reflection on the floor. The screen inside is the same buffer.
  */
-function shell(inner: string, right: string): string {
+function shell(inner: string, right: string, cta = ''): string {
   return `
     <div class="void" id="void">
       <div class="void-stars" aria-hidden="true"></div>
@@ -126,6 +129,7 @@ function shell(inner: string, right: string): string {
                 <div class="buffer">
                   <div class="stage" id="stage">${inner}</div>
                 </div>
+                ${cta}
                 ${modeline('iterium.term', right)}
               </div>
               <div class="glass-curve" aria-hidden="true"></div>
@@ -159,21 +163,23 @@ function liveTilt(scene: HTMLElement | null, crt: HTMLElement | null): void {
   onCleanup(() => window.removeEventListener('pointermove', onMove));
 }
 
-/** Boot screen: greeting types itself, then we wait for ENTER. */
+/** Boot screen: greeting types itself, but the door is open from the first frame. */
 export function renderBoot(app: HTMLElement): void {
-  app.className = 'screen-term';
+  // The invitation must not wait for the animation: the first live visitors could
+  // not tell there was anything to press.
+  const tail = entryLines[entryLines.length - 1].replace(/_\s*$/, '').trim();
+  app.className = 'screen-term screen-boot';
   app.innerHTML = shell(
     `<pre class="boot" id="boot"></pre>
-     <pre class="museum" id="museum" aria-hidden="true"></pre>
-     <pre class="boot prompt-line" id="prompt"></pre>`,
+     <pre class="museum" id="museum" aria-hidden="true"></pre>`,
     '(Museum · Boot)',
+    `<p class="term-cta" id="cta">${esc(tail)} &mdash; или тыкни экран<span class="cur"></span></p>`,
   );
   const out = app.querySelector('#boot') as HTMLPreElement;
   const art = app.querySelector('#museum') as HTMLPreElement;
-  const prompt = app.querySelector('#prompt') as HTMLPreElement;
+  const cta = app.querySelector('#cta') as HTMLElement;
 
   const text = entryLines.slice(0, 4);
-  const tail = entryLines[entryLines.length - 1];
   let li = 0;
   let ci = 0;
   let done = false;
@@ -181,8 +187,7 @@ export function renderBoot(app: HTMLElement): void {
 
   const showPrompt = (): void => {
     done = true;
-    prompt.textContent = tail;
-    prompt.classList.add('crt');
+    cta.classList.add('ready');
   };
   const finish = (): void => {
     if (done) return;
@@ -211,11 +216,14 @@ export function renderBoot(app: HTMLElement): void {
   if (reducedMotion()) finish();
   else tick();
 
+  // ONE action moves you forward. Before, the first press only skipped the
+  // animation and a second one was needed to enter — visitors never guessed that.
+  // Whoever wants to watch the boot simply does not touch anything.
+  let left = false;
   const enter = (): void => {
-    if (!done) {
-      finish();
-      return;
-    }
+    if (left) return;
+    left = true;
+    finish();
     location.hash = '#menu';
   };
   const onKey = (ev: KeyboardEvent): void => {
@@ -225,8 +233,10 @@ export function renderBoot(app: HTMLElement): void {
     }
   };
   document.addEventListener('keydown', onKey);
-  const editor = app.querySelector('#editor') as HTMLElement;
-  editor.addEventListener('click', enter);
+  // The whole dark room is the button, not just the glass: on a phone the screen
+  // is small and the void around the monitor is most of what the thumb can reach.
+  const room = app.querySelector('#void') as HTMLElement;
+  room.addEventListener('click', enter);
   onCleanup(() => document.removeEventListener('keydown', onKey));
   liveTilt(app.querySelector('.crt-scene'), app.querySelector('#crt'));
 }

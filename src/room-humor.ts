@@ -6,7 +6,7 @@
 
 import { backBtn, modeline, plaqueHtml, reservedHtml, stand, startAtBottom } from './chrome';
 import { asciiCharts, clownStill, humorExhibits, pathJokes, tickerLines, topRows } from './data';
-import { liveModeline, onCleanup, onScroll, reducedMotion, revealOnScroll } from './runtime';
+import { later, liveModeline, onCleanup, onScroll, reducedMotion, revealOnScroll } from './runtime';
 import { adhdSortHtml, mountAdhdSort } from './toys/adhd-sort';
 import { capitalismHtml, mountCapitalism } from './toys/capitalism';
 import { jsTruthHtml, mountJsTruth } from './toys/js-truth';
@@ -181,6 +181,61 @@ function mountTicker(root: HTMLElement): void {
   });
 }
 
+/**
+ * DIRECTION SIGN. The hall reads bottom to top, and that is not obvious: visitors
+ * did not guess they had to scroll UP. So the arrow does not wink at half strength,
+ * it stands as a column above the line; the text names both the wheel and the
+ * finger — on a phone the hall is swiped.
+ */
+const HINT_ARROW = ['  ^', ' ^^^', '^^^^^'];
+
+function enterHintHtml(): string {
+  // The wave runs bottom to top — the hint itself shows the direction.
+  const arrow = HINT_ARROW.map(
+    (l, i) => `<span style="--i:${HINT_ARROW.length - 1 - i}">${l}\n</span>`,
+  ).join('');
+  return `
+      <div class="enter-hint" id="enter-hint">
+        <pre class="eh-arrow" aria-hidden="true">${arrow}</pre>
+        <p class="eh-text">поднимайся ВВЕРХ &mdash; приколы висят вокруг</p>
+        <p class="eh-sub">колесом, пальцем или [&uarr;] &mdash; всё вверх</p>
+      </div>`;
+}
+
+/**
+ * The hint lives exactly until the first real scroll. The opening jump to the very
+ * bottom (startAtBottom) fires scroll events itself, so we remember that bottom
+ * point and wait for a move away FROM it. Whoever stands still gets a nudge.
+ */
+function mountEnterHint(root: HTMLElement): void {
+  const hint = root.querySelector('#enter-hint') as HTMLElement | null;
+  const head = root.querySelector('.room-head') as HTMLElement | null;
+  if (!hint || !head) return;
+  let bottom = -1;
+  let gone = false;
+  const bump = (): void => {
+    if (gone || reducedMotion()) return;
+    head.classList.remove('bump');
+    void head.offsetWidth; // restart the animation
+    head.classList.add('bump');
+  };
+  onScroll(() => {
+    const se = document.scrollingElement as HTMLElement | null;
+    if (!se) return;
+    const y = se.scrollTop;
+    if (bottom < 0 || y > bottom) {
+      bottom = y; // still the jump downwards, not the visitor
+      return;
+    }
+    if (gone || bottom - y < 40) return;
+    gone = true;
+    hint.classList.add('gone');
+    head.classList.remove('bump');
+  });
+  later(bump, 6000);
+  later(bump, 13000);
+}
+
 /** Far layer: moves slower than the hall and provides depth. */
 function mountParallax(root: HTMLElement): void {
   const far = root.querySelector('.far') as HTMLElement | null;
@@ -288,7 +343,7 @@ export function renderHumor(app: HTMLElement): void {
       <pre class="clown still" aria-hidden="true">${clownStill}</pre>
       <p class="cmd">$ cd /iterium/jokes &amp;&amp; ls -la</p>
       <h1>комната шута<span class="cur"></span></h1>
-      <p class="scroll-hint up">↑ поднимайся, приколы висят вокруг</p>
+      ${enterHintHtml()}
     </header>
     <main class="hall">
       <div class="trail" aria-hidden="true"><i id="trail-fill"></i></div>
@@ -324,4 +379,5 @@ export function renderHumor(app: HTMLElement): void {
   mountTicker(app);
   mountParallax(app);
   startAtBottom();
+  mountEnterHint(app);
 }

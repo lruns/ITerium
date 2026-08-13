@@ -183,7 +183,11 @@ img { max-width: 100%; display: block; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform-style: preserve-3d;
+  /* NO preserve-3d. With it Chrome handed every click inside the monitor to the
+     case (.crt-case), so the mouse worked on NEITHER the menu rows NOR the boot
+     screen — desktop visitors could not get in. Removing it does not change the
+     geometry: the tilt lives on .crt itself, the children have no 3D layers of
+     their own, and a flat frame is hit-tested correctly. */
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transition: transform 0.55s cubic-bezier(0.22, 0.9, 0.3, 1), filter 0.5s ease, opacity 0.5s ease;
 }
@@ -396,12 +400,31 @@ img { max-width: 100%; display: block; }
   white-space: pre-wrap;
   text-shadow: 0 0 9px rgba(125, 255, 160, 0.35);
 }
-.prompt-line { min-height: 1.8em; }
 .boot.crt { animation: crt-flicker 2.6s infinite; }
 @keyframes crt-flicker {
   0%, 92%, 100% { opacity: 1; }
   95% { opacity: 0.76; }
 }
+
+/* invitation to enter: sits at the bottom of the buffer from the FIRST frame and
+   does not move while the splash types itself — it can be aimed at right away */
+.term-cta {
+  margin-top: 10px;
+  font-size: clamp(13px, 1.4vw, 15.5px);
+  line-height: 1.5;
+  color: var(--green-dim);
+  letter-spacing: 0.02em;
+  animation: cta-pulse 1.9s ease-in-out infinite;
+}
+.term-cta.ready {
+  color: var(--green);
+  text-shadow: 0 0 10px rgba(125, 255, 160, 0.35);
+  animation: none;
+}
+@keyframes cta-pulse { 0%, 100% { opacity: 0.62; } 50% { opacity: 1; } }
+
+/* on the boot screen the whole dark room is clickable, not just the glass */
+.screen-boot .void { cursor: pointer; }
 
 /* ---- menu rendered inside the buffer ---- */
 
@@ -465,7 +488,9 @@ img { max-width: 100%; display: block; }
   color: var(--amber);
   white-space: pre-wrap;
 }
-.menu-hint { margin-top: 2px; font-size: 11.5px; color: #3d4f44; }
+.menu-hint { margin-top: 2px; font-size: 11.5px; line-height: 1.6; color: #3d4f44; }
+.menu-hint b { color: var(--green-dim); font-weight: 400; }
+.mh-sep { opacity: 0.5; padding: 0 2px; }
 
 /* ---- clown transition ---- */
 
@@ -603,6 +628,50 @@ img { max-width: 100%; display: block; }
 @keyframes nudge {
   0%, 100% { transform: translateY(0); opacity: 0.3; }
   50% { transform: translateY(-6px); opacity: 0.6; }
+}
+
+/* UP SIGN at the entrance to the hall. The old .scroll-hint (opacity 0.45, 12px)
+   was invisible: visitors did not realise the hall reads bottom to top. It leaves
+   by itself after the first real scroll — beyond that it would only be in the way. */
+.enter-hint {
+  margin-top: 26px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.enter-hint.gone {
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+}
+.eh-arrow {
+  display: inline-block;
+  font-size: clamp(15px, 2.2vw, 24px);
+  line-height: 1.02;
+  white-space: pre;
+  text-align: left;
+  color: var(--amber);
+  text-shadow: 0 0 14px rgba(255, 180, 84, 0.55);
+}
+.eh-arrow span { display: block; animation: eh-run 1.5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.16s); }
+@keyframes eh-run {
+  0%, 100% { opacity: 0.28; transform: translateY(2px); }
+  40% { opacity: 1; transform: translateY(-2px); }
+}
+.eh-text {
+  margin-top: 8px;
+  font-size: clamp(14px, 1.5vw, 17px);
+  letter-spacing: 0.03em;
+  color: var(--cream);
+  text-shadow: 0 0 16px rgba(255, 180, 84, 0.3);
+  animation: eh-pulse 2.4s ease-in-out infinite;
+}
+@keyframes eh-pulse { 0%, 100% { opacity: 0.72; } 50% { opacity: 1; } }
+.eh-sub { margin-top: 5px; font-size: 12px; color: #a58a5c; }
+
+/* nudge of the content for whoever stands still (see mountEnterHint) */
+.room-head.bump { animation: head-bump 0.9s cubic-bezier(0.3, 0.9, 0.35, 1); }
+@keyframes head-bump {
+  0%, 100% { transform: none; }
+  38% { transform: translateY(-24px); }
 }
 
 .room-foot { text-align: center; padding: 88px 16px 36px; position: relative; z-index: 4; }
@@ -2616,6 +2685,34 @@ html.snap { scroll-snap-type: y proximity; }
   .icl-line { grid-template-columns: 2.2em 4.8em minmax(0, 1fr); font-size: 10.5px; padding: 2px 8px; }
 }
 
+/* PHONE ENTRANCE (same breakpoint as SMALL in mobile.ts). The hall itself is not
+   built for mobile — only the threshold has to be tidy: a thinner frame, a buffer
+   filling almost the whole screen, menu rows no smaller than a finger. Placed
+   after the 760/480 blocks on purpose. */
+@media (max-width: 700px) {
+  .void { padding: 8px 6px; }
+  .crt-scene { width: 100%; perspective: none; }
+  /* a "follow the mouse" tilt makes no sense on a touch screen and eats space */
+  .crt { transform: none; }
+  .crt-case { padding: 8px 8px 12px; border-radius: 16px 16px 12px 12px; }
+  .crt-glass { border-radius: 14px / 18px; }
+  .crt-neck, .crt-foot, .crt-plate, .crt-pool, .crt-mirror { display: none; }
+  .editor { min-height: 84vh; max-height: 94vh; padding: 10px 10px 24px; }
+  .banner { font-size: 8.6px; }
+  .mini { font-size: 10px; line-height: 1.5; }
+  .museum { font-size: 8.2px; }
+  .rule { margin: 6px 0 10px; }
+  .boot { font-size: 13px; line-height: 1.55; }
+  .term-cta { margin-top: 8px; font-size: 13.5px; }
+  .menu-title { font-size: 14.5px; }
+  /* a finger is not a cursor: the hall row keeps a tap-target height */
+  .mi { min-height: 44px; align-items: center; padding: 6px 8px; font-size: 14px; }
+  .mi-note { font-size: 11.5px; }
+  .menu-foot { margin-left: 8px; }
+  .menu-hint { font-size: 12px; }
+  .term-log { min-height: 3.2em; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .screen-humor .reveal {
     opacity: 1;
@@ -2623,7 +2720,8 @@ html.snap { scroll-snap-type: y proximity; }
     filter: none;
     transition: none;
   }
-  .nebula, .boot.crt, .cur, .scroll-hint, .fade-in,
+  .nebula, .boot.crt, .cur, .scroll-hint, .fade-in, .term-cta,
+  .eh-arrow span, .eh-text, .room-head.bump,
   .void-stars, .void-glow, .horizon .grid, .museum .ln,
   .breath, .crt-led, .ticker-run { animation: none; }
   .editor, .crt { transition: none; }

@@ -33188,6 +33188,47 @@ ${rows}`;
       n.style.animation = "none";
     });
   }
+  var HINT_ARROW = ["  ^", " ^^^", "^^^^^"];
+  function enterHintHtml() {
+    const arrow = HINT_ARROW.map(
+      (l, i) => `<span style="--i:${HINT_ARROW.length - 1 - i}">${l}
+</span>`
+    ).join("");
+    return `
+      <div class="enter-hint" id="enter-hint">
+        <pre class="eh-arrow" aria-hidden="true">${arrow}</pre>
+        <p class="eh-text">\u043F\u043E\u0434\u043D\u0438\u043C\u0430\u0439\u0441\u044F \u0412\u0412\u0415\u0420\u0425 &mdash; \u043F\u0440\u0438\u043A\u043E\u043B\u044B \u0432\u0438\u0441\u044F\u0442 \u0432\u043E\u043A\u0440\u0443\u0433</p>
+        <p class="eh-sub">\u043A\u043E\u043B\u0435\u0441\u043E\u043C, \u043F\u0430\u043B\u044C\u0446\u0435\u043C \u0438\u043B\u0438 [&uarr;] &mdash; \u0432\u0441\u0451 \u0432\u0432\u0435\u0440\u0445</p>
+      </div>`;
+  }
+  function mountEnterHint(root) {
+    const hint = root.querySelector("#enter-hint");
+    const head = root.querySelector(".room-head");
+    if (!hint || !head) return;
+    let bottom = -1;
+    let gone = false;
+    const bump = () => {
+      if (gone || reducedMotion()) return;
+      head.classList.remove("bump");
+      void head.offsetWidth;
+      head.classList.add("bump");
+    };
+    onScroll(() => {
+      const se = document.scrollingElement;
+      if (!se) return;
+      const y = se.scrollTop;
+      if (bottom < 0 || y > bottom) {
+        bottom = y;
+        return;
+      }
+      if (gone || bottom - y < 40) return;
+      gone = true;
+      hint.classList.add("gone");
+      head.classList.remove("bump");
+    });
+    later(bump, 6e3);
+    later(bump, 13e3);
+  }
   function mountParallax(root) {
     const far = root.querySelector(".far");
     if (!far || reducedMotion()) return;
@@ -33265,7 +33306,7 @@ ${rows}`;
       <pre class="clown still" aria-hidden="true">${clownStill}</pre>
       <p class="cmd">$ cd /iterium/jokes &amp;&amp; ls -la</p>
       <h1>\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u0448\u0443\u0442\u0430<span class="cur"></span></h1>
-      <p class="scroll-hint up">\u2191 \u043F\u043E\u0434\u043D\u0438\u043C\u0430\u0439\u0441\u044F, \u043F\u0440\u0438\u043A\u043E\u043B\u044B \u0432\u0438\u0441\u044F\u0442 \u0432\u043E\u043A\u0440\u0443\u0433</p>
+      ${enterHintHtml()}
     </header>
     <main class="hall">
       <div class="trail" aria-hidden="true"><i id="trail-fill"></i></div>
@@ -33300,6 +33341,7 @@ ${rows}`;
     mountTicker(app2);
     mountParallax(app2);
     startAtBottom();
+    mountEnterHint(app2);
   }
 
   // src/transitions.ts
@@ -33718,9 +33760,12 @@ ${rows}`;
     <ul class="menu" id="menu" role="listbox" aria-label="\u0432\u044B\u0431\u043E\u0440 \u0437\u0430\u043B\u0430" tabindex="0">${rows}</ul>
     <p class="menu-foot">${menuFootnote}</p>
     <pre class="term-log" id="term-log"></pre>
-    <p class="menu-hint">[&uarr;&darr;] \u0432\u044B\u0431\u043E\u0440 &middot; [enter] \u0432\u043E\u0439\u0442\u0438 &middot; [1&ndash;4] \u0431\u044B\u0441\u0442\u0440\u043E &middot; \u043C\u043E\u0436\u043D\u043E \u043C\u044B\u0448\u043A\u043E\u0439</p>`;
+    <p class="menu-hint"><b>\u0442\u044B\u043A\u043D\u0438 \u0441\u0442\u0440\u043E\u0447\u043A\u0443</b> &mdash; \u0438 \u0442\u044B \u0432\u043D\u0443\u0442\u0440\u0438
+      <span class="mh-sep">&middot;</span> \u0438\u043B\u0438 [&uarr;&darr;] \u0432\u044B\u0431\u043E\u0440
+      <span class="mh-sep">&middot;</span> [enter] \u0432\u043E\u0439\u0442\u0438
+      <span class="mh-sep">&middot;</span> [1&ndash;4] \u0431\u044B\u0441\u0442\u0440\u043E</p>`;
   }
-  function shell(inner, right) {
+  function shell(inner, right, cta = "") {
     return `
     <div class="void" id="void">
       <div class="void-stars" aria-hidden="true"></div>
@@ -33739,6 +33784,7 @@ ${rows}`;
                 <div class="buffer">
                   <div class="stage" id="stage">${inner}</div>
                 </div>
+                ${cta}
                 ${modeline2("iterium.term", right)}
               </div>
               <div class="glass-curve" aria-hidden="true"></div>
@@ -33770,26 +33816,25 @@ ${rows}`;
     onCleanup(() => window.removeEventListener("pointermove", onMove));
   }
   function renderBoot(app2) {
-    app2.className = "screen-term";
+    const tail = entryLines[entryLines.length - 1].replace(/_\s*$/, "").trim();
+    app2.className = "screen-term screen-boot";
     app2.innerHTML = shell(
       `<pre class="boot" id="boot"></pre>
-     <pre class="museum" id="museum" aria-hidden="true"></pre>
-     <pre class="boot prompt-line" id="prompt"></pre>`,
-      "(Museum \xB7 Boot)"
+     <pre class="museum" id="museum" aria-hidden="true"></pre>`,
+      "(Museum \xB7 Boot)",
+      `<p class="term-cta" id="cta">${esc(tail)} &mdash; \u0438\u043B\u0438 \u0442\u044B\u043A\u043D\u0438 \u044D\u043A\u0440\u0430\u043D<span class="cur"></span></p>`
     );
     const out = app2.querySelector("#boot");
     const art = app2.querySelector("#museum");
-    const prompt = app2.querySelector("#prompt");
+    const cta = app2.querySelector("#cta");
     const text = entryLines.slice(0, 4);
-    const tail = entryLines[entryLines.length - 1];
     let li = 0;
     let ci = 0;
     let done = false;
     let skipArt = null;
     const showPrompt = () => {
       done = true;
-      prompt.textContent = tail;
-      prompt.classList.add("crt");
+      cta.classList.add("ready");
     };
     const finish = () => {
       if (done) return;
@@ -33819,11 +33864,11 @@ ${rows}`;
     };
     if (reducedMotion()) finish();
     else tick();
+    let left = false;
     const enter = () => {
-      if (!done) {
-        finish();
-        return;
-      }
+      if (left) return;
+      left = true;
+      finish();
       location.hash = "#menu";
     };
     const onKey = (ev) => {
@@ -33833,8 +33878,8 @@ ${rows}`;
       }
     };
     document.addEventListener("keydown", onKey);
-    const editor = app2.querySelector("#editor");
-    editor.addEventListener("click", enter);
+    const room = app2.querySelector("#void");
+    room.addEventListener("click", enter);
     onCleanup(() => document.removeEventListener("keydown", onKey));
     liveTilt(app2.querySelector(".crt-scene"), app2.querySelector("#crt"));
   }

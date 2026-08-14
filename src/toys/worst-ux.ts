@@ -3,41 +3,42 @@
 // to this as its own card with author credit; this is only our reimplementation.
 
 import { svgArrow } from '../chrome';
+import { t } from '../i18n';
 import { reducedMotion, stepEngine } from '../runtime';
 
 export function worstUxHtml(): string {
   return `<div class="obj mid toy ux reveal" id="ux">
     <div class="obj-title">$ ./the-best-user-ux --award=2026</div>
-    <p class="obj-hint top">три интерфейса, которые технически работают</p>
+    <p class="obj-hint top">${t('ux.hint')}</p>
 
     <div class="ux-row">
-      <span class="ux-label">отписаться от рассылки</span>
+      <span class="ux-label">${t('ux.unsubLabel')}</span>
       <div class="ux-field" id="ux-field">
-        <button class="ux-run" id="ux-run" type="button">Отписаться</button>
+        <button class="ux-run" id="ux-run" type="button">${t('ux.unsubBtn')}</button>
         <span class="ux-fan" id="ux-fan" aria-hidden="true">≋≋≋</span>
       </div>
     </div>
 
     <div class="ux-row">
-      <span class="ux-label">громкость</span>
+      <span class="ux-label">${t('ux.volume')}</span>
       <div class="ux-field">
         <input class="ux-slider" id="ux-vol" type="range" min="0" max="100" value="50"
-               aria-label="громкость"/>
+               aria-label="${t('ux.volume')}"/>
         <span class="ux-val" id="ux-volval">50</span>
       </div>
     </div>
 
     <div class="ux-row">
-      <span class="ux-label">я не робот</span>
+      <span class="ux-label">${t('ux.notRobot')}</span>
       <div class="ux-field">
-        <label class="ux-check"><input type="checkbox" id="ux-bot"/> подтверждаю</label>
-        <span class="ux-val" id="ux-botval">ждём подтверждения</span>
+        <label class="ux-check"><input type="checkbox" id="ux-bot"/> ${t('ux.confirm')}</label>
+        <span class="ux-val" id="ux-botval">${t('ux.waiting')}</span>
       </div>
     </div>
 
-    <p class="ux-foot" id="ux-foot">> всё по спецификации</p>
+    <p class="ux-foot" id="ux-foot">${t('ux.spec')}</p>
     <a class="plate" href="https://vm.tiktok.com/ZN8Rnkbw5/" target="_blank" rel="noopener">
-      оригинал жанра: @inhwoi ${svgArrow}</a>
+      ${t('ux.plate')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -75,22 +76,18 @@ export function mountWorstUx(root: HTMLElement): void {
     fan.classList.toggle('right', !fromLeft);
     fan.classList.add('on');
     engine.next(() => fan.classList.remove('on'), 500);
-    foot.textContent =
-      dodges < 3
-        ? '> кнопка на месте. просто сквозняк'
-        : `> попыток отписаться: ${dodges}. вентилятор не выключается`;
+    foot.textContent = dodges < 3 ? t('ux.draft') : t('ux.fan', { n: dodges });
   };
   field.addEventListener('pointermove', blow);
   run.addEventListener('click', () => {
-    foot.textContent = '> вы успешно НЕ отписались. спасибо, что остаётесь';
+    foot.textContent = t('ux.stay');
   });
 
   // 2. the volume slider runs the wrong way
   const paintVol = (): void => {
     const v = 100 - Number(vol.value);
     volval.textContent = String(v);
-    foot.textContent =
-      v > 80 ? '> громче некуда (вы тянули влево)' : v < 20 ? '> тише некуда (вы тянули вправо)' : '> всё по спецификации';
+    foot.textContent = v > 80 ? t('ux.loud') : v < 20 ? t('ux.quiet') : t('ux.spec');
   };
   vol.addEventListener('input', paintVol);
   paintVol();
@@ -98,19 +95,19 @@ export function mountWorstUx(root: HTMLElement): void {
   // 3. the checkbox that unchecks itself
   bot.addEventListener('change', () => {
     if (!bot.checked) {
-      botval.textContent = 'ждём подтверждения';
+      botval.textContent = t('ux.waiting');
       return;
     }
-    botval.textContent = 'проверяем…';
+    botval.textContent = t('ux.checking');
     if (reducedMotion()) {
-      botval.textContent = 'проверка не пройдена (галочка снята автоматически)';
+      botval.textContent = t('ux.failStill');
       bot.checked = false;
       return;
     }
     engine.next(() => {
       bot.checked = false;
-      botval.textContent = 'проверка не пройдена. попробуйте ещё раз';
-      foot.textContent = '> робот не подтверждён. вы, скорее всего, тоже';
+      botval.textContent = t('ux.fail');
+      foot.textContent = t('ux.failFoot');
     }, 1200);
   });
 }

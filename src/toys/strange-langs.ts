@@ -14,6 +14,7 @@
 
 import { svgArrow } from '../chrome';
 import { audioOnGesture, moo } from '../audio';
+import { t, tl } from '../i18n';
 import { onCleanup, reducedMotion, stepEngine } from '../runtime';
 
 /* ------------------------------- COW: mooing --------------------------------- */
@@ -24,14 +25,10 @@ interface Moo {
 }
 
 // The six instructions used by this station (the full COW set is twelve).
-const MOOS: Moo[] = [
-  { cmd: 'mOo', what: 'шаг на предыдущую ячейку' },
-  { cmd: 'moO', what: 'шаг на следующую ячейку' },
-  { cmd: 'MOo', what: 'уменьшить значение в ячейке' },
-  { cmd: 'MoO', what: 'увеличить значение в ячейке' },
-  { cmd: 'mOO', what: 'выполнить значение ячейки КАК КОМАНДУ' },
-  { cmd: 'Moo', what: 'ввод-вывод: сказать или послушать' },
-];
+const MOOS: Moo[] = ['mOo', 'moO', 'MOo', 'MoO', 'mOO', 'Moo'].map((cmd, i) => ({
+  cmd,
+  what: tl('mooWhat')[i],
+}));
 
 // Naive "hello world": COW only offers increment (MoO) and output (Moo), so printing
 // H (char code 72) means emitting MoO exactly seventy-two times.
@@ -51,12 +48,14 @@ gJ%`;
 
 // A poem carrying a real program inside it: the line made of tabs and spaces.
 // For Whitespace everything else is a comment.
+// NOTE: lines 1 and 3 ARE the program (tabs and spaces). They are never translated —
+// that is code, not text. Only the visible lines of the poem are translated.
 const POEM: string[] = [
-  'ночью компилятор читает стихи',
+  t('sl.ws.poem1'),
   '\t  \t \t\t   \t \t',
-  'и не находит в них ни одной ошибки',
+  t('sl.ws.poem3'),
   ' \t\t \t  \t\t \t ',
-  'потому что ошибок в стихах не бывает',
+  t('sl.ws.poem5'),
 ];
 
 /**
@@ -89,7 +88,7 @@ export function strangeLangsHtml(): string {
   const poem = POEM.map(wsLine).join('');
 
   return `<div class="strange" id="strange">
-    <h3 class="strange-title">самые странные языки, которые правда работают</h3>
+    <h3 class="strange-title">${t('sl.title')}</h3>
 
     <div class="shrine" id="shrine">
       <div class="shrine-halo" aria-hidden="true"></div>
@@ -102,115 +101,89 @@ export function strangeLangsHtml(): string {
           <span class="shrine-year">1993 → 2018</span>
         </div>
       </div>
-      <p class="punch">«640×480, 16 цветов — таково было прямое указание бога».</p>
-      <p class="punch-sub">И это не метафора про легаси: система полностью рабочая, её можно запустить сегодня.</p>
+      <p class="punch">${t('sl.temple.punch')}</p>
+      <p class="punch-sub">${t('sl.temple.sub')}</p>
       <pre class="shrine-code">U0 Main()
 {
   "Hello World!\\n";
 }</pre>
-      <p class="whisper-note">
-        Операционная система, которую Терри Дэвис писал в одиночку больше десяти лет —
-        своё ядро, свой компилятор, свой язык HolyC. В HolyC строка сама по себе уже
-        команда: написал текст в кавычках — он и напечатался. Ни одного printf.
-      </p>
-      <p class="whisper-note quiet">
-        Терри умер в 2018-м. Здесь он стоит не как курьёз, а как автор: человек
-        в одиночку написал операционную систему.
-      </p>
+      <p class="whisper-note">${t('sl.temple.note')}</p>
+      <p class="whisper-note quiet">${t('sl.temple.quiet')}</p>
       <a class="whisper-link solo" href="https://templeos.org/" target="_blank" rel="noopener">
-        сайт TempleOS ${svgArrow}</a>
+        ${t('sl.temple.site')} ${svgArrow}</a>
       <a class="whisper-link solo" href="https://en.wikipedia.org/wiki/TempleOS" target="_blank" rel="noopener">
-        TempleOS в энциклопедии ${svgArrow}</a>
+        ${t('sl.temple.wiki')} ${svgArrow}</a>
     </div>
 
     <div class="magic-grid">
       <div class="cow toy" id="cow">
-        <div class="obj-title">COW · программист вариантов мычания</div>
-        <p class="punch">Чтобы корова сказала букву «H», ей надо промычать «MoO» ровно 72 раза.</p>
+        <div class="obj-title">${t('sl.cow.title')}</div>
+        <p class="punch">${t('sl.cow.punch')}</p>
         <div class="moo-run">
-          <button class="obj-btn" id="moo-hello" type="button">промычать hello world</button>
-          <span class="moo-count" id="moo-count">в ячейке: 0 · нужно 72 («H»)</span>
+          <button class="obj-btn" id="moo-hello" type="button">${t('sl.cow.hello')}</button>
+          <span class="moo-count" id="moo-count">${t('sl.cow.count', {
+            cell: 0,
+            want: HELLO.charCodeAt(0),
+            letter: HELLO[0],
+          })}</span>
         </div>
-        <pre class="moo-code" id="moo-code">(пусто. помычи)</pre>
-        <p class="moo-said" id="moo-said">сказано: <b id="moo-out-text"></b><span class="cur"></span></p>
-        <p class="moo-out" id="moo-out">со звуком (синтез, по твоему клику)</p>
+        <pre class="moo-code" id="moo-code">${t('sl.cow.empty')}</pre>
+        <p class="moo-said" id="moo-said">${t('sl.cow.said')} <b id="moo-out-text"></b><span class="cur"></span></p>
+        <p class="moo-out" id="moo-out">${t('sound.hint')}</p>
         <div class="moo-row">${moos}</div>
-        <p class="whisper-note">
-          Вся программа собирается из одного слова, регистр решает всё. Прибавить —
-          MoO, сказать — Moo, и никаких «напечатай строку». Отдельно стоит mOO:
-          единственная команда, которая исполняет содержимое ячейки как команду.
-        </p>
-        <button class="obj-btn small" id="moo-clear" type="button">стереть мычание</button>
+        <p class="whisper-note">${t('sl.cow.note')}</p>
+        <button class="obj-btn small" id="moo-clear" type="button">${t('sl.cow.clear')}</button>
         <a class="whisper-link solo" href="https://esolangs.org/wiki/COW" target="_blank" rel="noopener">
-          язык реально существует ${svgArrow}</a>
+          ${t('eso.exists')} ${svgArrow}</a>
       </div>
 
       <div class="bf toy" id="bf">
-        <div class="obj-title">brainfuck · восемь символов, и всё</div>
-        <p class="punch">Автор ставил себе одну задачу: самый маленький компилятор в мире. Уложился в 200 байт.</p>
-        <p class="punch-sub">Наведи на символ — он расскажет, что делает. Их всего восемь, других не будет.</p>
+        <div class="obj-title">${t('sl.bf.title')}</div>
+        <p class="punch">${t('sl.bf.punch')}</p>
+        <p class="punch-sub">${t('sl.bf.sub')}</p>
         <pre class="bf-cmds" id="bf-cmds"></pre>
-        <p class="bf-out" id="bf-out">Урбан Мюллер, 1993</p>
+        <p class="bf-out" id="bf-out">${t('sl.bf.author')}</p>
         <pre class="bf-hello">++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.</pre>
-        <p class="whisper-note">
-          Это Hello World — вернее, его начало. У языка 442 официальных деривата,
-          и вырос он из FALSE, чей компилятор влезал в 1024 байта.
-        </p>
+        <p class="whisper-note">${t('sl.bf.note')}</p>
         <a class="whisper-link solo" href="https://esolangs.org/wiki/Brainfuck" target="_blank" rel="noopener">
-          язык реально существует ${svgArrow}</a>
+          ${t('eso.exists')} ${svgArrow}</a>
       </div>
     </div>
 
     <div class="malb toy" id="malb">
-      <div class="obj-title">Malbolge · восьмой круг ада, 1998</div>
-      <p class="punch">Первый Hello World на Malbolge нашла машина перебором. Люди не смогли.</p>
-      <button class="obj-btn" id="malb-show" type="button">показать Hello World</button>
+      <div class="obj-title">${t('sl.malb.title')}</div>
+      <p class="punch">${t('sl.malb.punch')}</p>
+      <button class="obj-btn" id="malb-show" type="button">${t('sl.malb.show')}</button>
       <pre class="malb-code" id="malb-code" hidden>${MALBOLGE.replace(/</g, '&lt;')}</pre>
-      <p class="malb-out" id="malb-out">да, вот это вот. просто «Hello, world».</p>
-      <p class="whisper-note">
-        Язык назван в честь восьмого круга ада. Его писали так, чтобы на нём было
-        невозможно программировать, — и почти получилось: первую работающую программу
-        нашёл лисп-скрипт, прочёсывавший пространство всех возможных программ.
-        У Malbolge Unshackled команды вдобавок шифруются при каждом запуске.
-      </p>
+      <p class="malb-out" id="malb-out">${t('sl.malb.idle')}</p>
+      <p class="whisper-note">${t('sl.malb.note')}</p>
       <a class="whisper-link solo" href="https://esolangs.org/wiki/Malbolge" target="_blank" rel="noopener">
-        язык реально существует ${svgArrow}</a>
+        ${t('eso.exists')} ${svgArrow}</a>
     </div>
 
     <div class="ws toy" id="ws">
-      <div class="obj-title">Whitespace · программа из табов и пробелов</div>
-      <p class="punch">Вот вся программа:</p>
+      <div class="obj-title">${t('sl.ws.title')}</div>
+      <p class="punch">${t('sl.ws.punch')}</p>
       <div class="ws-void" id="ws-void">
         <pre class="ws-blank" id="ws-blank">${POEM[1].replace(/\t/g, '    ')}</pre>
-        <span class="ws-void-hint">(да, тут пусто. ткни — и увидишь код)</span>
+        <span class="ws-void-hint">${t('sl.ws.voidHint')}</span>
       </div>
-      <p class="punch-sub">А это стихотворение, внутри которого она и лежит. Буквы компилятор не читает вовсе.</p>
+      <p class="punch-sub">${t('sl.ws.sub')}</p>
       <div class="ws-poem" id="ws-poem">${poem}</div>
-      <p class="ws-out" id="ws-out">на вид — стихотворение с двумя пустыми строками</p>
-      <button class="obj-btn small" id="ws-show" type="button">подсветить невидимое</button>
-      <p class="whisper-note">
-        Синтаксис языка состоит из трёх символов: пробел, табуляция, перевод строки.
-        Всё остальное — комментарий, поэтому программу можно спрятать в чужом тексте
-        так, что её не увидит никто, кроме компилятора.
-      </p>
+      <p class="ws-out" id="ws-out">${t('sl.ws.idle')}</p>
+      <button class="obj-btn small" id="ws-show" type="button">${t('sl.ws.show')}</button>
+      <p class="whisper-note">${t('sl.ws.note')}</p>
       <a class="whisper-link solo" href="https://esolangs.org/wiki/Whitespace" target="_blank" rel="noopener">
-        язык реально существует ${svgArrow}</a>
+        ${t('eso.exists')} ${svgArrow}</a>
     </div>
   </div>`;
 }
 
 /* ---------------------------------- behaviour -------------------------------- */
 
-const BF: Array<[string, string]> = [
-  ['>', 'шаг вправо по ленте'],
-  ['<', 'шаг влево по ленте'],
-  ['+', 'прибавить 1 к ячейке'],
-  ['-', 'отнять 1 от ячейки'],
-  ['.', 'напечатать ячейку'],
-  [',', 'прочитать символ'],
-  ['[', 'если ноль — прыгнуть за скобку'],
-  [']', 'если не ноль — вернуться назад'],
-];
+const BF: Array<[string, string]> = ['>', '<', '+', '-', '.', ',', '[', ']'].map(
+  (ch, i) => [ch, tl('bfWhat')[i]] as [string, string],
+);
 
 export function mountStrangeLangs(root: HTMLElement): void {
   const host = root.querySelector('#strange') as HTMLElement | null;
@@ -236,14 +209,14 @@ export function mountStrangeLangs(root: HTMLElement): void {
     const tail = program.slice(-40);
     mooCode.textContent = tail.length
       ? (program.length > tail.length ? '… ' : '') + tail.join(' ')
-      : '(пусто. помычи)';
+      : t('sl.cow.empty');
     mooCode.scrollTop = mooCode.scrollHeight;
   };
   const paintCount = (): void => {
     const want = letter < HELLO.length ? HELLO.charCodeAt(letter) : 0;
     mooCount.textContent = want
-      ? `в ячейке: ${cell} · нужно ${want} («${HELLO[letter]}»)`
-      : `в ячейке: ${cell}`;
+      ? t('sl.cow.count', { cell, want, letter: HELLO[letter] })
+      : t('sl.cow.countPlain', { cell });
   };
   paintMoo();
   paintCount();
@@ -279,15 +252,14 @@ export function mountStrangeLangs(root: HTMLElement): void {
     paintMoo();
     paintCount();
     if (letter === 1) {
-      mooOut.textContent =
-        'одна буква. корова промычала 72 раза, чтобы сказать «H». осталось десять букв';
+      mooOut.textContent = t('sl.cow.first');
     } else if (letter >= HELLO.length) {
-      mooOut.textContent = `«${HELLO}» — ${program.length} мычаний. вот на этом языке и пишут`;
+      mooOut.textContent = t('sl.cow.done', { hello: HELLO, n: program.length });
       mooing = false;
-      if (helloBtn) helloBtn.textContent = 'ещё раз';
+      if (helloBtn) helloBtn.textContent = t('sl.cow.again');
       return;
     } else {
-      mooOut.textContent = `буква ${letter} из ${HELLO.length}. стадо не сдаётся`;
+      mooOut.textContent = t('sl.cow.letter', { i: letter, n: HELLO.length });
     }
     engine.next(step, 240);
   };
@@ -301,8 +273,8 @@ export function mountStrangeLangs(root: HTMLElement): void {
       said = '';
       mooSaid.textContent = '';
       mooing = true;
-      helloBtn.textContent = 'мычит…';
-      mooOut.textContent = 'пошло мычание. это правда единственный способ';
+      helloBtn.textContent = t('sl.cow.mooing');
+      mooOut.textContent = t('sl.cow.started');
       if (still) {
         // reduced motion: jump straight to the result, same arithmetic, no animation
         let total = 0;
@@ -310,9 +282,9 @@ export function mountStrangeLangs(root: HTMLElement): void {
         said = HELLO;
         mooSaid.textContent = said;
         mooCode.textContent = `MoO ×${total} … Moo`;
-        mooOut.textContent = `«${HELLO}» — около ${total} мычаний`;
+        mooOut.textContent = t('sl.cow.stillDone', { hello: HELLO, n: total });
         mooing = false;
-        helloBtn.textContent = 'ещё раз';
+        helloBtn.textContent = t('sl.cow.again');
         return;
       }
       const a = audioOnGesture();
@@ -328,7 +300,7 @@ export function mountStrangeLangs(root: HTMLElement): void {
       const m = MOOS.find((x) => x.cmd === cmd);
       push(cmd);
       paintMoo();
-      mooOut.textContent = m ? `${cmd} — ${m.what}` : cmd;
+      mooOut.textContent = m ? t('sl.cow.cmd', { cmd, what: m.what }) : cmd;
       const a = audioOnGesture();
       if (a) moo(a, program.length);
     });
@@ -346,8 +318,8 @@ export function mountStrangeLangs(root: HTMLElement): void {
       mooSaid.textContent = '';
       paintMoo();
       paintCount();
-      mooOut.textContent = 'стадо разошлось';
-      if (helloBtn) helloBtn.textContent = 'промычать hello world';
+      mooOut.textContent = t('sl.cow.cleared');
+      if (helloBtn) helloBtn.textContent = t('sl.cow.hello');
     });
   }
 
@@ -361,7 +333,7 @@ export function mountStrangeLangs(root: HTMLElement): void {
     b.className = 'bf-cmd';
     b.textContent = ch;
     const tell = (): void => {
-      bfOut.textContent = `${ch} — ${what}`;
+      bfOut.textContent = t('sl.cow.cmd', { cmd: ch, what });
     };
     b.addEventListener('pointerenter', tell);
     b.addEventListener('click', tell);
@@ -377,16 +349,14 @@ export function mountStrangeLangs(root: HTMLElement): void {
       const open = !malbCode.hasAttribute('hidden');
       if (open) {
         malbCode.setAttribute('hidden', '');
-        malbShow.textContent = 'показать Hello World';
-        malbOut.textContent = 'да, вот это вот. просто «Hello, world».';
+        malbShow.textContent = t('sl.malb.show');
+        malbOut.textContent = t('sl.malb.idle');
         return;
       }
       malbCode.removeAttribute('hidden');
       malbCode.classList.add('spill');
-      malbShow.textContent = 'убрать, я насмотрелся';
-      malbOut.textContent =
-        'это и есть вся программа. её не написали — её НАШЛИ: лисп-скрипт перебирал ' +
-        'пространство всех возможных программ, пока одна из них не поздоровалась';
+      malbShow.textContent = t('sl.malb.hide');
+      malbOut.textContent = t('sl.malb.found');
     });
   }
 
@@ -401,34 +371,34 @@ export function mountStrangeLangs(root: HTMLElement): void {
     if (wsVoid) wsVoid.classList.add('lit');
     if (wsBlank) wsBlank.innerHTML = wsChars(POEM[1]);
     wsOut.textContent = why;
-    if (wsShow) wsShow.textContent = 'спрятать обратно';
+    if (wsShow) wsShow.textContent = t('sl.ws.hide');
   };
   const hide = (): void => {
     poem.classList.remove('lit');
     if (wsVoid) wsVoid.classList.remove('lit');
     if (wsBlank) wsBlank.textContent = POEM[1].replace(/\t/g, '    ');
-    wsOut.textContent = 'на вид — стихотворение с двумя пустыми строками';
-    if (wsShow) wsShow.textContent = 'подсветить невидимое';
+    wsOut.textContent = t('sl.ws.idle');
+    if (wsShow) wsShow.textContent = t('sl.ws.show');
   };
   if (wsShow) {
     wsShow.addEventListener('click', () => {
       if (poem.classList.contains('lit')) hide();
-      else reveal('вот они: точки — пробелы, стрелки — табы. для Whitespace код только это, а буквы — комментарий');
+      else reveal(t('sl.ws.revealBtn'));
     });
   }
   if (wsVoid) {
     wsVoid.addEventListener('click', () => {
       if (wsVoid.classList.contains('lit')) hide();
-      else reveal('в пустом поле лежали табы и пробелы. это и была вся программа');
+      else reveal(t('sl.ws.revealVoid'));
     });
   }
   poem.querySelectorAll('.ws-line').forEach((l) => {
     l.addEventListener('click', () => {
       if (l.classList.contains('ws-code')) {
-        reveal('эта «пустая» строка и есть программа. всё остальное компилятор не читает');
+        reveal(t('sl.ws.revealCode'));
         return;
       }
-      reveal('а вот эта строка для Whitespace — просто комментарий. код лежит в пустых');
+      reveal(t('sl.ws.revealText'));
     });
   });
   // real text selection over the poem also reveals the invisible characters
@@ -436,7 +406,7 @@ export function mountStrangeLangs(root: HTMLElement): void {
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed || !sel.anchorNode) return;
     if (!poem.contains(sel.anchorNode)) return;
-    reveal('выделение выдало код: пробелы и табы стоят там, где на вид ничего нет');
+    reveal(t('sl.ws.revealSel'));
   };
   document.addEventListener('selectionchange', onSelect);
   onCleanup(() => document.removeEventListener('selectionchange', onSelect));

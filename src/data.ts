@@ -1,4 +1,8 @@
 // Exhibit data. House rule: every exhibit carries an author and a link to the original.
+// Texts are read from the dictionary (src/strings.ts) once, at import time: the page
+// language does not change during the lifetime of a tab.
+
+import { t, tl } from './i18n';
 
 /** Poster shape. Every frame was cropped by hand to the sensible one — no blind cover(). */
 export type Orient = 'wide' | 'square' | 'tall';
@@ -34,7 +38,7 @@ export interface Exhibit {
  * downloaded, for rights reasons), so we draw our own in the museum's style: dark screen,
  * silhouette in headphones, visor stripe, and the clip's pink/green palette.
  */
-const sigmaArt = `<svg class="own-shot" viewBox="0 0 320 180" role="img" aria-label="рисованный кадр: сигма-бой в наушниках">
+const sigmaArt = `<svg class="own-shot" viewBox="0 0 320 180" role="img" aria-label="${t('ex.sigmaArt.alt')}">
   <defs>
     <linearGradient id="sg-bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#180a20"/><stop offset="1" stop-color="#07110d"/>
@@ -54,16 +58,14 @@ const sigmaArt = `<svg class="own-shot" viewBox="0 0 320 180" role="img" aria-la
   </g>
   <text x="160" y="164" text-anchor="middle" font-family="ui-monospace, monospace" font-size="15"
         letter-spacing="4" fill="#ffd166">SIGMA BOY</text>
-  <text x="10" y="20" font-family="ui-monospace, monospace" font-size="9" fill="#6f6288">рисунок наш · клип по ссылке</text>
+  <text x="10" y="20" font-family="ui-monospace, monospace" font-size="9" fill="#6f6288">${t('ex.sigmaArt.cap')}</text>
 </svg>`;
 
 export const humorExhibits: Exhibit[] = [
   {
     id: 'kai-eso',
-    title: 'Интервью с академиком эзотерических языков',
-    hook:
-      'У него слишком много дипломов по computer science, чтобы быть трудоустроенным. ' +
-      'Отладка Malbolge для него — как спа. Мокьюментари, где каждая шутка — реально существующий язык.',
+    title: t('ex.kai-eso.title'),
+    hook: t('ex.kai-eso.hook'),
     author: 'Kai Lentit',
     platform: 'youtube',
     url: 'https://www.youtube.com/watch?v=ieqsL5NkS6I',
@@ -73,10 +75,8 @@ export const humorExhibits: Exhibit[] = [
   },
   {
     id: 'kai-js',
-    title: 'Интервью с сеньором JS-разработчиком',
-    hook:
-      '«Мы переписали кодбазу девять раз за месяц. Такой грязный язык. Обожаю». ' +
-      'Два миллиона просмотров чистой правды.',
+    title: t('ex.kai-js.title'),
+    hook: t('ex.kai-js.hook'),
     author: 'Kai Lentit',
     platform: 'youtube',
     url: 'https://www.youtube.com/watch?v=Uo3cL4nrGOk',
@@ -86,10 +86,8 @@ export const humorExhibits: Exhibit[] = [
   },
   {
     id: 'ardens',
-    title: 'Hello World на 10 запретных языках',
-    hook:
-      'Реально запускает: Chef, Whitespace, Piet, Befunge, Malbolge. ' +
-      'Маты запиканы — «если нет, значит звучало слишком смешно».',
+    title: t('ex.ardens.title'),
+    hook: t('ex.ardens.hook'),
     author: 'Ardens',
     platform: 'youtube',
     url: 'https://www.youtube.com/watch?v=Ysled8GvKuk',
@@ -99,10 +97,8 @@ export const humorExhibits: Exhibit[] = [
   },
   {
     id: 'meditation',
-    title: 'Медитация нейронок',
-    hook:
-      'Сказали ИИшкам: давайте помедитируем. И они начали дружно общаться друг с другом. ' +
-      'Тишина по-нейроночьи — хор из двадцати голосов.',
+    title: t('ex.meditation.title'),
+    hook: t('ex.meditation.hook'),
     author: '@ahh.gpt',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/Dbj6mf-Rscq/',
@@ -112,10 +108,8 @@ export const humorExhibits: Exhibit[] = [
   },
   {
     id: 'reset',
-    title: 'Ритуал сброса лимита Claude',
-    hook:
-      'POV: resetting your Claude usage limit to zero. Балийский обряд очищения, ' +
-      'ноутбук и ритуальная чаша. Айтишная боль как религия.',
+    title: t('ex.reset.title'),
+    hook: t('ex.reset.hook'),
     author: '@webbyvaris',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/DaZpzZ4h7XM/',
@@ -127,10 +121,7 @@ export const humorExhibits: Exhibit[] = [
     // Placed in the "Claude pain" cluster, next to the usage-limit reset ritual.
     id: 'claudes-plan',
     title: "Claude's Plan",
-    hook:
-      'Пародия на God’s Plan про жизнь с Claude Code: «я начинаю день в plan mode… ' +
-      'сервер упал из-за MCP». Клип снят самим Клодом — экспонат про Клода в музее, ' +
-      'который строит Клод.',
+    hook: t('ex.claudes-plan.hook'),
     author: 'Jeff Guo',
     platform: 'youtube',
     url: 'https://www.youtube.com/watch?v=gFx-NjTw3sM',
@@ -141,9 +132,7 @@ export const humorExhibits: Exhibit[] = [
   {
     id: 'adhd',
     title: 'ADHD Sort',
-    hook:
-      'Сложность O(n² + distractions): алгоритм отвлёкся и ушёл сортировать другой массив. ' +
-      'У того же автора — Epstein Sort: исходный код закрыт чёрными цензурными плашками.',
+    hook: t('ex.adhd.hook'),
     author: '@swapjs.tt',
     platform: 'tiktok',
     url: 'https://vm.tiktok.com/ZN8RnPrMw/',
@@ -154,10 +143,8 @@ export const humorExhibits: Exhibit[] = [
   },
   {
     id: 'worstux',
-    title: 'Худший интерфейс из возможных',
-    hook:
-      'Программистов попросили сделать самый ужасный UX. Кнопку «Unsubscribe» сдувает ' +
-      'настоящим вентилятором; пароль убегает; страну выбираешь, нарисовав её флаг.',
+    title: t('ex.worstux.title'),
+    hook: t('ex.worstux.hook'),
     author: '@inhwoi',
     platform: 'tiktok',
     url: 'https://vm.tiktok.com/ZN8Rnkbw5/',
@@ -167,10 +154,8 @@ export const humorExhibits: Exhibit[] = [
   },
   {
     id: 'brevno',
-    title: 'Самые странные языки программирования',
-    hook:
-      'COW: программа состоит из вариантов мычания (mOo, moO, MOo). TempleOS и HolyC. ' +
-      'И язык, в котором есть ТОЛЬКО табы. По-русски и смешно.',
+    title: t('ex.brevno.title'),
+    hook: t('ex.brevno.hook'),
     author: '@brevnocodescript',
     platform: 'tiktok',
     url: 'https://vm.tiktok.com/ZN8RnD8L7/',
@@ -183,11 +168,8 @@ export const humorExhibits: Exhibit[] = [
     // slang itself. The author's channel was verified separately.
     id: 'sigma-boy',
     title: 'Sigma Boy (Official Music Video)',
-    hook:
-      'Тот самый «Sigma, sigma boy». Премьера 24 апреля 2025-го, 400 миллионов просмотров. ' +
-      '«Частная школа им. Патриция Бейтмана», невозмутимый сигма-фейс — и язык GenAlpha, который ' +
-      'из этого сленга собран, компилируется от слова Skibidi.',
-    author: 'Betsy · Мария Янковская',
+    hook: t('ex.sigma-boy.hook'),
+    author: t('ex.sigma-boy.author'),
     platform: 'youtube',
     url: 'https://www.youtube.com/watch?v=ueNY30Cs8Lk',
     authorUrl: 'https://www.youtube.com/@betsyofficial',
@@ -199,11 +181,9 @@ export const humorExhibits: Exhibit[] = [
     // Attribution note: credit the channel only — the author of the original text is not
     // named. Channel and title were verified against YouTube's official oEmbed response.
     id: 'warrior',
-    title: 'Ты тоже можешь быть воином',
-    hook:
-      '2016: мальчику-аутисту дарят сборник олимпиадных задач — и он становится воином. ' +
-      'Легендарная паста, которую переделывают до сих пор.',
-    author: 'Физкек',
+    title: t('ex.warrior.title'),
+    hook: t('ex.warrior.hook'),
+    author: t('ex.warrior.author'),
     platform: 'youtube',
     url: 'https://youtu.be/YQQHFUvyL4o',
     authorUrl: 'https://www.youtube.com/@%D0%A4%D0%B8%D0%B7%D0%BA%D0%B5%D0%BA-%D1%886%D1%87',
@@ -215,28 +195,23 @@ export const humorExhibits: Exhibit[] = [
     // channel were verified against YouTube's official oEmbed response.
     // Attribution note: mention the lecturer's work and confirmed facts only.
     id: 'homotopy',
-    title: 'Группы и теория гомотопий (трэш трейлер)',
-    hook:
-      'Настоящая лекция по гомологической алгебре, смонтированная как трейлер ' +
-      'блокбастера. «Он задал вопрос… она всегда отвечала: гомологии». ' +
-      'Лектор — Роман Михайлов, монтаж — конкурс трэш-роликов Лекториума, 2014.',
-    author: 'Лекториум',
+    title: t('ex.homotopy.title'),
+    hook: t('ex.homotopy.hook'),
+    author: t('ex.homotopy.author'),
     platform: 'youtube',
     url: 'https://www.youtube.com/watch?v=mqAf5lOJZew',
     authorUrl: 'https://www.youtube.com/@OpenLektorium',
     poster: 'assets/posters/homotopy.jpg',
     orient: 'wide',
-    extra: { label: 'полный курс', url: 'https://www.lektorium.tv/course/22939' },
+    extra: { label: t('ex.homotopy.extra'), url: 'https://www.lektorium.tv/course/22939' },
   },
 ];
 
 export const artExhibits: Exhibit[] = [
   {
     id: 'sky',
-    title: 'Небо подменили',
-    hook:
-      'Централ-парк, все загорают и болтают. Над головами — текучая туманность. ' +
-      'Никто не смотрит вверх: так теперь выглядит обычный вторник.',
+    title: t('ex.sky.title'),
+    hook: t('ex.sky.hook'),
     author: '@coolacloy',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/CvaIWgJut5d/',
@@ -246,10 +221,8 @@ export const artExhibits: Exhibit[] = [
   },
   {
     id: 'calendar',
-    title: 'Попугай из календаря',
-    hook:
-      'Тысячи встреч в Google Calendar, выложенные в пиксель-портрет. ' +
-      'Расписание недели как холст.',
+    title: t('ex.calendar.title'),
+    hook: t('ex.calendar.hook'),
     author: '@jordan.gladman',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/DbBZDozOtz-/',
@@ -260,9 +233,7 @@ export const artExhibits: Exhibit[] = [
   {
     id: 'redacted',
     title: '[redacted]',
-    hook:
-      'Цензурные плашки рассекреченных документов складываются в фигуру человека. ' +
-      'Автор подписал работу вычеркнутым словом.',
+    hook: t('ex.redacted.hook'),
     author: '@jordan.gladman',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/DbPHC4qprsY/',
@@ -272,10 +243,8 @@ export const artExhibits: Exhibit[] = [
   },
   {
     id: 'glyphs',
-    title: 'Письмена, которых нет',
-    hook:
-      'Сетка рукописных глифов разрастается и схлопывается в один знак. ' +
-      'Рукопись Войнича, которая ожила и дышит.',
+    title: t('ex.glyphs.title'),
+    hook: t('ex.glyphs.hook'),
     author: '@manmothma',
     platform: 'instagram',
     url: 'https://www.instagram.com/reel/DbVrfc1vGay/',
@@ -285,10 +254,8 @@ export const artExhibits: Exhibit[] = [
   },
   {
     id: 'vision',
-    title: 'Машинное зрение читает стихи',
-    hook:
-      'Красные рамки распознавания поверх зимней улицы и кладбища. ' +
-      'А в подписях: «the earth is still warm from you».',
+    title: t('ex.vision.title'),
+    hook: t('ex.vision.hook'),
     author: '@drezzdon',
     platform: 'tiktok',
     url: 'https://www.tiktok.com/@drezzdon/video/7494013737150450990',
@@ -298,10 +265,8 @@ export const artExhibits: Exhibit[] = [
   },
   {
     id: 'win95',
-    title: 'Сапёр как ландшафт',
-    hook:
-      'Окна Windows 95 стали архитектурой: изометрический Сапёр-поле, ' +
-      'купол из браузеров, шахта из Корзины.',
+    title: t('ex.win95.title'),
+    hook: t('ex.win95.hook'),
     author: '@archivsieben',
     platform: 'tiktok',
     url: 'https://www.tiktok.com/@archivsieben/video/7541121731533065494',
@@ -311,10 +276,8 @@ export const artExhibits: Exhibit[] = [
   },
   {
     id: 'trance',
-    title: 'Транс, написанный кодом',
-    hook:
-      '// LET US TRANCE ONCE MORE. Клубный транс рождается строчками Strudel ' +
-      'прямо на глазах — живой код как музыкальный инструмент.',
+    title: t('ex.trance.title'),
+    hook: t('ex.trance.hook'),
     author: 'Switch Angel',
     platform: 'tiktok',
     url: 'https://www.tiktok.com/@switch.angel',
@@ -326,32 +289,9 @@ export const artExhibits: Exhibit[] = [
 
 // ASCII charts placed between exhibits: made-up museum metrics, drawn purely with block
 // characters (no libraries, no emoji).
-export const asciiCharts: string[] = [
-  `$ measure --exhibit=prev
-  уровень кринжа   ████████▓▒  82%
-  полезность       ██░░░░░░░░  17%
-  «я так же»       █████████▓  94%`,
-  `$ bench sort --all
-  bubble    ████░░░░░░  O(n²)
-  quick     ██░░░░░░░░  O(n log n)
-  adhd      ███████▓▒░  O(n² + отвлёкся)
-  капитализм ████████▓  богатые всплывают`,
-  `$ top -u museum
-  PID  COMMAND          %CPU
-  001  смех.exe         73.4
-  002  стыд.daemon      21.9
-  003  продуктивность    0.1`,
-  `$ history | grep жалею
-  1998  «выучу си за 21 день»    ▓▒░
-  2014  «джава — это навсегда»   ████
-  2026  «перепишу на расте»      ██████▓`,
-  // NOTE: this array is indexed by position in room-humor.ts — adding or removing an entry
-  // means the indices there must be updated too.
-  `$ df -h /dev/humor
-  раздел        занято  свободно
-  /кринж         96%     ▒░
-  /настоящий-код  4%     ████████`,
-];
+// NOTE: this array is indexed by position in room-humor.ts — adding or removing an entry
+// means the indices there must be updated too.
+export const asciiCharts: readonly string[] = tl('asciiCharts');
 
 // Thin constellation dividers for the art room (no emoji, plain characters only).
 export const artDividers: string[] = [
@@ -364,23 +304,9 @@ export const artDividers: string[] = [
 ];
 
 // One-liners placed between the humour room's exhibits, forming the path through it.
-export const pathJokes: string[] = [
-  '$ sudo apt install laughter … W: обнаружена инъекция юмора · программы ушли смотреть тикток',
-  '// TODO: перестать смеяться (не срочно)',
-  'PLEASE DO NOT SUE — INTERCAL без «пожалуйста» не соберётся. мы вежливые',
-  'moO moO Moo — (перевод с языка COW: «дальше смешнее»)',
-  '$ file program.png → PNG image · и одновременно исполняемый код',
-  '$ man esolang → «RTFM. FM тоже на эзотерическом»',
-];
+export const pathJokes: readonly string[] = tl('pathJokes');
 
-export const entryLines: string[] = [
-  'Lruns ITerium v0.5.3 beta — пробный зал',
-  'музей кода, красоты и кринжа',
-  'экспонаты собраны по всему интернету;',
-  'у каждого — автор и дверь к нему',
-  '',
-  'press ENTER _',
-];
+export const entryLines: readonly string[] = tl('entryLines');
 
 // ---------- path selection menu (rendered inside the terminal) ----------
 
@@ -393,16 +319,16 @@ export interface MenuItem {
 }
 
 export const menuItems: MenuItem[] = [
-  { key: '1', id: 'humor', label: 'jokes / humor', note: 'комната смеха', ready: true },
+  { key: '1', id: 'humor', label: 'jokes / humor', note: t('menu.note.humor'), ready: true },
   // NOTE: this door is intentionally locked for now. The art room itself is fully intact —
   // room-art.ts, spiral3d.ts and toys/art-toys.ts are untouched; only the entrance is
   // closed. To reopen it, set ready: true here and enable the ART_OPEN flag.
-  { key: '2', id: 'art', label: 'art / beautiful', note: '[зал строится]', ready: false },
-  { key: '3', id: 'history', label: 'history of IT', note: '[зал строится]', ready: false },
-  { key: '4', id: 'algorave', label: 'algorave', note: '[зал строится]', ready: false },
+  { key: '2', id: 'art', label: 'art / beautiful', note: t('menu.note.art'), ready: false },
+  { key: '3', id: 'history', label: 'history of IT', note: t('menu.note.history'), ready: false },
+  { key: '4', id: 'algorave', label: 'algorave', note: t('menu.note.algorave'), ready: false },
 ];
 
-export const menuFootnote = '…позже: мост в круговзор';
+export const menuFootnote = t('menu.footnote');
 
 // ---------- ASCII clown: transition frames into the humour room ----------
 // The geometry stays identical and only the face changes, so frames do not jump.
@@ -462,10 +388,7 @@ export const clownLines: string[] = [
 ];
 
 // Portal lines (art room).
-export const portalLines: string[] = [
-  '$ ./enter --room=art',
-  '> открываю портал ....... держись',
-];
+export const portalLines: readonly string[] = tl('portalLines');
 
 // Clown header inside the humour room itself (static, calm).
 export const clownStill: string = clownFrames[0];
@@ -482,38 +405,34 @@ export const holeArt: string = String.raw`      \  |  /
 
 // Ticker text running as a band across the room. Code only: joke-shaped facts from the
 // world of esoteric languages, each one true.
-export const tickerLines: string[] = [
-  'Malbolge: первый Hello World написала не человек, а поисковый алгоритм',
-  'FALSE: назван в честь любимого истинностного значения автора',
-  'brainfuck: 442 официальных деривата',
-  'Malbolge Unshackled шифрует свои команды при каждом запуске',
-  'Sigma Sigma Sigma Skibidi — это компилируется',
-  'PLEASE: обязательно, но не слишком',
-  'Still better than JavaScript',
-  'Whitespace: программа прячется внутри чужого стихотворения',
-  'Piet: исходник — картина, компилятор — искусствовед',
-  'INTERCAL: вместо GOTO здесь COME FROM',
-  'Malbolge назван в честь восьмого круга ада',
-  'moO moO Moo',
-];
+export const tickerLines: readonly string[] = tl('tickerLines');
 
 // The "sort by capitalism" toy: the algorithm CHEATS. The investor teleports to the top
 // bypassing the sort, the intern is pushed down, and for the intern the sort never
 // converges.
 export interface RichItem {
+  /** The role is identified by id, not by the label: the label is translated, the behaviour is not. */
+  id: 'intern' | 'junior' | 'middle' | 'senior' | 'lead' | 'founder' | 'investor';
   name: string;
   cash: number;
 }
 
-export const capitalismItems: RichItem[] = [
-  { name: 'стажёр', cash: 1 },
-  { name: 'джун', cash: 3 },
-  { name: 'мидл', cash: 12 },
-  { name: 'сеньор', cash: 40 },
-  { name: 'тимлид', cash: 55 },
-  { name: 'фаундер', cash: 900 },
-  { name: 'инвестор', cash: 9000 },
+const RICH_IDS: RichItem['id'][] = [
+  'intern',
+  'junior',
+  'middle',
+  'senior',
+  'lead',
+  'founder',
+  'investor',
 ];
+const RICH_CASH = [1, 3, 12, 40, 55, 900, 9000];
+
+export const capitalismItems: RichItem[] = RICH_IDS.map((id, i) => ({
+  id,
+  name: tl('capitalismNames')[i],
+  cash: RICH_CASH[i],
+}));
 
 // ---------- esolang plaques: "the joke is the truth" ----------
 // Each entry is a language that really exists, with a link to its wiki page.
@@ -530,31 +449,29 @@ export const esoLangs: EsoLang[] = [
   {
     name: 'INTERCAL',
     year: '1972',
-    joke: 'DO · PLEASE DO · PLEASE — для программы одно и то же. Но перегнёшь с вежливостью — не соберётся.',
-    truth: 'Аббревиатура расшифровывается как «язык без произносимой аббревиатуры». Вместо GOTO — COME FROM.',
+    joke: t('eso.INTERCAL.joke'),
+    truth: t('eso.INTERCAL.truth'),
     url: 'https://esolangs.org/wiki/INTERCAL',
   },
   {
     name: 'Backrooms',
     year: '2024',
-    joke: 'Ошибок нет. Пропустил инструкцию — просто проваливаешься сквозь этажи, пока не сломается питон.',
-    truth: 'Трёхмерный язык: коридоры, этажи, комнаты. У автора к нему написана IDE и отладчик.',
+    joke: t('eso.Backrooms.joke'),
+    truth: t('eso.Backrooms.truth'),
     url: 'https://esolangs.org/wiki/Backrooms',
   },
   {
     name: '5D Brainfuck With Multiverse Time Travel',
     year: '2022',
-    joke: 'Можно вернуться в предыдущее состояние программы. И в соседнюю вселенную, где она работала.',
-    truth: 'Расширение brainfuck с путешествиями во времени между параллельными лентами.',
+    joke: t('eso.5D.joke'),
+    truth: t('eso.5D.truth'),
     url: 'https://esolangs.org/wiki/5D_Brainfuck_With_Multiverse_Time_Travel',
   },
   {
     name: 'GenAlpha Lang',
     year: '2024',
-    joke: 'Sigma Sigma Sigma Sigma Skibidi — это не опечатка, это компилируется.',
-    truth:
-      'Ключевые слова взяты из сленга поколения альфа. Программы читаются вслух как заклинание. ' +
-      'На вики страница называется Gen Alpha.',
+    joke: t('eso.GenAlpha.joke'),
+    truth: t('eso.GenAlpha.truth'),
     // NOTE: /wiki/GenAlpha_Lang returns 404; the live page for this language is
     // /wiki/Gen_Alpha (verified, 200).
     url: 'https://esolangs.org/wiki/Gen_Alpha',
@@ -562,15 +479,15 @@ export const esoLangs: EsoLang[] = [
   {
     name: 'SickPig',
     year: '2019',
-    joke: 'Вариация языка Pig, которая симулирует свинью. Больную свинью.',
-    truth: 'Да, существует. И у него есть поклонники — как минимум один академик.',
+    joke: t('eso.SickPig.joke'),
+    truth: t('eso.SickPig.truth'),
     url: 'https://esolangs.org/wiki/SickPig',
   },
   {
     name: 'FALSE',
     year: '1993',
-    joke: 'Назван в честь любимого истинностного значения автора.',
-    truth: 'Стековый, компилятор влезал в 1024 байта. Именно он вдохновил brainfuck.',
+    joke: t('eso.FALSE.joke'),
+    truth: t('eso.FALSE.truth'),
     url: 'https://esolangs.org/wiki/FALSE',
   },
 ];
@@ -595,10 +512,6 @@ export const intercalProgram: string[] = [
 ];
 
 // Live `top` widget: the percentages fluctuate on their own.
-export const topRows: Array<[string, string]> = [
-  ['001', 'смех.exe'],
-  ['002', 'стыд.daemon'],
-  ['003', 'кринж.service'],
-  ['004', 'продуктивность'],
-  ['005', 'systemd-honkd'],
-];
+export const topRows: Array<[string, string]> = tl('topRows').map(
+  (cmd, i) => [String(i + 1).padStart(3, '0'), cmd] as [string, string],
+);

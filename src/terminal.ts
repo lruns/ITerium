@@ -2,6 +2,7 @@
 // HERE, like in a CLI game: arrows, digits, mouse.
 
 import { entryLines, menuFootnote, menuItems } from './data';
+import { langSwitchHtml, mountLangSwitch, t } from './i18n';
 import { later, onCleanup, reducedMotion, ruleLine } from './runtime';
 import { clownTransition, portalTransition } from './transitions';
 
@@ -27,10 +28,8 @@ const MUSEUM = String.raw`                 ________________
   (__)_(__)`;
 
 // Top mini-window, modelled on the file-local-variables line in Emacs.
-const MINI =
-  ';; -*- mode: iterium; coding: utf-8 -*-\n' +
-  ';; beta: идеи Андрея, баги наши — чиним\n' +
-  '> M-x iterium RET';
+const MINI = (): string =>
+  ';; -*- mode: iterium; coding: utf-8 -*-\n' + `${t('term.mini')}\n` + '> M-x iterium RET';
 
 function esc(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -96,13 +95,10 @@ function menuHtml(): string {
     <pre class="boot done">${head}</pre>
     <pre class="museum" aria-hidden="true">${art}</pre>
     <p class="menu-title">$ choose path:<span class="cur"></span></p>
-    <ul class="menu" id="menu" role="listbox" aria-label="выбор зала" tabindex="0">${rows}</ul>
+    <ul class="menu" id="menu" role="listbox" aria-label="${t('term.menuAria')}" tabindex="0">${rows}</ul>
     <p class="menu-foot">${menuFootnote}</p>
     <pre class="term-log" id="term-log"></pre>
-    <p class="menu-hint"><b>тыкни строчку</b> &mdash; и ты внутри
-      <span class="mh-sep">&middot;</span> или [&uarr;&darr;] выбор
-      <span class="mh-sep">&middot;</span> [enter] войти
-      <span class="mh-sep">&middot;</span> [1&ndash;4] быстро</p>`;
+    <p class="menu-hint">${t('term.menuHint')}</p>`;
 }
 
 /**
@@ -110,7 +106,7 @@ function menuHtml(): string {
  * in the middle of an endless dark room — chamfered case, curved glass, glare,
  * reflection on the floor. The screen inside is the same buffer.
  */
-function shell(inner: string, right: string, cta = ''): string {
+function shell(inner: string, right: string, cta = '', foot = ''): string {
   return `
     <div class="void" id="void">
       <div class="void-stars" aria-hidden="true"></div>
@@ -124,7 +120,7 @@ function shell(inner: string, right: string, cta = ''): string {
               <div class="editor" id="editor">
                 <div class="scanlines" aria-hidden="true"></div>
                 <pre class="banner" aria-hidden="true">${BANNER}</pre>
-                <pre class="mini" aria-hidden="true">${MINI}</pre>
+                <pre class="mini" aria-hidden="true">${MINI()}</pre>
                 ${ruleLine()}
                 <div class="buffer">
                   <div class="stage" id="stage">${inner}</div>
@@ -147,6 +143,8 @@ function shell(inner: string, right: string, cta = ''): string {
         <div class="crt-mirror" aria-hidden="true"></div>
       </div>
       <div class="vignette" aria-hidden="true"></div>
+      ${langSwitchHtml()}
+      ${foot}
     </div>`;
 }
 
@@ -173,7 +171,7 @@ export function renderBoot(app: HTMLElement): void {
     `<pre class="boot" id="boot"></pre>
      <pre class="museum" id="museum" aria-hidden="true"></pre>`,
     '(Museum · Boot)',
-    `<p class="term-cta" id="cta">${esc(tail)} &mdash; или тыкни экран<span class="cur"></span></p>`,
+    `<p class="term-cta" id="cta">${t('term.cta', { tail: esc(tail) })}<span class="cur"></span></p>`,
   );
   const out = app.querySelector('#boot') as HTMLPreElement;
   const art = app.querySelector('#museum') as HTMLPreElement;
@@ -239,11 +237,14 @@ export function renderBoot(app: HTMLElement): void {
   room.addEventListener('click', enter);
   onCleanup(() => document.removeEventListener('keydown', onKey));
   liveTilt(app.querySelector('.crt-scene'), app.querySelector('#crt'));
+  mountLangSwitch(app);
 }
 
 /** Same terminal — but the buffer now holds the hall menu. */
 export function renderMenu(app: HTMLElement): void {
   app.className = 'screen-term';
+  // The menu screen carries no footnote: it lives in the hall footer, next to the
+  // cards it is about.
   app.innerHTML = shell(menuHtml(), '(Museum · Menu)');
   const editor = app.querySelector('#editor') as HTMLElement;
   const stage = app.querySelector('#stage') as HTMLElement;
@@ -273,8 +274,11 @@ export function renderMenu(app: HTMLElement): void {
       // NOTE: the hint is derived from the MENU rather than hard-coded, so when a
       // locked room opens the message starts listing it automatically.
       const open = menuItems.filter((m) => m.ready).map((m) => m.key);
-      const where = open.length > 1 ? `попробуй ${open.slice(0, -1).join(', ')} или ${open[open.length - 1]}` : `открыт пока только ${open[0]}`;
-      log.textContent = `E: зал «${item.label}» ещё строится. ${where}`;
+      const where =
+        open.length > 1
+          ? t('term.tryOpen', { list: open.slice(0, -1).join(', '), last: open[open.length - 1] })
+          : t('term.onlyOpen', { key: open[0] });
+      log.textContent = t('term.locked', { label: item.label, where });
       list.classList.remove('shake');
       void list.offsetWidth;
       list.classList.add('shake');
@@ -329,6 +333,7 @@ export function renderMenu(app: HTMLElement): void {
   paint();
   list.focus({ preventScroll: true });
   liveTilt(app.querySelector('.crt-scene'), app.querySelector('#crt'));
+  mountLangSwitch(app);
 
   if (!reducedMotion()) {
     rows.forEach((r, i) => {

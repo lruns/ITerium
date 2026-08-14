@@ -11,6 +11,7 @@
 // No emoji anywhere: dice, tick and arrows are all inline SVG.
 
 import { svgArrow } from '../chrome';
+import { t } from '../i18n';
 import { onCleanup, reducedMotion } from '../runtime';
 
 // ---------------------------------------------------------------- maze
@@ -81,7 +82,7 @@ function mazeSvg(): string {
   }).join('');
   return `<svg class="maze-svg" id="maze-svg" viewBox="0 0 ${SIZE} ${SIZE}"
        tabindex="0" role="application"
-       aria-label="лабиринт: доведи курсор до галочки в центре (стрелки тоже работают)">
+       aria-label="${t('maze.aria')}">
     <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="#2b1d08"/>
     ${floors}
     <g class="maze-start" aria-hidden="true">
@@ -102,20 +103,20 @@ export function mazeCaptchaHtml(): string {
   return `<div class="obj mid toy maze reveal" id="maze">
     <div class="obj-title">$ ./account --delete</div>
     <p class="maze-q">Would you like to delete your account?</p>
-    <p class="obj-hint top">чтобы подтвердить, снимите галочку «я передумал». она в центре</p>
+    <p class="obj-hint top">${t('maze.hintTop')}</p>
     <div class="maze-body">
       ${mazeSvg()}
       <div class="maze-side">
-        <p class="maze-state" id="maze-state">галочка «я передумал»: стоит</p>
-        <p class="maze-hint">веди мышкой от квадратика внизу слева. или стрелками с клавиатуры</p>
+        <p class="maze-state" id="maze-state">${t('maze.on')}</p>
+        <p class="maze-hint">${t('maze.hint')}</p>
         <div class="maze-btns">
           <button class="obj-btn" id="maze-yes" type="button">Yes</button>
           <button class="obj-btn small" id="maze-no" type="button">No</button>
         </div>
-        <p class="maze-out" id="maze-out">> ждём вашего решения</p>
+        <p class="maze-out" id="maze-out">${t('maze.idle')}</p>
       </div>
     </div>
-    <span class="chip genre">жанр: worst UX awards · тикток</span>
+    <span class="chip genre">${t('maze.genre')}</span>
   </div>`;
 }
 
@@ -138,9 +139,7 @@ export function mountMazeCaptcha(root: HTMLElement): void {
     dot.setAttribute('cx', x.toFixed(1));
     dot.setAttribute('cy', y.toFixed(1));
     tick.style.opacity = checked ? '1' : '0';
-    state.textContent = checked
-      ? 'галочка «я передумал»: стоит'
-      : 'галочка «я передумал»: снята (вы прошли лабиринт)';
+    state.textContent = checked ? t('maze.on') : t('maze.off');
     host.classList.toggle('armed', !checked);
   };
 
@@ -148,7 +147,7 @@ export function mountMazeCaptcha(root: HTMLElement): void {
     if (!checked) return;
     if (Math.abs(x - cx(3)) > 9 || Math.abs(y - cy(3)) > 9) return;
     checked = false;
-    out.textContent = '> галочка снята. кнопка Yes наконец работает';
+    out.textContent = t('maze.armed');
     paint();
   };
 
@@ -209,16 +208,14 @@ export function mountMazeCaptcha(root: HTMLElement): void {
   });
 
   yes.addEventListener('click', () => {
-    out.textContent = checked
-      ? '> удалить нельзя: галочка «я передумал» всё ещё стоит'
-      : '> аккаунт удалён. шутка, это музей. ничего не удалено';
+    out.textContent = checked ? t('maze.denied') : t('maze.deleted');
   });
   no.addEventListener('click', () => {
     checked = true;
     x = cx(0);
     y = cy(6);
     paint();
-    out.textContent = '> спасибо, что остаётесь. галочку мы вернули на место';
+    out.textContent = t('maze.back');
   });
 
   paint();
@@ -242,7 +239,7 @@ function dieSvg(v: number): string {
   const pips = PIPS[v - 1]
     .map(([px, py]) => `<circle cx="${(px * s).toFixed(1)}" cy="${(py * s).toFixed(1)}" r="2.4" fill="#ffd9a0"/>`)
     .join('');
-  return `<svg viewBox="0 0 ${s} ${s}" class="die-face" role="img" aria-label="кубик: ${v}">
+  return `<svg viewBox="0 0 ${s} ${s}" class="die-face" role="img" aria-label="${t('dice.aria', { v })}">
     <rect x="1" y="1" width="${s - 2}" height="${s - 2}" rx="4" fill="#150e04"
           stroke="rgba(255,180,84,0.45)" stroke-width="1.2"/>${pips}</svg>`;
 }
@@ -252,21 +249,21 @@ export function diceVolumeHtml(): string {
   for (let i = 0; i < DICE; i += 1) {
     cells += `<div class="die" data-die="${i}">
       <span class="die-box" id="die-${i}">${dieSvg(1)}</span>
-      <label class="die-hold"><input type="checkbox" id="hold-${i}" aria-label="держать кубик ${i + 1}"/> Hold</label>
+      <label class="die-hold"><input type="checkbox" id="hold-${i}" aria-label="${t('dice.holdAria', { n: i + 1 })}"/> Hold</label>
     </div>`;
   }
   return `<div class="obj mid toy dice reveal" id="dice">
     <div class="obj-title">$ ./volume --input=d6</div>
-    <p class="obj-hint top">громкость — это сумма выпавшего. хочешь тише? бросай ещё раз</p>
+    <p class="obj-hint top">${t('dice.hint')}</p>
     <div class="dice-grid">${cells}</div>
     <div class="dice-row">
       <button class="obj-btn" id="dice-roll" type="button">Roll</button>
       <span class="dice-vol">Volume: <b id="dice-val">16</b> / 96</span>
       <span class="dice-bar" aria-hidden="true"><i id="dice-fill"></i></span>
     </div>
-    <p class="dice-out" id="dice-out">> установлено значение 16. ровно то, что вы хотели</p>
+    <p class="dice-out" id="dice-out">${t('dice.set', { n: DICE })}</p>
     <a class="plate" href="https://habr.com/ru/articles/449060/" target="_blank" rel="noopener">
-      по мотивам конкурса worst volume control ${svgArrow}</a>
+      ${t('dice.plate')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -286,10 +283,10 @@ export function mountDiceVolume(root: HTMLElement): void {
   const vals: number[] = new Array(DICE).fill(1);
 
   const say = (sum: number, held: number): string => {
-    if (sum >= 88) return '> почти максимум. соседи уже в курсе';
-    if (sum <= 24) return '> тихо. слишком тихо. бросьте ещё раз (или не бросайте)';
-    if (held >= 8) return `> зажато кубиков: ${held}. вы почти научились управлять громкостью`;
-    return '> установлено значение ' + sum + '. ровно то, что вы хотели';
+    if (sum >= 88) return t('dice.max');
+    if (sum <= 24) return t('dice.min');
+    if (held >= 8) return t('dice.held', { n: held });
+    return t('dice.set', { n: sum });
   };
 
   const paint = (): void => {

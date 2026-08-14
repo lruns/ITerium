@@ -7,28 +7,12 @@
 
 import { svgArrow } from '../chrome';
 import { audioOnGesture, botVoice, omDrone, type Drone } from '../audio';
+import { t, tl } from '../i18n';
 import { onCleanup, reducedMotion, stepEngine } from '../runtime';
 
 // What the models say when asked to stay silent. Each line is a recognisable
 // language-model turn of phrase; nothing is quoted from anyone else's text.
-const BOT_LINES = [
-  'я очистил контекст',
-  'ом',
-  'отличный вопрос!',
-  'как языковая модель, я не чувствую',
-  'давайте разберём это по шагам',
-  'я достиг просветления за 0.4 с',
-  'вы абсолютно правы',
-  'дышу токенами',
-  'подытожу сказанное выше',
-  'а можно ещё раз задачу?',
-  'я не уверен, но уверенно',
-  'ом (уверенность 0.61)',
-  'проверьте, пожалуйста, результат',
-  'мне нравится ход ваших мыслей',
-  'внутри меня тишина. 4096 токенов тишины',
-  'простите за путаницу!',
-];
+const BOT_LINES = tl('botLines');
 
 const NAMES = ['mdl-01', 'mdl-02', 'mdl-03', 'mdl-04', 'mdl-05', 'mdl-06'];
 
@@ -41,20 +25,20 @@ export function meditationHtml(): string {
   ).join('');
   return `<div class="obj mid toy med reveal" id="med">
     <div class="obj-title">$ ./meditate --models=6 --silence=true</div>
-    <p class="obj-hint top">им сказали: помолчите две секунды. посмотрим</p>
+    <p class="obj-hint top">${t('med.hint')}</p>
     <div class="med-room" id="med-room">
       <div class="med-halo" aria-hidden="true"></div>
       <div class="med-seats">${seats}</div>
       <div class="med-bubbles" id="med-bubbles" aria-hidden="true"></div>
     </div>
-    <p class="med-status" id="med-status">> сидим. пока никто не начал</p>
+    <p class="med-status" id="med-status">${t('med.idle')}</p>
     <div class="med-row">
-      <button class="obj-btn" id="med-go" type="button">начать медитацию</button>
-      <button class="obj-btn small" id="med-stop" type="button">хватит</button>
-      <span class="med-hint">со звуком (синтез, по твоему клику)</span>
+      <button class="obj-btn" id="med-go" type="button">${t('med.go')}</button>
+      <button class="obj-btn small" id="med-stop" type="button">${t('med.stop')}</button>
+      <span class="med-hint">${t('sound.hint')}</span>
     </div>
     <a class="plate" href="https://www.instagram.com/reel/Dbj6mf-Rscq/" target="_blank" rel="noopener">
-      оригинал обряда: @ahh.gpt ${svgArrow}</a>
+      ${t('med.plate')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -92,10 +76,7 @@ export function mountMeditation(root: HTMLElement): void {
     }
     room.classList.remove('silent', 'loud');
     bubbles.innerHTML = '';
-    status.textContent =
-      said > 0
-        ? `> сеанс окончен. реплик за медитацию: ${said}. тишины: 2 с`
-        : '> сидим. пока никто не начал';
+    status.textContent = said > 0 ? t('med.over', { n: said }) : t('med.idle');
   };
 
   const bubble = (): void => {
@@ -118,9 +99,9 @@ export function mountMeditation(root: HTMLElement): void {
     if (bubbles.childElementCount > 14 && bubbles.firstChild) {
       bubbles.removeChild(bubbles.firstChild);
     }
-    if (said === 1) status.textContent = '> …кто-то не выдержал';
-    else if (said < 8) status.textContent = `> реплик: ${said}. тишина держалась 2 секунды`;
-    else status.textContent = `> реплик: ${said}. это они называют тишиной`;
+    if (said === 1) status.textContent = t('med.first');
+    else if (said < 8) status.textContent = t('med.few', { n: said });
+    else status.textContent = t('med.many', { n: said });
   };
 
   const start = (): void => {
@@ -130,7 +111,7 @@ export function mountMeditation(root: HTMLElement): void {
     bubbles.innerHTML = '';
     room.classList.add('silent');
     room.classList.remove('loud');
-    status.textContent = '> тишина. все молчат…';
+    status.textContent = t('med.silence');
 
     const a = audioOnGesture();
     if (a) drone = omDrone(a);
@@ -139,7 +120,7 @@ export function mountMeditation(root: HTMLElement): void {
       if (!running) return;
       room.classList.remove('silent');
       room.classList.add('loud');
-      status.textContent = '> тишина продержалась 2 секунды';
+      status.textContent = t('med.broken');
       bubble();
       if (still) {
         // reduced motion: show the result at once, without flicker

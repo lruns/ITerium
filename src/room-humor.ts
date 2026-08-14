@@ -6,6 +6,7 @@
 
 import { backBtn, modeline, plaqueHtml, reservedHtml, stand, startAtBottom } from './chrome';
 import { asciiCharts, clownStill, humorExhibits, pathJokes, tickerLines, topRows } from './data';
+import { langSwitchHtml, legalNoteHtml, mountLangSwitch, t, tl } from './i18n';
 import { later, liveModeline, onCleanup, onScroll, reducedMotion, revealOnScroll } from './runtime';
 import { adhdSortHtml, mountAdhdSort } from './toys/adhd-sort';
 import { capitalismHtml, mountCapitalism } from './toys/capitalism';
@@ -49,22 +50,16 @@ function cringeHtml(): string {
   return `<div class="obj mid toy reveal" id="cringe">
     <div class="obj-title">$ ./cringe-o-meter --live</div>
     <pre class="gauge" id="gauge"></pre>
-    <p class="obj-hint">наведи (или ткни) — стрелка поедет</p>
+    <p class="obj-hint">${t('humor.cringeHint')}</p>
     <div class="cringe-row">
-      <button class="obj-btn small" id="cringe-reset" type="button">сбросить кринж</button>
+      <button class="obj-btn small" id="cringe-reset" type="button">${t('humor.cringeReset')}</button>
       <span class="cringe-said" id="cringe-said" aria-live="polite"></span>
     </div>
   </div>`;
 }
 
 /** Lines shown on reset: the exhibit does not believe the reset, and rightly so. */
-const CRINGE_RESET_LINES = [
-  'счётчик обнулён. кринж — нет',
-  'сброшено. музей смотрит на тебя с надеждой',
-  'обнулили. запись в журнале осталась',
-  'кринж сброшен и уже возвращается',
-  'сброс №4. это тоже кринж, вообще-то',
-];
+const CRINGE_RESET_LINES = tl('cringeResetLines');
 
 function topHtml(): string {
   return `<div class="obj side reveal" style="--tw:9deg">
@@ -85,18 +80,19 @@ function mountCringe(root: HTMLElement): void {
   if (!host || !out) return;
   let v = 34;
   let want = 34;
+  const labels = tl('cringeLabels');
   const label = (p: number): string => {
-    if (p < 25) return 'терпимо';
-    if (p < 55) return 'ой';
-    if (p < 80) return 'закрой лицо руками';
-    if (p < 99) return 'я это уже писал в проде';
-    return 'ПЕРЕПОЛНЕНИЕ КРИНЖА';
+    if (p < 25) return labels[0];
+    if (p < 55) return labels[1];
+    if (p < 80) return labels[2];
+    if (p < 99) return labels[3];
+    return labels[4];
   };
   const paint = (): void => {
     out.textContent =
-      `уровень кринжа  ${bar(v)}  ${String(Math.round(v)).padStart(3)}%\n` +
-      `полезность      ${bar(Math.max(4, 100 - v), 22)}  ${String(Math.round(Math.max(4, 100 - v))).padStart(3)}%\n` +
-      `диагноз: ${label(v)}`;
+      `${t('humor.gaugeCringe').padEnd(16)}${bar(v)}  ${String(Math.round(v)).padStart(3)}%\n` +
+      `${t('humor.gaugeUseful').padEnd(16)}${bar(Math.max(4, 100 - v), 22)}  ${String(Math.round(Math.max(4, 100 - v))).padStart(3)}%\n` +
+      `${t('humor.gaugeDiag', { label: label(v) })}`;
   };
   paint();
   const bump = (): void => {
@@ -197,8 +193,8 @@ function enterHintHtml(): string {
   return `
       <div class="enter-hint" id="enter-hint">
         <pre class="eh-arrow" aria-hidden="true">${arrow}</pre>
-        <p class="eh-text">поднимайся ВВЕРХ &mdash; приколы висят вокруг</p>
-        <p class="eh-sub">колесом, пальцем или [&uarr;] &mdash; всё вверх</p>
+        <p class="eh-text">${t('humor.hintUp')}</p>
+        <p class="eh-sub">${t('humor.hintUpSub')}</p>
       </div>`;
 }
 
@@ -262,7 +258,7 @@ export function renderHumor(app: HTMLElement): void {
     slot(cringeHtml(), 'c', 0),
 
     // the JS interview piece is paired with an interactive where the language answers
-    slot(stand(jsTruthHtml(), [P('kai-js', 'откуда взят этот стенд')]), 'c', 44),
+    slot(stand(jsTruthHtml(), [P('kai-js', t('humor.why.stand'))]), 'c', 44),
     pairSlot(sideObj(asciiCharts[0], 1, -9), `<p class="path-joke reveal">${pathJokes[0]}</p>`, 34),
 
     // NOTE: the caption line that used to sit here was removed on purpose; the
@@ -270,14 +266,14 @@ export function renderHumor(app: HTMLElement): void {
     slot(capitalismHtml(), 'c', 70),
     slot(sideObj(asciiCharts[3], 2, 10), 'r', 34),
 
-    slot(stand(worstUxHtml(), [P('worstux', 'откуда взят этот стенд')]), 'c', 74),
+    slot(stand(worstUxHtml(), [P('worstux', t('humor.why.stand'))]), 'c', 74),
 
     // two more of the same genre: a maze captcha and dice-based volume control
     slot(mazeCaptchaHtml(), 'c', 40),
     slot(diceVolumeHtml(), 'c', 40),
     slot(sideObj(asciiCharts[4], 3, -9), 'r', 34),
 
-    slot(stand(meditationHtml(), [P('meditation', 'откуда взят этот обряд')]), 'c', 70),
+    slot(stand(meditationHtml(), [P('meditation', t('humor.why.rite'))]), 'c', 70),
     slot(topHtml(), 'l', 34),
 
     /**
@@ -285,11 +281,11 @@ export function renderHumor(app: HTMLElement): void {
      * whatever comes next. The frame explains nothing on purpose: it just waits.
      */
     slot(
-      `<div class="wall"><p class="wall-lead reveal">стена фольклора</p>` +
+      `<div class="wall"><p class="wall-lead reveal">${t('humor.wall')}</p>` +
         // the copypasta is EXPANDED: the walkthrough runs next to the original, and
         // the empty frame for a remake stands right beside it
         stand(warriorHtml(), [
-          P('warrior', 'айтишный фольклор, оригинал 2016'),
+          P('warrior', t('humor.why.folklore')),
           reservedHtml(),
         ]) +
         `</div>`,
@@ -298,12 +294,12 @@ export function renderHumor(app: HTMLElement): void {
     ),
 
     // cluster on coding-assistant pains: a limit-reset ritual and a song about it
-    slot(stand(ritualHtml(), [P('reset', 'откуда взят этот обряд')]), 'c', 70),
-    slot(stand(claudePlanHtml(), [P('claudes-plan', 'из той же жизни')]), 'c', 44),
+    slot(stand(ritualHtml(), [P('reset', t('humor.why.rite'))]), 'c', 70),
+    slot(stand(claudePlanHtml(), [P('claudes-plan', t('humor.why.sameLife'))]), 'c', 44),
     slot(`<p class="path-joke reveal">${pathJokes[4]}</p>`, 'r', 30),
 
     // trash trailer: an oracle that answers any question with "homology"
-    slot(stand(oracleHtml(), [P('homotopy', 'откуда взят этот оракул')]), 'c', 72),
+    slot(stand(oracleHtml(), [P('homotopy', t('humor.why.oracle'))]), 'c', 72),
 
     // the hall darkens here: live esoteric languages (their sources are inside the zone)
     slot(magicZoneHtml(), 'c', 78),
@@ -312,8 +308,8 @@ export function renderHumor(app: HTMLElement): void {
 
     // the summit of the hall is a payoff, not a "work in progress" note
     slot(
-      `<div class="summit"><p class="summit-lead reveal">выше приколов не бывает. вот он:</p>` +
-        stand(adhdSortHtml(), [P('adhd', 'откуда взят этот алгоритм')]) +
+      `<div class="summit"><p class="summit-lead reveal">${t('humor.summit')}</p>` +
+        stand(adhdSortHtml(), [P('adhd', t('humor.why.algo'))]) +
         `</div>`,
       'c',
       88,
@@ -342,7 +338,7 @@ export function renderHumor(app: HTMLElement): void {
     <header class="room-head reveal">
       <pre class="clown still" aria-hidden="true">${clownStill}</pre>
       <p class="cmd">$ cd /iterium/jokes &amp;&amp; ls -la</p>
-      <h1>комната шута<span class="cur"></span></h1>
+      <h1>${t('humor.title')}<span class="cur"></span></h1>
       ${enterHintHtml()}
     </header>
     <main class="hall">
@@ -351,10 +347,12 @@ export function renderHumor(app: HTMLElement): void {
       ${hall}
     </main>
     <footer class="room-foot reveal">
-      <p class="path-joke">…в запасниках ещё гора приколов — зал строится</p>
-      <p class="curator">куратор: андрей (lruns) · все экспонаты принадлежат своим авторам</p>
+      <p class="path-joke">${t('humor.footJoke')}</p>
+      <p class="curator">${t('humor.curator')}</p>
+      ${legalNoteHtml()}
     </footer>
-    ${modeline('jokes.room', '(Humor · вверх)')}`;
+    ${langSwitchHtml()}
+    ${modeline('jokes.room', t('humor.modeline'))}`;
 
   revealOnScroll(Array.from(app.querySelectorAll('.reveal')));
   liveModeline(
@@ -378,6 +376,7 @@ export function renderHumor(app: HTMLElement): void {
   mountTop(app);
   mountTicker(app);
   mountParallax(app);
+  mountLangSwitch(app);
   startAtBottom();
   mountEnterHint(app);
 }

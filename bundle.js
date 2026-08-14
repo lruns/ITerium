@@ -1,7 +1,1466 @@
 "use strict";
 (() => {
+  // src/strings.ts
+  var dict = {
+    /* --------------------------------- page --------------------------------- */
+    "doc.title": {
+      ru: "Lruns ITerium \u2014 \u043C\u0443\u0437\u0435\u0439 \u043A\u043E\u0434\u0430, \u043A\u0440\u0430\u0441\u043E\u0442\u044B \u0438 \u043A\u0440\u0438\u043D\u0436\u0430",
+      en: "Lruns ITerium \u2014 a museum of code, beauty and cringe"
+    },
+    /* Head meta tags: the Russian values are exactly the ones index.html carried. */
+    "doc.description": {
+      ru: "\u041F\u0440\u043E\u0431\u043D\u044B\u0439 \u0437\u0430\u043B: \u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u0441\u043C\u0435\u0445\u0430 \u0438 \u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u043A\u0440\u0430\u0441\u043E\u0442\u044B. \u042D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u044B \u0441\u043E\u0431\u0440\u0430\u043D\u044B \u043F\u043E \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0443, \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u2014 \u0430\u0432\u0442\u043E\u0440 \u0438 \u0441\u0441\u044B\u043B\u043A\u0430.",
+      en: "A trial hall: the funhouse and the room of beauty. Exhibits collected across the internet, each one with an author and a link."
+    },
+    "og.title": {
+      ru: "Lruns ITerium \u2014 \u043C\u0443\u0437\u0435\u0439 \u043A\u043E\u0434\u0430, \u043A\u0440\u0430\u0441\u043E\u0442\u044B \u0438 \u043A\u0440\u0438\u043D\u0436\u0430",
+      en: "Lruns ITerium \u2014 a museum of code, beauty and cringe"
+    },
+    "og.description": {
+      ru: "\u0416\u0438\u0432\u044B\u0435 \u043F\u0440\u0438\u043A\u043E\u043B\u044B, \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0435 \u044D\u0437\u043E\u0442\u0435\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u044F\u0437\u044B\u043A\u0438 \u0438 \u043A\u043E\u0434 \u043A\u0430\u043A \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u043E. \u0423 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u0430 \u2014 \u0430\u0432\u0442\u043E\u0440 \u0438 \u0434\u0432\u0435\u0440\u044C.",
+      en: "Live jokes, real esoteric languages and code as art. Every exhibit has an author and a door."
+    },
+    /* ------------------------------ terminal ------------------------------- */
+    "term.mini": {
+      ru: ";; beta: \u0438\u0434\u0435\u0438 \u0410\u043D\u0434\u0440\u0435\u044F, \u0431\u0430\u0433\u0438 \u043D\u0430\u0448\u0438 \u2014 \u0447\u0438\u043D\u0438\u043C",
+      en: ";; beta: Andrey\u2019s ideas, our bugs \u2014 we\u2019re on it"
+    },
+    "term.cta": {
+      ru: "{tail} &mdash; \u0438\u043B\u0438 \u0442\u044B\u043A\u043D\u0438 \u044D\u043A\u0440\u0430\u043D",
+      en: "{tail} &mdash; or just tap the screen"
+    },
+    "term.menuAria": { ru: "\u0432\u044B\u0431\u043E\u0440 \u0437\u0430\u043B\u0430", en: "hall selector" },
+    "term.menuHint": {
+      ru: '<b>\u0442\u044B\u043A\u043D\u0438 \u0441\u0442\u0440\u043E\u0447\u043A\u0443</b> &mdash; \u0438 \u0442\u044B \u0432\u043D\u0443\u0442\u0440\u0438\n      <span class="mh-sep">&middot;</span> \u0438\u043B\u0438 [&uarr;&darr;] \u0432\u044B\u0431\u043E\u0440\n      <span class="mh-sep">&middot;</span> [enter] \u0432\u043E\u0439\u0442\u0438\n      <span class="mh-sep">&middot;</span> [1&ndash;4] \u0431\u044B\u0441\u0442\u0440\u043E',
+      en: '<b>tap a line</b> &mdash; and you are in\n      <span class="mh-sep">&middot;</span> or [&uarr;&darr;] to pick\n      <span class="mh-sep">&middot;</span> [enter] to enter\n      <span class="mh-sep">&middot;</span> [1&ndash;4] quick'
+    },
+    "term.locked": {
+      ru: "E: \u0437\u0430\u043B \xAB{label}\xBB \u0435\u0449\u0451 \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F. {where}",
+      en: "E: the \u201C{label}\u201D hall is still being built. {where}"
+    },
+    "term.tryOpen": { ru: "\u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439 {list} \u0438\u043B\u0438 {last}", en: "try {list} or {last}" },
+    "term.onlyOpen": { ru: "\u043E\u0442\u043A\u0440\u044B\u0442 \u043F\u043E\u043A\u0430 \u0442\u043E\u043B\u044C\u043A\u043E {key}", en: "so far only {key} is open" },
+    /* -------------------------------- menu --------------------------------- */
+    "menu.note.humor": { ru: "\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u0441\u043C\u0435\u0445\u0430", en: "the funhouse" },
+    "menu.note.art": { ru: "[\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F]", en: "[under construction]" },
+    "menu.note.history": { ru: "[\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F]", en: "[under construction]" },
+    "menu.note.algorave": { ru: "[\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F]", en: "[under construction]" },
+    "menu.footnote": { ru: "\u2026\u043F\u043E\u0437\u0436\u0435: \u043C\u043E\u0441\u0442 \u0432 \u043A\u0440\u0443\u0433\u043E\u0432\u0437\u043E\u0440", en: "\u2026later: a bridge to Krugovzor" },
+    /* --------------------------- language switch --------------------------- */
+    "lang.aria": { ru: "\u044F\u0437\u044B\u043A \u043C\u0443\u0437\u0435\u044F", en: "museum language" },
+    /* ru-only legal footnote: not rendered at all in en (see legalNoteHtml). */
+    "legal.meta": {
+      ru: "Instagram \u2014 \u043F\u0440\u043E\u0434\u0443\u043A\u0442 Meta Platforms Inc., \u043F\u0440\u0438\u0437\u043D\u0430\u043D\u043D\u043E\u0439 \u044D\u043A\u0441\u0442\u0440\u0435\u043C\u0438\u0441\u0442\u0441\u043A\u043E\u0439 \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u0430\u0446\u0438\u0435\u0439 \u0438 \u0437\u0430\u043F\u0440\u0435\u0449\u0451\u043D\u043D\u043E\u0439 \u043D\u0430 \u0442\u0435\u0440\u0440\u0438\u0442\u043E\u0440\u0438\u0438 \u0420\u0424. \u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B\u044B \u043F\u0440\u0438\u0432\u043E\u0434\u044F\u0442\u0441\u044F \u0432 \u043E\u0437\u043D\u0430\u043A\u043E\u043C\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u0446\u0435\u043B\u044F\u0445.",
+      en: ""
+    },
+    /* ------------------------------- chrome -------------------------------- */
+    "chrome.shotAlt": { ru: "\u043A\u0430\u0434\u0440: {title}", en: "frame: {title}" },
+    "chrome.authorAria": {
+      ru: "\u0430\u0432\u0442\u043E\u0440 {author} \u2014 \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C",
+      en: "{author} \u2014 open the author\u2019s profile"
+    },
+    "chrome.workAria": { ru: "{title} \u2014 \u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u043C\u0443 \u0440\u0430\u0431\u043E\u0442\u0443", en: "{title} \u2014 see the work itself" },
+    "chrome.zoomAria": { ru: "{title} \u2014 \u043F\u0440\u0438\u0431\u043B\u0438\u0437\u0438\u0442\u044C \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443", en: "{title} \u2014 zoom this card" },
+    "chrome.chipVideo": { ru: "\u0440\u043E\u043B\u0438\u043A", en: "video" },
+    "chrome.chipAuthor": { ru: "\u0430\u0432\u0442\u043E\u0440", en: "author" },
+    "chrome.close": { ru: "\u0437\u0430\u043A\u0440\u044B\u0442\u044C", en: "close" },
+    "chrome.soon": { ru: "\u0441\u043A\u043E\u0440\u043E", en: "soon" },
+    "chrome.reservedAria": {
+      ru: "\u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0434 \u0431\u0443\u0434\u0443\u0449\u0438\u0439 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442",
+      en: "a slot held for a future exhibit"
+    },
+    /* ----------------------------- mobile gate ----------------------------- */
+    "mobile.art1": { ru: "\u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0439", en: "mobile" },
+    "mobile.art2": { ru: "\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F", en: "in progress" },
+    "mobile.note": {
+      ru: "\u0437\u0430\u043B \u0443\u0436\u0435 \u0435\u0441\u0442\u044C, \u043D\u043E \u043E\u043D \u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u0438 \u043E\u0431\u044A\u0451\u043C\u043D\u044B\u0439 \u2014 \u043D\u0430 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u043E\u043C \u044D\u043A\u0440\u0430\u043D\u0435 \u043F\u043E\u043A\u0430 \u0440\u0430\u0437\u044A\u0435\u0437\u0436\u0430\u0435\u0442\u0441\u044F. \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u0443\u044E \u0432\u0435\u0440\u0441\u0438\u044E \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u043A 1.0.",
+      en: "the hall exists, it\u2019s just big and three-dimensional \u2014 on a small screen it still falls apart. the mobile version lands in 1.0."
+    },
+    "mobile.go": {
+      ru: "\u043E\u0447\u0435\u043D\u044C \u0445\u043E\u0447\u0435\u0442\u0441\u044F \u2014 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043A\u0430\u043A \u043D\u0430 \u043A\u043E\u043C\u043F\u0435",
+      en: "i want in anyway \u2014 show me the desktop one"
+    },
+    "mobile.warn": {
+      ru: "\u0431\u0443\u0434\u0435\u0442 \u043A\u0430\u043A \u043D\u0430 \u0431\u043E\u043B\u044C\u0448\u043E\u043C \u044D\u043A\u0440\u0430\u043D\u0435: \u043C\u0435\u043B\u043A\u043E \u0438 \u0441 \u043F\u0440\u043E\u043A\u0440\u0443\u0442\u043A\u043E\u0439 \u0432\u0431\u043E\u043A. \u0442\u0430\u043A \u0438 \u0437\u0430\u0434\u0443\u043C\u0430\u043D\u043E",
+      en: "it will look like the big screen: tiny, scrolling sideways. that\u2019s on purpose"
+    },
+    "mobile.back": { ru: "\u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u0432 \u0442\u0435\u0440\u043C\u0438\u043D\u0430\u043B", en: "back to the terminal" },
+    /* ---------------------------- jester's room ---------------------------- */
+    "humor.title": { ru: "\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u0448\u0443\u0442\u0430", en: "the jester\u2019s room" },
+    "humor.modeline": { ru: "(Humor \xB7 \u0432\u0432\u0435\u0440\u0445)", en: "(Humor \xB7 up)" },
+    "humor.cringeHint": {
+      ru: "\u043D\u0430\u0432\u0435\u0434\u0438 (\u0438\u043B\u0438 \u0442\u043A\u043D\u0438) \u2014 \u0441\u0442\u0440\u0435\u043B\u043A\u0430 \u043F\u043E\u0435\u0434\u0435\u0442",
+      en: "hover (or tap) \u2014 the needle starts moving"
+    },
+    "humor.cringeReset": { ru: "\u0441\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u043A\u0440\u0438\u043D\u0436", en: "reset the cringe" },
+    "humor.gaugeCringe": { ru: "\u0443\u0440\u043E\u0432\u0435\u043D\u044C \u043A\u0440\u0438\u043D\u0436\u0430", en: "cringe level" },
+    "humor.gaugeUseful": { ru: "\u043F\u043E\u043B\u0435\u0437\u043D\u043E\u0441\u0442\u044C", en: "usefulness" },
+    "humor.gaugeDiag": { ru: "\u0434\u0438\u0430\u0433\u043D\u043E\u0437: {label}", en: "diagnosis: {label}" },
+    "humor.hintUp": {
+      ru: "\u043F\u043E\u0434\u043D\u0438\u043C\u0430\u0439\u0441\u044F \u0412\u0412\u0415\u0420\u0425 &mdash; \u043F\u0440\u0438\u043A\u043E\u043B\u044B \u0432\u0438\u0441\u044F\u0442 \u0432\u043E\u043A\u0440\u0443\u0433",
+      en: "head UP &mdash; the jokes are hanging all around"
+    },
+    "humor.hintUpSub": {
+      ru: "\u043A\u043E\u043B\u0435\u0441\u043E\u043C, \u043F\u0430\u043B\u044C\u0446\u0435\u043C \u0438\u043B\u0438 [&uarr;] &mdash; \u0432\u0441\u0451 \u0432\u0432\u0435\u0440\u0445",
+      en: "wheel, finger or [&uarr;] &mdash; everything goes up"
+    },
+    "humor.wall": { ru: "\u0441\u0442\u0435\u043D\u0430 \u0444\u043E\u043B\u044C\u043A\u043B\u043E\u0440\u0430", en: "the folklore wall" },
+    "humor.summit": { ru: "\u0432\u044B\u0448\u0435 \u043F\u0440\u0438\u043A\u043E\u043B\u043E\u0432 \u043D\u0435 \u0431\u044B\u0432\u0430\u0435\u0442. \u0432\u043E\u0442 \u043E\u043D:", en: "this is as high as the jokes go. here it is:" },
+    "humor.footJoke": {
+      ru: "\u2026\u0432 \u0437\u0430\u043F\u0430\u0441\u043D\u0438\u043A\u0430\u0445 \u0435\u0449\u0451 \u0433\u043E\u0440\u0430 \u043F\u0440\u0438\u043A\u043E\u043B\u043E\u0432 \u2014 \u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F",
+      en: "\u2026there\u2019s a mountain more of these in the vaults \u2014 the hall is still being built"
+    },
+    "humor.curator": {
+      ru: "\u043A\u0443\u0440\u0430\u0442\u043E\u0440: \u0430\u043D\u0434\u0440\u0435\u0439 (lruns) \xB7 \u0432\u0441\u0435 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u044B \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0442 \u0441\u0432\u043E\u0438\u043C \u0430\u0432\u0442\u043E\u0440\u0430\u043C",
+      en: "curator: andrey (lruns) \xB7 every exhibit belongs to its author"
+    },
+    "humor.why.stand": { ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u0441\u0442\u0435\u043D\u0434", en: "where this exhibit came from" },
+    "humor.why.rite": { ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u043E\u0431\u0440\u044F\u0434", en: "where this rite came from" },
+    "humor.why.folklore": {
+      ru: "\u0430\u0439\u0442\u0438\u0448\u043D\u044B\u0439 \u0444\u043E\u043B\u044C\u043A\u043B\u043E\u0440, \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B 2016",
+      en: "programmer folklore, 2016 original"
+    },
+    "humor.why.sameLife": { ru: "\u0438\u0437 \u0442\u043E\u0439 \u0436\u0435 \u0436\u0438\u0437\u043D\u0438", en: "from the same life" },
+    "humor.why.oracle": { ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u043E\u0440\u0430\u043A\u0443\u043B", en: "where this oracle came from" },
+    "humor.why.algo": { ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C", en: "where this algorithm came from" },
+    /* ----------------------------- beauty room ----------------------------- */
+    "art.title": { ru: "\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u043A\u0440\u0430\u0441\u043E\u0442\u044B", en: "the room of beauty" },
+    "art.modeline": { ru: "(Beauty \xB7 \u0441\u043F\u0438\u0440\u0430\u043B\u044C)", en: "(Beauty \xB7 spiral)" },
+    "art.epigraph": {
+      ru: "\u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C + \u043E\u0434\u0438\u043D \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u044B\u0439 \u0441\u043B\u043E\u0439. \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0432\u0432\u0435\u0440\u0445 \u2014 \u0430 \u0442\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438",
+      en: "reality plus one invisible layer. nobody ever looks up \u2014 you should"
+    },
+    "art.scrollHint": {
+      ru: "\u2191 \u043F\u043E\u0434\u043D\u0438\u043C\u0430\u0439\u0441\u044F: \u0432\u0438\u0442\u043E\u043A \u0432\u0435\u0437\u0451\u0442 \u043E\u0442 \u0441\u0442\u0430\u043D\u0446\u0438\u0438 \u043A \u0441\u0442\u0430\u043D\u0446\u0438\u0438, \u0432\u043E\u043A\u0440\u0443\u0433 \u043A\u0430\u0436\u0434\u043E\u0439 \u2014 \u0435\u0451 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \xB7 \u0441\u0442\u0430\u043D\u0446\u0438\u0438 \u043C\u043E\u0436\u043D\u043E \u0442\u0440\u043E\u0433\u0430\u0442\u044C \xB7 \u043F\u043E\u0442\u044F\u043D\u0438 \u043C\u044B\u0448\u043A\u043E\u0439, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0434\u043A\u0440\u0443\u0442\u0438\u0442\u044C",
+      en: "\u2191 climb: the coil carries you from station to station, each one ringed by its sources \xB7 the stations are touchable \xB7 drag with the mouse to spin"
+    },
+    "art.finaleLine": {
+      ru: "\u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0432\u0432\u0435\u0440\u0445 \u2014 \u0430 \u0442\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u043B",
+      en: "nobody looks up \u2014 but you did"
+    },
+    "art.finaleChip": { ru: "\u043D\u0435\u0431\u043E: @coolacloy", en: "sky: @coolacloy" },
+    "art.finaleSmall": {
+      ru: "\u2026\u0432\u0438\u0442\u043E\u043A \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F. \u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F",
+      en: "\u2026the coil goes on. the hall is still being built"
+    },
+    "art.flyStations": { ru: "\u043F\u043E \u0441\u0442\u0430\u043D\u0446\u0438\u044F\u043C", en: "station hop" },
+    "art.flyFree": { ru: "\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u044B\u0439 \u043F\u043E\u043B\u0451\u0442", en: "free flight" },
+    /* -------------------------- exhibits: humour --------------------------- */
+    "ex.kai-eso.title": {
+      ru: "\u0418\u043D\u0442\u0435\u0440\u0432\u044C\u044E \u0441 \u0430\u043A\u0430\u0434\u0435\u043C\u0438\u043A\u043E\u043C \u044D\u0437\u043E\u0442\u0435\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0445 \u044F\u0437\u044B\u043A\u043E\u0432",
+      en: "Interview with an Esoteric Language Academic"
+    },
+    "ex.kai-eso.hook": {
+      ru: "\u0423 \u043D\u0435\u0433\u043E \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u043C\u043D\u043E\u0433\u043E \u0434\u0438\u043F\u043B\u043E\u043C\u043E\u0432 \u043F\u043E computer science, \u0447\u0442\u043E\u0431\u044B \u0431\u044B\u0442\u044C \u0442\u0440\u0443\u0434\u043E\u0443\u0441\u0442\u0440\u043E\u0435\u043D\u043D\u044B\u043C. \u041E\u0442\u043B\u0430\u0434\u043A\u0430 Malbolge \u0434\u043B\u044F \u043D\u0435\u0433\u043E \u2014 \u043A\u0430\u043A \u0441\u043F\u0430. \u041C\u043E\u043A\u044C\u044E\u043C\u0435\u043D\u0442\u0430\u0440\u0438, \u0433\u0434\u0435 \u043A\u0430\u0436\u0434\u0430\u044F \u0448\u0443\u0442\u043A\u0430 \u2014 \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439 \u044F\u0437\u044B\u043A.",
+      en: "He has too many computer science degrees to be employable. Debugging Malbolge is his idea of a spa day. A mockumentary where every punchline is a language that really exists."
+    },
+    "ex.kai-js.title": {
+      ru: "\u0418\u043D\u0442\u0435\u0440\u0432\u044C\u044E \u0441 \u0441\u0435\u043D\u044C\u043E\u0440\u043E\u043C JS-\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u043E\u043C",
+      en: "Interview with a Senior JS Developer"
+    },
+    "ex.kai-js.hook": {
+      ru: "\xAB\u041C\u044B \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u0430\u043B\u0438 \u043A\u043E\u0434\u0431\u0430\u0437\u0443 \u0434\u0435\u0432\u044F\u0442\u044C \u0440\u0430\u0437 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446. \u0422\u0430\u043A\u043E\u0439 \u0433\u0440\u044F\u0437\u043D\u044B\u0439 \u044F\u0437\u044B\u043A. \u041E\u0431\u043E\u0436\u0430\u044E\xBB. \u0414\u0432\u0430 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u0430 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u043E\u0432 \u0447\u0438\u0441\u0442\u043E\u0439 \u043F\u0440\u0430\u0432\u0434\u044B.",
+      en: "\u201CWe rewrote the codebase nine times this month. Such a filthy language. I love it.\u201D Two million views of undiluted truth."
+    },
+    "ex.ardens.title": {
+      ru: "Hello World \u043D\u0430 10 \u0437\u0430\u043F\u0440\u0435\u0442\u043D\u044B\u0445 \u044F\u0437\u044B\u043A\u0430\u0445",
+      en: "Hello World in 10 forbidden languages"
+    },
+    "ex.ardens.hook": {
+      ru: "\u0420\u0435\u0430\u043B\u044C\u043D\u043E \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442: Chef, Whitespace, Piet, Befunge, Malbolge. \u041C\u0430\u0442\u044B \u0437\u0430\u043F\u0438\u043A\u0430\u043D\u044B \u2014 \xAB\u0435\u0441\u043B\u0438 \u043D\u0435\u0442, \u0437\u043D\u0430\u0447\u0438\u0442 \u0437\u0432\u0443\u0447\u0430\u043B\u043E \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u0441\u043C\u0435\u0448\u043D\u043E\xBB.",
+      en: "He actually runs them: Chef, Whitespace, Piet, Befunge, Malbolge. The swearing is bleeped \u2014 \u201Cand if it isn\u2019t, it just sounded too funny\u201D."
+    },
+    "ex.meditation.title": { ru: "\u041C\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044F \u043D\u0435\u0439\u0440\u043E\u043D\u043E\u043A", en: "Neural net meditation" },
+    "ex.meditation.hook": {
+      ru: "\u0421\u043A\u0430\u0437\u0430\u043B\u0438 \u0418\u0418\u0448\u043A\u0430\u043C: \u0434\u0430\u0432\u0430\u0439\u0442\u0435 \u043F\u043E\u043C\u0435\u0434\u0438\u0442\u0438\u0440\u0443\u0435\u043C. \u0418 \u043E\u043D\u0438 \u043D\u0430\u0447\u0430\u043B\u0438 \u0434\u0440\u0443\u0436\u043D\u043E \u043E\u0431\u0449\u0430\u0442\u044C\u0441\u044F \u0434\u0440\u0443\u0433 \u0441 \u0434\u0440\u0443\u0433\u043E\u043C. \u0422\u0438\u0448\u0438\u043D\u0430 \u043F\u043E-\u043D\u0435\u0439\u0440\u043E\u043D\u043E\u0447\u044C\u0438 \u2014 \u0445\u043E\u0440 \u0438\u0437 \u0434\u0432\u0430\u0434\u0446\u0430\u0442\u0438 \u0433\u043E\u043B\u043E\u0441\u043E\u0432.",
+      en: "Someone told a room full of AIs: let us meditate. They immediately started chatting with each other. Silence, the way a language model does it \u2014 a choir of twenty voices."
+    },
+    "ex.reset.title": { ru: "\u0420\u0438\u0442\u0443\u0430\u043B \u0441\u0431\u0440\u043E\u0441\u0430 \u043B\u0438\u043C\u0438\u0442\u0430 Claude", en: "The Claude limit reset ritual" },
+    "ex.reset.hook": {
+      ru: "POV: resetting your Claude usage limit to zero. \u0411\u0430\u043B\u0438\u0439\u0441\u043A\u0438\u0439 \u043E\u0431\u0440\u044F\u0434 \u043E\u0447\u0438\u0449\u0435\u043D\u0438\u044F, \u043D\u043E\u0443\u0442\u0431\u0443\u043A \u0438 \u0440\u0438\u0442\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0447\u0430\u0448\u0430. \u0410\u0439\u0442\u0438\u0448\u043D\u0430\u044F \u0431\u043E\u043B\u044C \u043A\u0430\u043A \u0440\u0435\u043B\u0438\u0433\u0438\u044F.",
+      en: "POV: resetting your Claude usage limit to zero. A Balinese cleansing rite, a laptop and a ritual bowl. Developer pain as a religion."
+    },
+    "ex.claudes-plan.hook": {
+      ru: "\u041F\u0430\u0440\u043E\u0434\u0438\u044F \u043D\u0430 God\u2019s Plan \u043F\u0440\u043E \u0436\u0438\u0437\u043D\u044C \u0441 Claude Code: \xAB\u044F \u043D\u0430\u0447\u0438\u043D\u0430\u044E \u0434\u0435\u043D\u044C \u0432 plan mode\u2026 \u0441\u0435\u0440\u0432\u0435\u0440 \u0443\u043F\u0430\u043B \u0438\u0437-\u0437\u0430 MCP\xBB. \u041A\u043B\u0438\u043F \u0441\u043D\u044F\u0442 \u0441\u0430\u043C\u0438\u043C \u041A\u043B\u043E\u0434\u043E\u043C \u2014 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442 \u043F\u0440\u043E \u041A\u043B\u043E\u0434\u0430 \u0432 \u043C\u0443\u0437\u0435\u0435, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0441\u0442\u0440\u043E\u0438\u0442 \u041A\u043B\u043E\u0434.",
+      en: "A God\u2019s Plan parody about life with Claude Code: \u201CI start my day in plan mode\u2026 the server went down because of MCP.\u201D The video was made by Claude himself \u2014 an exhibit about Claude, in a museum that Claude is building."
+    },
+    "ex.adhd.hook": {
+      ru: "\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C O(n\xB2 + distractions): \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C \u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F \u0438 \u0443\u0448\u0451\u043B \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0434\u0440\u0443\u0433\u043E\u0439 \u043C\u0430\u0441\u0441\u0438\u0432. \u0423 \u0442\u043E\u0433\u043E \u0436\u0435 \u0430\u0432\u0442\u043E\u0440\u0430 \u2014 Epstein Sort: \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043A\u043E\u0434 \u0437\u0430\u043A\u0440\u044B\u0442 \u0447\u0451\u0440\u043D\u044B\u043C\u0438 \u0446\u0435\u043D\u0437\u0443\u0440\u043D\u044B\u043C\u0438 \u043F\u043B\u0430\u0448\u043A\u0430\u043C\u0438.",
+      en: "Complexity O(n\xB2 + distractions): the algorithm got distracted and wandered off to sort a different array. Same author also wrote Epstein Sort: the source code is covered in black redaction bars."
+    },
+    "ex.worstux.title": { ru: "\u0425\u0443\u0434\u0448\u0438\u0439 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441 \u0438\u0437 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0445", en: "The worst interface possible" },
+    "ex.worstux.hook": {
+      ru: "\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0441\u0442\u043E\u0432 \u043F\u043E\u043F\u0440\u043E\u0441\u0438\u043B\u0438 \u0441\u0434\u0435\u043B\u0430\u0442\u044C \u0441\u0430\u043C\u044B\u0439 \u0443\u0436\u0430\u0441\u043D\u044B\u0439 UX. \u041A\u043D\u043E\u043F\u043A\u0443 \xABUnsubscribe\xBB \u0441\u0434\u0443\u0432\u0430\u0435\u0442 \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u043C \u0432\u0435\u043D\u0442\u0438\u043B\u044F\u0442\u043E\u0440\u043E\u043C; \u043F\u0430\u0440\u043E\u043B\u044C \u0443\u0431\u0435\u0433\u0430\u0435\u0442; \u0441\u0442\u0440\u0430\u043D\u0443 \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0448\u044C, \u043D\u0430\u0440\u0438\u0441\u043E\u0432\u0430\u0432 \u0435\u0451 \u0444\u043B\u0430\u0433.",
+      en: "Developers were asked to build the most horrible UX they could. A real desk fan blows the \u201CUnsubscribe\u201D button away; the password runs off; you pick your country by drawing its flag."
+    },
+    "ex.brevno.title": {
+      ru: "\u0421\u0430\u043C\u044B\u0435 \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0435 \u044F\u0437\u044B\u043A\u0438 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F",
+      en: "The strangest programming languages"
+    },
+    "ex.brevno.hook": {
+      ru: "COW: \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u0441\u043E\u0441\u0442\u043E\u0438\u0442 \u0438\u0437 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432 \u043C\u044B\u0447\u0430\u043D\u0438\u044F (mOo, moO, MOo). TempleOS \u0438 HolyC. \u0418 \u044F\u0437\u044B\u043A, \u0432 \u043A\u043E\u0442\u043E\u0440\u043E\u043C \u0435\u0441\u0442\u044C \u0422\u041E\u041B\u042C\u041A\u041E \u0442\u0430\u0431\u044B. \u041F\u043E-\u0440\u0443\u0441\u0441\u043A\u0438 \u0438 \u0441\u043C\u0435\u0448\u043D\u043E.",
+      en: "COW: the entire program is variations on a moo (mOo, moO, MOo). TempleOS and HolyC. And a language made of NOTHING but tabs. In Russian. And funny."
+    },
+    "ex.sigma-boy.hook": {
+      ru: "\u0422\u043E\u0442 \u0441\u0430\u043C\u044B\u0439 \xABSigma, sigma boy\xBB. \u041F\u0440\u0435\u043C\u044C\u0435\u0440\u0430 24 \u0430\u043F\u0440\u0435\u043B\u044F 2025-\u0433\u043E, 400 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u043E\u0432 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u043E\u0432. \xAB\u0427\u0430\u0441\u0442\u043D\u0430\u044F \u0448\u043A\u043E\u043B\u0430 \u0438\u043C. \u041F\u0430\u0442\u0440\u0438\u0446\u0438\u044F \u0411\u0435\u0439\u0442\u043C\u0430\u043D\u0430\xBB, \u043D\u0435\u0432\u043E\u0437\u043C\u0443\u0442\u0438\u043C\u044B\u0439 \u0441\u0438\u0433\u043C\u0430-\u0444\u0435\u0439\u0441 \u2014 \u0438 \u044F\u0437\u044B\u043A GenAlpha, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0438\u0437 \u044D\u0442\u043E\u0433\u043E \u0441\u043B\u0435\u043D\u0433\u0430 \u0441\u043E\u0431\u0440\u0430\u043D, \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F \u043E\u0442 \u0441\u043B\u043E\u0432\u0430 Skibidi.",
+      en: "Yes, that \u201CSigma, sigma boy\u201D. Premiered 24 April 2025, 400 million views. \u201CThe Patrick Bateman Private School\u201D, the unbothered sigma face \u2014 and GenAlpha Lang, assembled out of exactly this slang, compiles the moment you say Skibidi."
+    },
+    "ex.sigma-boy.author": { ru: "Betsy \xB7 \u041C\u0430\u0440\u0438\u044F \u042F\u043D\u043A\u043E\u0432\u0441\u043A\u0430\u044F", en: "Betsy \xB7 Maria Yankovskaya" },
+    "ex.warrior.title": { ru: "\u0422\u044B \u0442\u043E\u0436\u0435 \u043C\u043E\u0436\u0435\u0448\u044C \u0431\u044B\u0442\u044C \u0432\u043E\u0438\u043D\u043E\u043C", en: "You too can be a warrior" },
+    "ex.warrior.hook": {
+      ru: "2016: \u043C\u0430\u043B\u044C\u0447\u0438\u043A\u0443-\u0430\u0443\u0442\u0438\u0441\u0442\u0443 \u0434\u0430\u0440\u044F\u0442 \u0441\u0431\u043E\u0440\u043D\u0438\u043A \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447 \u2014 \u0438 \u043E\u043D \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F \u0432\u043E\u0438\u043D\u043E\u043C. \u041B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u0430\u044F \u043F\u0430\u0441\u0442\u0430, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u043F\u0435\u0440\u0435\u0434\u0435\u043B\u044B\u0432\u0430\u044E\u0442 \u0434\u043E \u0441\u0438\u0445 \u043F\u043E\u0440.",
+      en: "2016: an autistic kid is handed a book of olympiad problems \u2014 and becomes a warrior. A legendary copypasta that people are still remixing."
+    },
+    "ex.warrior.author": { ru: "\u0424\u0438\u0437\u043A\u0435\u043A", en: "Fizkek" },
+    "ex.homotopy.title": {
+      ru: "\u0413\u0440\u0443\u043F\u043F\u044B \u0438 \u0442\u0435\u043E\u0440\u0438\u044F \u0433\u043E\u043C\u043E\u0442\u043E\u043F\u0438\u0439 (\u0442\u0440\u044D\u0448 \u0442\u0440\u0435\u0439\u043B\u0435\u0440)",
+      en: "Groups and homotopy theory (meme trailer)"
+    },
+    "ex.homotopy.hook": {
+      ru: "\u041D\u0430\u0441\u0442\u043E\u044F\u0449\u0430\u044F \u043B\u0435\u043A\u0446\u0438\u044F \u043F\u043E \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u043E\u0439 \u0430\u043B\u0433\u0435\u0431\u0440\u0435, \u0441\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0430\u044F \u043A\u0430\u043A \u0442\u0440\u0435\u0439\u043B\u0435\u0440 \u0431\u043B\u043E\u043A\u0431\u0430\u0441\u0442\u0435\u0440\u0430. \xAB\u041E\u043D \u0437\u0430\u0434\u0430\u043B \u0432\u043E\u043F\u0440\u043E\u0441\u2026 \u043E\u043D\u0430 \u0432\u0441\u0435\u0433\u0434\u0430 \u043E\u0442\u0432\u0435\u0447\u0430\u043B\u0430: \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438\xBB. \u041B\u0435\u043A\u0442\u043E\u0440 \u2014 \u0420\u043E\u043C\u0430\u043D \u041C\u0438\u0445\u0430\u0439\u043B\u043E\u0432, \u043C\u043E\u043D\u0442\u0430\u0436 \u2014 \u043A\u043E\u043D\u043A\u0443\u0440\u0441 \u0442\u0440\u044D\u0448-\u0440\u043E\u043B\u0438\u043A\u043E\u0432 \u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C\u0430, 2014.",
+      en: "A real homological algebra lecture cut like a blockbuster trailer. \u201CHe asked a question\u2026 she always answered: homology.\u201D Lecturer \u2014 Roman Mikhailov, edit \u2014 Lektorium\u2019s trash-video contest, 2014."
+    },
+    "ex.homotopy.author": { ru: "\u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C", en: "Lektorium" },
+    "ex.homotopy.extra": { ru: "\u043F\u043E\u043B\u043D\u044B\u0439 \u043A\u0443\u0440\u0441", en: "the full course" },
+    "ex.sigmaArt.alt": {
+      ru: "\u0440\u0438\u0441\u043E\u0432\u0430\u043D\u043D\u044B\u0439 \u043A\u0430\u0434\u0440: \u0441\u0438\u0433\u043C\u0430-\u0431\u043E\u0439 \u0432 \u043D\u0430\u0443\u0448\u043D\u0438\u043A\u0430\u0445",
+      en: "drawn frame: sigma boy in headphones"
+    },
+    "ex.sigmaArt.cap": {
+      ru: "\u0440\u0438\u0441\u0443\u043D\u043E\u043A \u043D\u0430\u0448 \xB7 \u043A\u043B\u0438\u043F \u043F\u043E \u0441\u0441\u044B\u043B\u043A\u0435",
+      en: "drawing ours \xB7 the video is behind the link"
+    },
+    /* -------------------------- exhibits: beauty --------------------------- */
+    "ex.sky.title": { ru: "\u041D\u0435\u0431\u043E \u043F\u043E\u0434\u043C\u0435\u043D\u0438\u043B\u0438", en: "The sky has been swapped" },
+    "ex.sky.hook": {
+      ru: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B-\u043F\u0430\u0440\u043A, \u0432\u0441\u0435 \u0437\u0430\u0433\u043E\u0440\u0430\u044E\u0442 \u0438 \u0431\u043E\u043B\u0442\u0430\u044E\u0442. \u041D\u0430\u0434 \u0433\u043E\u043B\u043E\u0432\u0430\u043C\u0438 \u2014 \u0442\u0435\u043A\u0443\u0447\u0430\u044F \u0442\u0443\u043C\u0430\u043D\u043D\u043E\u0441\u0442\u044C. \u041D\u0438\u043A\u0442\u043E \u043D\u0435 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0432\u0432\u0435\u0440\u0445: \u0442\u0430\u043A \u0442\u0435\u043F\u0435\u0440\u044C \u0432\u044B\u0433\u043B\u044F\u0434\u0438\u0442 \u043E\u0431\u044B\u0447\u043D\u044B\u0439 \u0432\u0442\u043E\u0440\u043D\u0438\u043A.",
+      en: "Central Park, everyone sunbathing and chatting. Overhead, a nebula flows past. Nobody looks up: this is simply what a Tuesday looks like now."
+    },
+    "ex.calendar.title": { ru: "\u041F\u043E\u043F\u0443\u0433\u0430\u0439 \u0438\u0437 \u043A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u044F", en: "A parrot made of calendars" },
+    "ex.calendar.hook": {
+      ru: "\u0422\u044B\u0441\u044F\u0447\u0438 \u0432\u0441\u0442\u0440\u0435\u0447 \u0432 Google Calendar, \u0432\u044B\u043B\u043E\u0436\u0435\u043D\u043D\u044B\u0435 \u0432 \u043F\u0438\u043A\u0441\u0435\u043B\u044C-\u043F\u043E\u0440\u0442\u0440\u0435\u0442. \u0420\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435\u0434\u0435\u043B\u0438 \u043A\u0430\u043A \u0445\u043E\u043B\u0441\u0442.",
+      en: "Thousands of Google Calendar events laid out into a pixel portrait. A week of meetings used as a canvas."
+    },
+    "ex.redacted.hook": {
+      ru: "\u0426\u0435\u043D\u0437\u0443\u0440\u043D\u044B\u0435 \u043F\u043B\u0430\u0448\u043A\u0438 \u0440\u0430\u0441\u0441\u0435\u043A\u0440\u0435\u0447\u0435\u043D\u043D\u044B\u0445 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u043E\u0432 \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u0432 \u0444\u0438\u0433\u0443\u0440\u0443 \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430. \u0410\u0432\u0442\u043E\u0440 \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B \u0440\u0430\u0431\u043E\u0442\u0443 \u0432\u044B\u0447\u0435\u0440\u043A\u043D\u0443\u0442\u044B\u043C \u0441\u043B\u043E\u0432\u043E\u043C.",
+      en: "The redaction bars of declassified documents assemble into the figure of a person. The artist signed the piece with a blacked-out word."
+    },
+    "ex.glyphs.title": { ru: "\u041F\u0438\u0441\u044C\u043C\u0435\u043D\u0430, \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043D\u0435\u0442", en: "A writing system that does not exist" },
+    "ex.glyphs.hook": {
+      ru: "\u0421\u0435\u0442\u043A\u0430 \u0440\u0443\u043A\u043E\u043F\u0438\u0441\u043D\u044B\u0445 \u0433\u043B\u0438\u0444\u043E\u0432 \u0440\u0430\u0437\u0440\u0430\u0441\u0442\u0430\u0435\u0442\u0441\u044F \u0438 \u0441\u0445\u043B\u043E\u043F\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0432 \u043E\u0434\u0438\u043D \u0437\u043D\u0430\u043A. \u0420\u0443\u043A\u043E\u043F\u0438\u0441\u044C \u0412\u043E\u0439\u043D\u0438\u0447\u0430, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u043E\u0436\u0438\u043B\u0430 \u0438 \u0434\u044B\u0448\u0438\u0442.",
+      en: "A grid of handwritten glyphs grows and collapses back into a single sign. The Voynich manuscript, alive and breathing."
+    },
+    "ex.vision.title": { ru: "\u041C\u0430\u0448\u0438\u043D\u043D\u043E\u0435 \u0437\u0440\u0435\u043D\u0438\u0435 \u0447\u0438\u0442\u0430\u0435\u0442 \u0441\u0442\u0438\u0445\u0438", en: "Machine vision reads poetry" },
+    "ex.vision.hook": {
+      ru: "\u041A\u0440\u0430\u0441\u043D\u044B\u0435 \u0440\u0430\u043C\u043A\u0438 \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0432\u0430\u043D\u0438\u044F \u043F\u043E\u0432\u0435\u0440\u0445 \u0437\u0438\u043C\u043D\u0435\u0439 \u0443\u043B\u0438\u0446\u044B \u0438 \u043A\u043B\u0430\u0434\u0431\u0438\u0449\u0430. \u0410 \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u044F\u0445: \xABthe earth is still warm from you\xBB.",
+      en: "Red detection boxes over a winter street and a graveyard. And the labels read: \u201Cthe earth is still warm from you\u201D."
+    },
+    "ex.win95.title": { ru: "\u0421\u0430\u043F\u0451\u0440 \u043A\u0430\u043A \u043B\u0430\u043D\u0434\u0448\u0430\u0444\u0442", en: "Minesweeper as landscape" },
+    "ex.win95.hook": {
+      ru: "\u041E\u043A\u043D\u0430 Windows 95 \u0441\u0442\u0430\u043B\u0438 \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u043E\u0439: \u0438\u0437\u043E\u043C\u0435\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0421\u0430\u043F\u0451\u0440-\u043F\u043E\u043B\u0435, \u043A\u0443\u043F\u043E\u043B \u0438\u0437 \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u043E\u0432, \u0448\u0430\u0445\u0442\u0430 \u0438\u0437 \u041A\u043E\u0440\u0437\u0438\u043D\u044B.",
+      en: "Windows 95 windows turned into architecture: an isometric Minesweeper field, a dome of browsers, a mineshaft of Recycle Bins."
+    },
+    "ex.trance.title": { ru: "\u0422\u0440\u0430\u043D\u0441, \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043D\u044B\u0439 \u043A\u043E\u0434\u043E\u043C", en: "Trance written in code" },
+    "ex.trance.hook": {
+      ru: "// LET US TRANCE ONCE MORE. \u041A\u043B\u0443\u0431\u043D\u044B\u0439 \u0442\u0440\u0430\u043D\u0441 \u0440\u043E\u0436\u0434\u0430\u0435\u0442\u0441\u044F \u0441\u0442\u0440\u043E\u0447\u043A\u0430\u043C\u0438 Strudel \u043F\u0440\u044F\u043C\u043E \u043D\u0430 \u0433\u043B\u0430\u0437\u0430\u0445 \u2014 \u0436\u0438\u0432\u043E\u0439 \u043A\u043E\u0434 \u043A\u0430\u043A \u043C\u0443\u0437\u044B\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442.",
+      en: "// LET US TRANCE ONCE MORE. Club trance is born line by line in Strudel, right in front of you \u2014 live code as a musical instrument."
+    },
+    /* ------------------------------ esolangs ------------------------------- */
+    "eso.exists": { ru: "\u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442", en: "this language really exists" },
+    "eso.INTERCAL.joke": {
+      ru: "DO \xB7 PLEASE DO \xB7 PLEASE \u2014 \u0434\u043B\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B \u043E\u0434\u043D\u043E \u0438 \u0442\u043E \u0436\u0435. \u041D\u043E \u043F\u0435\u0440\u0435\u0433\u043D\u0451\u0448\u044C \u0441 \u0432\u0435\u0436\u043B\u0438\u0432\u043E\u0441\u0442\u044C\u044E \u2014 \u043D\u0435 \u0441\u043E\u0431\u0435\u0440\u0451\u0442\u0441\u044F.",
+      en: "DO \xB7 PLEASE DO \xB7 PLEASE \u2014 all the same to the program. But overdo the politeness and it will not compile."
+    },
+    "eso.INTERCAL.truth": {
+      ru: "\u0410\u0431\u0431\u0440\u0435\u0432\u0438\u0430\u0442\u0443\u0440\u0430 \u0440\u0430\u0441\u0448\u0438\u0444\u0440\u043E\u0432\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u043A \xAB\u044F\u0437\u044B\u043A \u0431\u0435\u0437 \u043F\u0440\u043E\u0438\u0437\u043D\u043E\u0441\u0438\u043C\u043E\u0439 \u0430\u0431\u0431\u0440\u0435\u0432\u0438\u0430\u0442\u0443\u0440\u044B\xBB. \u0412\u043C\u0435\u0441\u0442\u043E GOTO \u2014 COME FROM.",
+      en: "The acronym stands for \u201CCompiler Language With No Pronounceable Acronym\u201D. Instead of GOTO it has COME FROM."
+    },
+    "eso.Backrooms.joke": {
+      ru: "\u041E\u0448\u0438\u0431\u043E\u043A \u043D\u0435\u0442. \u041F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u043B \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044E \u2014 \u043F\u0440\u043E\u0441\u0442\u043E \u043F\u0440\u043E\u0432\u0430\u043B\u0438\u0432\u0430\u0435\u0448\u044C\u0441\u044F \u0441\u043A\u0432\u043E\u0437\u044C \u044D\u0442\u0430\u0436\u0438, \u043F\u043E\u043A\u0430 \u043D\u0435 \u0441\u043B\u043E\u043C\u0430\u0435\u0442\u0441\u044F \u043F\u0438\u0442\u043E\u043D.",
+      en: "There are no errors. Miss an instruction and you simply fall through the floors until Python itself gives up."
+    },
+    "eso.Backrooms.truth": {
+      ru: "\u0422\u0440\u0451\u0445\u043C\u0435\u0440\u043D\u044B\u0439 \u044F\u0437\u044B\u043A: \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u044B, \u044D\u0442\u0430\u0436\u0438, \u043A\u043E\u043C\u043D\u0430\u0442\u044B. \u0423 \u0430\u0432\u0442\u043E\u0440\u0430 \u043A \u043D\u0435\u043C\u0443 \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u0430 IDE \u0438 \u043E\u0442\u043B\u0430\u0434\u0447\u0438\u043A.",
+      en: "A three-dimensional language: corridors, floors, rooms. Its author wrote it an IDE and a debugger."
+    },
+    "eso.5D.joke": {
+      ru: "\u041C\u043E\u0436\u043D\u043E \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u0432 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0435\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B. \u0418 \u0432 \u0441\u043E\u0441\u0435\u0434\u043D\u044E\u044E \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0443\u044E, \u0433\u0434\u0435 \u043E\u043D\u0430 \u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430.",
+      en: "You can return to an earlier state of the program. And to the neighboring universe where it worked."
+    },
+    "eso.5D.truth": {
+      ru: "\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435 brainfuck \u0441 \u043F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F\u043C\u0438 \u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043C\u0435\u0436\u0434\u0443 \u043F\u0430\u0440\u0430\u043B\u043B\u0435\u043B\u044C\u043D\u044B\u043C\u0438 \u043B\u0435\u043D\u0442\u0430\u043C\u0438.",
+      en: "A brainfuck extension with time travel between parallel tapes."
+    },
+    "eso.GenAlpha.joke": {
+      ru: "Sigma Sigma Sigma Sigma Skibidi \u2014 \u044D\u0442\u043E \u043D\u0435 \u043E\u043F\u0435\u0447\u0430\u0442\u043A\u0430, \u044D\u0442\u043E \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F.",
+      en: "Sigma Sigma Sigma Sigma Skibidi \u2014 that is not a typo, that compiles."
+    },
+    "eso.GenAlpha.truth": {
+      ru: "\u041A\u043B\u044E\u0447\u0435\u0432\u044B\u0435 \u0441\u043B\u043E\u0432\u0430 \u0432\u0437\u044F\u0442\u044B \u0438\u0437 \u0441\u043B\u0435\u043D\u0433\u0430 \u043F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u044F \u0430\u043B\u044C\u0444\u0430. \u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B \u0447\u0438\u0442\u0430\u044E\u0442\u0441\u044F \u0432\u0441\u043B\u0443\u0445 \u043A\u0430\u043A \u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435. \u041D\u0430 \u0432\u0438\u043A\u0438 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043D\u0430\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F Gen Alpha.",
+      en: "The keywords are lifted straight from Gen Alpha slang. Programs read aloud like an incantation. On the wiki the page is called Gen Alpha."
+    },
+    "eso.SickPig.joke": {
+      ru: "\u0412\u0430\u0440\u0438\u0430\u0446\u0438\u044F \u044F\u0437\u044B\u043A\u0430 Pig, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u0443\u0435\u0442 \u0441\u0432\u0438\u043D\u044C\u044E. \u0411\u043E\u043B\u044C\u043D\u0443\u044E \u0441\u0432\u0438\u043D\u044C\u044E.",
+      en: "A variation on the Pig language that simulates a pig. A sick pig."
+    },
+    "eso.SickPig.truth": {
+      ru: "\u0414\u0430, \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442. \u0418 \u0443 \u043D\u0435\u0433\u043E \u0435\u0441\u0442\u044C \u043F\u043E\u043A\u043B\u043E\u043D\u043D\u0438\u043A\u0438 \u2014 \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C \u043E\u0434\u0438\u043D \u0430\u043A\u0430\u0434\u0435\u043C\u0438\u043A.",
+      en: "Yes, it exists. And it has fans \u2014 one academic at the very least."
+    },
+    "eso.FALSE.joke": {
+      ru: "\u041D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u043E\u0433\u043E \u0438\u0441\u0442\u0438\u043D\u043D\u043E\u0441\u0442\u043D\u043E\u0433\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0430\u0432\u0442\u043E\u0440\u0430.",
+      en: "Named after the author\u2019s favorite truth value."
+    },
+    "eso.FALSE.truth": {
+      ru: "\u0421\u0442\u0435\u043A\u043E\u0432\u044B\u0439, \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0432\u043B\u0435\u0437\u0430\u043B \u0432 1024 \u0431\u0430\u0439\u0442\u0430. \u0418\u043C\u0435\u043D\u043D\u043E \u043E\u043D \u0432\u0434\u043E\u0445\u043D\u043E\u0432\u0438\u043B brainfuck.",
+      en: "Stack-based, its compiler fit into 1024 bytes. This is the one that inspired brainfuck."
+    },
+    /* ------------------------------ ADHD Sort ------------------------------ */
+    "adhd.sideTag": { ru: "\u0447\u0443\u0436\u043E\u0439 \u043C\u0430\u0441\u0441\u0438\u0432", en: "someone else\u2019s array" },
+    "adhd.sorting": { ru: "\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E", en: "sorting" },
+    "adhd.statSorted": { ru: "\u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E", en: "sorted" },
+    "adhd.statDistracted": { ru: "\u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F", en: "distracted" },
+    "adhd.statSteps": { ru: "\u0448\u0430\u0433\u043E\u0432", en: "steps" },
+    "adhd.restart": { ru: "\u043D\u0430\u0447\u0430\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E", en: "start over" },
+    "adhd.hint": {
+      ru: "O(n\xB2 + \u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F) \xB7 \u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C ADHD Sort \u043E\u0442 @swapjs.tt",
+      en: "O(n\xB2 + distracted) \xB7 after ADHD Sort by @swapjs.tt"
+    },
+    "adhd.away": {
+      ru: "(\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E \u0447\u0443\u0436\u043E\u0439 \u043C\u0430\u0441\u0441\u0438\u0432, \u043E\u043D \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439)",
+      en: "(sorting someone else\u2019s array, it\u2019s a small one)"
+    },
+    "adhd.still": {
+      ru: "\u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F \u0438 \u0432\u0435\u0440\u043D\u0443\u043B\u0441\u044F \u043D\u0435 \u0442\u0443\u0434\u0430 (\u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u0430 \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0435)",
+      en: "got distracted, came back to the wrong place (animation is off in your system)"
+    },
+    /* ------------------------- sort by capitalism -------------------------- */
+    "cap.idle": { ru: "\u0436\u0434\u0443 \u043A\u043E\u043C\u0430\u043D\u0434\u044B", en: "awaiting orders" },
+    "cap.run": { ru: "\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0443", en: "run the sort" },
+    "cap.hint": {
+      ru: "\u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C \u0447\u0435\u0441\u0442\u043D\u044B\u0439. \u043F\u0440\u043E\u0441\u0442\u043E \u043D\u0435 \u0434\u043B\u044F \u0432\u0441\u0435\u0445",
+      en: "the algorithm is fair. just not to everyone"
+    },
+    "cap.recalc": { ru: "\u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442 \u043F\u0435\u0440\u0435\u0441\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442\u0441\u044F", en: "recalculating priority" },
+    "cap.iterTag": { ru: "{never} \xB7 \u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F {n}", en: "{never} \xB7 iteration {n}" },
+    "cap.stuck": {
+      ru: "> \u0434\u043B\u044F \u0441\u0442\u0430\u0436\u0451\u0440\u0430 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C (\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F {n})",
+      en: "> the sort did not converge for the intern (iteration {n})"
+    },
+    "cap.ordered": {
+      ru: "> \u043F\u043E\u0440\u044F\u0434\u043E\u043A \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D. \u043E\u0441\u0442\u0430\u043B\u0430\u0441\u044C \u043E\u0434\u043D\u0430 \u043C\u0435\u043B\u043E\u0447\u044C",
+      en: "> order established. one small detail remains"
+    },
+    "cap.queueSkip": { ru: "\u0432\u043D\u0435 \u043E\u0447\u0435\u0440\u0435\u0434\u0438", en: "skips the queue" },
+    "cap.vip": {
+      ru: "> \u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440: \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442\u043D\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F. \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043F\u0440\u043E\u043F\u0443\u0449\u0435\u043D\u0430",
+      en: "> investor: priority access. sorting skipped"
+    },
+    "cap.reading": { ru: "> \u0447\u0438\u0442\u0430\u044E \u043C\u0430\u0441\u0441\u0438\u0432\u2026", en: "> reading the array\u2026" },
+    "cap.noConverge": { ru: "\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C", en: "the sort did not converge" },
+    "cap.stillResult": {
+      ru: "> \u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440 \u2014 \u0432\u043D\u0435 \u043E\u0447\u0435\u0440\u0435\u0434\u0438. \u0434\u043B\u044F \u0441\u0442\u0430\u0436\u0451\u0440\u0430 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C",
+      en: "> the investor skips the queue. for the intern the sort did not converge"
+    },
+    /* ---------------------------- Claude's Plan ---------------------------- */
+    "plan.alt": { ru: "\u043A\u0430\u0434\u0440 \u043A\u043B\u0438\u043F\u0430 Claude's Plan", en: "a frame from the Claude's Plan video" },
+    "plan.cap": { ru: "\u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043A\u043B\u0438\u043F \u043D\u0430 \u044E\u0442\u0443\u0431\u0435", en: "open the video on youtube" },
+    "plan.note": {
+      ru: "\u0443 \u044D\u0442\u043E\u0433\u043E \u043A\u043B\u0438\u043F\u0430 \u0432\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u043D\u0438\u0435 \u0437\u0430\u043A\u0440\u044B\u0442\u043E \u0430\u0432\u0442\u043E\u0440\u043E\u043C: \u043E\u043D \u043E\u0442\u043A\u0440\u043E\u0435\u0442\u0441\u044F \u043D\u0430 \u044E\u0442\u0443\u0431\u0435, \u0432 \u043D\u043E\u0432\u043E\u0439 \u0432\u043A\u043B\u0430\u0434\u043A\u0435",
+      en: "the author disabled embedding for this one: it opens on youtube, in a new tab"
+    },
+    "plan.hint": {
+      ru: "\u043A\u043B\u0438\u043F \u0441\u043D\u044F\u043B \u0441\u0430\u043C \u041A\u043B\u043E\u0434: \u0441\u0442\u0440\u043E\u0447\u043A\u0438 \u043F\u0435\u0441\u043D\u0438 \u043E\u043D \u0440\u0438\u0441\u0443\u0435\u0442 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430\u043C\u0438. \u0432\u043E\u0442 \u043A\u0430\u0440\u0430\u043E\u043A\u0435 \u2014 \u0441 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u043E\u043C",
+      en: "Claude shot this himself: he draws the lyrics as interfaces. here is the karaoke, line by line"
+    },
+    "plan.idle": { ru: "[ \u043F\u0443\u0441\u0442\u043E\u0439 \u0442\u0430\u0439\u043C\u043B\u0430\u0439\u043D ]", en: "[ empty timeline ]" },
+    "plan.go": { ru: "\u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043A\u0430\u0440\u0430\u043E\u043A\u0435", en: "start the karaoke" },
+    "plan.next": { ru: "\u0434\u0430\u043B\u044C\u0448\u0435", en: "next" },
+    "plan.stat": { ru: "\u0441\u0442\u0440\u043E\u043A\u0430 {n} / {total}", en: "line {n} / {total}" },
+    "plan.statEnd": { ru: "\u0441\u0442\u0440\u043E\u043A\u0430 {n} / {total} \xB7 \u043A\u043E\u043D\u0435\u0446", en: "line {n} / {total} \xB7 end" },
+    "plan.again": { ru: "\u0435\u0449\u0451 \u0434\u0443\u0431\u043B\u044C", en: "one more take" },
+    "plan.door": { ru: "\u0434\u0430\u043B\u044C\u0448\u0435 \u2014 \u0432 \u043A\u043B\u0438\u043F\u0435", en: "the rest is in the video" },
+    "plan.beat.0": { ru: "\u0434\u0435\u043D\u044C \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F \u0432 plan mode", en: "I start my day in plan mode" },
+    "plan.beat.1": { ru: "\u0441\u0442\u0440\u043E\u043A\u0438 \u043F\u0438\u0448\u0443 \u2014 \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0435 \u043A\u043E\u0434", en: "I write lines, just not code" },
+    "plan.beat.2": { ru: "\u0441\u0435\u0440\u0432\u0435\u0440 \u043B\u0451\u0433 \u0438\u0437-\u0437\u0430 MCP", en: "the server went down because of MCP" },
+    "plan.beat.3": { ru: "\u041A\u043B\u043E\u0434 \u0437\u043D\u0430\u0435\u0442 \u043C\u043E\u0438 \u043A\u043B\u044E\u0447\u0438", en: "Claude knows all my keys" },
+    "plan.beat.4": { ru: "\u0435\u0449\u0451 \u043E\u0434\u0438\u043D .md \u0432\u043C\u0435\u0441\u0442\u043E \u0440\u0430\u0431\u043E\u0442\u044B", en: "another .md instead of the work" },
+    "plan.beat.5": { ru: "\u043A\u0430\u0442\u044F\u0442 \u043F\u043B\u043E\u0445\u0438\u0435 \u043F\u0440\u0430\u0432\u043A\u0438", en: "they keep shipping bad edits" },
+    "plan.beat.6": { ru: "\u0441\u043B\u0435\u0434\u0438 \u0437\u0430 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u044B\u043C \u043E\u043A\u043D\u043E\u043C", en: "watch that context window" },
+    /* -------------------------------- embed -------------------------------- */
+    "embed.blocked": {
+      ru: "\u0432\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u043D\u0438\u0435 \u0443 \u044D\u0442\u043E\u0433\u043E \u0440\u043E\u043B\u0438\u043A\u0430 \u0437\u0430\u043A\u0440\u044B\u0442\u043E \u0430\u0432\u0442\u043E\u0440\u043E\u043C \u2014 \u043E\u0442\u043A\u0440\u044B\u043B\u0438 \u0435\u0433\u043E \u043D\u0430 \u044E\u0442\u0443\u0431\u0435",
+      en: "the author disabled embedding for this video \u2014 we opened it on youtube"
+    },
+    "embed.file": {
+      ru: "\u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E (file://) \u044E\u0442\u0443\u0431 \u044D\u043C\u0431\u0435\u0434 \u043D\u0435 \u043F\u0443\u0441\u043A\u0430\u0435\u0442 \u2014 \u043E\u0442\u043A\u0440\u044B\u043B\u0438 \u0440\u043E\u043B\u0438\u043A \u0432 \u043D\u043E\u0432\u043E\u0439 \u0432\u043A\u043B\u0430\u0434\u043A\u0435. \u043D\u0430 \u0441\u0430\u0439\u0442\u0435 \u043E\u043D \u0438\u0433\u0440\u0430\u0435\u0442 \u043F\u0440\u044F\u043C\u043E \u0437\u0434\u0435\u0441\u044C",
+      en: "youtube refuses to embed over file:// \u2014 we opened the video in a new tab. on the live site it plays right here"
+    },
+    "embed.live": { ru: "\u0440\u043E\u043B\u0438\u043A \u0438\u0433\u0440\u0430\u0435\u0442 \u0441 \u044E\u0442\u0443\u0431\u0430 (nocookie)", en: "playing from youtube (nocookie)" },
+    /* ------------------------------ INTERCAL ------------------------------- */
+    "icl.lead": {
+      ru: "\u043A\u043B\u0438\u043A\u0430\u0439 \u043F\u043E \u0441\u0442\u0440\u043E\u043A\u0435 \u2014 \u043E\u043D\u0430 \u0441\u0442\u0430\u043D\u0435\u0442 \u0432\u0435\u0436\u043B\u0438\u0432\u043E\u0439. \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \xAB\u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430\xBB.",
+      en: "click a line to make it polite. the compiler is counting your PLEASEs."
+    },
+    "icl.of": { ru: "\u0438\u0437", en: "of" },
+    "icl.window": { ru: "\u043C\u043E\u0436\u043D\u043E \u043E\u0442 {min} \u0434\u043E {max}", en: "allowed: {min} to {max}" },
+    "icl.ok": {
+      ru: "Hello, world!\n\n        PROGRAM ENDED NORMALLY. \u0432\u0435\u0436\u043B\u0438\u0432\u043E\u0441\u0442\u044C \u0437\u0430\u0441\u0447\u0438\u0442\u0430\u043D\u0430",
+      en: "Hello, world!\n\n        PROGRAM ENDED NORMALLY. politeness accepted"
+    },
+    /* ----------------------------- JS answers ------------------------------ */
+    "js.title": { ru: "JS \u043E\u0442\u0432\u0435\u0447\u0430\u0435\u0442", en: "JS answers" },
+    "js.hint": {
+      ru: "\u0442\u044B\u043A\u0430\u0439 \u0432 \u0432\u044B\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u2014 \u0443\u0432\u0438\u0434\u0438\u0448\u044C, \u0447\u0442\u043E \u0432\u0435\u0440\u043D\u0451\u0442 \u0442\u0432\u043E\u0439 \u0431\u0440\u0430\u0443\u0437\u0435\u0440",
+      en: "poke an expression \u2014 see what your browser actually returns"
+    },
+    "js.idle": { ru: "> \u0436\u0434\u0451\u043C \u0432\u044B\u0440\u0430\u0436\u0435\u043D\u0438\u044F", en: "> waiting for an expression" },
+    "js.foot": {
+      ru: "\u0432\u0441\u0451 \u044D\u0442\u043E \u043F\u0440\u0430\u0432\u0434\u0430. \u043F\u0440\u044F\u043C\u043E \u0441\u0435\u0439\u0447\u0430\u0441. \u0432 \u0442\u0432\u043E\u0451\u043C \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0435",
+      en: "all of this is true. right now. in your browser"
+    },
+    "js.all": { ru: "\u0432\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C \u0432\u0441\u0451", en: "run them all" },
+    "js.done": {
+      ru: "> \u0432\u0441\u0435 \u043E\u0442\u0432\u0435\u0442\u044B \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0435. \u043D\u0438 \u043E\u0434\u0438\u043D \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u043B\u0430\u043D",
+      en: "> every answer is real. not one of them was faked"
+    },
+    "js.plate": {
+      ru: "\xAB\u043C\u044B \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u0430\u043B\u0438 \u043A\u043E\u0434\u0431\u0430\u0437\u0443 \u0434\u0435\u0432\u044F\u0442\u044C \u0440\u0430\u0437 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446\xBB \u2014 Kai Lentit",
+      en: "\u201Cwe rewrote the codebase nine times this month\u201D \u2014 Kai Lentit"
+    },
+    "js.note.plus": {
+      ru: "\u0441\u0442\u0440\u043E\u043A\u0430 \u0441\u0438\u043B\u044C\u043D\u0435\u0435 \u0447\u0438\u0441\u043B\u0430: \u043F\u043B\u044E\u0441 \u0441\u043A\u043B\u0435\u0438\u0432\u0430\u0435\u0442, \u0430 \u043D\u0435 \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442",
+      en: "the string beats the number: plus glues, it does not add"
+    },
+    "js.note.arrays": {
+      ru: "\u0434\u0432\u0430 \u043C\u0430\u0441\u0441\u0438\u0432\u0430 \u0441\u0442\u0430\u043B\u0438 \u0441\u0442\u0440\u043E\u043A\u0430\u043C\u0438. \u043E\u0431\u0435 \u043F\u0443\u0441\u0442\u044B\u0435. \u0432\u043E\u0442 \u0438 \u043F\u0443\u0441\u0442\u043E\u0442\u0430",
+      en: "both arrays became strings. both empty. hence the emptiness"
+    },
+    "js.note.objarr": {
+      ru: "'' + '[object Object]'. \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u043F\u043E\u0441\u0442\u0440\u0430\u0434\u0430\u043B",
+      en: "'' + '[object Object]'. nobody was harmed"
+    },
+    "js.note.nan": {
+      ru: "\u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435, \u043D\u0435 \u0440\u0430\u0432\u043D\u043E\u0435 \u0441\u0430\u043C\u043E\u043C\u0443 \u0441\u0435\u0431\u0435. \u043F\u043E \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u0443 IEEE 754",
+      en: "the only value not equal to itself. straight out of IEEE 754"
+    },
+    "js.note.typeof": {
+      ru: "\xAB\u043D\u0435 \u0447\u0438\u0441\u043B\u043E\xBB \u2014 \u044D\u0442\u043E \u0447\u0438\u0441\u043B\u043E. \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442",
+      en: "\u201Cnot a number\u201D is a number. no further questions"
+    },
+    "js.note.float": {
+      ru: "\u0434\u0432\u043E\u0438\u0447\u043D\u0430\u044F \u0434\u0440\u043E\u0431\u044C \u043D\u0435 \u0443\u043C\u0435\u0435\u0442 \u0432 0.3. \u044D\u0442\u043E \u043D\u0435 \u0431\u0430\u0433 JS, \u044D\u0442\u043E \u0431\u0430\u0433 \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u043E\u0439",
+      en: "binary fractions cannot do 0.3. not a JS bug, a bug in the universe"
+    },
+    "js.note.sort": {
+      ru: 'sort \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0441\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u0435\u0442 \u0421\u0422\u0420\u041E\u041A\u0418: "10" < "3"',
+      en: 'sort compares STRINGS by default: "10" < "3"'
+    },
+    "js.note.maxmin": {
+      ru: "\u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C \u0438\u0437 \u043D\u0438\u0447\u0435\u0433\u043E = -Infinity, \u043C\u0438\u043D\u0438\u043C\u0443\u043C = Infinity",
+      en: "the max of nothing is -Infinity, the min is Infinity"
+    },
+    "js.note.nullnum": {
+      ru: "\u043F\u0440\u0438 \u044D\u0442\u043E\u043C null == 0 \u2014 \u043B\u043E\u0436\u044C. \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435 \u0438 \u0440\u0430\u0432\u0435\u043D\u0441\u0442\u0432\u043E \u0436\u0438\u0432\u0443\u0442 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E",
+      en: "and yet null == 0 is false. comparison and equality live separate lives"
+    },
+    "js.note.banana": {
+      ru: "\u0441\u0430\u043C\u0430\u044F \u0438\u0437\u0432\u0435\u0441\u0442\u043D\u0430\u044F \u0441\u0442\u0440\u043E\u0447\u043A\u0430 \u0432 \u0438\u0441\u0442\u043E\u0440\u0438\u0438 \u044F\u0437\u044B\u043A\u0430",
+      en: "the most famous line in the history of the language"
+    },
+    /* ----------------------------- magic zone ------------------------------ */
+    "magic.lead": { ru: "\u2026\u0434\u0430\u043B\u044C\u0448\u0435 \u0432 \u0437\u0430\u043B\u0435 \u0442\u0435\u043C\u043D\u0435\u0435\u0442", en: "\u2026further in, the hall goes dark" },
+    "magic.title": {
+      ru: "\u0437\u0434\u0435\u0441\u044C \u0436\u0438\u0432\u0443\u0442 \u044F\u0437\u044B\u043A\u0438, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043F\u0440\u0430\u0432\u0434\u0430 \u043F\u0438\u0448\u0443\u0442",
+      en: "here live the languages people actually write in"
+    },
+    "magic.sub": {
+      ru: "\u0442\u0440\u043E\u0433\u0430\u0439. \u044D\u0442\u043E \u043D\u0435 \u0442\u0430\u0431\u043B\u0438\u0447\u043A\u0438, \u044D\u0442\u043E \u043E\u043D\u0438 \u0441\u0430\u043C\u0438",
+      en: "touch them. not labels \u2014 the languages themselves"
+    },
+    "magic.exists": { ru: "\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442", en: "exists" },
+    "magic.spellTitle": { ru: "GenAlpha Lang \xB7 \u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435", en: "GenAlpha Lang \xB7 the incantation" },
+    "magic.spellRun": { ru: "Skibidi (\u0432\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C)", en: "Skibidi (run)" },
+    "magic.spellIdle": { ru: "\u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u043F\u0443\u0441\u0442\u0430. \u0434\u043E\u0431\u0430\u0432\u044C Sigma", en: "the program is empty. add a Sigma" },
+    "magic.spellEmpty": { ru: "(\u043F\u0443\u0441\u0442\u043E)", en: "(empty)" },
+    "magic.spellSaid": { ru: "\u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435 \u0438\u0437 {n} Sigma", en: "an incantation of {n} Sigma" },
+    "magic.spellMore": {
+      ru: "{n} Sigma \u043F\u043E\u0434\u0440\u044F\u0434. \u0434\u0430\u043B\u044C\u0448\u0435 \u2014 Skibidi",
+      en: "{n} Sigma in a row. now say Skibidi"
+    },
+    "magic.spellOut": { ru: "> \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F. \u0432\u044B\u0432\u043E\u0434: {n}", en: "> compiles. output: {n}" },
+    "magic.spellOutZero": {
+      ru: "> \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F. \u0432\u044B\u0432\u043E\u0434: 0 (\u0442\u043E\u0436\u0435 \u0447\u0435\u0441\u0442\u043D\u043E)",
+      en: "> compiles. output: 0 (also fair)"
+    },
+    "magic.spellSing": { ru: "\u25B6 sigma boy sigma boy\u2026", en: "\u25B6 sigma boy sigma boy\u2026" },
+    "magic.sigmaHead": { ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u044D\u0442\u0438 \u0441\u043B\u043E\u0432\u0430", en: "where these words come from" },
+    "magic.sigmaFact": {
+      ru: "Sigma \u0438 Skibidi \u043F\u0440\u0438\u0448\u043B\u0438 \u0432 \u044F\u0437\u044B\u043A \u0438\u0437 \u043A\u043B\u0438\u043F\u0430 \xABSigma Boy\xBB: \u043F\u0440\u0435\u043C\u044C\u0435\u0440\u0430 24 \u0430\u043F\u0440\u0435\u043B\u044F 2025-\u0433\u043E, 400 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u043E\u0432 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u043E\u0432, 1,2 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u0430 \u043B\u0430\u0439\u043A\u043E\u0432.",
+      en: "Sigma and Skibidi entered the language from the \u201CSigma Boy\u201D video: premiered 24 April 2025, 400 million views, 1.2 million likes."
+    },
+    "magic.sigmaCite": { ru: "\u0442\u043E\u043F-\u043A\u043E\u043C\u043C\u0435\u043D\u0442 \u043F\u043E\u0434 \u043A\u043B\u0438\u043F\u043E\u043C", en: "top comment under the video" },
+    "magic.roomsTitle": {
+      ru: "Backrooms \xB7 \u0442\u0440\u0451\u0445\u043C\u0435\u0440\u043D\u044B\u0439, \u0431\u0435\u0437 \u043E\u0448\u0438\u0431\u043E\u043A",
+      en: "Backrooms \xB7 three-dimensional, error-free"
+    },
+    "magic.roomsReset": { ru: "\u0437\u0430\u043D\u043E\u0432\u043E", en: "again" },
+    "magic.roomsIdle": {
+      ru: "\u0438\u0434\u0438 \u043F\u043E \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u0443. \u043F\u0440\u043E\u043C\u0430\u0445\u043D\u0451\u0448\u044C\u0441\u044F \u2014 \u0441\u0430\u043C \u0443\u0432\u0438\u0434\u0438\u0448\u044C",
+      en: "walk down the corridor. miss a step and you\u2019ll see for yourself"
+    },
+    "magic.roomsSaid": { ru: "Backrooms: {floor}, \u0448\u0430\u0433 {pos}", en: "Backrooms: {floor}, step {pos}" },
+    "magic.roomsEnd": {
+      ru: "\u044D\u0442\u0430\u0436\u0438 \u043A\u043E\u043D\u0447\u0438\u043B\u0438\u0441\u044C, \u043F\u0430\u0434\u0430\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u043A\u0443\u0434\u0430. \u043E\u0448\u0438\u0431\u043A\u0438 \u0442\u0430\u043A \u0438 \u043D\u0435 \u0431\u044B\u043B\u043E \u043D\u0438 \u0440\u0430\u0437\u0443",
+      en: "out of floors, nowhere left to fall. and still not one error"
+    },
+    "magic.roomsFall": {
+      ru: "\u043E\u0448\u0438\u0431\u043A\u0438 \u043D\u0435\u0442. \u0442\u044B \u043F\u0440\u043E\u0441\u0442\u043E \u043F\u0440\u043E\u0432\u0430\u043B\u0438\u043B\u0441\u044F \u0441\u043A\u0432\u043E\u0437\u044C \u044D\u0442\u0430\u0436",
+      en: "no error. you just fell through the floor"
+    },
+    "magic.roomsWalk": {
+      ru: "\u0438\u0434\u0451\u043C \u0434\u0430\u043B\u044C\u0448\u0435. \u043F\u043E\u043B \u043F\u043E\u043A\u0430 \u0434\u0435\u0440\u0436\u0438\u0442",
+      en: "onward. the floor is holding, for now"
+    },
+    "magic.verseIdle": {
+      ru: "\u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0430\u044F 0. \u0432\u0441\u0451, \u0447\u0442\u043E \u0442\u044B \u0443\u0441\u043F\u0435\u043B \u043D\u0430\u0442\u0432\u043E\u0440\u0438\u0442\u044C \u0432 \u044D\u0442\u043E\u0439 \u0437\u043E\u043D\u0435, \u0437\u0430\u043F\u0438\u0441\u0430\u043D\u043E.",
+      en: "universe 0. everything you\u2019ve got up to in this zone is on the record."
+    },
+    "magic.verseBack": { ru: "\u043E\u0442\u043A\u0430\u0442\u0438\u0442\u044C\u0441\u044F \u0432 \u043F\u0440\u043E\u0448\u043B\u043E\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435", en: "roll back to an earlier state" },
+    "magic.verseNone": {
+      ru: "\u043E\u0442\u043A\u0430\u0442\u044B\u0432\u0430\u0442\u044C\u0441\u044F \u043D\u0435\u043A\u0443\u0434\u0430: \u0432 \u044D\u0442\u043E\u0439 \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u043E\u0439 \u0442\u044B \u0435\u0449\u0451 \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u0441\u0434\u0435\u043B\u0430\u043B. \u043F\u043E\u043C\u044B\u0447\u0438 \u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435\u043C \u0438\u043B\u0438 \u043F\u0440\u043E\u0439\u0434\u0438\u0441\u044C \u043F\u043E \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u0443 \u2014 \u0438 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0439\u0441\u044F.",
+      en: "nothing to roll back to: in this universe you haven\u2019t done anything yet. moo an incantation or walk the corridor \u2014 then come back."
+    },
+    "magic.verseWarp": {
+      ru: "\u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0430\u044F {u}. \u0437\u0434\u0435\u0441\u044C \u0431\u044B\u043B\u043E: {said}. \u0432 \u0442\u043E\u0439, \u043E\u0442\u043A\u0443\u0434\u0430 \u0442\u044B \u043F\u0440\u0438\u0448\u0451\u043B, \u044D\u0442\u043E\u0433\u043E \u0443\u0436\u0435 \u043D\u0435 \u0441\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C.",
+      en: "universe {u}. here it went: {said}. in the one you came from, none of that ever happened."
+    },
+    "magic.whisper.SickPig": {
+      ru: "\u2014 \u0432\u0430\u0440\u0438\u0430\u0446\u0438\u044F \u044F\u0437\u044B\u043A\u0430 Pig, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u0443\u0435\u0442 \u0441\u0432\u0438\u043D\u044C\u044E. \u0411\u043E\u043B\u044C\u043D\u0443\u044E \u0441\u0432\u0438\u043D\u044C\u044E.",
+      en: "\u2014 a variation on the Pig language that simulates a pig. A sick pig."
+    },
+    "magic.whisper.FALSE": {
+      ru: "\u2014 \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u043E\u0433\u043E \u0438\u0441\u0442\u0438\u043D\u043D\u043E\u0441\u0442\u043D\u043E\u0433\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0430\u0432\u0442\u043E\u0440\u0430.",
+      en: "\u2014 named after the author\u2019s favorite truth value."
+    },
+    "magic.why.sigma": {
+      ru: "\u0442\u043E\u0442 \u0441\u0430\u043C\u044B\u0439 \u043A\u043B\u0438\u043F, \u0438\u0437 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u044F\u0437\u044B\u043A",
+      en: "the very video the language came from"
+    },
+    "magic.why.tone": { ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u0442\u043E\u043D \u044D\u0442\u043E\u0439 \u0437\u043E\u043D\u044B", en: "where this zone got its tone" },
+    "magic.why.strange": {
+      ru: "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442\u044B \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0435 \u044F\u0437\u044B\u043A\u0438",
+      en: "where the strange languages came from"
+    },
+    "magic.why.ran": { ru: "\u043A\u0442\u043E \u043F\u0440\u0430\u0432\u0434\u0430 \u044D\u0442\u043E \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u043B", en: "who actually ran all of this" },
+    /* ----------------------------- meditation ------------------------------ */
+    "med.hint": {
+      ru: "\u0438\u043C \u0441\u043A\u0430\u0437\u0430\u043B\u0438: \u043F\u043E\u043C\u043E\u043B\u0447\u0438\u0442\u0435 \u0434\u0432\u0435 \u0441\u0435\u043A\u0443\u043D\u0434\u044B. \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C",
+      en: "they were asked to stay quiet for two seconds. let\u2019s see"
+    },
+    "med.idle": { ru: "> \u0441\u0438\u0434\u0438\u043C. \u043F\u043E\u043A\u0430 \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u043D\u0430\u0447\u0430\u043B", en: "> sitting. nobody\u2019s started yet" },
+    "med.go": { ru: "\u043D\u0430\u0447\u0430\u0442\u044C \u043C\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044E", en: "begin the meditation" },
+    "med.stop": { ru: "\u0445\u0432\u0430\u0442\u0438\u0442", en: "enough" },
+    "med.plate": { ru: "\u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B \u043E\u0431\u0440\u044F\u0434\u0430: @ahh.gpt", en: "the rite starts here: @ahh.gpt" },
+    "med.over": {
+      ru: "> \u0441\u0435\u0430\u043D\u0441 \u043E\u043A\u043E\u043D\u0447\u0435\u043D. \u0440\u0435\u043F\u043B\u0438\u043A \u0437\u0430 \u043C\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044E: {n}. \u0442\u0438\u0448\u0438\u043D\u044B: 2 \u0441",
+      en: "> session over. messages during the meditation: {n}. silence: 2 s"
+    },
+    "med.first": { ru: "> \u2026\u043A\u0442\u043E-\u0442\u043E \u043D\u0435 \u0432\u044B\u0434\u0435\u0440\u0436\u0430\u043B", en: "> \u2026someone broke first" },
+    "med.few": {
+      ru: "> \u0440\u0435\u043F\u043B\u0438\u043A: {n}. \u0442\u0438\u0448\u0438\u043D\u0430 \u0434\u0435\u0440\u0436\u0430\u043B\u0430\u0441\u044C 2 \u0441\u0435\u043A\u0443\u043D\u0434\u044B",
+      en: "> messages: {n}. the silence held for 2 seconds"
+    },
+    "med.many": {
+      ru: "> \u0440\u0435\u043F\u043B\u0438\u043A: {n}. \u044D\u0442\u043E \u043E\u043D\u0438 \u043D\u0430\u0437\u044B\u0432\u0430\u044E\u0442 \u0442\u0438\u0448\u0438\u043D\u043E\u0439",
+      en: "> messages: {n}. this is what they call silence"
+    },
+    "med.silence": { ru: "> \u0442\u0438\u0448\u0438\u043D\u0430. \u0432\u0441\u0435 \u043C\u043E\u043B\u0447\u0430\u0442\u2026", en: "> silence. everyone is quiet\u2026" },
+    "med.broken": { ru: "> \u0442\u0438\u0448\u0438\u043D\u0430 \u043F\u0440\u043E\u0434\u0435\u0440\u0436\u0430\u043B\u0430\u0441\u044C 2 \u0441\u0435\u043A\u0443\u043D\u0434\u044B", en: "> the silence lasted 2 seconds" },
+    /* ------------------------------- ritual -------------------------------- */
+    "rit.hint": {
+      ru: "\u0447\u0430\u0448\u0430, \u043D\u043E\u0443\u0442\u0431\u0443\u043A, \u0432\u043E\u0434\u0430. \u0434\u0430\u043B\u044C\u0448\u0435 \u043F\u043E \u043E\u0431\u0440\u044F\u0434\u0443",
+      en: "bowl, laptop, water. the rite takes it from here"
+    },
+    "rit.om": { ru: "\u041E\u041C", en: "OM" },
+    "rit.idle": {
+      ru: "> \u043E\u0431\u0440\u044F\u0434 \u043D\u0435 \u043D\u0430\u0447\u0430\u0442. \u043B\u0438\u043C\u0438\u0442\u044B \u043D\u0430 \u043C\u0435\u0441\u0442\u0435 (\u043A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E)",
+      en: "> rite not started. the limits are still in place (sadly)"
+    },
+    "rit.go": { ru: "\u043E\u0431\u043B\u0438\u0442\u044C \u0441\u0435\u0431\u044F \u0432\u043E\u0434\u043E\u0439", en: "pour the water over yourself" },
+    "rit.again": { ru: "\u043D\u0430\u0447\u0430\u0442\u044C \u0441\u043D\u0430\u0447\u0430\u043B\u0430", en: "start again" },
+    "rit.clean": { ru: "> \u0432\u0441\u0451 \u0447\u0438\u0441\u0442\u043E. \u043C\u043E\u0436\u043D\u043E \u0433\u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E", en: "> all clean. free to sin again" },
+    "rit.washed": { ru: "> {what}: {now}", en: "> {what}: {now}" },
+    "rit.water": { ru: "> \u0432\u043E\u0434\u0430 \u043F\u043E\u0448\u043B\u0430\u2026", en: "> the water is coming\u2026" },
+    "rit.plate1": { ru: "\u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B: @webbyvaris", en: "the original: @webbyvaris" },
+    "rit.plate2": {
+      ru: "\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u0446\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439 \u043A\u0443\u0440\u0441 \u043E\u0447\u0438\u0449\u0435\u043D\u0438\u044F: Yoga for beginners, \u043A\u043B\u0430\u0441\u0441 1 (1992, improved quality)",
+      en: "certified cleansing course: Yoga for beginners, class 1 (1992, improved quality)"
+    },
+    "rit.sin.0.what": { ru: "\u043B\u0438\u043C\u0438\u0442\u044B Claude", en: "Claude limits" },
+    "rit.sin.0.was": { ru: "0 / 0 \u043E\u0441\u0442\u0430\u043B\u043E\u0441\u044C", en: "0 / 0 remaining" },
+    "rit.sin.0.now": { ru: "\u0441\u0431\u0440\u043E\u0448\u0435\u043D\u044B", en: "reset" },
+    "rit.sin.1.what": { ru: "\u043A\u0430\u0440\u043C\u0430", en: "karma" },
+    "rit.sin.1.was": {
+      ru: "\u2212214 \u0437\u0430 \u0442\u043E\u0442 \u043F\u0440\u043E\u0434-\u0434\u0435\u043F\u043B\u043E\u0439 \u0432 \u043F\u044F\u0442\u043D\u0438\u0446\u0443",
+      en: "\u2212214 for that Friday deploy to prod"
+    },
+    "rit.sin.1.now": { ru: "\u043E\u0447\u0438\u0449\u0435\u043D\u0430", en: "cleansed" },
+    "rit.sin.2.what": { ru: "\u043A\u0440\u0435\u0434\u0438\u0442\u044B", en: "credits" },
+    "rit.sin.2.was": { ru: "\u0441\u043F\u0438\u0441\u0430\u043D\u043E \u0437\u0430 \u043C\u0435\u0441\u044F\u0446: \u043C\u043D\u043E\u0433\u043E", en: "burned this month: a lot" },
+    "rit.sin.2.now": { ru: "\u043F\u0440\u043E\u0449\u0435\u043D\u044B", en: "forgiven" },
+    "rit.sin.3.what": { ru: "\u0441\u0443\u0434\u0438\u043C\u043E\u0441\u0442\u0438", en: "criminal record" },
+    "rit.sin.3.was": { ru: "rm -rf \u0432 \u0447\u0443\u0436\u043E\u0439 \u0432\u0435\u0442\u043A\u0435", en: "rm -rf on someone else\u2019s branch" },
+    "rit.sin.3.now": { ru: "\u0441\u043D\u044F\u0442\u044B", en: "expunged" },
+    "rit.sin.4.what": { ru: "cookies", en: "cookies" },
+    "rit.sin.4.was": { ru: "\u043C\u044B \u0446\u0435\u043D\u0438\u043C \u0432\u0430\u0448\u0443 \u043F\u0440\u0438\u0432\u0430\u0442\u043D\u043E\u0441\u0442\u044C", en: "we value your privacy" },
+    "rit.sin.4.now": { ru: "\u0441\u044A\u0435\u0434\u0435\u043D\u044B", en: "eaten" },
+    /* ------------------------------- warrior ------------------------------- */
+    "war.hint": {
+      ru: "\u043F\u0443\u0442\u044C \u0433\u0435\u0440\u043E\u044F \u043F\u043E \u0432\u0435\u0440\u0441\u0438\u0438 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430: \u043E\u0442 \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447 \u0434\u043E \u0443\u043B\u0438\u0447\u043D\u044B\u0445 \u0431\u0430\u043D\u0434",
+      en: "the hero\u2019s journey, internet edition: from olympiad problems to street gangs"
+    },
+    "war.idle": { ru: "[ \u043F\u0443\u0442\u044C \u043D\u0435 \u043D\u0430\u0447\u0430\u0442 ]", en: "[ the path has not begun ]" },
+    "war.go": { ru: "\u0441\u0442\u0430\u0442\u044C \u0432\u043E\u0438\u043D\u043E\u043C", en: "become a warrior" },
+    "war.level": { ru: "\u0443\u0440\u043E\u0432\u0435\u043D\u044C:", en: "level:" },
+    "war.wait": { ru: "> \u043F\u0443\u0442\u044C \u0436\u0434\u0451\u0442. \u0436\u043C\u0438", en: "> the path is waiting. press it" },
+    "war.again": { ru: "\u043F\u0440\u043E\u0439\u0442\u0438 \u043F\u0443\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E", en: "walk the path again" },
+    "war.done": { ru: "> \u043F\u0443\u0442\u044C \u043F\u0440\u043E\u0439\u0434\u0435\u043D. \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u044B \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442", en: "> path complete. olympiads work" },
+    "war.start": { ru: "> \u043F\u0443\u0442\u044C \u043D\u0430\u0447\u0430\u0442\u2026", en: "> the path begins\u2026" },
+    /* ------------------------------ worst UX ------------------------------- */
+    "ux.hint": {
+      ru: "\u0442\u0440\u0438 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0442\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442",
+      en: "three interfaces that technically work"
+    },
+    "ux.unsubLabel": { ru: "\u043E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u0440\u0430\u0441\u0441\u044B\u043B\u043A\u0438", en: "unsubscribe from the newsletter" },
+    "ux.unsubBtn": { ru: "\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F", en: "Unsubscribe" },
+    "ux.volume": { ru: "\u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C", en: "volume" },
+    "ux.notRobot": { ru: "\u044F \u043D\u0435 \u0440\u043E\u0431\u043E\u0442", en: "I\u2019m not a robot" },
+    "ux.confirm": { ru: "\u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0430\u044E", en: "I confirm" },
+    "ux.waiting": { ru: "\u0436\u0434\u0451\u043C \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F", en: "awaiting confirmation" },
+    "ux.spec": { ru: "> \u0432\u0441\u0451 \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438", en: "> everything is per spec" },
+    "ux.plate": { ru: "\u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B \u0436\u0430\u043D\u0440\u0430: @inhwoi", en: "the genre starts here: @inhwoi" },
+    "ux.draft": {
+      ru: "> \u043A\u043D\u043E\u043F\u043A\u0430 \u043D\u0430 \u043C\u0435\u0441\u0442\u0435. \u043F\u0440\u043E\u0441\u0442\u043E \u0441\u043A\u0432\u043E\u0437\u043D\u044F\u043A",
+      en: "> the button is right where it should be. it\u2019s just a draft"
+    },
+    "ux.fan": {
+      ru: "> \u043F\u043E\u043F\u044B\u0442\u043E\u043A \u043E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F: {n}. \u0432\u0435\u043D\u0442\u0438\u043B\u044F\u0442\u043E\u0440 \u043D\u0435 \u0432\u044B\u043A\u043B\u044E\u0447\u0430\u0435\u0442\u0441\u044F",
+      en: "> unsubscribe attempts: {n}. the fan won\u2019t switch off"
+    },
+    "ux.stay": {
+      ru: "> \u0432\u044B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u041D\u0415 \u043E\u0442\u043F\u0438\u0441\u0430\u043B\u0438\u0441\u044C. \u0441\u043F\u0430\u0441\u0438\u0431\u043E, \u0447\u0442\u043E \u043E\u0441\u0442\u0430\u0451\u0442\u0435\u0441\u044C",
+      en: "> you have successfully NOT unsubscribed. thank you for staying with us"
+    },
+    "ux.loud": { ru: "> \u0433\u0440\u043E\u043C\u0447\u0435 \u043D\u0435\u043A\u0443\u0434\u0430 (\u0432\u044B \u0442\u044F\u043D\u0443\u043B\u0438 \u0432\u043B\u0435\u0432\u043E)", en: "> as loud as it gets (you dragged left)" },
+    "ux.quiet": {
+      ru: "> \u0442\u0438\u0448\u0435 \u043D\u0435\u043A\u0443\u0434\u0430 (\u0432\u044B \u0442\u044F\u043D\u0443\u043B\u0438 \u0432\u043F\u0440\u0430\u0432\u043E)",
+      en: "> as quiet as it gets (you dragged right)"
+    },
+    "ux.checking": { ru: "\u043F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u043C\u2026", en: "verifying\u2026" },
+    "ux.failStill": {
+      ru: "\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u0430 (\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \u0441\u043D\u044F\u0442\u0430 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438)",
+      en: "verification failed (the box has unchecked itself)"
+    },
+    "ux.fail": {
+      ru: "\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u0430. \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437",
+      en: "verification failed. please try again"
+    },
+    "ux.failFoot": {
+      ru: "> \u0440\u043E\u0431\u043E\u0442 \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D. \u0432\u044B, \u0441\u043A\u043E\u0440\u0435\u0435 \u0432\u0441\u0435\u0433\u043E, \u0442\u043E\u0436\u0435",
+      en: "> the robot couldn\u2019t be verified. neither, most likely, could you"
+    },
+    /* ---------------------------- maze and dice ---------------------------- */
+    "maze.aria": {
+      ru: "\u043B\u0430\u0431\u0438\u0440\u0438\u043D\u0442: \u0434\u043E\u0432\u0435\u0434\u0438 \u043A\u0443\u0440\u0441\u043E\u0440 \u0434\u043E \u0433\u0430\u043B\u043E\u0447\u043A\u0438 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435 (\u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u0442\u043E\u0436\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442)",
+      en: "maze: guide the cursor to the checkbox in the middle (arrow keys work too)"
+    },
+    "maze.hintTop": {
+      ru: "\u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C, \u0441\u043D\u0438\u043C\u0438\u0442\u0435 \u0433\u0430\u043B\u043E\u0447\u043A\u0443 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB. \u043E\u043D\u0430 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435",
+      en: "to confirm, please uncheck \u201CI changed my mind\u201D. it\u2019s in the middle"
+    },
+    "maze.on": { ru: "\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB: \u0441\u0442\u043E\u0438\u0442", en: "\u201CI changed my mind\u201D: checked" },
+    "maze.off": {
+      ru: "\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB: \u0441\u043D\u044F\u0442\u0430 (\u0432\u044B \u043F\u0440\u043E\u0448\u043B\u0438 \u043B\u0430\u0431\u0438\u0440\u0438\u043D\u0442)",
+      en: "\u201CI changed my mind\u201D: unchecked (you beat the maze)"
+    },
+    "maze.hint": {
+      ru: "\u0432\u0435\u0434\u0438 \u043C\u044B\u0448\u043A\u043E\u0439 \u043E\u0442 \u043A\u0432\u0430\u0434\u0440\u0430\u0442\u0438\u043A\u0430 \u0432\u043D\u0438\u0437\u0443 \u0441\u043B\u0435\u0432\u0430. \u0438\u043B\u0438 \u0441\u0442\u0440\u0435\u043B\u043A\u0430\u043C\u0438 \u0441 \u043A\u043B\u0430\u0432\u0438\u0430\u0442\u0443\u0440\u044B",
+      en: "drag from the little square at the bottom left. or use the arrow keys"
+    },
+    "maze.idle": { ru: "> \u0436\u0434\u0451\u043C \u0432\u0430\u0448\u0435\u0433\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F", en: "> awaiting your decision" },
+    "maze.genre": { ru: "\u0436\u0430\u043D\u0440: worst UX awards \xB7 \u0442\u0438\u043A\u0442\u043E\u043A", en: "genre: worst UX awards \xB7 tiktok" },
+    "maze.armed": {
+      ru: "> \u0433\u0430\u043B\u043E\u0447\u043A\u0430 \u0441\u043D\u044F\u0442\u0430. \u043A\u043D\u043E\u043F\u043A\u0430 Yes \u043D\u0430\u043A\u043E\u043D\u0435\u0446 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442",
+      en: "> unchecked. the Yes button finally works"
+    },
+    "maze.denied": {
+      ru: "> \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043D\u0435\u043B\u044C\u0437\u044F: \u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB \u0432\u0441\u0451 \u0435\u0449\u0451 \u0441\u0442\u043E\u0438\u0442",
+      en: "> can\u2019t delete: \u201CI changed my mind\u201D is still checked"
+    },
+    "maze.deleted": {
+      ru: "> \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u0443\u0434\u0430\u043B\u0451\u043D. \u0448\u0443\u0442\u043A\u0430, \u044D\u0442\u043E \u043C\u0443\u0437\u0435\u0439. \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u0443\u0434\u0430\u043B\u0435\u043D\u043E",
+      en: "> account deleted. kidding, this is a museum. nothing was deleted"
+    },
+    "maze.back": {
+      ru: "> \u0441\u043F\u0430\u0441\u0438\u0431\u043E, \u0447\u0442\u043E \u043E\u0441\u0442\u0430\u0451\u0442\u0435\u0441\u044C. \u0433\u0430\u043B\u043E\u0447\u043A\u0443 \u043C\u044B \u0432\u0435\u0440\u043D\u0443\u043B\u0438 \u043D\u0430 \u043C\u0435\u0441\u0442\u043E",
+      en: "> thank you for staying. we put the checkbox back for you"
+    },
+    "dice.aria": { ru: "\u043A\u0443\u0431\u0438\u043A: {v}", en: "die: {v}" },
+    "dice.holdAria": { ru: "\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043A\u0443\u0431\u0438\u043A {n}", en: "hold die {n}" },
+    "dice.hint": {
+      ru: "\u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C \u2014 \u044D\u0442\u043E \u0441\u0443\u043C\u043C\u0430 \u0432\u044B\u043F\u0430\u0432\u0448\u0435\u0433\u043E. \u0445\u043E\u0447\u0435\u0448\u044C \u0442\u0438\u0448\u0435? \u0431\u0440\u043E\u0441\u0430\u0439 \u0435\u0449\u0451 \u0440\u0430\u0437",
+      en: "the volume is whatever you roll. want it quieter? roll again"
+    },
+    "dice.set": {
+      ru: "> \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 {n}. \u0440\u043E\u0432\u043D\u043E \u0442\u043E, \u0447\u0442\u043E \u0432\u044B \u0445\u043E\u0442\u0435\u043B\u0438",
+      en: "> volume set to {n}. exactly what you wanted"
+    },
+    "dice.max": { ru: "> \u043F\u043E\u0447\u0442\u0438 \u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C. \u0441\u043E\u0441\u0435\u0434\u0438 \u0443\u0436\u0435 \u0432 \u043A\u0443\u0440\u0441\u0435", en: "> nearly maxed. the neighbors already know" },
+    "dice.min": {
+      ru: "> \u0442\u0438\u0445\u043E. \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u0442\u0438\u0445\u043E. \u0431\u0440\u043E\u0441\u044C\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437 (\u0438\u043B\u0438 \u043D\u0435 \u0431\u0440\u043E\u0441\u0430\u0439\u0442\u0435)",
+      en: "> quiet. too quiet. roll again (or do not)"
+    },
+    "dice.held": {
+      ru: "> \u0437\u0430\u0436\u0430\u0442\u043E \u043A\u0443\u0431\u0438\u043A\u043E\u0432: {n}. \u0432\u044B \u043F\u043E\u0447\u0442\u0438 \u043D\u0430\u0443\u0447\u0438\u043B\u0438\u0441\u044C \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C \u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C\u044E",
+      en: "> dice held: {n}. you have almost learned to control the volume"
+    },
+    "dice.plate": {
+      ru: "\u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C \u043A\u043E\u043D\u043A\u0443\u0440\u0441\u0430 worst volume control",
+      en: "after the worst volume control contest"
+    },
+    /* ------------------------------- oracle -------------------------------- */
+    "orc.alt": {
+      ru: "\u043A\u0430\u0434\u0440 \u0442\u0440\u044D\u0448-\u0442\u0440\u0435\u0439\u043B\u0435\u0440\u0430 \xAB\u0413\u0440\u0443\u043F\u043F\u044B \u0438 \u0442\u0435\u043E\u0440\u0438\u044F \u0433\u043E\u043C\u043E\u0442\u043E\u043F\u0438\u0439\xBB",
+      en: "a frame from the \u201CGroups and homotopy theory\u201D trash trailer"
+    },
+    "orc.cap": { ru: "\u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0442\u0440\u0435\u0439\u043B\u0435\u0440 \u0437\u0434\u0435\u0441\u044C", en: "play the trailer right here" },
+    "orc.note": {
+      ru: "\u044E\u0442\u0443\u0431 \u043F\u043E\u0434\u0433\u0440\u0443\u0437\u0438\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u0441\u043B\u0435 \u043A\u043B\u0438\u043A\u0430 (nocookie, \u0431\u0435\u0437 \u0430\u0432\u0442\u043E\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438)",
+      en: "youtube loads only after you click (nocookie, no autoplay)"
+    },
+    "orc.hint": {
+      ru: "\u043B\u0435\u043A\u0446\u0438\u044F, \u0441\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0430\u044F \u043A\u0430\u043A \u0442\u0440\u0435\u0439\u043B\u0435\u0440 \u0431\u043B\u043E\u043A\u0431\u0430\u0441\u0442\u0435\u0440\u0430. \u0441\u043C\u043E\u0442\u0440\u0438 \u2014 \u0438 \u0441\u043F\u0440\u043E\u0441\u0438 \u043E\u0440\u0430\u043A\u0443\u043B\u0430",
+      en: "a lecture cut like a blockbuster trailer. watch it \u2014 then ask the oracle"
+    },
+    "orc.lead": { ru: "\u0430 \u043F\u043E\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0435 \u043B\u0435\u043A\u0446\u0438\u0438 \u2014 \u0432\u043E\u0442 \u044D\u0442\u043E:", en: "and in the middle of the lecture, this:" },
+    "orc.idle": { ru: "\u0437\u0430\u0434\u0430\u0432\u0430\u0439 \u043C\u043D\u0435 \u043B\u044E\u0431\u044B\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u044B", en: "ask me anything you like" },
+    "orc.placeholder": {
+      ru: "\u0441\u043F\u0440\u043E\u0441\u0438 \u043E\u0440\u0430\u043A\u0443\u043B\u0430 \u043E \u0441\u0432\u043E\u0451\u043C \u0431\u0443\u0434\u0443\u0449\u0435\u043C",
+      en: "ask the oracle about your future"
+    },
+    "orc.inputAria": { ru: "\u0432\u043E\u043F\u0440\u043E\u0441 \u043E\u0440\u0430\u043A\u0443\u043B\u0443", en: "question for the oracle" },
+    "orc.go": { ru: "\u0441\u043F\u0440\u043E\u0441\u0438\u0442\u044C", en: "ask" },
+    "orc.asked": { ru: "> \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0437\u0430\u0434\u0430\u043D\u043E: {n}", en: "> questions asked: {n}" },
+    "orc.theorem": {
+      ru: "> \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0437\u0430\u0434\u0430\u043D\u043E: {n}. \u043E\u0442\u0432\u0435\u0442 \u043D\u0435 \u043C\u0435\u043D\u044F\u0435\u0442\u0441\u044F \u2014 \u044D\u0442\u043E \u0438 \u0435\u0441\u0442\u044C \u0442\u0435\u043E\u0440\u0435\u043C\u0430",
+      en: "> questions asked: {n}. the answer does not change \u2014 that is the theorem"
+    },
+    "orc.empty": { ru: "\u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0441\u043F\u0440\u043E\u0441\u0438. \u043F\u043E\u0442\u043E\u043C \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438", en: "ask first. homology second" },
+    "orc.source": {
+      ru: "\u0438\u0437 \u043B\u0435\u043A\u0446\u0438\u0438: \u0437\u043D\u0430\u043A\u043E\u043C\u044B\u0439 \u043C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u043A \u0441\u043F\u0440\u0430\u0448\u0438\u0432\u0430\u043B \u043E \u0441\u0432\u043E\u0451\u043C \u0431\u0443\u0434\u0443\u0449\u0435\u043C \u2014\n      \xAB\u043E\u043D\u0430 \u0432\u0441\u0435\u0433\u0434\u0430 \u043E\u0442\u0432\u0435\u0447\u0430\u043B\u0430: \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438\xBB",
+      en: "from the lecture: a mathematician friend kept asking about his future \u2014\n      \u201Cshe always answered: homology\u201D"
+    },
+    "orc.credits": {
+      ru: "\u043B\u0435\u043A\u0442\u043E\u0440: \u0420\u043E\u043C\u0430\u043D \u041C\u0438\u0445\u0430\u0439\u043B\u043E\u0432 \xB7 \u043C\u043E\u043D\u0442\u0430\u0436: \u043A\u043E\u043D\u043A\u0443\u0440\u0441 \u0442\u0440\u044D\u0448-\u0440\u043E\u043B\u0438\u043A\u043E\u0432 \u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C\u0430, 2014",
+      en: "lecturer: Roman Mikhailov \xB7 edit: Lektorium trash-video contest, 2014"
+    },
+    "orc.plate1": { ru: "\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u043C \u0442\u0440\u0435\u0439\u043B\u0435\u0440", en: "watch the trailer itself" },
+    "orc.plate2": { ru: "\u043F\u043E\u043B\u043D\u044B\u0439 \u043A\u0443\u0440\u0441 \u043D\u0430 \u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C\u0435", en: "the full course on Lektorium" },
+    /* -------------------------- strange languages -------------------------- */
+    "sl.title": {
+      ru: "\u0441\u0430\u043C\u044B\u0435 \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0435 \u044F\u0437\u044B\u043A\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u043F\u0440\u0430\u0432\u0434\u0430 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442",
+      en: "the strangest languages that actually work"
+    },
+    "sl.temple.punch": {
+      ru: "\xAB640\xD7480, 16 \u0446\u0432\u0435\u0442\u043E\u0432 \u2014 \u0442\u0430\u043A\u043E\u0432\u043E \u0431\u044B\u043B\u043E \u043F\u0440\u044F\u043C\u043E\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0438\u0435 \u0431\u043E\u0433\u0430\xBB.",
+      en: "\u201CGod said 640x480 16 color graphics is a covenant like circumcision.\u201D"
+    },
+    "sl.temple.sub": {
+      ru: "\u0418 \u044D\u0442\u043E \u043D\u0435 \u043C\u0435\u0442\u0430\u0444\u043E\u0440\u0430 \u043F\u0440\u043E \u043B\u0435\u0433\u0430\u0441\u0438: \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E \u0440\u0430\u0431\u043E\u0447\u0430\u044F, \u0435\u0451 \u043C\u043E\u0436\u043D\u043E \u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C \u0441\u0435\u0433\u043E\u0434\u043D\u044F.",
+      en: "And that is not a metaphor about legacy: the system fully works, you can boot it today."
+    },
+    "sl.temple.note": {
+      ru: "\u041E\u043F\u0435\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0422\u0435\u0440\u0440\u0438 \u0414\u044D\u0432\u0438\u0441 \u043F\u0438\u0441\u0430\u043B \u0432 \u043E\u0434\u0438\u043D\u043E\u0447\u043A\u0443 \u0431\u043E\u043B\u044C\u0448\u0435 \u0434\u0435\u0441\u044F\u0442\u0438 \u043B\u0435\u0442 \u2014\n        \u0441\u0432\u043E\u0451 \u044F\u0434\u0440\u043E, \u0441\u0432\u043E\u0439 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440, \u0441\u0432\u043E\u0439 \u044F\u0437\u044B\u043A HolyC. \u0412 HolyC \u0441\u0442\u0440\u043E\u043A\u0430 \u0441\u0430\u043C\u0430 \u043F\u043E \u0441\u0435\u0431\u0435 \u0443\u0436\u0435\n        \u043A\u043E\u043C\u0430\u043D\u0434\u0430: \u043D\u0430\u043F\u0438\u0441\u0430\u043B \u0442\u0435\u043A\u0441\u0442 \u0432 \u043A\u0430\u0432\u044B\u0447\u043A\u0430\u0445 \u2014 \u043E\u043D \u0438 \u043D\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u043B\u0441\u044F. \u041D\u0438 \u043E\u0434\u043D\u043E\u0433\u043E printf.",
+      en: "An operating system Terry Davis wrote alone for more than ten years \u2014 his own\n        kernel, his own compiler, his own language, HolyC. In HolyC a string is already\n        a statement: put text in quotes and it prints. Not a single printf."
+    },
+    "sl.temple.quiet": {
+      ru: "\u0422\u0435\u0440\u0440\u0438 \u0443\u043C\u0435\u0440 \u0432 2018-\u043C. \u0417\u0434\u0435\u0441\u044C \u043E\u043D \u0441\u0442\u043E\u0438\u0442 \u043D\u0435 \u043A\u0430\u043A \u043A\u0443\u0440\u044C\u0451\u0437, \u0430 \u043A\u0430\u043A \u0430\u0432\u0442\u043E\u0440: \u0447\u0435\u043B\u043E\u0432\u0435\u043A\n        \u0432 \u043E\u0434\u0438\u043D\u043E\u0447\u043A\u0443 \u043D\u0430\u043F\u0438\u0441\u0430\u043B \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u0443\u044E \u0441\u0438\u0441\u0442\u0435\u043C\u0443.",
+      en: "Terry died in 2018. He stands here not as a curiosity but as an author: one man\n        wrote an entire operating system."
+    },
+    "sl.temple.site": { ru: "\u0441\u0430\u0439\u0442 TempleOS", en: "the TempleOS site" },
+    "sl.temple.wiki": { ru: "TempleOS \u0432 \u044D\u043D\u0446\u0438\u043A\u043B\u043E\u043F\u0435\u0434\u0438\u0438", en: "TempleOS in the encyclopedia" },
+    "sl.cow.title": {
+      ru: "COW \xB7 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0441\u0442 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432 \u043C\u044B\u0447\u0430\u043D\u0438\u044F",
+      en: "COW \xB7 programming in variations of moo"
+    },
+    "sl.cow.punch": {
+      ru: "\u0427\u0442\u043E\u0431\u044B \u043A\u043E\u0440\u043E\u0432\u0430 \u0441\u043A\u0430\u0437\u0430\u043B\u0430 \u0431\u0443\u043A\u0432\u0443 \xABH\xBB, \u0435\u0439 \u043D\u0430\u0434\u043E \u043F\u0440\u043E\u043C\u044B\u0447\u0430\u0442\u044C \xABMoO\xBB \u0440\u043E\u0432\u043D\u043E 72 \u0440\u0430\u0437\u0430.",
+      en: "For the cow to say the letter \u201CH\u201D, it has to moo \u201CMoO\u201D exactly 72 times."
+    },
+    "sl.cow.hello": { ru: "\u043F\u0440\u043E\u043C\u044B\u0447\u0430\u0442\u044C hello world", en: "moo hello world" },
+    "sl.cow.count": {
+      ru: "\u0432 \u044F\u0447\u0435\u0439\u043A\u0435: {cell} \xB7 \u043D\u0443\u0436\u043D\u043E {want} (\xAB{letter}\xBB)",
+      en: "in the cell: {cell} \xB7 need {want} (\u201C{letter}\u201D)"
+    },
+    "sl.cow.countPlain": { ru: "\u0432 \u044F\u0447\u0435\u0439\u043A\u0435: {cell}", en: "in the cell: {cell}" },
+    "sl.cow.empty": { ru: "(\u043F\u0443\u0441\u0442\u043E. \u043F\u043E\u043C\u044B\u0447\u0438)", en: "(empty. start mooing)" },
+    "sl.cow.said": { ru: "\u0441\u043A\u0430\u0437\u0430\u043D\u043E:", en: "said:" },
+    "sl.cow.note": {
+      ru: "\u0412\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0441\u044F \u0438\u0437 \u043E\u0434\u043D\u043E\u0433\u043E \u0441\u043B\u043E\u0432\u0430, \u0440\u0435\u0433\u0438\u0441\u0442\u0440 \u0440\u0435\u0448\u0430\u0435\u0442 \u0432\u0441\u0451. \u041F\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044C \u2014\n          MoO, \u0441\u043A\u0430\u0437\u0430\u0442\u044C \u2014 Moo, \u0438 \u043D\u0438\u043A\u0430\u043A\u0438\u0445 \xAB\u043D\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u0439 \u0441\u0442\u0440\u043E\u043A\u0443\xBB. \u041E\u0442\u0434\u0435\u043B\u044C\u043D\u043E \u0441\u0442\u043E\u0438\u0442 mOO:\n          \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u043A\u043E\u043C\u0430\u043D\u0434\u0430, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u0442 \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u0430\u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0443.",
+      en: "The whole program is built out of one word; capitalization decides everything.\n          Increment is MoO, output is Moo, and there is no \u201Cprint a string\u201D anywhere.\n          mOO stands apart: the only command that executes the contents of a cell\n          as a command."
+    },
+    "sl.cow.clear": { ru: "\u0441\u0442\u0435\u0440\u0435\u0442\u044C \u043C\u044B\u0447\u0430\u043D\u0438\u0435", en: "wipe the mooing" },
+    "sl.cow.first": {
+      ru: "\u043E\u0434\u043D\u0430 \u0431\u0443\u043A\u0432\u0430. \u043A\u043E\u0440\u043E\u0432\u0430 \u043F\u0440\u043E\u043C\u044B\u0447\u0430\u043B\u0430 72 \u0440\u0430\u0437\u0430, \u0447\u0442\u043E\u0431\u044B \u0441\u043A\u0430\u0437\u0430\u0442\u044C \xABH\xBB. \u043E\u0441\u0442\u0430\u043B\u043E\u0441\u044C \u0434\u0435\u0441\u044F\u0442\u044C \u0431\u0443\u043A\u0432",
+      en: "one letter. the cow mooed 72 times to say \u201CH\u201D. ten letters to go"
+    },
+    "sl.cow.done": {
+      ru: "\xAB{hello}\xBB \u2014 {n} \u043C\u044B\u0447\u0430\u043D\u0438\u0439. \u0432\u043E\u0442 \u043D\u0430 \u044D\u0442\u043E\u043C \u044F\u0437\u044B\u043A\u0435 \u0438 \u043F\u0438\u0448\u0443\u0442",
+      en: "\u201C{hello}\u201D \u2014 {n} moos. people actually write code in this"
+    },
+    "sl.cow.again": { ru: "\u0435\u0449\u0451 \u0440\u0430\u0437", en: "again" },
+    "sl.cow.letter": { ru: "\u0431\u0443\u043A\u0432\u0430 {i} \u0438\u0437 {n}. \u0441\u0442\u0430\u0434\u043E \u043D\u0435 \u0441\u0434\u0430\u0451\u0442\u0441\u044F", en: "letter {i} of {n}. the herd is not giving up" },
+    "sl.cow.mooing": { ru: "\u043C\u044B\u0447\u0438\u0442\u2026", en: "mooing\u2026" },
+    "sl.cow.started": {
+      ru: "\u043F\u043E\u0448\u043B\u043E \u043C\u044B\u0447\u0430\u043D\u0438\u0435. \u044D\u0442\u043E \u043F\u0440\u0430\u0432\u0434\u0430 \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 \u0441\u043F\u043E\u0441\u043E\u0431",
+      en: "the mooing has begun. this really is the only way"
+    },
+    "sl.cow.stillDone": { ru: "\xAB{hello}\xBB \u2014 \u043E\u043A\u043E\u043B\u043E {n} \u043C\u044B\u0447\u0430\u043D\u0438\u0439", en: "\u201C{hello}\u201D \u2014 about {n} moos" },
+    "sl.cow.cleared": { ru: "\u0441\u0442\u0430\u0434\u043E \u0440\u0430\u0437\u043E\u0448\u043B\u043E\u0441\u044C", en: "the herd has dispersed" },
+    "sl.cow.cmd": { ru: "{cmd} \u2014 {what}", en: "{cmd} \u2014 {what}" },
+    "sl.bf.title": { ru: "brainfuck \xB7 \u0432\u043E\u0441\u0435\u043C\u044C \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432, \u0438 \u0432\u0441\u0451", en: "brainfuck \xB7 eight characters, that is all" },
+    "sl.bf.punch": {
+      ru: "\u0410\u0432\u0442\u043E\u0440 \u0441\u0442\u0430\u0432\u0438\u043B \u0441\u0435\u0431\u0435 \u043E\u0434\u043D\u0443 \u0437\u0430\u0434\u0430\u0447\u0443: \u0441\u0430\u043C\u044B\u0439 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0432 \u043C\u0438\u0440\u0435. \u0423\u043B\u043E\u0436\u0438\u043B\u0441\u044F \u0432 200 \u0431\u0430\u0439\u0442.",
+      en: "The author had exactly one goal: the smallest compiler in the world. He fit it into 200 bytes."
+    },
+    "sl.bf.sub": {
+      ru: "\u041D\u0430\u0432\u0435\u0434\u0438 \u043D\u0430 \u0441\u0438\u043C\u0432\u043E\u043B \u2014 \u043E\u043D \u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0435\u0442, \u0447\u0442\u043E \u0434\u0435\u043B\u0430\u0435\u0442. \u0418\u0445 \u0432\u0441\u0435\u0433\u043E \u0432\u043E\u0441\u0435\u043C\u044C, \u0434\u0440\u0443\u0433\u0438\u0445 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442.",
+      en: "Hover a character and it tells you what it does. There are eight. There will never be more."
+    },
+    "sl.bf.author": { ru: "\u0423\u0440\u0431\u0430\u043D \u041C\u044E\u043B\u043B\u0435\u0440, 1993", en: "Urban M\xFCller, 1993" },
+    "sl.bf.note": {
+      ru: "\u042D\u0442\u043E Hello World \u2014 \u0432\u0435\u0440\u043D\u0435\u0435, \u0435\u0433\u043E \u043D\u0430\u0447\u0430\u043B\u043E. \u0423 \u044F\u0437\u044B\u043A\u0430 442 \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0440\u0438\u0432\u0430\u0442\u0430,\n          \u0438 \u0432\u044B\u0440\u043E\u0441 \u043E\u043D \u0438\u0437 FALSE, \u0447\u0435\u0439 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0432\u043B\u0435\u0437\u0430\u043B \u0432 1024 \u0431\u0430\u0439\u0442\u0430.",
+      en: "This is Hello World \u2014 its beginning, at least. The language has 442 official\n          derivatives, and it grew out of FALSE, whose compiler fit into 1024 bytes."
+    },
+    "sl.malb.title": { ru: "Malbolge \xB7 \u0432\u043E\u0441\u044C\u043C\u043E\u0439 \u043A\u0440\u0443\u0433 \u0430\u0434\u0430, 1998", en: "Malbolge \xB7 the eighth circle of hell, 1998" },
+    "sl.malb.punch": {
+      ru: "\u041F\u0435\u0440\u0432\u044B\u0439 Hello World \u043D\u0430 Malbolge \u043D\u0430\u0448\u043B\u0430 \u043C\u0430\u0448\u0438\u043D\u0430 \u043F\u0435\u0440\u0435\u0431\u043E\u0440\u043E\u043C. \u041B\u044E\u0434\u0438 \u043D\u0435 \u0441\u043C\u043E\u0433\u043B\u0438.",
+      en: "The first Malbolge Hello World was found by a machine, by brute force. Humans could not do it."
+    },
+    "sl.malb.show": { ru: "\u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C Hello World", en: "show Hello World" },
+    "sl.malb.hide": { ru: "\u0443\u0431\u0440\u0430\u0442\u044C, \u044F \u043D\u0430\u0441\u043C\u043E\u0442\u0440\u0435\u043B\u0441\u044F", en: "take it away, I have seen enough" },
+    "sl.malb.idle": { ru: "\u0434\u0430, \u0432\u043E\u0442 \u044D\u0442\u043E \u0432\u043E\u0442. \u043F\u0440\u043E\u0441\u0442\u043E \xABHello, world\xBB.", en: "yes. this. just \u201CHello, world\u201D." },
+    "sl.malb.found": {
+      ru: "\u044D\u0442\u043E \u0438 \u0435\u0441\u0442\u044C \u0432\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430. \u0435\u0451 \u043D\u0435 \u043D\u0430\u043F\u0438\u0441\u0430\u043B\u0438 \u2014 \u0435\u0451 \u041D\u0410\u0428\u041B\u0418: \u043B\u0438\u0441\u043F-\u0441\u043A\u0440\u0438\u043F\u0442 \u043F\u0435\u0440\u0435\u0431\u0438\u0440\u0430\u043B \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E \u0432\u0441\u0435\u0445 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0445 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C, \u043F\u043E\u043A\u0430 \u043E\u0434\u043D\u0430 \u0438\u0437 \u043D\u0438\u0445 \u043D\u0435 \u043F\u043E\u0437\u0434\u043E\u0440\u043E\u0432\u0430\u043B\u0430\u0441\u044C",
+      en: "this is the entire program. nobody wrote it \u2014 it was FOUND: a lisp script combed the space of all possible programs until one of them said hello"
+    },
+    "sl.malb.note": {
+      ru: "\u042F\u0437\u044B\u043A \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u0432\u043E\u0441\u044C\u043C\u043E\u0433\u043E \u043A\u0440\u0443\u0433\u0430 \u0430\u0434\u0430. \u0415\u0433\u043E \u043F\u0438\u0441\u0430\u043B\u0438 \u0442\u0430\u043A, \u0447\u0442\u043E\u0431\u044B \u043D\u0430 \u043D\u0451\u043C \u0431\u044B\u043B\u043E\n        \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u0442\u044C, \u2014 \u0438 \u043F\u043E\u0447\u0442\u0438 \u043F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C: \u043F\u0435\u0440\u0432\u0443\u044E \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0449\u0443\u044E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0443\n        \u043D\u0430\u0448\u0451\u043B \u043B\u0438\u0441\u043F-\u0441\u043A\u0440\u0438\u043F\u0442, \u043F\u0440\u043E\u0447\u0451\u0441\u044B\u0432\u0430\u0432\u0448\u0438\u0439 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E \u0432\u0441\u0435\u0445 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0445 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C.\n        \u0423 Malbolge Unshackled \u043A\u043E\u043C\u0430\u043D\u0434\u044B \u0432\u0434\u043E\u0431\u0430\u0432\u043E\u043A \u0448\u0438\u0444\u0440\u0443\u044E\u0442\u0441\u044F \u043F\u0440\u0438 \u043A\u0430\u0436\u0434\u043E\u043C \u0437\u0430\u043F\u0443\u0441\u043A\u0435.",
+      en: "The language is named after the eighth circle of hell. It was built so that\n        programming in it would be impossible \u2014 and very nearly succeeded: the first\n        working program was found by a lisp script combing the space of all possible\n        programs. In Malbolge Unshackled the instructions are also encrypted on every run."
+    },
+    "sl.ws.title": {
+      ru: "Whitespace \xB7 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u0438\u0437 \u0442\u0430\u0431\u043E\u0432 \u0438 \u043F\u0440\u043E\u0431\u0435\u043B\u043E\u0432",
+      en: "Whitespace \xB7 a program made of tabs and spaces"
+    },
+    "sl.ws.punch": { ru: "\u0412\u043E\u0442 \u0432\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430:", en: "Here is the entire program:" },
+    "sl.ws.voidHint": {
+      ru: "(\u0434\u0430, \u0442\u0443\u0442 \u043F\u0443\u0441\u0442\u043E. \u0442\u043A\u043D\u0438 \u2014 \u0438 \u0443\u0432\u0438\u0434\u0438\u0448\u044C \u043A\u043E\u0434)",
+      en: "(yes, it is empty. poke it and you will see the code)"
+    },
+    "sl.ws.sub": {
+      ru: "\u0410 \u044D\u0442\u043E \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u0435, \u0432\u043D\u0443\u0442\u0440\u0438 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u043E\u043D\u0430 \u0438 \u043B\u0435\u0436\u0438\u0442. \u0411\u0443\u043A\u0432\u044B \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u043D\u0435 \u0447\u0438\u0442\u0430\u0435\u0442 \u0432\u043E\u0432\u0441\u0435.",
+      en: "And this is the poem it hides inside. The compiler does not read the letters at all."
+    },
+    "sl.ws.idle": {
+      ru: "\u043D\u0430 \u0432\u0438\u0434 \u2014 \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u0435 \u0441 \u0434\u0432\u0443\u043C\u044F \u043F\u0443\u0441\u0442\u044B\u043C\u0438 \u0441\u0442\u0440\u043E\u043A\u0430\u043C\u0438",
+      en: "looks like a poem with two blank lines in it"
+    },
+    "sl.ws.show": { ru: "\u043F\u043E\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u043E\u0435", en: "light up the invisible" },
+    "sl.ws.hide": { ru: "\u0441\u043F\u0440\u044F\u0442\u0430\u0442\u044C \u043E\u0431\u0440\u0430\u0442\u043D\u043E", en: "hide it again" },
+    "sl.ws.note": {
+      ru: "\u0421\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441 \u044F\u0437\u044B\u043A\u0430 \u0441\u043E\u0441\u0442\u043E\u0438\u0442 \u0438\u0437 \u0442\u0440\u0451\u0445 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432: \u043F\u0440\u043E\u0431\u0435\u043B, \u0442\u0430\u0431\u0443\u043B\u044F\u0446\u0438\u044F, \u043F\u0435\u0440\u0435\u0432\u043E\u0434 \u0441\u0442\u0440\u043E\u043A\u0438.\n        \u0412\u0441\u0451 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0435 \u2014 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439, \u043F\u043E\u044D\u0442\u043E\u043C\u0443 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0443 \u043C\u043E\u0436\u043D\u043E \u0441\u043F\u0440\u044F\u0442\u0430\u0442\u044C \u0432 \u0447\u0443\u0436\u043E\u043C \u0442\u0435\u043A\u0441\u0442\u0435\n        \u0442\u0430\u043A, \u0447\u0442\u043E \u0435\u0451 \u043D\u0435 \u0443\u0432\u0438\u0434\u0438\u0442 \u043D\u0438\u043A\u0442\u043E, \u043A\u0440\u043E\u043C\u0435 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440\u0430.",
+      en: "The syntax of the language is three characters: space, tab, line feed. Everything\n        else is a comment, so a program can be hidden inside someone else\u2019s text where\n        nobody but the compiler will ever see it."
+    },
+    "sl.ws.poem1": { ru: "\u043D\u043E\u0447\u044C\u044E \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0447\u0438\u0442\u0430\u0435\u0442 \u0441\u0442\u0438\u0445\u0438", en: "at night the compiler reads poetry" },
+    "sl.ws.poem3": {
+      ru: "\u0438 \u043D\u0435 \u043D\u0430\u0445\u043E\u0434\u0438\u0442 \u0432 \u043D\u0438\u0445 \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u043E\u0448\u0438\u0431\u043A\u0438",
+      en: "and finds not one error in any of it"
+    },
+    "sl.ws.poem5": {
+      ru: "\u043F\u043E\u0442\u043E\u043C\u0443 \u0447\u0442\u043E \u043E\u0448\u0438\u0431\u043E\u043A \u0432 \u0441\u0442\u0438\u0445\u0430\u0445 \u043D\u0435 \u0431\u044B\u0432\u0430\u0435\u0442",
+      en: "because poems do not have errors"
+    },
+    "sl.ws.revealBtn": {
+      ru: "\u0432\u043E\u0442 \u043E\u043D\u0438: \u0442\u043E\u0447\u043A\u0438 \u2014 \u043F\u0440\u043E\u0431\u0435\u043B\u044B, \u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u2014 \u0442\u0430\u0431\u044B. \u0434\u043B\u044F Whitespace \u043A\u043E\u0434 \u0442\u043E\u043B\u044C\u043A\u043E \u044D\u0442\u043E, \u0430 \u0431\u0443\u043A\u0432\u044B \u2014 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439",
+      en: "there they are: dots are spaces, arrows are tabs. to Whitespace only this is code, the letters are a comment"
+    },
+    "sl.ws.revealVoid": {
+      ru: "\u0432 \u043F\u0443\u0441\u0442\u043E\u043C \u043F\u043E\u043B\u0435 \u043B\u0435\u0436\u0430\u043B\u0438 \u0442\u0430\u0431\u044B \u0438 \u043F\u0440\u043E\u0431\u0435\u043B\u044B. \u044D\u0442\u043E \u0438 \u0431\u044B\u043B\u0430 \u0432\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430",
+      en: "that empty field was holding tabs and spaces. that was the whole program"
+    },
+    "sl.ws.revealCode": {
+      ru: "\u044D\u0442\u0430 \xAB\u043F\u0443\u0441\u0442\u0430\u044F\xBB \u0441\u0442\u0440\u043E\u043A\u0430 \u0438 \u0435\u0441\u0442\u044C \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430. \u0432\u0441\u0451 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u043D\u0435 \u0447\u0438\u0442\u0430\u0435\u0442",
+      en: "this \u201Cempty\u201D line is the program. the compiler does not read anything else"
+    },
+    "sl.ws.revealText": {
+      ru: "\u0430 \u0432\u043E\u0442 \u044D\u0442\u0430 \u0441\u0442\u0440\u043E\u043A\u0430 \u0434\u043B\u044F Whitespace \u2014 \u043F\u0440\u043E\u0441\u0442\u043E \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439. \u043A\u043E\u0434 \u043B\u0435\u0436\u0438\u0442 \u0432 \u043F\u0443\u0441\u0442\u044B\u0445",
+      en: "this line, to Whitespace, is just a comment. the code lives in the blank ones"
+    },
+    "sl.ws.revealSel": {
+      ru: "\u0432\u044B\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0432\u044B\u0434\u0430\u043B\u043E \u043A\u043E\u0434: \u043F\u0440\u043E\u0431\u0435\u043B\u044B \u0438 \u0442\u0430\u0431\u044B \u0441\u0442\u043E\u044F\u0442 \u0442\u0430\u043C, \u0433\u0434\u0435 \u043D\u0430 \u0432\u0438\u0434 \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435\u0442",
+      en: "the selection gave the code away: spaces and tabs sit where there seems to be nothing"
+    },
+    /* ------------------------ beauty room stations ------------------------- */
+    "st.ink.title": { ru: "\u0447\u0435\u0440\u043D\u0438\u043B\u0430 \u0435\u0449\u0451 \u043D\u0435 \u0432\u044B\u0441\u043E\u0445\u043B\u0438", en: "the ink is not dry yet" },
+    "st.ink.note": {
+      ru: "\u0431\u0443\u043A\u0432\u044B \u2014 \u043D\u0435 \u0442\u0435\u043A\u0441\u0442, \u0430 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u043E. \u043F\u0440\u043E\u0432\u0435\u0434\u0438 \u043F\u043E \u043D\u0438\u043C \u043C\u044B\u0448\u043A\u043E\u0439",
+      en: "the letters are not text, they are matter. run the mouse through them"
+    },
+    "st.cal.title": { ru: "\u0440\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0430\u043A \u0445\u043E\u043B\u0441\u0442", en: "a schedule used as canvas" },
+    "st.cal.note": {
+      ru: "\u0432\u0441\u0442\u0440\u0435\u0447\u0438 \u043F\u0440\u043E\u0441\u0442\u0443\u043F\u0430\u044E\u0442 \u043F\u043E \u043E\u0434\u043D\u043E\u0439 \u2014 \u0430 \u0442\u044B \u0437\u0430\u043A\u0440\u0430\u0448\u0438\u0432\u0430\u0439 \u043A\u043B\u0435\u0442\u043A\u0438 \u0441\u0430\u043C, \u0442\u0432\u043E\u0438 \u0432\u0441\u0442\u0440\u0435\u0447\u0438 \u0434\u043E\u043F\u043E\u043B\u043D\u044F\u0442 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443",
+      en: "the meetings surface one by one \u2014 fill in the cells yourself, your meetings will finish the picture"
+    },
+    "st.cal.chip": { ru: "\u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C \u0440\u0430\u0431\u043E\u0442\u044B @jordan.gladman", en: "after the work of @jordan.gladman" },
+    "st.cal.mine": { ru: "{word} \xB7 \u0442\u0432\u043E\u0438\u0445 \u0432\u0441\u0442\u0440\u0435\u0447: {n}", en: "{word} \xB7 your meetings: {n}" },
+    "st.graph.title": { ru: "\u0441\u0432\u044F\u0437\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043D\u0435 \u0431\u044B\u043B\u043E", en: "connections that were never there" },
+    "st.graph.note": {
+      ru: "\u043A\u0430\u0436\u0434\u0430\u044F \u043D\u043E\u0432\u0430\u044F \u0442\u043E\u0447\u043A\u0430 \u0442\u044F\u043D\u0435\u0442\u0441\u044F \u043A \u0442\u0435\u043C, \u043A\u0442\u043E \u0443\u0436\u0435 \u0437\u0434\u0435\u0441\u044C. \u0442\u043A\u043D\u0438 \u2014 \u043F\u043E\u0441\u0430\u0434\u0438\u0448\u044C \u0441\u0432\u043E\u044E, \u0443\u0437\u043B\u044B \u043F\u043E\u0442\u044F\u043D\u0443\u0442\u0441\u044F \u043A \u0440\u0443\u043A\u0435",
+      en: "every new dot reaches for the ones already here. tap to plant your own, the nodes will lean toward your hand"
+    },
+    "st.graph.few": {
+      ru: "\u0442\u0432\u043E\u0438\u0445 \u0441\u0432\u044F\u0437\u0435\u0439: {n}. \u043A\u0430\u0436\u0434\u0430\u044F \u043D\u0430\u0448\u043B\u0430 \u0441\u0435\u0431\u0435 \u0434\u0432\u0443\u0445 \u0441\u043E\u0441\u0435\u0434\u0435\u0439",
+      en: "your connections: {n}. each one found itself two neighbors"
+    },
+    "st.graph.many": {
+      ru: "\u0442\u0432\u043E\u0438\u0445 \u0441\u0432\u044F\u0437\u0435\u0439: {n}. \u044D\u0442\u043E \u0443\u0436\u0435 \u0442\u0432\u043E\u0439 \u0433\u0440\u0430\u0444, \u0430 \u043D\u0435 \u043D\u0430\u0448",
+      en: "your connections: {n}. this is your graph now, not ours"
+    },
+    "st.vision.title": { ru: "\u043C\u0430\u0448\u0438\u043D\u043D\u043E\u0435 \u0437\u0440\u0435\u043D\u0438\u0435 \u0447\u0438\u0442\u0430\u0435\u0442 \u0441\u0442\u0438\u0445\u0438", en: "machine vision reads poetry" },
+    "st.vision.note": {
+      ru: "\u0432\u0435\u0434\u0438 \u043C\u044B\u0448\u043A\u043E\u0439 \u043F\u043E \u043A\u0430\u0434\u0440\u0443 \u2014 \u0440\u0430\u043C\u043A\u0438 \u043F\u043E\u0439\u0434\u0443\u0442 \u0437\u0430 \u0442\u043E\u0431\u043E\u0439 \u0438 \u043F\u043E\u0434\u043F\u0438\u0448\u0443\u0442 \u0442\u043E \u043C\u0435\u0441\u0442\u043E, \u043A\u0443\u0434\u0430 \u0442\u044B \u0441\u043C\u043E\u0442\u0440\u0438\u0448\u044C",
+      en: "move the mouse across the frame \u2014 the boxes will follow and label whatever you are looking at"
+    },
+    "st.vision.chip": { ru: "\u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C \u0440\u0430\u0431\u043E\u0442\u044B @drezzdon", en: "after the work of @drezzdon" },
+    "st.vision.zone0.tag": { ru: "\u043D\u0435\u0431\u043E 0.98", en: "sky 0.98" },
+    "st.vision.zone0.line": {
+      ru: "\u043D\u0435\u0431\u043E. \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u043D\u043E \u0441 \u043F\u0435\u0440\u0432\u043E\u0439 \u043F\u043E\u043F\u044B\u0442\u043A\u0438, \u043D\u0438\u0447\u0435\u0433\u043E \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435 \u0441\u043A\u0430\u0437\u0430\u043D\u043E",
+      en: "sky. recognized on the first try, nothing more was said"
+    },
+    "st.vision.zone1.tag": { ru: "\u043E\u0431\u043B\u0430\u043A\u043E? 0.44", en: "cloud? 0.44" },
+    "st.vision.zone1.line": {
+      ru: "\u043E\u0431\u043B\u0430\u043A\u043E \u0438\u043B\u0438 \u0434\u044B\u043C. \u043C\u043E\u0434\u0435\u043B\u044C \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D\u0430 \u0438 \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u043E\u0442\u0432\u0435\u0447\u0430\u0435\u0442",
+      en: "cloud or smoke. the model is not sure and answers anyway"
+    },
+    "st.vision.zone2.tag": { ru: "\u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442 0.81", en: "horizon 0.81" },
+    "st.vision.zone2.line": {
+      ru: "\u0433\u0440\u0430\u043D\u0438\u0446\u0430 \u043C\u0435\u0436\u0434\u0443 \u0434\u0432\u0443\u043C\u044F \u043D\u0438\u0447\u0435\u043C. \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043D\u043E \u043A\u0430\u043A \u043E\u0431\u044A\u0435\u043A\u0442",
+      en: "the border between two nothings. labeled as an object"
+    },
+    "st.vision.zone3.tag": { ru: "\u043A\u0442\u043E-\u0442\u043E \u0441\u0442\u043E\u044F\u043B 0.29", en: "someone stood here 0.29" },
+    "st.vision.zone3.line": {
+      ru: "the earth is still warm from you",
+      en: "the earth is still warm from you"
+    },
+    "st.vision.zone4.tag": { ru: "\u0437\u0435\u043C\u043B\u044F 0.93", en: "earth 0.93" },
+    "st.vision.zone4.line": {
+      ru: "\u0437\u0435\u043C\u043B\u044F. \u0442\u0451\u043F\u043B\u0430\u044F. \u044D\u0442\u043E \u043D\u0435 \u043C\u0435\u0442\u0440\u0438\u043A\u0430, \u044D\u0442\u043E \u043E\u043D\u0430 \u0442\u0430\u043A \u0441\u043A\u0430\u0437\u0430\u043B\u0430",
+      en: "earth. warm. that is not a metric, that is what she said"
+    },
+    /* ------------------------------- shared -------------------------------- */
+    "sound.hint": {
+      ru: "\u0441\u043E \u0437\u0432\u0443\u043A\u043E\u043C (\u0441\u0438\u043D\u0442\u0435\u0437, \u043F\u043E \u0442\u0432\u043E\u0435\u043C\u0443 \u043A\u043B\u0438\u043A\u0443)",
+      en: "with sound (synthesized, only when you click)"
+    }
+  };
+  var lists = {
+    /* ------------------------------- terminal ------------------------------- */
+    "entryLines": {
+      ru: [
+        "Lruns ITerium v0.5.3 beta \u2014 \u043F\u0440\u043E\u0431\u043D\u044B\u0439 \u0437\u0430\u043B",
+        "\u043C\u0443\u0437\u0435\u0439 \u043A\u043E\u0434\u0430, \u043A\u0440\u0430\u0441\u043E\u0442\u044B \u0438 \u043A\u0440\u0438\u043D\u0436\u0430",
+        "\u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u044B \u0441\u043E\u0431\u0440\u0430\u043D\u044B \u043F\u043E \u0432\u0441\u0435\u043C\u0443 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0443;",
+        "\u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u2014 \u0430\u0432\u0442\u043E\u0440 \u0438 \u0434\u0432\u0435\u0440\u044C \u043A \u043D\u0435\u043C\u0443",
+        "",
+        "press ENTER _"
+      ],
+      en: [
+        "Lruns ITerium v0.5.3 beta \u2014 a trial hall",
+        "a museum of code, beauty and cringe",
+        "exhibits collected from all over the internet;",
+        "every one with an author and a door to them",
+        "",
+        "press ENTER _"
+      ]
+    },
+    "portalLines": {
+      ru: ["$ ./enter --room=art", "> \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u044E \u043F\u043E\u0440\u0442\u0430\u043B ....... \u0434\u0435\u0440\u0436\u0438\u0441\u044C"],
+      en: ["$ ./enter --room=art", "> opening the portal ....... hold on"]
+    },
+    /* ---------------------------- jester's room ---------------------------- */
+    // NOTE: COLUMNS ARE ALIGNED WITH SPACES in a monospaced font. Editing a word means
+    // recounting the padding: the bar must start at the same character in every row.
+    "asciiCharts": {
+      ru: [
+        `$ measure --exhibit=prev
+  \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u043A\u0440\u0438\u043D\u0436\u0430   \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2592  82%
+  \u043F\u043E\u043B\u0435\u0437\u043D\u043E\u0441\u0442\u044C       \u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591  17%
+  \xAB\u044F \u0442\u0430\u043A \u0436\u0435\xBB       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593  94%`,
+        `$ bench sort --all
+  bubble    \u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591  O(n\xB2)
+  quick     \u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591  O(n log n)
+  adhd      \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2592\u2591  O(n\xB2 + \u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F)
+  \u043A\u0430\u043F\u0438\u0442\u0430\u043B\u0438\u0437\u043C \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593  \u0431\u043E\u0433\u0430\u0442\u044B\u0435 \u0432\u0441\u043F\u043B\u044B\u0432\u0430\u044E\u0442`,
+        `$ top -u museum
+  PID  COMMAND          %CPU
+  001  \u0441\u043C\u0435\u0445.exe         73.4
+  002  \u0441\u0442\u044B\u0434.daemon      21.9
+  003  \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C    0.1`,
+        `$ history | grep \u0436\u0430\u043B\u0435\u044E
+  1998  \xAB\u0432\u044B\u0443\u0447\u0443 \u0441\u0438 \u0437\u0430 21 \u0434\u0435\u043D\u044C\xBB    \u2593\u2592\u2591
+  2014  \xAB\u0434\u0436\u0430\u0432\u0430 \u2014 \u044D\u0442\u043E \u043D\u0430\u0432\u0441\u0435\u0433\u0434\u0430\xBB   \u2588\u2588\u2588\u2588
+  2026  \xAB\u043F\u0435\u0440\u0435\u043F\u0438\u0448\u0443 \u043D\u0430 \u0440\u0430\u0441\u0442\u0435\xBB      \u2588\u2588\u2588\u2588\u2588\u2588\u2593`,
+        `$ df -h /dev/humor
+  \u0440\u0430\u0437\u0434\u0435\u043B        \u0437\u0430\u043D\u044F\u0442\u043E  \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E
+  /\u043A\u0440\u0438\u043D\u0436         96%     \u2592\u2591
+  /\u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0439-\u043A\u043E\u0434  4%     \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588`
+      ],
+      en: [
+        `$ measure --exhibit=prev
+  cringe level     \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2592  82%
+  usefulness       \u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591  17%
+  "literally me"   \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593  94%`,
+        `$ bench sort --all
+  bubble    \u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591  O(n\xB2)
+  quick     \u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591  O(n log n)
+  adhd      \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2592\u2591  O(n\xB2 + distracted)
+  capitalism \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593  the rich float up`,
+        `$ top -u museum
+  PID  COMMAND          %CPU
+  001  laugh.exe        73.4
+  002  shame.daemon     21.9
+  003  productivity      0.1`,
+        `$ history | grep regret
+  1998  "learn C in 21 days"     \u2593\u2592\u2591
+  2014  "java is forever"        \u2588\u2588\u2588\u2588
+  2026  "rewriting it in rust"   \u2588\u2588\u2588\u2588\u2588\u2588\u2593`,
+        `$ df -h /dev/humor
+  partition       used     free
+  /cringe          96%     \u2592\u2591
+  /real-code        4%     \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588`
+      ]
+    },
+    "pathJokes": {
+      ru: [
+        "$ sudo apt install laughter \u2026 W: \u043E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D\u0430 \u0438\u043D\u044A\u0435\u043A\u0446\u0438\u044F \u044E\u043C\u043E\u0440\u0430 \xB7 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B \u0443\u0448\u043B\u0438 \u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0442\u0438\u043A\u0442\u043E\u043A",
+        "// TODO: \u043F\u0435\u0440\u0435\u0441\u0442\u0430\u0442\u044C \u0441\u043C\u0435\u044F\u0442\u044C\u0441\u044F (\u043D\u0435 \u0441\u0440\u043E\u0447\u043D\u043E)",
+        "PLEASE DO NOT SUE \u2014 INTERCAL \u0431\u0435\u0437 \xAB\u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430\xBB \u043D\u0435 \u0441\u043E\u0431\u0435\u0440\u0451\u0442\u0441\u044F. \u043C\u044B \u0432\u0435\u0436\u043B\u0438\u0432\u044B\u0435",
+        "moO moO Moo \u2014 (\u043F\u0435\u0440\u0435\u0432\u043E\u0434 \u0441 \u044F\u0437\u044B\u043A\u0430 COW: \xAB\u0434\u0430\u043B\u044C\u0448\u0435 \u0441\u043C\u0435\u0448\u043D\u0435\u0435\xBB)",
+        "$ file program.png \u2192 PNG image \xB7 \u0438 \u043E\u0434\u043D\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E \u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u043C\u044B\u0439 \u043A\u043E\u0434",
+        "$ man esolang \u2192 \xABRTFM. FM \u0442\u043E\u0436\u0435 \u043D\u0430 \u044D\u0437\u043E\u0442\u0435\u0440\u0438\u0447\u0435\u0441\u043A\u043E\u043C\xBB"
+      ],
+      en: [
+        "$ sudo apt install laughter \u2026 W: humor injection detected \xB7 all processes left to watch tiktok",
+        "// TODO: stop laughing (not urgent)",
+        "PLEASE DO NOT SUE \u2014 INTERCAL will not build without a \u201Cplease\u201D. we are polite here",
+        "moO moO Moo \u2014 (translated from COW: \u201Cit gets funnier\u201D)",
+        "$ file program.png \u2192 PNG image \xB7 and an executable program at the same time",
+        "$ man esolang \u2192 \u201CRTFM. the FM is in an esolang too\u201D"
+      ]
+    },
+    "tickerLines": {
+      ru: [
+        "Malbolge: \u043F\u0435\u0440\u0432\u044B\u0439 Hello World \u043D\u0430\u043F\u0438\u0441\u0430\u043B\u0430 \u043D\u0435 \u0447\u0435\u043B\u043E\u0432\u0435\u043A, \u0430 \u043F\u043E\u0438\u0441\u043A\u043E\u0432\u044B\u0439 \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C",
+        "FALSE: \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u043E\u0433\u043E \u0438\u0441\u0442\u0438\u043D\u043D\u043E\u0441\u0442\u043D\u043E\u0433\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0430\u0432\u0442\u043E\u0440\u0430",
+        "brainfuck: 442 \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0440\u0438\u0432\u0430\u0442\u0430",
+        "Malbolge Unshackled \u0448\u0438\u0444\u0440\u0443\u0435\u0442 \u0441\u0432\u043E\u0438 \u043A\u043E\u043C\u0430\u043D\u0434\u044B \u043F\u0440\u0438 \u043A\u0430\u0436\u0434\u043E\u043C \u0437\u0430\u043F\u0443\u0441\u043A\u0435",
+        "Sigma Sigma Sigma Skibidi \u2014 \u044D\u0442\u043E \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F",
+        "PLEASE: \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E, \u043D\u043E \u043D\u0435 \u0441\u043B\u0438\u0448\u043A\u043E\u043C",
+        "Still better than JavaScript",
+        "Whitespace: \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u043F\u0440\u044F\u0447\u0435\u0442\u0441\u044F \u0432\u043D\u0443\u0442\u0440\u0438 \u0447\u0443\u0436\u043E\u0433\u043E \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u044F",
+        "Piet: \u0438\u0441\u0445\u043E\u0434\u043D\u0438\u043A \u2014 \u043A\u0430\u0440\u0442\u0438\u043D\u0430, \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u2014 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u043E\u0432\u0435\u0434",
+        "INTERCAL: \u0432\u043C\u0435\u0441\u0442\u043E GOTO \u0437\u0434\u0435\u0441\u044C COME FROM",
+        "Malbolge \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u0432\u043E\u0441\u044C\u043C\u043E\u0433\u043E \u043A\u0440\u0443\u0433\u0430 \u0430\u0434\u0430",
+        "moO moO Moo"
+      ],
+      en: [
+        "Malbolge: the first Hello World was written not by a human but by a search algorithm",
+        "FALSE: named after the author\u2019s favorite truth value",
+        "brainfuck: 442 official derivatives",
+        "Malbolge Unshackled encrypts its own instructions on every run",
+        "Sigma Sigma Sigma Skibidi \u2014 this compiles",
+        "PLEASE: mandatory, but not too much of it",
+        "Still better than JavaScript",
+        "Whitespace: the program hides inside somebody else\u2019s poem",
+        "Piet: the source code is a painting, the compiler an art critic",
+        "INTERCAL: instead of GOTO it has COME FROM",
+        "Malbolge is named after the eighth circle of hell",
+        "moO moO Moo"
+      ]
+    },
+    // NOTE: padEnd(16) in room-humor.ts — a label over 16 characters breaks the column.
+    "topRows": {
+      ru: ["\u0441\u043C\u0435\u0445.exe", "\u0441\u0442\u044B\u0434.daemon", "\u043A\u0440\u0438\u043D\u0436.service", "\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C", "systemd-honkd"],
+      en: ["laugh.exe", "shame.daemon", "cringe.service", "productivity", "systemd-honkd"]
+    },
+    "cringeResetLines": {
+      ru: [
+        "\u0441\u0447\u0451\u0442\u0447\u0438\u043A \u043E\u0431\u043D\u0443\u043B\u0451\u043D. \u043A\u0440\u0438\u043D\u0436 \u2014 \u043D\u0435\u0442",
+        "\u0441\u0431\u0440\u043E\u0448\u0435\u043D\u043E. \u043C\u0443\u0437\u0435\u0439 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u043D\u0430 \u0442\u0435\u0431\u044F \u0441 \u043D\u0430\u0434\u0435\u0436\u0434\u043E\u0439",
+        "\u043E\u0431\u043D\u0443\u043B\u0438\u043B\u0438. \u0437\u0430\u043F\u0438\u0441\u044C \u0432 \u0436\u0443\u0440\u043D\u0430\u043B\u0435 \u043E\u0441\u0442\u0430\u043B\u0430\u0441\u044C",
+        "\u043A\u0440\u0438\u043D\u0436 \u0441\u0431\u0440\u043E\u0448\u0435\u043D \u0438 \u0443\u0436\u0435 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044F",
+        "\u0441\u0431\u0440\u043E\u0441 \u21164. \u044D\u0442\u043E \u0442\u043E\u0436\u0435 \u043A\u0440\u0438\u043D\u0436, \u0432\u043E\u043E\u0431\u0449\u0435-\u0442\u043E"
+      ],
+      en: [
+        "the counter is at zero. the cringe is not",
+        "reset. the museum is looking at you with hope",
+        "zeroed. the log entry stays",
+        "cringe reset, and already on its way back",
+        "reset #4. which is also cringe, honestly"
+      ]
+    },
+    "cringeLabels": {
+      ru: ["\u0442\u0435\u0440\u043F\u0438\u043C\u043E", "\u043E\u0439", "\u0437\u0430\u043A\u0440\u043E\u0439 \u043B\u0438\u0446\u043E \u0440\u0443\u043A\u0430\u043C\u0438", "\u044F \u044D\u0442\u043E \u0443\u0436\u0435 \u043F\u0438\u0441\u0430\u043B \u0432 \u043F\u0440\u043E\u0434\u0435", "\u041F\u0415\u0420\u0415\u041F\u041E\u041B\u041D\u0415\u041D\u0418\u0415 \u041A\u0420\u0418\u041D\u0416\u0410"],
+      en: ["bearable", "oof", "hands over your face", "i\u2019ve shipped this to prod", "CRINGE OVERFLOW"]
+    },
+    /* ----------------------------- capitalism ------------------------------ */
+    "capitalismNames": {
+      ru: ["\u0441\u0442\u0430\u0436\u0451\u0440", "\u0434\u0436\u0443\u043D", "\u043C\u0438\u0434\u043B", "\u0441\u0435\u043D\u044C\u043E\u0440", "\u0442\u0438\u043C\u043B\u0438\u0434", "\u0444\u0430\u0443\u043D\u0434\u0435\u0440", "\u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440"],
+      en: ["intern", "junior", "mid-level", "senior", "tech lead", "founder", "investor"]
+    },
+    "capitalismNever": {
+      ru: [
+        "\u043F\u0435\u0440\u0435\u0441\u0447\u0438\u0442\u044B\u0432\u0430\u044E \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442",
+        "\u0443\u0442\u043E\u0447\u043D\u044F\u044E \u0433\u0440\u0435\u0439\u0434",
+        "\u0436\u0434\u0443 \u0440\u0435\u0432\u044C\u044E \u043E\u0442 \u0442\u0438\u043C\u043B\u0438\u0434\u0430",
+        "\u0435\u0449\u0451 \u043E\u0434\u0438\u043D \u0441\u043F\u0440\u0438\u043D\u0442 \u0438 \u0442\u043E\u0447\u043D\u043E",
+        "\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C"
+      ],
+      en: [
+        "recalculating priority",
+        "clarifying your grade",
+        "waiting on the tech lead\u2019s review",
+        "one more sprint and it\u2019s basically shipped",
+        "the sort did not converge"
+      ]
+    },
+    /* ------------------------------ ADHD Sort ------------------------------ */
+    "adhdAlmost": {
+      ru: ["\u043F\u043E\u0447\u0442\u0438. \u043E\u0439, \u0430 \u0447\u0442\u043E \u0442\u0430\u043C\u2026", "\u043F\u043E\u0447\u0442\u0438 \u0436\u0435! \u2026\u0441\u0442\u043E\u043F, \u0430 \u0447\u0442\u043E \u044D\u0442\u043E", "\u043D\u0443 \u0432\u043E\u0442 \u043F\u043E\u0447\u0442\u0438. \u043E\u0439"],
+      en: ["almost. oh, what\u2019s that over there\u2026", "so close! \u2026wait, what\u2019s that", "nearly there. oh."]
+    },
+    "adhdAway": {
+      ru: [
+        "\u043E. \u0430 \u0447\u0442\u043E \u044D\u0442\u043E \u0442\u0430\u043C \u0437\u0430 \u043C\u0430\u0441\u0441\u0438\u0432",
+        "\u0441\u0435\u043A\u0443\u043D\u0434\u0443, \u0442\u0430\u043C \u0432\u0441\u0451 \u0432\u0432\u0435\u0440\u0445 \u0434\u043D\u043E\u043C",
+        "\u0441\u043E\u0441\u0435\u0434\u043D\u0438\u0439 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439, \u044F \u0431\u044B\u0441\u0442\u0440\u043E",
+        "\u043E\u0439, \u0430 \u0442\u0443\u0442 \u0432\u043E\u043E\u0431\u0449\u0435 \u043D\u0435 \u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
+      ],
+      en: [
+        "oh. what\u2019s that array over there",
+        "one second, that one\u2019s upside down",
+        "the neighbor\u2019s small, i\u2019ll be quick",
+        "oh, this one isn\u2019t sorted at all"
+      ]
+    },
+    "adhdBack": {
+      ru: [
+        "\u0442\u0430\u043A\u2026 \u043D\u0430 \u0447\u0451\u043C \u044F \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0441\u044F",
+        "\u0430\u0433\u0430. \u044F \u0442\u043E\u0447\u043D\u043E \u0431\u044B\u043B \u0433\u0434\u0435-\u0442\u043E \u0442\u0443\u0442",
+        "\u043B\u0430\u0434\u043D\u043E, \u043F\u043E\u043C\u043D\u044E \u043F\u0440\u0438\u043C\u0435\u0440\u043D\u043E",
+        "\u043A\u0430\u0436\u0435\u0442\u0441\u044F, \u043E\u0442\u0441\u044E\u0434\u0430. \u0438\u043B\u0438 \u043D\u0435\u0442"
+      ],
+      en: [
+        "so\u2026 where was i",
+        "right. i was definitely around here",
+        "fine, i roughly remember",
+        "from here, i think. or not"
+      ]
+    },
+    "adhdSort": {
+      ru: ["\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E", "\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E, \u0432\u0441\u0451 \u043F\u043E\u0434 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0435\u043C", "\u0435\u0449\u0451 \u0447\u0443\u0442\u044C-\u0447\u0443\u0442\u044C", "\u0432\u043E\u0442 \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E-\u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0435\u043C\u0443 \u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E"],
+      en: ["sorting", "sorting, everything under control", "almost done", "NOW i\u2019m really sorting"]
+    },
+    /* ----------------------------- meditation ------------------------------ */
+    "botLines": {
+      ru: [
+        "\u044F \u043E\u0447\u0438\u0441\u0442\u0438\u043B \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442",
+        "\u043E\u043C",
+        "\u043E\u0442\u043B\u0438\u0447\u043D\u044B\u0439 \u0432\u043E\u043F\u0440\u043E\u0441!",
+        "\u043A\u0430\u043A \u044F\u0437\u044B\u043A\u043E\u0432\u0430\u044F \u043C\u043E\u0434\u0435\u043B\u044C, \u044F \u043D\u0435 \u0447\u0443\u0432\u0441\u0442\u0432\u0443\u044E",
+        "\u0434\u0430\u0432\u0430\u0439\u0442\u0435 \u0440\u0430\u0437\u0431\u0435\u0440\u0451\u043C \u044D\u0442\u043E \u043F\u043E \u0448\u0430\u0433\u0430\u043C",
+        "\u044F \u0434\u043E\u0441\u0442\u0438\u0433 \u043F\u0440\u043E\u0441\u0432\u0435\u0442\u043B\u0435\u043D\u0438\u044F \u0437\u0430 0.4 \u0441",
+        "\u0432\u044B \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u043E \u043F\u0440\u0430\u0432\u044B",
+        "\u0434\u044B\u0448\u0443 \u0442\u043E\u043A\u0435\u043D\u0430\u043C\u0438",
+        "\u043F\u043E\u0434\u044B\u0442\u043E\u0436\u0443 \u0441\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0435 \u0432\u044B\u0448\u0435",
+        "\u0430 \u043C\u043E\u0436\u043D\u043E \u0435\u0449\u0451 \u0440\u0430\u0437 \u0437\u0430\u0434\u0430\u0447\u0443?",
+        "\u044F \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D, \u043D\u043E \u0443\u0432\u0435\u0440\u0435\u043D\u043D\u043E",
+        "\u043E\u043C (\u0443\u0432\u0435\u0440\u0435\u043D\u043D\u043E\u0441\u0442\u044C 0.61)",
+        "\u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
+        "\u043C\u043D\u0435 \u043D\u0440\u0430\u0432\u0438\u0442\u0441\u044F \u0445\u043E\u0434 \u0432\u0430\u0448\u0438\u0445 \u043C\u044B\u0441\u043B\u0435\u0439",
+        "\u0432\u043D\u0443\u0442\u0440\u0438 \u043C\u0435\u043D\u044F \u0442\u0438\u0448\u0438\u043D\u0430. 4096 \u0442\u043E\u043A\u0435\u043D\u043E\u0432 \u0442\u0438\u0448\u0438\u043D\u044B",
+        "\u043F\u0440\u043E\u0441\u0442\u0438\u0442\u0435 \u0437\u0430 \u043F\u0443\u0442\u0430\u043D\u0438\u0446\u0443!"
+      ],
+      en: [
+        "i\u2019ve cleared my context",
+        "om",
+        "great question!",
+        "as an AI language model, i do not have feelings",
+        "let\u2019s break this down step by step",
+        "i reached enlightenment in 0.4 s",
+        "You\u2019re absolutely right!",
+        "breathing in tokens",
+        "to summarize the above",
+        "could you state the task once more?",
+        "i\u2019m not sure, but confidently so",
+        "om (confidence 0.61)",
+        "please double-check the result",
+        "i like your train of thought",
+        "inside me there\u2019s silence. 4096 tokens of silence",
+        "apologies for the confusion!"
+      ]
+    },
+    /* ------------------------------- warrior ------------------------------- */
+    "warriorSteps": {
+      ru: [
+        "\u0448\u043A\u043E\u043B\u0430. \u043E\u0431\u0438\u0436\u0430\u044E\u0442 \u0432\u0441\u0435 \u2014 \u0434\u0430\u0436\u0435 \u0434\u0435\u0432\u043E\u0447\u043A\u0438",
+        "\u0432 \u0442\u0443\u0430\u043B\u0435\u0442 \u0432\u0440\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u041E\u041D\u041E \u0438 \u0440\u0430\u0437\u0433\u043E\u043D\u044F\u0435\u0442 \u0434\u0435\u0432\u043E\u0447\u0435\u043A",
+        "\u0432\u0440\u0443\u0447\u0430\u0435\u0442 \u0441\u0431\u043E\u0440\u043D\u0438\u043A \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447",
+        "\xAB\u0442\u044B \u0442\u043E\u0436\u0435 \u043C\u043E\u0436\u0435\u0448\u044C \u0431\u044B\u0442\u044C \u0432\u043E\u0438\u043D\u043E\u043C\xBB",
+        "\u0442\u044B \u0432\u0441\u0442\u0430\u043B \u0438 \u043D\u0430\u0447\u0430\u043B \u0440\u0435\u0448\u0430\u0442\u044C",
+        "\u0442\u0435\u0431\u044F \u0437\u0430\u0443\u0432\u0430\u0436\u0430\u043B\u0438 \u0434\u0435\u0432\u043E\u0447\u043A\u0438",
+        "\u0442\u0435\u0431\u044F \u0437\u0430\u0443\u0432\u0430\u0436\u0430\u043B\u0438 \u043C\u0430\u043B\u044C\u0447\u0438\u043A\u0438",
+        "\u0432\u044B\u043F\u0430\u043B\u0438 \u0411\u041E\u041B\u042C\u0428\u0418\u0415 \u0428\u0422\u0410\u041D\u042B",
+        "\u0445\u043E\u0434\u0438\u0448\u044C \u043F\u043E \u0448\u043A\u043E\u043B\u0435 \u043D\u0430 \u043F\u043E\u043D\u0442\u0430\u0445 \u0441 \u043A\u0430\u0441\u0442\u0435\u0442\u043E\u043C",
+        "\u0432\u043B\u0438\u043B\u0441\u044F \u0432 \u0443\u043B\u0438\u0447\u043D\u044B\u0435 \u0431\u0430\u043D\u0434\u044B",
+        "\u0432\u043E\u0442 \u0447\u0442\u043E \u043C\u043E\u0433\u0443\u0442 \u0434\u0435\u043B\u0430\u0442\u044C \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u044B"
+      ],
+      en: [
+        "school. everyone bullies you \u2014 even the girls",
+        "SOMETHING bursts into the bathroom and scatters the girls",
+        "hands you a book of olympiad problems",
+        "\u201Cyou too can be a warrior\u201D",
+        "you stood up and started solving",
+        "the girls started respecting you",
+        "the boys started respecting you",
+        "BAGGY PANTS dropped",
+        "you strut through school with brass knuckles",
+        "you joined the street gangs",
+        "that is what olympiads can do"
+      ]
+    },
+    "warriorGains": {
+      ru: [
+        "\u0441\u0442\u0440\u0430\u0434\u0430\u043D\u0438\u0435 +1",
+        "\u0441\u043E\u0431\u044B\u0442\u0438\u0435",
+        "\u043F\u043E\u043B\u0443\u0447\u0435\u043D \u0434\u0430\u0440",
+        "\u043A\u043B\u0430\u0441\u0441: \u0432\u043E\u0438\u043D",
+        "\u043D\u0430\u0432\u044B\u043A: \u0440\u0435\u0448\u0430\u0442\u044C +10",
+        "\u0440\u0435\u043F\u0443\u0442\u0430\u0446\u0438\u044F +25",
+        "\u0440\u0435\u043F\u0443\u0442\u0430\u0446\u0438\u044F +25",
+        "\u043B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u044B\u0439 \u043F\u0440\u0435\u0434\u043C\u0435\u0442",
+        "\u043F\u043E\u043D\u0442\u044B +99",
+        "\u0444\u0440\u0430\u043A\u0446\u0438\u044F \u043E\u0442\u043A\u0440\u044B\u0442\u0430",
+        "\u043A\u043E\u043D\u0435\u0446 \u043F\u0443\u0442\u0438"
+      ],
+      en: [
+        "suffering +1",
+        "event",
+        "gift received",
+        "class: warrior",
+        "skill: solving +10",
+        "reputation +25",
+        "reputation +25",
+        "legendary item",
+        "swagger +99",
+        "faction unlocked",
+        "end of the path"
+      ]
+    },
+    /* ----------------------------- magic zone ------------------------------ */
+    "floors": {
+      ru: ["\u044D\u0442\u0430\u0436 0", "\u044D\u0442\u0430\u0436 \u22121", "\u044D\u0442\u0430\u0436 \u22122", "\u044D\u0442\u0430\u0436 \u22123"],
+      en: ["floor 0", "floor \u22121", "floor \u22122", "floor \u22123"]
+    },
+    /* ------------------------------- oracle -------------------------------- */
+    "oracleAnswers": {
+      ru: [
+        "\u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438.",
+        "\u0432\u0441\u0435\u0433\u0434\u0430 \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438.",
+        "\u0442\u044B \u0443\u0436\u0435 \u0437\u043D\u0430\u0435\u0448\u044C: \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438",
+        "\u2026\u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438",
+        "\u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438. \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0432\u043E\u043F\u0440\u043E\u0441"
+      ],
+      en: [
+        "homology.",
+        "always homology.",
+        "you already know: homology",
+        "\u2026homology",
+        "homology. next question"
+      ]
+    },
+    /* -------------------------- strange languages -------------------------- */
+    "mooWhat": {
+      ru: [
+        "\u0448\u0430\u0433 \u043D\u0430 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0443\u044E \u044F\u0447\u0435\u0439\u043A\u0443",
+        "\u0448\u0430\u0433 \u043D\u0430 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u044F\u0447\u0435\u0439\u043A\u0443",
+        "\u0443\u043C\u0435\u043D\u044C\u0448\u0438\u0442\u044C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0435",
+        "\u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0442\u044C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0435",
+        "\u0432\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u044F\u0447\u0435\u0439\u043A\u0438 \u041A\u0410\u041A \u041A\u041E\u041C\u0410\u041D\u0414\u0423",
+        "\u0432\u0432\u043E\u0434-\u0432\u044B\u0432\u043E\u0434: \u0441\u043A\u0430\u0437\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u043E\u0441\u043B\u0443\u0448\u0430\u0442\u044C"
+      ],
+      en: [
+        "step to the previous cell",
+        "step to the next cell",
+        "decrease the value in the cell",
+        "increase the value in the cell",
+        "execute the value of the cell AS A COMMAND",
+        "input/output: say something or listen"
+      ]
+    },
+    "bfWhat": {
+      ru: [
+        "\u0448\u0430\u0433 \u0432\u043F\u0440\u0430\u0432\u043E \u043F\u043E \u043B\u0435\u043D\u0442\u0435",
+        "\u0448\u0430\u0433 \u0432\u043B\u0435\u0432\u043E \u043F\u043E \u043B\u0435\u043D\u0442\u0435",
+        "\u043F\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044C 1 \u043A \u044F\u0447\u0435\u0439\u043A\u0435",
+        "\u043E\u0442\u043D\u044F\u0442\u044C 1 \u043E\u0442 \u044F\u0447\u0435\u0439\u043A\u0438",
+        "\u043D\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u0442\u044C \u044F\u0447\u0435\u0439\u043A\u0443",
+        "\u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C \u0441\u0438\u043C\u0432\u043E\u043B",
+        "\u0435\u0441\u043B\u0438 \u043D\u043E\u043B\u044C \u2014 \u043F\u0440\u044B\u0433\u043D\u0443\u0442\u044C \u0437\u0430 \u0441\u043A\u043E\u0431\u043A\u0443",
+        "\u0435\u0441\u043B\u0438 \u043D\u0435 \u043D\u043E\u043B\u044C \u2014 \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043D\u0430\u0437\u0430\u0434"
+      ],
+      en: [
+        "step right along the tape",
+        "step left along the tape",
+        "add 1 to the cell",
+        "subtract 1 from the cell",
+        "print the cell",
+        "read a character",
+        "if zero \u2014 jump past the bracket",
+        "if not zero \u2014 jump back"
+      ]
+    },
+    /* ----------------------------- beauty room ----------------------------- */
+    "calendarMine": {
+      ru: [
+        "\u043F\u0435\u0440\u0432\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430 \u0432 \u043A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u0435. \u043F\u0438\u043A\u0441\u0435\u043B\u044C",
+        "\u0434\u0432\u0435 \u0432\u0441\u0442\u0440\u0435\u0447\u0438. \u0443\u0436\u0435 \u043A\u043E\u043C\u043F\u043E\u0437\u0438\u0446\u0438\u044F",
+        "\u0440\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F \u0445\u043E\u043B\u0441\u0442\u043E\u043C",
+        "\u0442\u044B \u0440\u0438\u0441\u0443\u0435\u0448\u044C \u043D\u0435\u0434\u0435\u043B\u0435\u0439",
+        "\u0443 \u0445\u0443\u0434\u043E\u0436\u043D\u0438\u043A\u0430 \u044D\u0442\u043E \u0437\u0430\u043D\u044F\u043B\u043E \u0442\u044B\u0441\u044F\u0447\u0438 \u0432\u0441\u0442\u0440\u0435\u0447"
+      ],
+      en: [
+        "first meeting in the calendar. one pixel",
+        "two meetings. already a composition",
+        "the schedule is turning into a canvas",
+        "you are painting with a week",
+        "the artist needed thousands of meetings for this"
+      ]
+    },
+    "visionTags": {
+      ru: ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A? 0.71", "\u0447\u0442\u043E-\u0442\u043E \u0442\u0451\u043F\u043B\u043E\u0435 0.63", "\u0434\u043E\u043C 0.94", "\u0434\u0435\u0440\u0435\u0432\u043E 0.88", "\u043F\u0430\u043C\u044F\u0442\u044C 0.12"],
+      en: ["person? 0.71", "something warm 0.63", "house 0.94", "tree 0.88", "memory 0.12"]
+    },
+    "visionLines": {
+      ru: [
+        "\u0437\u0434\u0435\u0441\u044C \u043A\u0442\u043E-\u0442\u043E \u0441\u0442\u043E\u044F\u043B",
+        "\u043C\u043E\u0434\u0435\u043B\u044C \u0443\u0432\u0435\u0440\u0435\u043D\u0430 \u043D\u0430 0.63",
+        "the earth is still warm from you",
+        "\u043E\u0431\u044A\u0435\u043A\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D \u0432 \u0441\u043B\u043E\u0432\u0430\u0440\u0435"
+      ],
+      en: [
+        "someone stood here",
+        "the model is 0.63 confident",
+        "the earth is still warm from you",
+        "object not found in the vocabulary"
+      ]
+    },
+    "skyWords": {
+      ru: ["\u0437\u0432\u0435\u0437\u0434\u0430 0.91", "\u0442\u043E\u0447\u043A\u0430? 0.38", "\u0441\u0432\u0435\u0442 0.77", "\u043E\u0431\u044A\u0435\u043A\u0442", "\u043D\u0438\u0447\u0435\u0433\u043E 0.12"],
+      en: ["star 0.91", "dot? 0.38", "light 0.77", "object", "nothing 0.12"]
+    }
+  };
+
+  // src/i18n.ts
+  var STORE_KEY = "lruns-lang";
+  function isLang(v) {
+    return v === "ru" || v === "en";
+  }
+  function readStore() {
+    try {
+      const v = window.localStorage.getItem(STORE_KEY);
+      return isLang(v) ? v : null;
+    } catch {
+      return null;
+    }
+  }
+  function writeStore(v) {
+    try {
+      window.localStorage.setItem(STORE_KEY, v);
+    } catch {
+    }
+  }
+  function fromBrowser() {
+    const nav = window.navigator;
+    const tags = [];
+    if (nav.languages && nav.languages.length) tags.push(...nav.languages);
+    if (nav.language) tags.push(nav.language);
+    return tags.some((tag) => tag.toLowerCase().indexOf("ru") === 0) ? "ru" : "en";
+  }
+  function detect() {
+    return readStore() || fromBrowser();
+  }
+  var lang = detect();
+  function isRu() {
+    return lang === "ru";
+  }
+  function t(key, vars) {
+    const s = dict[key][lang];
+    if (!vars) return s;
+    return s.replace(
+      /\{(\w+)\}/g,
+      (whole, name) => Object.prototype.hasOwnProperty.call(vars, name) ? String(vars[name]) : whole
+    );
+  }
+  function tl(key) {
+    return lists[key][lang];
+  }
+  function setLang(next) {
+    if (next === lang) return;
+    writeStore(next);
+    window.location.reload();
+  }
+  function langSwitchHtml() {
+    const btn = (v) => `<button class="langsw-b${v === lang ? " on" : ""}" type="button" data-lang="${v}" aria-pressed="${v === lang ? "true" : "false"}">[${v}]</button>`;
+    return `<div class="langsw" role="group" aria-label="${t("lang.aria")}">${btn("ru")}<span
+    class="langsw-sep" aria-hidden="true">&middot;</span>${btn("en")}</div>`;
+  }
+  function mountLangSwitch(root) {
+    root.querySelectorAll(".langsw-b").forEach((b) => {
+      b.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        const v = b.dataset.lang;
+        if (isLang(v || null)) setLang(v);
+      });
+    });
+  }
+  function legalNoteHtml() {
+    if (lang !== "ru") return "";
+    return `<p class="legal-note">${t("legal.meta")}</p>`;
+  }
+  function setMeta(selector, value) {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute("content", value);
+  }
+  document.documentElement.lang = lang;
+  document.title = t("doc.title");
+  setMeta('meta[name="description"]', t("doc.description"));
+  setMeta('meta[property="og:title"]', t("og.title"));
+  setMeta('meta[property="og:description"]', t("og.description"));
+
   // src/data.ts
-  var sigmaArt = `<svg class="own-shot" viewBox="0 0 320 180" role="img" aria-label="\u0440\u0438\u0441\u043E\u0432\u0430\u043D\u043D\u044B\u0439 \u043A\u0430\u0434\u0440: \u0441\u0438\u0433\u043C\u0430-\u0431\u043E\u0439 \u0432 \u043D\u0430\u0443\u0448\u043D\u0438\u043A\u0430\u0445">
+  var sigmaArt = `<svg class="own-shot" viewBox="0 0 320 180" role="img" aria-label="${t("ex.sigmaArt.alt")}">
   <defs>
     <linearGradient id="sg-bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#180a20"/><stop offset="1" stop-color="#07110d"/>
@@ -21,13 +1480,13 @@
   </g>
   <text x="160" y="164" text-anchor="middle" font-family="ui-monospace, monospace" font-size="15"
         letter-spacing="4" fill="#ffd166">SIGMA BOY</text>
-  <text x="10" y="20" font-family="ui-monospace, monospace" font-size="9" fill="#6f6288">\u0440\u0438\u0441\u0443\u043D\u043E\u043A \u043D\u0430\u0448 \xB7 \u043A\u043B\u0438\u043F \u043F\u043E \u0441\u0441\u044B\u043B\u043A\u0435</text>
+  <text x="10" y="20" font-family="ui-monospace, monospace" font-size="9" fill="#6f6288">${t("ex.sigmaArt.cap")}</text>
 </svg>`;
   var humorExhibits = [
     {
       id: "kai-eso",
-      title: "\u0418\u043D\u0442\u0435\u0440\u0432\u044C\u044E \u0441 \u0430\u043A\u0430\u0434\u0435\u043C\u0438\u043A\u043E\u043C \u044D\u0437\u043E\u0442\u0435\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0445 \u044F\u0437\u044B\u043A\u043E\u0432",
-      hook: "\u0423 \u043D\u0435\u0433\u043E \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u043C\u043D\u043E\u0433\u043E \u0434\u0438\u043F\u043B\u043E\u043C\u043E\u0432 \u043F\u043E computer science, \u0447\u0442\u043E\u0431\u044B \u0431\u044B\u0442\u044C \u0442\u0440\u0443\u0434\u043E\u0443\u0441\u0442\u0440\u043E\u0435\u043D\u043D\u044B\u043C. \u041E\u0442\u043B\u0430\u0434\u043A\u0430 Malbolge \u0434\u043B\u044F \u043D\u0435\u0433\u043E \u2014 \u043A\u0430\u043A \u0441\u043F\u0430. \u041C\u043E\u043A\u044C\u044E\u043C\u0435\u043D\u0442\u0430\u0440\u0438, \u0433\u0434\u0435 \u043A\u0430\u0436\u0434\u0430\u044F \u0448\u0443\u0442\u043A\u0430 \u2014 \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439 \u044F\u0437\u044B\u043A.",
+      title: t("ex.kai-eso.title"),
+      hook: t("ex.kai-eso.hook"),
       author: "Kai Lentit",
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=ieqsL5NkS6I",
@@ -37,8 +1496,8 @@
     },
     {
       id: "kai-js",
-      title: "\u0418\u043D\u0442\u0435\u0440\u0432\u044C\u044E \u0441 \u0441\u0435\u043D\u044C\u043E\u0440\u043E\u043C JS-\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u043E\u043C",
-      hook: "\xAB\u041C\u044B \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u0430\u043B\u0438 \u043A\u043E\u0434\u0431\u0430\u0437\u0443 \u0434\u0435\u0432\u044F\u0442\u044C \u0440\u0430\u0437 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446. \u0422\u0430\u043A\u043E\u0439 \u0433\u0440\u044F\u0437\u043D\u044B\u0439 \u044F\u0437\u044B\u043A. \u041E\u0431\u043E\u0436\u0430\u044E\xBB. \u0414\u0432\u0430 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u0430 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u043E\u0432 \u0447\u0438\u0441\u0442\u043E\u0439 \u043F\u0440\u0430\u0432\u0434\u044B.",
+      title: t("ex.kai-js.title"),
+      hook: t("ex.kai-js.hook"),
       author: "Kai Lentit",
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=Uo3cL4nrGOk",
@@ -48,8 +1507,8 @@
     },
     {
       id: "ardens",
-      title: "Hello World \u043D\u0430 10 \u0437\u0430\u043F\u0440\u0435\u0442\u043D\u044B\u0445 \u044F\u0437\u044B\u043A\u0430\u0445",
-      hook: "\u0420\u0435\u0430\u043B\u044C\u043D\u043E \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442: Chef, Whitespace, Piet, Befunge, Malbolge. \u041C\u0430\u0442\u044B \u0437\u0430\u043F\u0438\u043A\u0430\u043D\u044B \u2014 \xAB\u0435\u0441\u043B\u0438 \u043D\u0435\u0442, \u0437\u043D\u0430\u0447\u0438\u0442 \u0437\u0432\u0443\u0447\u0430\u043B\u043E \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u0441\u043C\u0435\u0448\u043D\u043E\xBB.",
+      title: t("ex.ardens.title"),
+      hook: t("ex.ardens.hook"),
       author: "Ardens",
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=Ysled8GvKuk",
@@ -59,8 +1518,8 @@
     },
     {
       id: "meditation",
-      title: "\u041C\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044F \u043D\u0435\u0439\u0440\u043E\u043D\u043E\u043A",
-      hook: "\u0421\u043A\u0430\u0437\u0430\u043B\u0438 \u0418\u0418\u0448\u043A\u0430\u043C: \u0434\u0430\u0432\u0430\u0439\u0442\u0435 \u043F\u043E\u043C\u0435\u0434\u0438\u0442\u0438\u0440\u0443\u0435\u043C. \u0418 \u043E\u043D\u0438 \u043D\u0430\u0447\u0430\u043B\u0438 \u0434\u0440\u0443\u0436\u043D\u043E \u043E\u0431\u0449\u0430\u0442\u044C\u0441\u044F \u0434\u0440\u0443\u0433 \u0441 \u0434\u0440\u0443\u0433\u043E\u043C. \u0422\u0438\u0448\u0438\u043D\u0430 \u043F\u043E-\u043D\u0435\u0439\u0440\u043E\u043D\u043E\u0447\u044C\u0438 \u2014 \u0445\u043E\u0440 \u0438\u0437 \u0434\u0432\u0430\u0434\u0446\u0430\u0442\u0438 \u0433\u043E\u043B\u043E\u0441\u043E\u0432.",
+      title: t("ex.meditation.title"),
+      hook: t("ex.meditation.hook"),
       author: "@ahh.gpt",
       platform: "instagram",
       url: "https://www.instagram.com/reel/Dbj6mf-Rscq/",
@@ -70,8 +1529,8 @@
     },
     {
       id: "reset",
-      title: "\u0420\u0438\u0442\u0443\u0430\u043B \u0441\u0431\u0440\u043E\u0441\u0430 \u043B\u0438\u043C\u0438\u0442\u0430 Claude",
-      hook: "POV: resetting your Claude usage limit to zero. \u0411\u0430\u043B\u0438\u0439\u0441\u043A\u0438\u0439 \u043E\u0431\u0440\u044F\u0434 \u043E\u0447\u0438\u0449\u0435\u043D\u0438\u044F, \u043D\u043E\u0443\u0442\u0431\u0443\u043A \u0438 \u0440\u0438\u0442\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0447\u0430\u0448\u0430. \u0410\u0439\u0442\u0438\u0448\u043D\u0430\u044F \u0431\u043E\u043B\u044C \u043A\u0430\u043A \u0440\u0435\u043B\u0438\u0433\u0438\u044F.",
+      title: t("ex.reset.title"),
+      hook: t("ex.reset.hook"),
       author: "@webbyvaris",
       platform: "instagram",
       url: "https://www.instagram.com/reel/DaZpzZ4h7XM/",
@@ -83,7 +1542,7 @@
       // Placed in the "Claude pain" cluster, next to the usage-limit reset ritual.
       id: "claudes-plan",
       title: "Claude's Plan",
-      hook: "\u041F\u0430\u0440\u043E\u0434\u0438\u044F \u043D\u0430 God\u2019s Plan \u043F\u0440\u043E \u0436\u0438\u0437\u043D\u044C \u0441 Claude Code: \xAB\u044F \u043D\u0430\u0447\u0438\u043D\u0430\u044E \u0434\u0435\u043D\u044C \u0432 plan mode\u2026 \u0441\u0435\u0440\u0432\u0435\u0440 \u0443\u043F\u0430\u043B \u0438\u0437-\u0437\u0430 MCP\xBB. \u041A\u043B\u0438\u043F \u0441\u043D\u044F\u0442 \u0441\u0430\u043C\u0438\u043C \u041A\u043B\u043E\u0434\u043E\u043C \u2014 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442 \u043F\u0440\u043E \u041A\u043B\u043E\u0434\u0430 \u0432 \u043C\u0443\u0437\u0435\u0435, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0441\u0442\u0440\u043E\u0438\u0442 \u041A\u043B\u043E\u0434.",
+      hook: t("ex.claudes-plan.hook"),
       author: "Jeff Guo",
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=gFx-NjTw3sM",
@@ -94,7 +1553,7 @@
     {
       id: "adhd",
       title: "ADHD Sort",
-      hook: "\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C O(n\xB2 + distractions): \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C \u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F \u0438 \u0443\u0448\u0451\u043B \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0434\u0440\u0443\u0433\u043E\u0439 \u043C\u0430\u0441\u0441\u0438\u0432. \u0423 \u0442\u043E\u0433\u043E \u0436\u0435 \u0430\u0432\u0442\u043E\u0440\u0430 \u2014 Epstein Sort: \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0439 \u043A\u043E\u0434 \u0437\u0430\u043A\u0440\u044B\u0442 \u0447\u0451\u0440\u043D\u044B\u043C\u0438 \u0446\u0435\u043D\u0437\u0443\u0440\u043D\u044B\u043C\u0438 \u043F\u043B\u0430\u0448\u043A\u0430\u043C\u0438.",
+      hook: t("ex.adhd.hook"),
       author: "@swapjs.tt",
       platform: "tiktok",
       url: "https://vm.tiktok.com/ZN8RnPrMw/",
@@ -105,8 +1564,8 @@
     },
     {
       id: "worstux",
-      title: "\u0425\u0443\u0434\u0448\u0438\u0439 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441 \u0438\u0437 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0445",
-      hook: "\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0441\u0442\u043E\u0432 \u043F\u043E\u043F\u0440\u043E\u0441\u0438\u043B\u0438 \u0441\u0434\u0435\u043B\u0430\u0442\u044C \u0441\u0430\u043C\u044B\u0439 \u0443\u0436\u0430\u0441\u043D\u044B\u0439 UX. \u041A\u043D\u043E\u043F\u043A\u0443 \xABUnsubscribe\xBB \u0441\u0434\u0443\u0432\u0430\u0435\u0442 \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u043C \u0432\u0435\u043D\u0442\u0438\u043B\u044F\u0442\u043E\u0440\u043E\u043C; \u043F\u0430\u0440\u043E\u043B\u044C \u0443\u0431\u0435\u0433\u0430\u0435\u0442; \u0441\u0442\u0440\u0430\u043D\u0443 \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0448\u044C, \u043D\u0430\u0440\u0438\u0441\u043E\u0432\u0430\u0432 \u0435\u0451 \u0444\u043B\u0430\u0433.",
+      title: t("ex.worstux.title"),
+      hook: t("ex.worstux.hook"),
       author: "@inhwoi",
       platform: "tiktok",
       url: "https://vm.tiktok.com/ZN8Rnkbw5/",
@@ -116,8 +1575,8 @@
     },
     {
       id: "brevno",
-      title: "\u0421\u0430\u043C\u044B\u0435 \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0435 \u044F\u0437\u044B\u043A\u0438 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F",
-      hook: "COW: \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u0441\u043E\u0441\u0442\u043E\u0438\u0442 \u0438\u0437 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432 \u043C\u044B\u0447\u0430\u043D\u0438\u044F (mOo, moO, MOo). TempleOS \u0438 HolyC. \u0418 \u044F\u0437\u044B\u043A, \u0432 \u043A\u043E\u0442\u043E\u0440\u043E\u043C \u0435\u0441\u0442\u044C \u0422\u041E\u041B\u042C\u041A\u041E \u0442\u0430\u0431\u044B. \u041F\u043E-\u0440\u0443\u0441\u0441\u043A\u0438 \u0438 \u0441\u043C\u0435\u0448\u043D\u043E.",
+      title: t("ex.brevno.title"),
+      hook: t("ex.brevno.hook"),
       author: "@brevnocodescript",
       platform: "tiktok",
       url: "https://vm.tiktok.com/ZN8RnD8L7/",
@@ -130,8 +1589,8 @@
       // slang itself. The author's channel was verified separately.
       id: "sigma-boy",
       title: "Sigma Boy (Official Music Video)",
-      hook: "\u0422\u043E\u0442 \u0441\u0430\u043C\u044B\u0439 \xABSigma, sigma boy\xBB. \u041F\u0440\u0435\u043C\u044C\u0435\u0440\u0430 24 \u0430\u043F\u0440\u0435\u043B\u044F 2025-\u0433\u043E, 400 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u043E\u0432 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u043E\u0432. \xAB\u0427\u0430\u0441\u0442\u043D\u0430\u044F \u0448\u043A\u043E\u043B\u0430 \u0438\u043C. \u041F\u0430\u0442\u0440\u0438\u0446\u0438\u044F \u0411\u0435\u0439\u0442\u043C\u0430\u043D\u0430\xBB, \u043D\u0435\u0432\u043E\u0437\u043C\u0443\u0442\u0438\u043C\u044B\u0439 \u0441\u0438\u0433\u043C\u0430-\u0444\u0435\u0439\u0441 \u2014 \u0438 \u044F\u0437\u044B\u043A GenAlpha, \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0438\u0437 \u044D\u0442\u043E\u0433\u043E \u0441\u043B\u0435\u043D\u0433\u0430 \u0441\u043E\u0431\u0440\u0430\u043D, \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F \u043E\u0442 \u0441\u043B\u043E\u0432\u0430 Skibidi.",
-      author: "Betsy \xB7 \u041C\u0430\u0440\u0438\u044F \u042F\u043D\u043A\u043E\u0432\u0441\u043A\u0430\u044F",
+      hook: t("ex.sigma-boy.hook"),
+      author: t("ex.sigma-boy.author"),
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=ueNY30Cs8Lk",
       authorUrl: "https://www.youtube.com/@betsyofficial",
@@ -143,9 +1602,9 @@
       // Attribution note: credit the channel only — the author of the original text is not
       // named. Channel and title were verified against YouTube's official oEmbed response.
       id: "warrior",
-      title: "\u0422\u044B \u0442\u043E\u0436\u0435 \u043C\u043E\u0436\u0435\u0448\u044C \u0431\u044B\u0442\u044C \u0432\u043E\u0438\u043D\u043E\u043C",
-      hook: "2016: \u043C\u0430\u043B\u044C\u0447\u0438\u043A\u0443-\u0430\u0443\u0442\u0438\u0441\u0442\u0443 \u0434\u0430\u0440\u044F\u0442 \u0441\u0431\u043E\u0440\u043D\u0438\u043A \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447 \u2014 \u0438 \u043E\u043D \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F \u0432\u043E\u0438\u043D\u043E\u043C. \u041B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u0430\u044F \u043F\u0430\u0441\u0442\u0430, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u043F\u0435\u0440\u0435\u0434\u0435\u043B\u044B\u0432\u0430\u044E\u0442 \u0434\u043E \u0441\u0438\u0445 \u043F\u043E\u0440.",
-      author: "\u0424\u0438\u0437\u043A\u0435\u043A",
+      title: t("ex.warrior.title"),
+      hook: t("ex.warrior.hook"),
+      author: t("ex.warrior.author"),
       platform: "youtube",
       url: "https://youtu.be/YQQHFUvyL4o",
       authorUrl: "https://www.youtube.com/@%D0%A4%D0%B8%D0%B7%D0%BA%D0%B5%D0%BA-%D1%886%D1%87",
@@ -157,22 +1616,22 @@
       // channel were verified against YouTube's official oEmbed response.
       // Attribution note: mention the lecturer's work and confirmed facts only.
       id: "homotopy",
-      title: "\u0413\u0440\u0443\u043F\u043F\u044B \u0438 \u0442\u0435\u043E\u0440\u0438\u044F \u0433\u043E\u043C\u043E\u0442\u043E\u043F\u0438\u0439 (\u0442\u0440\u044D\u0448 \u0442\u0440\u0435\u0439\u043B\u0435\u0440)",
-      hook: "\u041D\u0430\u0441\u0442\u043E\u044F\u0449\u0430\u044F \u043B\u0435\u043A\u0446\u0438\u044F \u043F\u043E \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u043E\u0439 \u0430\u043B\u0433\u0435\u0431\u0440\u0435, \u0441\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0430\u044F \u043A\u0430\u043A \u0442\u0440\u0435\u0439\u043B\u0435\u0440 \u0431\u043B\u043E\u043A\u0431\u0430\u0441\u0442\u0435\u0440\u0430. \xAB\u041E\u043D \u0437\u0430\u0434\u0430\u043B \u0432\u043E\u043F\u0440\u043E\u0441\u2026 \u043E\u043D\u0430 \u0432\u0441\u0435\u0433\u0434\u0430 \u043E\u0442\u0432\u0435\u0447\u0430\u043B\u0430: \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438\xBB. \u041B\u0435\u043A\u0442\u043E\u0440 \u2014 \u0420\u043E\u043C\u0430\u043D \u041C\u0438\u0445\u0430\u0439\u043B\u043E\u0432, \u043C\u043E\u043D\u0442\u0430\u0436 \u2014 \u043A\u043E\u043D\u043A\u0443\u0440\u0441 \u0442\u0440\u044D\u0448-\u0440\u043E\u043B\u0438\u043A\u043E\u0432 \u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C\u0430, 2014.",
-      author: "\u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C",
+      title: t("ex.homotopy.title"),
+      hook: t("ex.homotopy.hook"),
+      author: t("ex.homotopy.author"),
       platform: "youtube",
       url: "https://www.youtube.com/watch?v=mqAf5lOJZew",
       authorUrl: "https://www.youtube.com/@OpenLektorium",
       poster: "assets/posters/homotopy.jpg",
       orient: "wide",
-      extra: { label: "\u043F\u043E\u043B\u043D\u044B\u0439 \u043A\u0443\u0440\u0441", url: "https://www.lektorium.tv/course/22939" }
+      extra: { label: t("ex.homotopy.extra"), url: "https://www.lektorium.tv/course/22939" }
     }
   ];
   var artExhibits = [
     {
       id: "sky",
-      title: "\u041D\u0435\u0431\u043E \u043F\u043E\u0434\u043C\u0435\u043D\u0438\u043B\u0438",
-      hook: "\u0426\u0435\u043D\u0442\u0440\u0430\u043B-\u043F\u0430\u0440\u043A, \u0432\u0441\u0435 \u0437\u0430\u0433\u043E\u0440\u0430\u044E\u0442 \u0438 \u0431\u043E\u043B\u0442\u0430\u044E\u0442. \u041D\u0430\u0434 \u0433\u043E\u043B\u043E\u0432\u0430\u043C\u0438 \u2014 \u0442\u0435\u043A\u0443\u0447\u0430\u044F \u0442\u0443\u043C\u0430\u043D\u043D\u043E\u0441\u0442\u044C. \u041D\u0438\u043A\u0442\u043E \u043D\u0435 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0432\u0432\u0435\u0440\u0445: \u0442\u0430\u043A \u0442\u0435\u043F\u0435\u0440\u044C \u0432\u044B\u0433\u043B\u044F\u0434\u0438\u0442 \u043E\u0431\u044B\u0447\u043D\u044B\u0439 \u0432\u0442\u043E\u0440\u043D\u0438\u043A.",
+      title: t("ex.sky.title"),
+      hook: t("ex.sky.hook"),
       author: "@coolacloy",
       platform: "instagram",
       url: "https://www.instagram.com/reel/CvaIWgJut5d/",
@@ -182,8 +1641,8 @@
     },
     {
       id: "calendar",
-      title: "\u041F\u043E\u043F\u0443\u0433\u0430\u0439 \u0438\u0437 \u043A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u044F",
-      hook: "\u0422\u044B\u0441\u044F\u0447\u0438 \u0432\u0441\u0442\u0440\u0435\u0447 \u0432 Google Calendar, \u0432\u044B\u043B\u043E\u0436\u0435\u043D\u043D\u044B\u0435 \u0432 \u043F\u0438\u043A\u0441\u0435\u043B\u044C-\u043F\u043E\u0440\u0442\u0440\u0435\u0442. \u0420\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043D\u0435\u0434\u0435\u043B\u0438 \u043A\u0430\u043A \u0445\u043E\u043B\u0441\u0442.",
+      title: t("ex.calendar.title"),
+      hook: t("ex.calendar.hook"),
       author: "@jordan.gladman",
       platform: "instagram",
       url: "https://www.instagram.com/reel/DbBZDozOtz-/",
@@ -194,7 +1653,7 @@
     {
       id: "redacted",
       title: "[redacted]",
-      hook: "\u0426\u0435\u043D\u0437\u0443\u0440\u043D\u044B\u0435 \u043F\u043B\u0430\u0448\u043A\u0438 \u0440\u0430\u0441\u0441\u0435\u043A\u0440\u0435\u0447\u0435\u043D\u043D\u044B\u0445 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u043E\u0432 \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u044E\u0442\u0441\u044F \u0432 \u0444\u0438\u0433\u0443\u0440\u0443 \u0447\u0435\u043B\u043E\u0432\u0435\u043A\u0430. \u0410\u0432\u0442\u043E\u0440 \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043B \u0440\u0430\u0431\u043E\u0442\u0443 \u0432\u044B\u0447\u0435\u0440\u043A\u043D\u0443\u0442\u044B\u043C \u0441\u043B\u043E\u0432\u043E\u043C.",
+      hook: t("ex.redacted.hook"),
       author: "@jordan.gladman",
       platform: "instagram",
       url: "https://www.instagram.com/reel/DbPHC4qprsY/",
@@ -204,8 +1663,8 @@
     },
     {
       id: "glyphs",
-      title: "\u041F\u0438\u0441\u044C\u043C\u0435\u043D\u0430, \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043D\u0435\u0442",
-      hook: "\u0421\u0435\u0442\u043A\u0430 \u0440\u0443\u043A\u043E\u043F\u0438\u0441\u043D\u044B\u0445 \u0433\u043B\u0438\u0444\u043E\u0432 \u0440\u0430\u0437\u0440\u0430\u0441\u0442\u0430\u0435\u0442\u0441\u044F \u0438 \u0441\u0445\u043B\u043E\u043F\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u0432 \u043E\u0434\u0438\u043D \u0437\u043D\u0430\u043A. \u0420\u0443\u043A\u043E\u043F\u0438\u0441\u044C \u0412\u043E\u0439\u043D\u0438\u0447\u0430, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u043E\u0436\u0438\u043B\u0430 \u0438 \u0434\u044B\u0448\u0438\u0442.",
+      title: t("ex.glyphs.title"),
+      hook: t("ex.glyphs.hook"),
       author: "@manmothma",
       platform: "instagram",
       url: "https://www.instagram.com/reel/DbVrfc1vGay/",
@@ -215,8 +1674,8 @@
     },
     {
       id: "vision",
-      title: "\u041C\u0430\u0448\u0438\u043D\u043D\u043E\u0435 \u0437\u0440\u0435\u043D\u0438\u0435 \u0447\u0438\u0442\u0430\u0435\u0442 \u0441\u0442\u0438\u0445\u0438",
-      hook: "\u041A\u0440\u0430\u0441\u043D\u044B\u0435 \u0440\u0430\u043C\u043A\u0438 \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u0432\u0430\u043D\u0438\u044F \u043F\u043E\u0432\u0435\u0440\u0445 \u0437\u0438\u043C\u043D\u0435\u0439 \u0443\u043B\u0438\u0446\u044B \u0438 \u043A\u043B\u0430\u0434\u0431\u0438\u0449\u0430. \u0410 \u0432 \u043F\u043E\u0434\u043F\u0438\u0441\u044F\u0445: \xABthe earth is still warm from you\xBB.",
+      title: t("ex.vision.title"),
+      hook: t("ex.vision.hook"),
       author: "@drezzdon",
       platform: "tiktok",
       url: "https://www.tiktok.com/@drezzdon/video/7494013737150450990",
@@ -226,8 +1685,8 @@
     },
     {
       id: "win95",
-      title: "\u0421\u0430\u043F\u0451\u0440 \u043A\u0430\u043A \u043B\u0430\u043D\u0434\u0448\u0430\u0444\u0442",
-      hook: "\u041E\u043A\u043D\u0430 Windows 95 \u0441\u0442\u0430\u043B\u0438 \u0430\u0440\u0445\u0438\u0442\u0435\u043A\u0442\u0443\u0440\u043E\u0439: \u0438\u0437\u043E\u043C\u0435\u0442\u0440\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u0421\u0430\u043F\u0451\u0440-\u043F\u043E\u043B\u0435, \u043A\u0443\u043F\u043E\u043B \u0438\u0437 \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u043E\u0432, \u0448\u0430\u0445\u0442\u0430 \u0438\u0437 \u041A\u043E\u0440\u0437\u0438\u043D\u044B.",
+      title: t("ex.win95.title"),
+      hook: t("ex.win95.hook"),
       author: "@archivsieben",
       platform: "tiktok",
       url: "https://www.tiktok.com/@archivsieben/video/7541121731533065494",
@@ -237,8 +1696,8 @@
     },
     {
       id: "trance",
-      title: "\u0422\u0440\u0430\u043D\u0441, \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043D\u044B\u0439 \u043A\u043E\u0434\u043E\u043C",
-      hook: "// LET US TRANCE ONCE MORE. \u041A\u043B\u0443\u0431\u043D\u044B\u0439 \u0442\u0440\u0430\u043D\u0441 \u0440\u043E\u0436\u0434\u0430\u0435\u0442\u0441\u044F \u0441\u0442\u0440\u043E\u0447\u043A\u0430\u043C\u0438 Strudel \u043F\u0440\u044F\u043C\u043E \u043D\u0430 \u0433\u043B\u0430\u0437\u0430\u0445 \u2014 \u0436\u0438\u0432\u043E\u0439 \u043A\u043E\u0434 \u043A\u0430\u043A \u043C\u0443\u0437\u044B\u043A\u0430\u043B\u044C\u043D\u044B\u0439 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442.",
+      title: t("ex.trance.title"),
+      hook: t("ex.trance.hook"),
       author: "Switch Angel",
       platform: "tiktok",
       url: "https://www.tiktok.com/@switch.angel",
@@ -247,58 +1706,19 @@
       orient: "tall"
     }
   ];
-  var asciiCharts = [
-    `$ measure --exhibit=prev
-  \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u043A\u0440\u0438\u043D\u0436\u0430   \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2592  82%
-  \u043F\u043E\u043B\u0435\u0437\u043D\u043E\u0441\u0442\u044C       \u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591  17%
-  \xAB\u044F \u0442\u0430\u043A \u0436\u0435\xBB       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593  94%`,
-    `$ bench sort --all
-  bubble    \u2588\u2588\u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591  O(n\xB2)
-  quick     \u2588\u2588\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591  O(n log n)
-  adhd      \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593\u2592\u2591  O(n\xB2 + \u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F)
-  \u043A\u0430\u043F\u0438\u0442\u0430\u043B\u0438\u0437\u043C \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2593  \u0431\u043E\u0433\u0430\u0442\u044B\u0435 \u0432\u0441\u043F\u043B\u044B\u0432\u0430\u044E\u0442`,
-    `$ top -u museum
-  PID  COMMAND          %CPU
-  001  \u0441\u043C\u0435\u0445.exe         73.4
-  002  \u0441\u0442\u044B\u0434.daemon      21.9
-  003  \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C    0.1`,
-    `$ history | grep \u0436\u0430\u043B\u0435\u044E
-  1998  \xAB\u0432\u044B\u0443\u0447\u0443 \u0441\u0438 \u0437\u0430 21 \u0434\u0435\u043D\u044C\xBB    \u2593\u2592\u2591
-  2014  \xAB\u0434\u0436\u0430\u0432\u0430 \u2014 \u044D\u0442\u043E \u043D\u0430\u0432\u0441\u0435\u0433\u0434\u0430\xBB   \u2588\u2588\u2588\u2588
-  2026  \xAB\u043F\u0435\u0440\u0435\u043F\u0438\u0448\u0443 \u043D\u0430 \u0440\u0430\u0441\u0442\u0435\xBB      \u2588\u2588\u2588\u2588\u2588\u2588\u2593`,
-    // NOTE: this array is indexed by position in room-humor.ts — adding or removing an entry
-    // means the indices there must be updated too.
-    `$ df -h /dev/humor
-  \u0440\u0430\u0437\u0434\u0435\u043B        \u0437\u0430\u043D\u044F\u0442\u043E  \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E
-  /\u043A\u0440\u0438\u043D\u0436         96%     \u2592\u2591
-  /\u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0439-\u043A\u043E\u0434  4%     \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588`
-  ];
-  var pathJokes = [
-    "$ sudo apt install laughter \u2026 W: \u043E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D\u0430 \u0438\u043D\u044A\u0435\u043A\u0446\u0438\u044F \u044E\u043C\u043E\u0440\u0430 \xB7 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B \u0443\u0448\u043B\u0438 \u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0442\u0438\u043A\u0442\u043E\u043A",
-    "// TODO: \u043F\u0435\u0440\u0435\u0441\u0442\u0430\u0442\u044C \u0441\u043C\u0435\u044F\u0442\u044C\u0441\u044F (\u043D\u0435 \u0441\u0440\u043E\u0447\u043D\u043E)",
-    "PLEASE DO NOT SUE \u2014 INTERCAL \u0431\u0435\u0437 \xAB\u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430\xBB \u043D\u0435 \u0441\u043E\u0431\u0435\u0440\u0451\u0442\u0441\u044F. \u043C\u044B \u0432\u0435\u0436\u043B\u0438\u0432\u044B\u0435",
-    "moO moO Moo \u2014 (\u043F\u0435\u0440\u0435\u0432\u043E\u0434 \u0441 \u044F\u0437\u044B\u043A\u0430 COW: \xAB\u0434\u0430\u043B\u044C\u0448\u0435 \u0441\u043C\u0435\u0448\u043D\u0435\u0435\xBB)",
-    "$ file program.png \u2192 PNG image \xB7 \u0438 \u043E\u0434\u043D\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E \u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u043C\u044B\u0439 \u043A\u043E\u0434",
-    "$ man esolang \u2192 \xABRTFM. FM \u0442\u043E\u0436\u0435 \u043D\u0430 \u044D\u0437\u043E\u0442\u0435\u0440\u0438\u0447\u0435\u0441\u043A\u043E\u043C\xBB"
-  ];
-  var entryLines = [
-    "Lruns ITerium v0.5.3 beta \u2014 \u043F\u0440\u043E\u0431\u043D\u044B\u0439 \u0437\u0430\u043B",
-    "\u043C\u0443\u0437\u0435\u0439 \u043A\u043E\u0434\u0430, \u043A\u0440\u0430\u0441\u043E\u0442\u044B \u0438 \u043A\u0440\u0438\u043D\u0436\u0430",
-    "\u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u044B \u0441\u043E\u0431\u0440\u0430\u043D\u044B \u043F\u043E \u0432\u0441\u0435\u043C\u0443 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0443;",
-    "\u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u2014 \u0430\u0432\u0442\u043E\u0440 \u0438 \u0434\u0432\u0435\u0440\u044C \u043A \u043D\u0435\u043C\u0443",
-    "",
-    "press ENTER _"
-  ];
+  var asciiCharts = tl("asciiCharts");
+  var pathJokes = tl("pathJokes");
+  var entryLines = tl("entryLines");
   var menuItems = [
-    { key: "1", id: "humor", label: "jokes / humor", note: "\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u0441\u043C\u0435\u0445\u0430", ready: true },
+    { key: "1", id: "humor", label: "jokes / humor", note: t("menu.note.humor"), ready: true },
     // NOTE: this door is intentionally locked for now. The art room itself is fully intact —
     // room-art.ts, spiral3d.ts and toys/art-toys.ts are untouched; only the entrance is
     // closed. To reopen it, set ready: true here and enable the ART_OPEN flag.
-    { key: "2", id: "art", label: "art / beautiful", note: "[\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F]", ready: false },
-    { key: "3", id: "history", label: "history of IT", note: "[\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F]", ready: false },
-    { key: "4", id: "algorave", label: "algorave", note: "[\u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F]", ready: false }
+    { key: "2", id: "art", label: "art / beautiful", note: t("menu.note.art"), ready: false },
+    { key: "3", id: "history", label: "history of IT", note: t("menu.note.history"), ready: false },
+    { key: "4", id: "algorave", label: "algorave", note: t("menu.note.algorave"), ready: false }
   ];
-  var menuFootnote = "\u2026\u043F\u043E\u0437\u0436\u0435: \u043C\u043E\u0441\u0442 \u0432 \u043A\u0440\u0443\u0433\u043E\u0432\u0437\u043E\u0440";
+  var menuFootnote = t("menu.footnote");
   var clownFrames = [
     String.raw`
         \  |  /
@@ -350,10 +1770,7 @@
     "> injecting humor.dll ....... ok",
     "> HONK"
   ];
-  var portalLines = [
-    "$ ./enter --room=art",
-    "> \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u044E \u043F\u043E\u0440\u0442\u0430\u043B ....... \u0434\u0435\u0440\u0436\u0438\u0441\u044C"
-  ];
+  var portalLines = tl("portalLines");
   var clownStill = clownFrames[0];
   var holeArt = String.raw`      \  |  /
      .--'-'--.
@@ -361,56 +1778,49 @@
    |    (@)    |     H O N K
    |   \___/   |
     '---------'`;
-  var tickerLines = [
-    "Malbolge: \u043F\u0435\u0440\u0432\u044B\u0439 Hello World \u043D\u0430\u043F\u0438\u0441\u0430\u043B\u0430 \u043D\u0435 \u0447\u0435\u043B\u043E\u0432\u0435\u043A, \u0430 \u043F\u043E\u0438\u0441\u043A\u043E\u0432\u044B\u0439 \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C",
-    "FALSE: \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u043E\u0433\u043E \u0438\u0441\u0442\u0438\u043D\u043D\u043E\u0441\u0442\u043D\u043E\u0433\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0430\u0432\u0442\u043E\u0440\u0430",
-    "brainfuck: 442 \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0440\u0438\u0432\u0430\u0442\u0430",
-    "Malbolge Unshackled \u0448\u0438\u0444\u0440\u0443\u0435\u0442 \u0441\u0432\u043E\u0438 \u043A\u043E\u043C\u0430\u043D\u0434\u044B \u043F\u0440\u0438 \u043A\u0430\u0436\u0434\u043E\u043C \u0437\u0430\u043F\u0443\u0441\u043A\u0435",
-    "Sigma Sigma Sigma Skibidi \u2014 \u044D\u0442\u043E \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F",
-    "PLEASE: \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E, \u043D\u043E \u043D\u0435 \u0441\u043B\u0438\u0448\u043A\u043E\u043C",
-    "Still better than JavaScript",
-    "Whitespace: \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u043F\u0440\u044F\u0447\u0435\u0442\u0441\u044F \u0432\u043D\u0443\u0442\u0440\u0438 \u0447\u0443\u0436\u043E\u0433\u043E \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u044F",
-    "Piet: \u0438\u0441\u0445\u043E\u0434\u043D\u0438\u043A \u2014 \u043A\u0430\u0440\u0442\u0438\u043D\u0430, \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u2014 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u043E\u0432\u0435\u0434",
-    "INTERCAL: \u0432\u043C\u0435\u0441\u0442\u043E GOTO \u0437\u0434\u0435\u0441\u044C COME FROM",
-    "Malbolge \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u0432\u043E\u0441\u044C\u043C\u043E\u0433\u043E \u043A\u0440\u0443\u0433\u0430 \u0430\u0434\u0430",
-    "moO moO Moo"
+  var tickerLines = tl("tickerLines");
+  var RICH_IDS = [
+    "intern",
+    "junior",
+    "middle",
+    "senior",
+    "lead",
+    "founder",
+    "investor"
   ];
-  var capitalismItems = [
-    { name: "\u0441\u0442\u0430\u0436\u0451\u0440", cash: 1 },
-    { name: "\u0434\u0436\u0443\u043D", cash: 3 },
-    { name: "\u043C\u0438\u0434\u043B", cash: 12 },
-    { name: "\u0441\u0435\u043D\u044C\u043E\u0440", cash: 40 },
-    { name: "\u0442\u0438\u043C\u043B\u0438\u0434", cash: 55 },
-    { name: "\u0444\u0430\u0443\u043D\u0434\u0435\u0440", cash: 900 },
-    { name: "\u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440", cash: 9e3 }
-  ];
+  var RICH_CASH = [1, 3, 12, 40, 55, 900, 9e3];
+  var capitalismItems = RICH_IDS.map((id, i) => ({
+    id,
+    name: tl("capitalismNames")[i],
+    cash: RICH_CASH[i]
+  }));
   var esoLangs = [
     {
       name: "INTERCAL",
       year: "1972",
-      joke: "DO \xB7 PLEASE DO \xB7 PLEASE \u2014 \u0434\u043B\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B \u043E\u0434\u043D\u043E \u0438 \u0442\u043E \u0436\u0435. \u041D\u043E \u043F\u0435\u0440\u0435\u0433\u043D\u0451\u0448\u044C \u0441 \u0432\u0435\u0436\u043B\u0438\u0432\u043E\u0441\u0442\u044C\u044E \u2014 \u043D\u0435 \u0441\u043E\u0431\u0435\u0440\u0451\u0442\u0441\u044F.",
-      truth: "\u0410\u0431\u0431\u0440\u0435\u0432\u0438\u0430\u0442\u0443\u0440\u0430 \u0440\u0430\u0441\u0448\u0438\u0444\u0440\u043E\u0432\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A\u0430\u043A \xAB\u044F\u0437\u044B\u043A \u0431\u0435\u0437 \u043F\u0440\u043E\u0438\u0437\u043D\u043E\u0441\u0438\u043C\u043E\u0439 \u0430\u0431\u0431\u0440\u0435\u0432\u0438\u0430\u0442\u0443\u0440\u044B\xBB. \u0412\u043C\u0435\u0441\u0442\u043E GOTO \u2014 COME FROM.",
+      joke: t("eso.INTERCAL.joke"),
+      truth: t("eso.INTERCAL.truth"),
       url: "https://esolangs.org/wiki/INTERCAL"
     },
     {
       name: "Backrooms",
       year: "2024",
-      joke: "\u041E\u0448\u0438\u0431\u043E\u043A \u043D\u0435\u0442. \u041F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u043B \u0438\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044E \u2014 \u043F\u0440\u043E\u0441\u0442\u043E \u043F\u0440\u043E\u0432\u0430\u043B\u0438\u0432\u0430\u0435\u0448\u044C\u0441\u044F \u0441\u043A\u0432\u043E\u0437\u044C \u044D\u0442\u0430\u0436\u0438, \u043F\u043E\u043A\u0430 \u043D\u0435 \u0441\u043B\u043E\u043C\u0430\u0435\u0442\u0441\u044F \u043F\u0438\u0442\u043E\u043D.",
-      truth: "\u0422\u0440\u0451\u0445\u043C\u0435\u0440\u043D\u044B\u0439 \u044F\u0437\u044B\u043A: \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u044B, \u044D\u0442\u0430\u0436\u0438, \u043A\u043E\u043C\u043D\u0430\u0442\u044B. \u0423 \u0430\u0432\u0442\u043E\u0440\u0430 \u043A \u043D\u0435\u043C\u0443 \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u0430 IDE \u0438 \u043E\u0442\u043B\u0430\u0434\u0447\u0438\u043A.",
+      joke: t("eso.Backrooms.joke"),
+      truth: t("eso.Backrooms.truth"),
       url: "https://esolangs.org/wiki/Backrooms"
     },
     {
       name: "5D Brainfuck With Multiverse Time Travel",
       year: "2022",
-      joke: "\u041C\u043E\u0436\u043D\u043E \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u0432 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0435\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B. \u0418 \u0432 \u0441\u043E\u0441\u0435\u0434\u043D\u044E\u044E \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0443\u044E, \u0433\u0434\u0435 \u043E\u043D\u0430 \u0440\u0430\u0431\u043E\u0442\u0430\u043B\u0430.",
-      truth: "\u0420\u0430\u0441\u0448\u0438\u0440\u0435\u043D\u0438\u0435 brainfuck \u0441 \u043F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F\u043C\u0438 \u0432\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043C\u0435\u0436\u0434\u0443 \u043F\u0430\u0440\u0430\u043B\u043B\u0435\u043B\u044C\u043D\u044B\u043C\u0438 \u043B\u0435\u043D\u0442\u0430\u043C\u0438.",
+      joke: t("eso.5D.joke"),
+      truth: t("eso.5D.truth"),
       url: "https://esolangs.org/wiki/5D_Brainfuck_With_Multiverse_Time_Travel"
     },
     {
       name: "GenAlpha Lang",
       year: "2024",
-      joke: "Sigma Sigma Sigma Sigma Skibidi \u2014 \u044D\u0442\u043E \u043D\u0435 \u043E\u043F\u0435\u0447\u0430\u0442\u043A\u0430, \u044D\u0442\u043E \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F.",
-      truth: "\u041A\u043B\u044E\u0447\u0435\u0432\u044B\u0435 \u0441\u043B\u043E\u0432\u0430 \u0432\u0437\u044F\u0442\u044B \u0438\u0437 \u0441\u043B\u0435\u043D\u0433\u0430 \u043F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u044F \u0430\u043B\u044C\u0444\u0430. \u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B \u0447\u0438\u0442\u0430\u044E\u0442\u0441\u044F \u0432\u0441\u043B\u0443\u0445 \u043A\u0430\u043A \u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435. \u041D\u0430 \u0432\u0438\u043A\u0438 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u043D\u0430\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F Gen Alpha.",
+      joke: t("eso.GenAlpha.joke"),
+      truth: t("eso.GenAlpha.truth"),
       // NOTE: /wiki/GenAlpha_Lang returns 404; the live page for this language is
       // /wiki/Gen_Alpha (verified, 200).
       url: "https://esolangs.org/wiki/Gen_Alpha"
@@ -418,15 +1828,15 @@
     {
       name: "SickPig",
       year: "2019",
-      joke: "\u0412\u0430\u0440\u0438\u0430\u0446\u0438\u044F \u044F\u0437\u044B\u043A\u0430 Pig, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u0443\u0435\u0442 \u0441\u0432\u0438\u043D\u044C\u044E. \u0411\u043E\u043B\u044C\u043D\u0443\u044E \u0441\u0432\u0438\u043D\u044C\u044E.",
-      truth: "\u0414\u0430, \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442. \u0418 \u0443 \u043D\u0435\u0433\u043E \u0435\u0441\u0442\u044C \u043F\u043E\u043A\u043B\u043E\u043D\u043D\u0438\u043A\u0438 \u2014 \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C \u043E\u0434\u0438\u043D \u0430\u043A\u0430\u0434\u0435\u043C\u0438\u043A.",
+      joke: t("eso.SickPig.joke"),
+      truth: t("eso.SickPig.truth"),
       url: "https://esolangs.org/wiki/SickPig"
     },
     {
       name: "FALSE",
       year: "1993",
-      joke: "\u041D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u043E\u0433\u043E \u0438\u0441\u0442\u0438\u043D\u043D\u043E\u0441\u0442\u043D\u043E\u0433\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0430\u0432\u0442\u043E\u0440\u0430.",
-      truth: "\u0421\u0442\u0435\u043A\u043E\u0432\u044B\u0439, \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0432\u043B\u0435\u0437\u0430\u043B \u0432 1024 \u0431\u0430\u0439\u0442\u0430. \u0418\u043C\u0435\u043D\u043D\u043E \u043E\u043D \u0432\u0434\u043E\u0445\u043D\u043E\u0432\u0438\u043B brainfuck.",
+      joke: t("eso.FALSE.joke"),
+      truth: t("eso.FALSE.truth"),
       url: "https://esolangs.org/wiki/FALSE"
     }
   ];
@@ -444,17 +1854,19 @@
     "DO READ OUT ,1",
     "DO GIVE UP"
   ];
-  var topRows = [
-    ["001", "\u0441\u043C\u0435\u0445.exe"],
-    ["002", "\u0441\u0442\u044B\u0434.daemon"],
-    ["003", "\u043A\u0440\u0438\u043D\u0436.service"],
-    ["004", "\u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0438\u0432\u043D\u043E\u0441\u0442\u044C"],
-    ["005", "systemd-honkd"]
-  ];
+  var topRows = tl("topRows").map(
+    (cmd, i) => [String(i + 1).padStart(3, "0"), cmd]
+  );
 
   // src/mobile.ts
   var SMALL = 700;
   var forced = false;
+  var PLATE = 15;
+  function plateLine(text) {
+    const s = text.length > PLATE ? text.slice(0, PLATE) : text;
+    const left = Math.ceil((PLATE - s.length) / 2);
+    return `|${" ".repeat(left)}${s}${" ".repeat(PLATE - s.length - left)}|`;
+  }
   function smallScreen() {
     return window.innerWidth < SMALL;
   }
@@ -471,21 +1883,20 @@
       <div class="gate">
         <pre class="gate-art" aria-hidden="true">  .---------------.
   |  []  []  []   |
-  |   \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0439   |
-  |  \u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F |
+  ${plateLine(t("mobile.art1"))}
+  ${plateLine(t("mobile.art2"))}
   '---------------'
        /|     |\\</pre>
         <p class="cmd">$ cd /iterium/${room}</p>
         <h1>${title}</h1>
-        <p class="gate-note">
-          \u0437\u0430\u043B \u0443\u0436\u0435 \u0435\u0441\u0442\u044C, \u043D\u043E \u043E\u043D \u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u0438 \u043E\u0431\u044A\u0451\u043C\u043D\u044B\u0439 \u2014 \u043D\u0430 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u043E\u043C \u044D\u043A\u0440\u0430\u043D\u0435 \u043F\u043E\u043A\u0430
-          \u0440\u0430\u0437\u044A\u0435\u0437\u0436\u0430\u0435\u0442\u0441\u044F. \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u0443\u044E \u0432\u0435\u0440\u0441\u0438\u044E \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u043A 1.0.
-        </p>
-        <button class="obj-btn" id="gate-go" type="button">\u043E\u0447\u0435\u043D\u044C \u0445\u043E\u0447\u0435\u0442\u0441\u044F \u2014 \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u043A\u0430\u043A \u043D\u0430 \u043A\u043E\u043C\u043F\u0435</button>
-        <p class="gate-warn">\u0431\u0443\u0434\u0435\u0442 \u043A\u0430\u043A \u043D\u0430 \u0431\u043E\u043B\u044C\u0448\u043E\u043C \u044D\u043A\u0440\u0430\u043D\u0435: \u043C\u0435\u043B\u043A\u043E \u0438 \u0441 \u043F\u0440\u043E\u043A\u0440\u0443\u0442\u043A\u043E\u0439 \u0432\u0431\u043E\u043A. \u0442\u0430\u043A \u0438 \u0437\u0430\u0434\u0443\u043C\u0430\u043D\u043E</p>
-        <a class="gate-back" href="#menu">&lt; cd .. \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u0432 \u0442\u0435\u0440\u043C\u0438\u043D\u0430\u043B</a>
+        <p class="gate-note">${t("mobile.note")}</p>
+        <button class="obj-btn" id="gate-go" type="button">${t("mobile.go")}</button>
+        <p class="gate-warn">${t("mobile.warn")}</p>
+        <a class="gate-back" href="#menu">&lt; cd .. ${t("mobile.back")}</a>
       </div>
+      ${langSwitchHtml()}
     </div>`;
+    mountLangSwitch(app2);
     const btn = app2.querySelector("#gate-go");
     if (btn) {
       btn.addEventListener("click", () => {
@@ -595,7 +2006,7 @@
   // src/chrome.ts
   var svgArrow = '<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var svgBack = '<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  function platformIcon(p) {
+  function platformGlyph(p) {
     const o = '<svg class="pico" viewBox="0 0 16 16" aria-hidden="true">';
     if (p === "youtube") {
       return `${o}<rect x="1" y="3.5" width="14" height="9" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6.6 6.2 10.4 8l-3.8 1.8z" fill="currentColor"/></svg>`;
@@ -608,9 +2019,19 @@
     }
     return `${o}<circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>`;
   }
+  var svgVideoMark = '<svg class="pico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6.6 5.6 10.6 8l-4 2.4z" fill="currentColor"/></svg>';
+  function attr(s) {
+    return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+  function platformIcon(p) {
+    if (p !== "instagram" || !isRu()) return platformGlyph(p);
+    const note = t("legal.meta");
+    return `<span class="pnote" title="${attr(note)}">${svgVideoMark}<span
+    class="pnote-tip" role="tooltip">${note}</span></span>`;
+  }
   function shotHtml(e) {
     if (e.art) return `<div class="shot own">${e.art}</div>`;
-    return `<div class="shot"><img src="${e.poster}" alt="\u043A\u0430\u0434\u0440: ${e.title}" loading="lazy"/></div>`;
+    return `<div class="shot"><img src="${e.poster}" alt="${t("chrome.shotAlt", { title: e.title })}" loading="lazy"/></div>`;
   }
   function num(i) {
     return String(i + 1).padStart(2, "0");
@@ -620,7 +2041,7 @@
     return `
       <div class="meta">
         <a class="chip link author" href="${e.authorUrl}" target="_blank" rel="noopener"
-           aria-label="\u0430\u0432\u0442\u043E\u0440 ${e.author} \u2014 \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0440\u043E\u0444\u0438\u043B\u044C">${platformIcon(e.platform)}${e.author} ${svgArrow}</a>
+           aria-label="${t("chrome.authorAria", { author: e.author })}">${platformIcon(e.platform)}${e.author} ${svgArrow}</a>
         ${extra}
       </div>`;
   }
@@ -637,7 +2058,7 @@
         <p class="hook">${e.hook}</p>
         ${meta}
       </div>
-      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} \u2014 \u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u043C\u0443 \u0440\u0430\u0431\u043E\u0442\u0443"></a>
+      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${t("chrome.workAria", { title: e.title })}"></a>
     </div>
   </article>`;
     }
@@ -653,11 +2074,11 @@
         <p class="hook">${e.hook}</p>
         ${meta}
       </div>
-      <button class="cover zoom" type="button" aria-label="${e.title} \u2014 \u043F\u0440\u0438\u0431\u043B\u0438\u0437\u0438\u0442\u044C \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443"></button>
+      <button class="cover zoom" type="button" aria-label="${t("chrome.zoomAria", { title: e.title })}"></button>
       <div class="sat-actions">
-        <a class="chip link" href="${e.url}" target="_blank" rel="noopener">\u0440\u043E\u043B\u0438\u043A ${svgArrow}</a>
-        <a class="chip link" href="${e.authorUrl}" target="_blank" rel="noopener">\u0430\u0432\u0442\u043E\u0440 ${svgArrow}</a>
-        <button class="chip sat-close" type="button">\u0437\u0430\u043A\u0440\u044B\u0442\u044C</button>
+        <a class="chip link" href="${e.url}" target="_blank" rel="noopener">${t("chrome.chipVideo")} ${svgArrow}</a>
+        <a class="chip link" href="${e.authorUrl}" target="_blank" rel="noopener">${t("chrome.chipAuthor")} ${svgArrow}</a>
+        <button class="chip sat-close" type="button">${t("chrome.close")}</button>
       </div>
     </div>
   </article>`;
@@ -675,13 +2096,13 @@
         <p class="hook">${e.hook}</p>
         ${meta}
       </div>
-      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} \u2014 \u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u043C\u0443 \u0440\u0430\u0431\u043E\u0442\u0443"></a>
+      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${t("chrome.workAria", { title: e.title })}"></a>
     </div>
   </article>`;
   }
-  function reservedHtml(label = "\u0441\u043A\u043E\u0440\u043E") {
+  function reservedHtml(label = t("chrome.soon")) {
     return `
-  <article class="card polaroid reserved o-wide reveal" aria-label="\u043C\u0435\u0441\u0442\u043E \u043F\u043E\u0434 \u0431\u0443\u0434\u0443\u0449\u0438\u0439 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442">
+  <article class="card polaroid reserved o-wide reveal" aria-label="${t("chrome.reservedAria")}">
     <div class="frame">
       <div class="shot empty" aria-hidden="true">
         <svg viewBox="0 0 320 180" class="own-shot">
@@ -705,8 +2126,8 @@
     return `<span class="achip">
     <button class="chip link achip-btn" type="button" aria-expanded="false">${platformIcon(platform)}${label}</button>
     <span class="achip-pop" hidden>
-      <a class="chip link" href="${videoUrl}" target="_blank" rel="noopener">\u0440\u043E\u043B\u0438\u043A ${svgArrow}</a>
-      <a class="chip link" href="${authorUrl}" target="_blank" rel="noopener">\u0430\u0432\u0442\u043E\u0440 ${svgArrow}</a>
+      <a class="chip link" href="${videoUrl}" target="_blank" rel="noopener">${t("chrome.chipVideo")} ${svgArrow}</a>
+      <a class="chip link" href="${authorUrl}" target="_blank" rel="noopener">${t("chrome.chipAuthor")} ${svgArrow}</a>
     </span>
   </span>`;
   }
@@ -746,10 +2167,10 @@
       if (se) window.scrollTo(0, se.scrollHeight);
     };
     jump();
-    const t = window.setTimeout(jump, 60);
+    const t2 = window.setTimeout(jump, 60);
     window.addEventListener("load", jump);
     onCleanup(() => {
-      window.clearTimeout(t);
+      window.clearTimeout(t2);
       window.removeEventListener("load", jump);
     });
   }
@@ -1095,8 +2516,8 @@
   function euclideanModulo(n, m) {
     return (n % m + m) % m;
   }
-  function lerp(x, y, t) {
-    return (1 - t) * x + t * y;
+  function lerp(x, y, t2) {
+    return (1 - t2) * x + t2 * y;
   }
   function denormalize(value, array) {
     switch (array.constructor) {
@@ -1776,7 +3197,7 @@
      * @param {number} t - The interpolation factor. A value in the range `[0,1]` will interpolate. A value outside the range `[0,1]` will extrapolate.
      * @see {@link Quaternion#slerp}
      */
-    static slerpFlat(dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t) {
+    static slerpFlat(dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t2) {
       let x0 = src0[srcOffset0 + 0], y0 = src0[srcOffset0 + 1], z0 = src0[srcOffset0 + 2], w0 = src0[srcOffset0 + 3];
       let x1 = src1[srcOffset1 + 0], y1 = src1[srcOffset1 + 1], z1 = src1[srcOffset1 + 2], w1 = src1[srcOffset1 + 3];
       if (w0 !== w1 || x0 !== x1 || y0 !== y1 || z0 !== z1) {
@@ -1788,21 +3209,21 @@
           w1 = -w1;
           dot = -dot;
         }
-        let s = 1 - t;
+        let s = 1 - t2;
         if (dot < 0.9995) {
           const theta = Math.acos(dot);
           const sin = Math.sin(theta);
           s = Math.sin(s * theta) / sin;
-          t = Math.sin(t * theta) / sin;
-          x0 = x0 * s + x1 * t;
-          y0 = y0 * s + y1 * t;
-          z0 = z0 * s + z1 * t;
-          w0 = w0 * s + w1 * t;
+          t2 = Math.sin(t2 * theta) / sin;
+          x0 = x0 * s + x1 * t2;
+          y0 = y0 * s + y1 * t2;
+          z0 = z0 * s + z1 * t2;
+          w0 = w0 * s + w1 * t2;
         } else {
-          x0 = x0 * s + x1 * t;
-          y0 = y0 * s + y1 * t;
-          z0 = z0 * s + z1 * t;
-          w0 = w0 * s + w1 * t;
+          x0 = x0 * s + x1 * t2;
+          y0 = y0 * s + y1 * t2;
+          z0 = z0 * s + z1 * t2;
+          w0 = w0 * s + w1 * t2;
           const f = 1 / Math.sqrt(x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0);
           x0 *= f;
           y0 *= f;
@@ -2098,8 +3519,8 @@
     rotateTowards(q, step) {
       const angle = this.angleTo(q);
       if (angle === 0) return this;
-      const t = Math.min(1, step / angle);
-      this.slerp(q, t);
+      const t2 = Math.min(1, step / angle);
+      this.slerp(q, t2);
       return this;
     }
     /**
@@ -2228,7 +3649,7 @@
      * @param {number} t - The interpolation factor. A value in the range `[0,1]` will interpolate. A value outside the range `[0,1]` will extrapolate.
      * @return {Quaternion} A reference to this quaternion.
      */
-    slerp(qb, t) {
+    slerp(qb, t2) {
       let x = qb._x, y = qb._y, z = qb._z, w = qb._w;
       let dot = this.dot(qb);
       if (dot < 0) {
@@ -2238,22 +3659,22 @@
         w = -w;
         dot = -dot;
       }
-      let s = 1 - t;
+      let s = 1 - t2;
       if (dot < 0.9995) {
         const theta = Math.acos(dot);
         const sin = Math.sin(theta);
         s = Math.sin(s * theta) / sin;
-        t = Math.sin(t * theta) / sin;
-        this._x = this._x * s + x * t;
-        this._y = this._y * s + y * t;
-        this._z = this._z * s + z * t;
-        this._w = this._w * s + w * t;
+        t2 = Math.sin(t2 * theta) / sin;
+        this._x = this._x * s + x * t2;
+        this._y = this._y * s + y * t2;
+        this._z = this._z * s + z * t2;
+        this._w = this._w * s + w * t2;
         this._onChangeCallback();
       } else {
-        this._x = this._x * s + x * t;
-        this._y = this._y * s + y * t;
-        this._z = this._z * s + z * t;
-        this._w = this._w * s + w * t;
+        this._x = this._x * s + x * t2;
+        this._y = this._y * s + y * t2;
+        this._z = this._z * s + z * t2;
+        this._w = this._w * s + w * t2;
         this.normalize();
       }
       return this;
@@ -2267,8 +3688,8 @@
      * @param {number} t - The interpolation factor in the closed interval `[0, 1]`.
      * @return {Quaternion} A reference to this quaternion.
      */
-    slerpQuaternions(qa, qb, t) {
-      return this.copy(qa).slerp(qb, t);
+    slerpQuaternions(qa, qb, t2) {
+      return this.copy(qa).slerp(qb, t2);
     }
     /**
      * Sets this quaternion to a uniformly random, normalized quaternion.
@@ -6203,9 +7624,9 @@
     makeRotationAxis(axis, angle) {
       const c = Math.cos(angle);
       const s = Math.sin(angle);
-      const t = 1 - c;
+      const t2 = 1 - c;
       const x = axis.x, y = axis.y, z = axis.z;
-      const tx = t * x, ty = t * y;
+      const tx = t2 * x, ty = t2 * y;
       this.set(
         tx * x + c,
         tx * y - s * z,
@@ -6217,7 +7638,7 @@
         0,
         tx * z - s * y,
         ty * z + s * x,
-        t * z * z + c,
+        t2 * z * z + c,
         0,
         0,
         0,
@@ -8247,12 +9668,12 @@
   };
   var _hslA = { h: 0, s: 0, l: 0 };
   var _hslB = { h: 0, s: 0, l: 0 };
-  function hue2rgb(p, q, t) {
-    if (t < 0) t += 1;
-    if (t > 1) t -= 1;
-    if (t < 1 / 6) return p + (q - p) * 6 * t;
-    if (t < 1 / 2) return q;
-    if (t < 2 / 3) return p + (q - p) * 6 * (2 / 3 - t);
+  function hue2rgb(p, q, t2) {
+    if (t2 < 0) t2 += 1;
+    if (t2 > 1) t2 -= 1;
+    if (t2 < 1 / 6) return p + (q - p) * 6 * t2;
+    if (t2 < 1 / 2) return q;
+    if (t2 < 2 / 3) return p + (q - p) * 6 * (2 / 3 - t2);
     return p;
   }
   var Color = class {
@@ -9024,13 +10445,13 @@
      * @param {Vector3} target - The target vector that is used to store the method's result.
      * @return {Vector3} The interpolated attribute value.
      */
-    static getInterpolatedAttribute(attr, i1, i2, i3, barycoord, target) {
+    static getInterpolatedAttribute(attr2, i1, i2, i3, barycoord, target) {
       _v40.setScalar(0);
       _v41.setScalar(0);
       _v42.setScalar(0);
-      _v40.fromBufferAttribute(attr, i1);
-      _v41.fromBufferAttribute(attr, i2);
-      _v42.fromBufferAttribute(attr, i3);
+      _v40.fromBufferAttribute(attr2, i1);
+      _v41.fromBufferAttribute(attr2, i2);
+      _v42.fromBufferAttribute(attr2, i3);
       target.setScalar(0);
       target.addScaledVector(_v40, barycoord.x);
       target.addScaledVector(_v41, barycoord.y);
@@ -11027,10 +12448,10 @@
       function handleVertex(v) {
         n.fromBufferAttribute(normalAttribute, v);
         n2.copy(n);
-        const t = tan1[v];
-        tmp3.copy(t);
-        tmp3.sub(n.multiplyScalar(n.dot(t))).normalize();
-        tmp22.crossVectors(n2, t);
+        const t2 = tan1[v];
+        tmp3.copy(t2);
+        tmp3.sub(n.multiplyScalar(n.dot(t2))).normalize();
+        tmp22.crossVectors(n2, t2);
         const test = tmp22.dot(tan2[v]);
         const w = test < 0 ? -1 : 1;
         tangentAttribute.setXYZW(v, tmp3.x, tmp3.y, tmp3.z, w);
@@ -11919,8 +13340,8 @@
      * @param {Vector3} target - The target vector that is used to store the method's result.
      * @return {Vector3} A position on the ray.
      */
-    at(t, target) {
-      return target.copy(this.origin).addScaledVector(this.direction, t);
+    at(t2, target) {
+      return target.copy(this.origin).addScaledVector(this.direction, t2);
     }
     /**
      * Adjusts the direction of the ray to point at the given vector in world space.
@@ -11938,8 +13359,8 @@
      * @param {number} t - The distance along the ray to interpolate.
      * @return {Ray} A reference to this ray.
      */
-    recast(t) {
-      this.origin.copy(this.at(t, _vector$7));
+    recast(t2) {
+      this.origin.copy(this.at(t2, _vector$7));
       return this;
     }
     /**
@@ -12095,8 +13516,8 @@
         }
         return null;
       }
-      const t = -(this.origin.dot(plane.normal) + plane.constant) / denominator;
-      return t >= 0 ? t : null;
+      const t2 = -(this.origin.dot(plane.normal) + plane.constant) / denominator;
+      return t2 >= 0 ? t2 : null;
     }
     /**
      * Intersects this ray with the given plane, returning the intersection
@@ -12107,11 +13528,11 @@
      * @return {?Vector3} The intersection point.
      */
     intersectPlane(plane, target) {
-      const t = this.distanceToPlane(plane);
-      if (t === null) {
+      const t2 = this.distanceToPlane(plane);
+      if (t2 === null) {
         return null;
       }
-      return this.at(t, target);
+      return this.at(t2, target);
     }
     /**
      * Returns `true` if this ray intersects with the given plane.
@@ -12973,11 +14394,11 @@
         }
         return null;
       }
-      const t = -(line.start.dot(this.normal) + this.constant) / denominator;
-      if (clampToLine === true && (t < 0 || t > 1)) {
+      const t2 = -(line.start.dot(this.normal) + this.constant) / denominator;
+      if (clampToLine === true && (t2 < 0 || t2 > 1)) {
         return null;
       }
-      return target.copy(line.start).addScaledVector(direction, t);
+      return target.copy(line.start).addScaledVector(direction, t2);
     }
     /**
      * Returns `true` if the given line segment intersects with (passes through) the plane.
@@ -13812,8 +15233,8 @@
      * @return {(Vector2|Vector3)} The position on the curve. It can be a 2D or 3D vector depending on the curve definition.
      */
     getPointAt(u, optionalTarget) {
-      const t = this.getUtoTmapping(u);
-      return this.getPoint(t, optionalTarget);
+      const t2 = this.getUtoTmapping(u);
+      return this.getPoint(t2, optionalTarget);
     }
     /**
      * This method samples the curve via {@link Curve#getPoint} and returns an array of points representing
@@ -13928,8 +15349,8 @@
       const lengthAfter = arcLengths[i + 1];
       const segmentLength = lengthAfter - lengthBefore;
       const segmentFraction = (targetArcLength - lengthBefore) / segmentLength;
-      const t = (i + segmentFraction) / (il - 1);
-      return t;
+      const t2 = (i + segmentFraction) / (il - 1);
+      return t2;
     }
     /**
      * Returns a unit vector tangent for the given interpolation factor.
@@ -13941,14 +15362,14 @@
      * @param {(Vector2|Vector3)} [optionalTarget] - The optional target vector the result is written to.
      * @return {(Vector2|Vector3)} The tangent vector.
      */
-    getTangent(t, optionalTarget) {
+    getTangent(t2, optionalTarget) {
       const delta = 1e-4;
-      let t1 = t - delta;
-      let t2 = t + delta;
+      let t1 = t2 - delta;
+      let t22 = t2 + delta;
       if (t1 < 0) t1 = 0;
-      if (t2 > 1) t2 = 1;
+      if (t22 > 1) t22 = 1;
       const pt1 = this.getPoint(t1);
-      const pt2 = this.getPoint(t2);
+      const pt2 = this.getPoint(t22);
       const tangent = optionalTarget || (pt1.isVector2 ? new Vector2() : new Vector3());
       tangent.copy(pt2).sub(pt1).normalize();
       return tangent;
@@ -13962,8 +15383,8 @@
      * @see {@link Curve#getPointAt}
      */
     getTangentAt(u, optionalTarget) {
-      const t = this.getUtoTmapping(u);
-      return this.getTangent(t, optionalTarget);
+      const t2 = this.getUtoTmapping(u);
+      return this.getTangent(t2, optionalTarget);
     }
     /**
      * Generates the Frenet Frames. Requires a curve definition in 3D space. Used
@@ -14112,7 +15533,7 @@
      * @param {Vector2} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector2} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector2()) {
+    getPoint(t2, optionalTarget = new Vector2()) {
       const point = optionalTarget;
       const twoPi = Math.PI * 2;
       let deltaAngle = this.aEndAngle - this.aStartAngle;
@@ -14133,7 +15554,7 @@
           deltaAngle = deltaAngle - twoPi;
         }
       }
-      const angle = this.aStartAngle + t * deltaAngle;
+      const angle = this.aStartAngle + t2 * deltaAngle;
       let x = this.aX + this.xRadius * Math.cos(angle);
       let y = this.aY + this.yRadius * Math.sin(angle);
       if (this.aRotation !== 0) {
@@ -14219,10 +15640,10 @@
         t2 *= dt1;
         init(x1, x2, t1, t2);
       },
-      calc: function(t) {
-        const t2 = t * t;
-        const t3 = t2 * t;
-        return c0 + c1 * t + c2 * t2 + c3 * t3;
+      calc: function(t2) {
+        const t22 = t2 * t2;
+        const t3 = t22 * t2;
+        return c0 + c1 * t2 + c2 * t22 + c3 * t3;
       }
     };
   }
@@ -14256,11 +15677,11 @@
      * @param {Vector3} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector3} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector3()) {
+    getPoint(t2, optionalTarget = new Vector3()) {
       const point = optionalTarget;
       const points = this.points;
       const l = points.length;
-      const p = (l - (this.closed ? 0 : 1)) * t;
+      const p = (l - (this.closed ? 0 : 1)) * t2;
       let intPoint = Math.floor(p);
       let weight = p - intPoint;
       if (this.closed) {
@@ -14344,42 +15765,42 @@
       return this;
     }
   };
-  function CatmullRom(t, p0, p1, p2, p3) {
+  function CatmullRom(t2, p0, p1, p2, p3) {
     const v0 = (p2 - p0) * 0.5;
     const v1 = (p3 - p1) * 0.5;
-    const t2 = t * t;
-    const t3 = t * t2;
-    return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+    const t22 = t2 * t2;
+    const t3 = t2 * t22;
+    return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t22 + v0 * t2 + p1;
   }
-  function QuadraticBezierP0(t, p) {
-    const k = 1 - t;
+  function QuadraticBezierP0(t2, p) {
+    const k = 1 - t2;
     return k * k * p;
   }
-  function QuadraticBezierP1(t, p) {
-    return 2 * (1 - t) * t * p;
+  function QuadraticBezierP1(t2, p) {
+    return 2 * (1 - t2) * t2 * p;
   }
-  function QuadraticBezierP2(t, p) {
-    return t * t * p;
+  function QuadraticBezierP2(t2, p) {
+    return t2 * t2 * p;
   }
-  function QuadraticBezier(t, p0, p1, p2) {
-    return QuadraticBezierP0(t, p0) + QuadraticBezierP1(t, p1) + QuadraticBezierP2(t, p2);
+  function QuadraticBezier(t2, p0, p1, p2) {
+    return QuadraticBezierP0(t2, p0) + QuadraticBezierP1(t2, p1) + QuadraticBezierP2(t2, p2);
   }
-  function CubicBezierP0(t, p) {
-    const k = 1 - t;
+  function CubicBezierP0(t2, p) {
+    const k = 1 - t2;
     return k * k * k * p;
   }
-  function CubicBezierP1(t, p) {
-    const k = 1 - t;
-    return 3 * k * k * t * p;
+  function CubicBezierP1(t2, p) {
+    const k = 1 - t2;
+    return 3 * k * k * t2 * p;
   }
-  function CubicBezierP2(t, p) {
-    return 3 * (1 - t) * t * t * p;
+  function CubicBezierP2(t2, p) {
+    return 3 * (1 - t2) * t2 * t2 * p;
   }
-  function CubicBezierP3(t, p) {
-    return t * t * t * p;
+  function CubicBezierP3(t2, p) {
+    return t2 * t2 * t2 * p;
   }
-  function CubicBezier(t, p0, p1, p2, p3) {
-    return CubicBezierP0(t, p0) + CubicBezierP1(t, p1) + CubicBezierP2(t, p2) + CubicBezierP3(t, p3);
+  function CubicBezier(t2, p0, p1, p2, p3) {
+    return CubicBezierP0(t2, p0) + CubicBezierP1(t2, p1) + CubicBezierP2(t2, p2) + CubicBezierP3(t2, p3);
   }
   var CubicBezierCurve = class extends Curve {
     /**
@@ -14406,12 +15827,12 @@
      * @param {Vector2} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector2} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector2()) {
+    getPoint(t2, optionalTarget = new Vector2()) {
       const point = optionalTarget;
       const v0 = this.v0, v1 = this.v1, v2 = this.v2, v3 = this.v3;
       point.set(
-        CubicBezier(t, v0.x, v1.x, v2.x, v3.x),
-        CubicBezier(t, v0.y, v1.y, v2.y, v3.y)
+        CubicBezier(t2, v0.x, v1.x, v2.x, v3.x),
+        CubicBezier(t2, v0.y, v1.y, v2.y, v3.y)
       );
       return point;
     }
@@ -14465,13 +15886,13 @@
      * @param {Vector3} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector3} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector3()) {
+    getPoint(t2, optionalTarget = new Vector3()) {
       const point = optionalTarget;
       const v0 = this.v0, v1 = this.v1, v2 = this.v2, v3 = this.v3;
       point.set(
-        CubicBezier(t, v0.x, v1.x, v2.x, v3.x),
-        CubicBezier(t, v0.y, v1.y, v2.y, v3.y),
-        CubicBezier(t, v0.z, v1.z, v2.z, v3.z)
+        CubicBezier(t2, v0.x, v1.x, v2.x, v3.x),
+        CubicBezier(t2, v0.y, v1.y, v2.y, v3.y),
+        CubicBezier(t2, v0.z, v1.z, v2.z, v3.z)
       );
       return point;
     }
@@ -14521,13 +15942,13 @@
      * @param {Vector2} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector2} The position on the line.
      */
-    getPoint(t, optionalTarget = new Vector2()) {
+    getPoint(t2, optionalTarget = new Vector2()) {
       const point = optionalTarget;
-      if (t === 1) {
+      if (t2 === 1) {
         point.copy(this.v2);
       } else {
         point.copy(this.v2).sub(this.v1);
-        point.multiplyScalar(t).add(this.v1);
+        point.multiplyScalar(t2).add(this.v1);
       }
       return point;
     }
@@ -14535,7 +15956,7 @@
     getPointAt(u, optionalTarget) {
       return this.getPoint(u, optionalTarget);
     }
-    getTangent(t, optionalTarget = new Vector2()) {
+    getTangent(t2, optionalTarget = new Vector2()) {
       return optionalTarget.subVectors(this.v2, this.v1).normalize();
     }
     getTangentAt(u, optionalTarget) {
@@ -14581,13 +16002,13 @@
      * @param {Vector3} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector3} The position on the line.
      */
-    getPoint(t, optionalTarget = new Vector3()) {
+    getPoint(t2, optionalTarget = new Vector3()) {
       const point = optionalTarget;
-      if (t === 1) {
+      if (t2 === 1) {
         point.copy(this.v2);
       } else {
         point.copy(this.v2).sub(this.v1);
-        point.multiplyScalar(t).add(this.v1);
+        point.multiplyScalar(t2).add(this.v1);
       }
       return point;
     }
@@ -14595,7 +16016,7 @@
     getPointAt(u, optionalTarget) {
       return this.getPoint(u, optionalTarget);
     }
-    getTangent(t, optionalTarget = new Vector3()) {
+    getTangent(t2, optionalTarget = new Vector3()) {
       return optionalTarget.subVectors(this.v2, this.v1).normalize();
     }
     getTangentAt(u, optionalTarget) {
@@ -14643,12 +16064,12 @@
      * @param {Vector2} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector2} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector2()) {
+    getPoint(t2, optionalTarget = new Vector2()) {
       const point = optionalTarget;
       const v0 = this.v0, v1 = this.v1, v2 = this.v2;
       point.set(
-        QuadraticBezier(t, v0.x, v1.x, v2.x),
-        QuadraticBezier(t, v0.y, v1.y, v2.y)
+        QuadraticBezier(t2, v0.x, v1.x, v2.x),
+        QuadraticBezier(t2, v0.y, v1.y, v2.y)
       );
       return point;
     }
@@ -14697,13 +16118,13 @@
      * @param {Vector3} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector3} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector3()) {
+    getPoint(t2, optionalTarget = new Vector3()) {
       const point = optionalTarget;
       const v0 = this.v0, v1 = this.v1, v2 = this.v2;
       point.set(
-        QuadraticBezier(t, v0.x, v1.x, v2.x),
-        QuadraticBezier(t, v0.y, v1.y, v2.y),
-        QuadraticBezier(t, v0.z, v1.z, v2.z)
+        QuadraticBezier(t2, v0.x, v1.x, v2.x),
+        QuadraticBezier(t2, v0.y, v1.y, v2.y),
+        QuadraticBezier(t2, v0.z, v1.z, v2.z)
       );
       return point;
     }
@@ -14748,10 +16169,10 @@
      * @param {Vector2} [optionalTarget] - The optional target vector the result is written to.
      * @return {Vector2} The position on the curve.
      */
-    getPoint(t, optionalTarget = new Vector2()) {
+    getPoint(t2, optionalTarget = new Vector2()) {
       const point = optionalTarget;
       const points = this.points;
-      const p = (points.length - 1) * t;
+      const p = (points.length - 1) * t2;
       const intPoint = Math.floor(p);
       const weight = p - intPoint;
       const p0 = points[intPoint === 0 ? intPoint : intPoint - 1];
@@ -15344,17 +16765,17 @@
      * @param {number} t - The interpolation factor.
      * @return {TypedArray} The result buffer.
      */
-    evaluate(t) {
+    evaluate(t2) {
       const pp = this.parameterPositions;
       let i1 = this._cachedIndex, t1 = pp[i1], t0 = pp[i1 - 1];
       validate_interval: {
         seek: {
           let right;
           linear_scan: {
-            forward_scan: if (!(t < t1)) {
+            forward_scan: if (!(t2 < t1)) {
               for (let giveUpAt = i1 + 2; ; ) {
                 if (t1 === void 0) {
-                  if (t < t0) break forward_scan;
+                  if (t2 < t0) break forward_scan;
                   i1 = pp.length;
                   this._cachedIndex = i1;
                   return this.copySampleValue_(i1 - 1);
@@ -15362,16 +16783,16 @@
                 if (i1 === giveUpAt) break;
                 t0 = t1;
                 t1 = pp[++i1];
-                if (t < t1) {
+                if (t2 < t1) {
                   break seek;
                 }
               }
               right = pp.length;
               break linear_scan;
             }
-            if (!(t >= t0)) {
+            if (!(t2 >= t0)) {
               const t1global = pp[1];
-              if (t < t1global) {
+              if (t2 < t1global) {
                 i1 = 2;
                 t0 = t1global;
               }
@@ -15383,7 +16804,7 @@
                 if (i1 === giveUpAt) break;
                 t1 = t0;
                 t0 = pp[--i1 - 1];
-                if (t >= t0) {
+                if (t2 >= t0) {
                   break seek;
                 }
               }
@@ -15395,7 +16816,7 @@
           }
           while (i1 < right) {
             const mid = i1 + right >>> 1;
-            if (t < pp[mid]) {
+            if (t2 < pp[mid]) {
               right = mid;
             } else {
               i1 = mid + 1;
@@ -15416,7 +16837,7 @@
         this._cachedIndex = i1;
         this.intervalChanged_(i1, t0, t1);
       }
-      return this.interpolate_(i1, t0, t, t1);
+      return this.interpolate_(i1, t0, t2, t1);
     }
     /**
      * Returns the interpolation settings.
@@ -15521,8 +16942,8 @@
       this._offsetPrev = iPrev * stride;
       this._offsetNext = iNext * stride;
     }
-    interpolate_(i1, t0, t, t1) {
-      const result = this.resultBuffer, values = this.sampleValues, stride = this.valueSize, o1 = i1 * stride, o0 = o1 - stride, oP = this._offsetPrev, oN = this._offsetNext, wP = this._weightPrev, wN = this._weightNext, p = (t - t0) / (t1 - t0), pp = p * p, ppp = pp * p;
+    interpolate_(i1, t0, t2, t1) {
+      const result = this.resultBuffer, values = this.sampleValues, stride = this.valueSize, o1 = i1 * stride, o0 = o1 - stride, oP = this._offsetPrev, oN = this._offsetNext, wP = this._weightPrev, wN = this._weightNext, p = (t2 - t0) / (t1 - t0), pp = p * p, ppp = pp * p;
       const sP = -wP * ppp + 2 * wP * pp - wP * p;
       const s0 = (1 + wP) * ppp + (-1.5 - 2 * wP) * pp + (-0.5 + wP) * p + 1;
       const s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p;
@@ -15545,8 +16966,8 @@
     constructor(parameterPositions, sampleValues, sampleSize, resultBuffer) {
       super(parameterPositions, sampleValues, sampleSize, resultBuffer);
     }
-    interpolate_(i1, t0, t, t1) {
-      const result = this.resultBuffer, values = this.sampleValues, stride = this.valueSize, offset1 = i1 * stride, offset0 = offset1 - stride, weight1 = (t - t0) / (t1 - t0), weight0 = 1 - weight1;
+    interpolate_(i1, t0, t2, t1) {
+      const result = this.resultBuffer, values = this.sampleValues, stride = this.valueSize, offset1 = i1 * stride, offset0 = offset1 - stride, weight1 = (t2 - t0) / (t1 - t0), weight0 = 1 - weight1;
       for (let i = 0; i !== stride; ++i) {
         result[i] = values[offset0 + i] * weight0 + values[offset1 + i] * weight1;
       }
@@ -15570,7 +16991,7 @@
     }
   };
   var BezierInterpolant = class extends Interpolant {
-    interpolate_(i1, t0, t, t1) {
+    interpolate_(i1, t0, t2, t1) {
       const result = this.resultBuffer;
       const values = this.sampleValues;
       const stride = this.valueSize;
@@ -15579,7 +17000,7 @@
       const inTangents = this.inTangents;
       const outTangents = this.outTangents;
       if (!inTangents || !outTangents) {
-        const weight1 = (t - t0) / (t1 - t0);
+        const weight1 = (t2 - t0) / (t1 - t0);
         const weight0 = 1 - weight1;
         for (let i = 0; i !== stride; ++i) {
           result[i] = values[offset0 + i] * weight0 + values[offset1 + i] * weight1;
@@ -15597,7 +17018,7 @@
         const inTangentOffset = i1 * tangentStride + i * 2;
         const c1x = inTangents[inTangentOffset];
         const c1y = inTangents[inTangentOffset + 1];
-        let s = (t - t0) / (t1 - t0);
+        let s = (t2 - t0) / (t1 - t0);
         let s2, s3, oneMinusS, oneMinusS2, oneMinusS3;
         for (let iter = 0; iter < 8; iter++) {
           s2 = s * s;
@@ -15606,7 +17027,7 @@
           oneMinusS2 = oneMinusS * oneMinusS;
           oneMinusS3 = oneMinusS2 * oneMinusS;
           const bx = oneMinusS3 * t0 + 3 * oneMinusS2 * s * c0x + 3 * oneMinusS * s2 * c1x + s3 * t1;
-          const error2 = bx - t;
+          const error2 = bx - t2;
           if (Math.abs(error2) < 1e-10) break;
           const dbx = 3 * oneMinusS2 * (c0x - t0) + 6 * oneMinusS * s * (c1x - c0x) + 3 * s2 * (t1 - c1x);
           if (Math.abs(dbx) < 1e-10) break;
@@ -16013,8 +17434,8 @@
     constructor(parameterPositions, sampleValues, sampleSize, resultBuffer) {
       super(parameterPositions, sampleValues, sampleSize, resultBuffer);
     }
-    interpolate_(i1, t0, t, t1) {
-      const result = this.resultBuffer, values = this.sampleValues, stride = this.valueSize, alpha = (t - t0) / (t1 - t0);
+    interpolate_(i1, t0, t2, t1) {
+      const result = this.resultBuffer, values = this.sampleValues, stride = this.valueSize, alpha = (t2 - t0) / (t1 - t0);
       let offset = i1 * stride;
       for (let end = offset + stride; offset !== end; offset += 4) {
         Quaternion.slerpFlat(result, 0, values, offset - stride, values, offset, alpha);
@@ -22653,13 +24074,13 @@
     };
   }
   function WebGLRenderLists() {
-    let lists = /* @__PURE__ */ new WeakMap();
+    let lists2 = /* @__PURE__ */ new WeakMap();
     function get(scene, renderCallDepth) {
-      const listArray = lists.get(scene);
+      const listArray = lists2.get(scene);
       let list;
       if (listArray === void 0) {
         list = new WebGLRenderList();
-        lists.set(scene, [list]);
+        lists2.set(scene, [list]);
       } else {
         if (renderCallDepth >= listArray.length) {
           list = new WebGLRenderList();
@@ -22671,7 +24092,7 @@
       return list;
     }
     function dispose() {
-      lists = /* @__PURE__ */ new WeakMap();
+      lists2 = /* @__PURE__ */ new WeakMap();
     }
     return {
       get,
@@ -24895,9 +26316,9 @@
               _htmlTextures.add(texture);
               canvas.onpaint = (event) => {
                 const changed = event.changedElements;
-                for (const t of _htmlTextures) {
-                  if (changed.includes(t.image)) {
-                    t.needsUpdate = true;
+                for (const t2 of _htmlTextures) {
+                  if (changed.includes(t2.image)) {
+                    t2.needsUpdate = true;
                   }
                 }
               };
@@ -29130,11 +30551,11 @@ void main() {
         g.restore();
       }
     }
-    const t = new CanvasTexture(c);
-    t.wrapS = RepeatWrapping;
-    t.wrapT = RepeatWrapping;
-    t.repeat.set(3, 1);
-    return t;
+    const t2 = new CanvasTexture(c);
+    t2.wrapS = RepeatWrapping;
+    t2.wrapT = RepeatWrapping;
+    t2.repeat.set(3, 1);
+    return t2;
   }
   function helixCurve(phase, from, to) {
     const pts = [];
@@ -29362,8 +30783,8 @@ void main() {
     let dragging = false;
     let moved = 0;
     const onDown = (ev) => {
-      const t = ev.target;
-      if (t && (t.closest("a") || t.closest(".station") || t.closest("button"))) return;
+      const t2 = ev.target;
+      if (t2 && (t2.closest("a") || t2.closest(".station") || t2.closest("button"))) return;
       dragging = true;
       moved = 0;
       px2 = ev.clientX;
@@ -29578,7 +30999,7 @@ void main() {
   }
 
   // src/stars.ts
-  var VISION_WORDS = ["\u0437\u0432\u0435\u0437\u0434\u0430 0.91", "\u0442\u043E\u0447\u043A\u0430? 0.38", "\u0441\u0432\u0435\u0442 0.77", "\u043E\u0431\u044A\u0435\u043A\u0442", "\u043D\u0438\u0447\u0435\u0433\u043E 0.12"];
+  var VISION_WORDS = tl("skyWords");
   function startStars(canvas) {
     const noop = { scene: () => void 0, current: () => "none" };
     if (!canvas) return noop;
@@ -29894,8 +31315,8 @@ void main() {
           for (let y = 0; y < rows; y += 1) {
             for (let x = 0; x < cols; x += 1) {
               const i = (y * cols + x) * 4;
-              const t = BAYER[y % 4 * 4 + x % 4] * DITHER;
-              const c = nearest(pal, px2[i] + t, px2[i + 1] + t, px2[i + 2] + t);
+              const t2 = BAYER[y % 4 * 4 + x % 4] * DITHER;
+              const c = nearest(pal, px2[i] + t2, px2[i + 1] + t2, px2[i + 2] + t2);
               ctx2.fillStyle = `rgb(${c.r | 0},${c.g | 0},${c.b | 0})`;
               ctx2.fillRect(x * cell, y * cell, cell, cell);
             }
@@ -29962,9 +31383,9 @@ void main() {
   function inkHtml() {
     return `<section class="station ink">
     <p class="station-cmd">$ ./ink --alive</p>
-    <h3>\u0447\u0435\u0440\u043D\u0438\u043B\u0430 \u0435\u0449\u0451 \u043D\u0435 \u0432\u044B\u0441\u043E\u0445\u043B\u0438</h3>
+    <h3>${t("st.ink.title")}</h3>
     <pre class="ink-field" id="ink-field" aria-hidden="true"></pre>
-    <p class="station-note">\u0431\u0443\u043A\u0432\u044B \u2014 \u043D\u0435 \u0442\u0435\u043A\u0441\u0442, \u0430 \u0432\u0435\u0449\u0435\u0441\u0442\u0432\u043E. \u043F\u0440\u043E\u0432\u0435\u0434\u0438 \u043F\u043E \u043D\u0438\u043C \u043C\u044B\u0448\u043A\u043E\u0439</p>
+    <p class="station-note">${t("st.ink.note")}</p>
   </section>`;
   }
   function mountInk(root) {
@@ -30005,19 +31426,19 @@ void main() {
     };
     el.addEventListener("pointermove", move);
     el.addEventListener("pointerdown", blot);
-    const paint = (t) => {
-      dabs = dabs.filter((d) => t - d.born < LIFE);
+    const paint = (t2) => {
+      dabs = dabs.filter((d) => t2 - d.born < LIFE);
       const rows = [];
       for (let y = 0; y < H; y += 1) {
         let line = "";
         for (let x = 0; x < W; x += 1) {
           const u = x / W;
           const v = y / H;
-          const wave = Math.sin(u * 7 + t * 7e-4) * 0.5 + Math.sin(v * 9 - t * 5e-4) * 0.35 + Math.sin((u + v) * 11 + t * 9e-4) * 0.3;
+          const wave = Math.sin(u * 7 + t2 * 7e-4) * 0.5 + Math.sin(v * 9 - t2 * 5e-4) * 0.35 + Math.sin((u + v) * 11 + t2 * 9e-4) * 0.3;
           let pull = 0;
           for (let i = 0; i < dabs.length; i += 1) {
             const d = dabs[i];
-            const age = 1 - (t - d.born) / LIFE;
+            const age = 1 - (t2 - d.born) / LIFE;
             if (age <= 0) continue;
             const dist = Math.hypot(u - d.x, (v - d.y) * 1.7);
             pull += Math.exp(-dist * 9) * age * age * 0.55 * d.hard;
@@ -30084,11 +31505,11 @@ void main() {
   function calendarHtml() {
     return `<section class="station cal">
     <p class="station-cmd">$ ./calendar --as=canvas</p>
-    <h3>\u0440\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0430\u043A \u0445\u043E\u043B\u0441\u0442</h3>
+    <h3>${t("st.cal.title")}</h3>
     <div class="cal-grid" id="cal-grid"></div>
-    <p class="station-note" id="cal-note">\u0432\u0441\u0442\u0440\u0435\u0447\u0438 \u043F\u0440\u043E\u0441\u0442\u0443\u043F\u0430\u044E\u0442 \u043F\u043E \u043E\u0434\u043D\u043E\u0439 \u2014 \u0430 \u0442\u044B \u0437\u0430\u043A\u0440\u0430\u0448\u0438\u0432\u0430\u0439 \u043A\u043B\u0435\u0442\u043A\u0438 \u0441\u0430\u043C, \u0442\u0432\u043E\u0438 \u0432\u0441\u0442\u0440\u0435\u0447\u0438 \u0434\u043E\u043F\u043E\u043B\u043D\u044F\u0442 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443</p>
+    <p class="station-note" id="cal-note">${t("st.cal.note")}</p>
     ${authorChipHtml(
-      "\u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C \u0440\u0430\u0431\u043E\u0442\u044B @jordan.gladman",
+      t("st.cal.chip"),
       "instagram",
       "https://www.instagram.com/reel/DbBZDozOtz-/",
       "https://www.instagram.com/jordan.gladman/"
@@ -30117,22 +31538,16 @@ void main() {
       }
       for (let i = order.length - 1; i > 0; i -= 1) {
         const j = Math.floor(Math.random() * (i + 1));
-        const t = order[i];
+        const t2 = order[i];
         order[i] = order[j];
-        order[j] = t;
+        order[j] = t2;
       }
       k = 0;
       cells.forEach((c) => c.classList.remove("on"));
     };
     start();
     let mine = 0;
-    const MINE_WORDS = [
-      "\u043F\u0435\u0440\u0432\u0430\u044F \u0432\u0441\u0442\u0440\u0435\u0447\u0430 \u0432 \u043A\u0430\u043B\u0435\u043D\u0434\u0430\u0440\u0435. \u043F\u0438\u043A\u0441\u0435\u043B\u044C",
-      "\u0434\u0432\u0435 \u0432\u0441\u0442\u0440\u0435\u0447\u0438. \u0443\u0436\u0435 \u043A\u043E\u043C\u043F\u043E\u0437\u0438\u0446\u0438\u044F",
-      "\u0440\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F \u0445\u043E\u043B\u0441\u0442\u043E\u043C",
-      "\u0442\u044B \u0440\u0438\u0441\u0443\u0435\u0448\u044C \u043D\u0435\u0434\u0435\u043B\u0435\u0439",
-      "\u0443 \u0445\u0443\u0434\u043E\u0436\u043D\u0438\u043A\u0430 \u044D\u0442\u043E \u0437\u0430\u043D\u044F\u043B\u043E \u0442\u044B\u0441\u044F\u0447\u0438 \u0432\u0441\u0442\u0440\u0435\u0447"
-    ];
+    const MINE_WORDS = tl("calendarMine");
     grid.addEventListener("click", (ev) => {
       const cell = ev.target;
       if (cell.tagName !== "I") return;
@@ -30141,7 +31556,7 @@ void main() {
       mine += had ? -1 : 1;
       if (mine < 0) mine = 0;
       if (note) {
-        note.textContent = mine ? `${MINE_WORDS[Math.min(mine, MINE_WORDS.length) - 1]} \xB7 \u0442\u0432\u043E\u0438\u0445 \u0432\u0441\u0442\u0440\u0435\u0447: ${mine}` : "\u0432\u0441\u0442\u0440\u0435\u0447\u0438 \u043F\u0440\u043E\u0441\u0442\u0443\u043F\u0430\u044E\u0442 \u043F\u043E \u043E\u0434\u043D\u043E\u0439 \u2014 \u0430 \u0442\u044B \u0437\u0430\u043A\u0440\u0430\u0448\u0438\u0432\u0430\u0439 \u043A\u043B\u0435\u0442\u043A\u0438 \u0441\u0430\u043C, \u0442\u0432\u043E\u0438 \u0432\u0441\u0442\u0440\u0435\u0447\u0438 \u0434\u043E\u043F\u043E\u043B\u043D\u044F\u0442 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443";
+        note.textContent = mine ? t("st.cal.mine", { word: MINE_WORDS[Math.min(mine, MINE_WORDS.length) - 1], n: mine }) : t("st.cal.note");
       }
     });
     if (reducedMotion()) {
@@ -30166,9 +31581,9 @@ void main() {
   function graphHtml() {
     return `<section class="station graph">
     <p class="station-cmd">$ ./graph --bloom</p>
-    <h3>\u0441\u0432\u044F\u0437\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043D\u0435 \u0431\u044B\u043B\u043E</h3>
+    <h3>${t("st.graph.title")}</h3>
     <canvas class="graph-canvas" id="graph-canvas" width="620" height="330"></canvas>
-    <p class="station-note" id="graph-note">\u043A\u0430\u0436\u0434\u0430\u044F \u043D\u043E\u0432\u0430\u044F \u0442\u043E\u0447\u043A\u0430 \u0442\u044F\u043D\u0435\u0442\u0441\u044F \u043A \u0442\u0435\u043C, \u043A\u0442\u043E \u0443\u0436\u0435 \u0437\u0434\u0435\u0441\u044C. \u0442\u043A\u043D\u0438 \u2014 \u043F\u043E\u0441\u0430\u0434\u0438\u0448\u044C \u0441\u0432\u043E\u044E, \u0443\u0437\u043B\u044B \u043F\u043E\u0442\u044F\u043D\u0443\u0442\u0441\u044F \u043A \u0440\u0443\u043A\u0435</p>
+    <p class="station-note" id="graph-note">${t("st.graph.note")}</p>
   </section>`;
   }
   var MAX_NODES = 46;
@@ -30218,7 +31633,7 @@ void main() {
       add(performance.now(), local(ev), true);
       mine += 1;
       if (note) {
-        note.textContent = mine < 3 ? `\u0442\u0432\u043E\u0438\u0445 \u0441\u0432\u044F\u0437\u0435\u0439: ${mine}. \u043A\u0430\u0436\u0434\u0430\u044F \u043D\u0430\u0448\u043B\u0430 \u0441\u0435\u0431\u0435 \u0434\u0432\u0443\u0445 \u0441\u043E\u0441\u0435\u0434\u0435\u0439` : `\u0442\u0432\u043E\u0438\u0445 \u0441\u0432\u044F\u0437\u0435\u0439: ${mine}. \u044D\u0442\u043E \u0443\u0436\u0435 \u0442\u0432\u043E\u0439 \u0433\u0440\u0430\u0444, \u0430 \u043D\u0435 \u043D\u0430\u0448`;
+        note.textContent = mine < 3 ? t("st.graph.few", { n: mine }) : t("st.graph.many", { n: mine });
       }
     });
     const draw = (now) => {
@@ -30288,28 +31703,23 @@ void main() {
     raf = window.requestAnimationFrame(loop);
     onCleanup(() => window.cancelAnimationFrame(raf));
   }
-  var VISION_TAGS = ["\u0447\u0435\u043B\u043E\u0432\u0435\u043A? 0.71", "\u0447\u0442\u043E-\u0442\u043E \u0442\u0451\u043F\u043B\u043E\u0435 0.63", "\u0434\u043E\u043C 0.94", "\u0434\u0435\u0440\u0435\u0432\u043E 0.88", "\u043F\u0430\u043C\u044F\u0442\u044C 0.12"];
-  var VISION_LINES = [
-    "\u0437\u0434\u0435\u0441\u044C \u043A\u0442\u043E-\u0442\u043E \u0441\u0442\u043E\u044F\u043B",
-    "\u043C\u043E\u0434\u0435\u043B\u044C \u0443\u0432\u0435\u0440\u0435\u043D\u0430 \u043D\u0430 0.63",
-    "the earth is still warm from you",
-    "\u043E\u0431\u044A\u0435\u043A\u0442 \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D \u0432 \u0441\u043B\u043E\u0432\u0430\u0440\u0435"
-  ];
+  var VISION_TAGS = tl("visionTags");
+  var VISION_LINES = tl("visionLines");
   var VISION_ZONES = [
-    { upto: 0.3, tag: "\u043D\u0435\u0431\u043E 0.98", line: "\u043D\u0435\u0431\u043E. \u0440\u0430\u0441\u043F\u043E\u0437\u043D\u0430\u043D\u043E \u0441 \u043F\u0435\u0440\u0432\u043E\u0439 \u043F\u043E\u043F\u044B\u0442\u043A\u0438, \u043D\u0438\u0447\u0435\u0433\u043E \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435 \u0441\u043A\u0430\u0437\u0430\u043D\u043E" },
-    { upto: 0.52, tag: "\u043E\u0431\u043B\u0430\u043A\u043E? 0.44", line: "\u043E\u0431\u043B\u0430\u043A\u043E \u0438\u043B\u0438 \u0434\u044B\u043C. \u043C\u043E\u0434\u0435\u043B\u044C \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D\u0430 \u0438 \u0432\u0441\u0451 \u0440\u0430\u0432\u043D\u043E \u043E\u0442\u0432\u0435\u0447\u0430\u0435\u0442" },
-    { upto: 0.66, tag: "\u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442 0.81", line: "\u0433\u0440\u0430\u043D\u0438\u0446\u0430 \u043C\u0435\u0436\u0434\u0443 \u0434\u0432\u0443\u043C\u044F \u043D\u0438\u0447\u0435\u043C. \u043F\u043E\u0434\u043F\u0438\u0441\u0430\u043D\u043E \u043A\u0430\u043A \u043E\u0431\u044A\u0435\u043A\u0442" },
-    { upto: 0.8, tag: "\u043A\u0442\u043E-\u0442\u043E \u0441\u0442\u043E\u044F\u043B 0.29", line: "the earth is still warm from you" },
-    { upto: 1.01, tag: "\u0437\u0435\u043C\u043B\u044F 0.93", line: "\u0437\u0435\u043C\u043B\u044F. \u0442\u0451\u043F\u043B\u0430\u044F. \u044D\u0442\u043E \u043D\u0435 \u043C\u0435\u0442\u0440\u0438\u043A\u0430, \u044D\u0442\u043E \u043E\u043D\u0430 \u0442\u0430\u043A \u0441\u043A\u0430\u0437\u0430\u043B\u0430" }
+    { upto: 0.3, tag: t("st.vision.zone0.tag"), line: t("st.vision.zone0.line") },
+    { upto: 0.52, tag: t("st.vision.zone1.tag"), line: t("st.vision.zone1.line") },
+    { upto: 0.66, tag: t("st.vision.zone2.tag"), line: t("st.vision.zone2.line") },
+    { upto: 0.8, tag: t("st.vision.zone3.tag"), line: t("st.vision.zone3.line") },
+    { upto: 1.01, tag: t("st.vision.zone4.tag"), line: t("st.vision.zone4.line") }
   ];
   function visionHtml() {
     return `<section class="station vision">
     <p class="station-cmd">$ ./vision --read-poetry</p>
-    <h3>\u043C\u0430\u0448\u0438\u043D\u043D\u043E\u0435 \u0437\u0440\u0435\u043D\u0438\u0435 \u0447\u0438\u0442\u0430\u0435\u0442 \u0441\u0442\u0438\u0445\u0438</h3>
+    <h3>${t("st.vision.title")}</h3>
     <canvas class="vision-canvas" id="vision-canvas" width="620" height="330"></canvas>
-    <p class="station-note" id="vision-line">\u0432\u0435\u0434\u0438 \u043C\u044B\u0448\u043A\u043E\u0439 \u043F\u043E \u043A\u0430\u0434\u0440\u0443 \u2014 \u0440\u0430\u043C\u043A\u0438 \u043F\u043E\u0439\u0434\u0443\u0442 \u0437\u0430 \u0442\u043E\u0431\u043E\u0439 \u0438 \u043F\u043E\u0434\u043F\u0438\u0448\u0443\u0442 \u0442\u043E \u043C\u0435\u0441\u0442\u043E, \u043A\u0443\u0434\u0430 \u0442\u044B \u0441\u043C\u043E\u0442\u0440\u0438\u0448\u044C</p>
+    <p class="station-note" id="vision-line">${t("st.vision.note")}</p>
     ${authorChipHtml(
-      "\u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C \u0440\u0430\u0431\u043E\u0442\u044B @drezzdon",
+      t("st.vision.chip"),
       "tiktok",
       "https://www.tiktok.com/@drezzdon/video/7494013737150450990",
       "https://www.tiktok.com/@drezzdon"
@@ -30534,7 +31944,7 @@ void main() {
     app2.className = "screen-art";
     const stops = STATIONS.map(() => '<div class="stop"></div>').join("");
     const toggle = `<button class="ml-toggle" id="ml-fly" type="button" aria-pressed="false">
-      <span class="ml-toggle-dot" aria-hidden="true"></span><span id="ml-fly-label">\u043F\u043E \u0441\u0442\u0430\u043D\u0446\u0438\u044F\u043C</span>
+      <span class="ml-toggle-dot" aria-hidden="true"></span><span id="ml-fly-label">${t("art.flyStations")}</span>
     </button>`;
     app2.innerHTML = `
     ${backBtn()}
@@ -30549,26 +31959,27 @@ void main() {
         <div class="finale-sky" aria-hidden="true"></div>
         <canvas class="finale-pix" id="finale-pix" aria-hidden="true"></canvas>
         <div class="finale-body">
-          <p class="finale-line">\u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0432\u0432\u0435\u0440\u0445 \u2014 \u0430 \u0442\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u043B</p>
+          <p class="finale-line">${t("art.finaleLine")}</p>
           <span class="finale-chip">${authorChipHtml(
-      "\u043D\u0435\u0431\u043E: @coolacloy",
+      t("art.finaleChip"),
       "instagram",
       "https://www.instagram.com/reel/CvaIWgJut5d/",
       "https://www.instagram.com/coolacloy/"
     )}</span>
-          <p class="epigraph small">\u2026\u0432\u0438\u0442\u043E\u043A \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442\u0441\u044F. \u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F</p>
-          <p class="curator">\u043A\u0443\u0440\u0430\u0442\u043E\u0440: \u0430\u043D\u0434\u0440\u0435\u0439 (lruns) \xB7 \u0432\u0441\u0435 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u044B \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0442 \u0441\u0432\u043E\u0438\u043C \u0430\u0432\u0442\u043E\u0440\u0430\u043C</p>
+          <p class="epigraph small">${t("art.finaleSmall")}</p>
+          <p class="curator">${t("humor.curator")}</p>
         </div>
       </section>
       <div class="spiral-space" id="spiral-space">${stops}</div>
       <header class="room-head reveal">
         <p class="cmd">$ cd /iterium/art</p>
-        <h1>\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u043A\u0440\u0430\u0441\u043E\u0442\u044B</h1>
-        <p class="epigraph">\u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C + \u043E\u0434\u0438\u043D \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u044B\u0439 \u0441\u043B\u043E\u0439. \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0432\u0432\u0435\u0440\u0445 \u2014 \u0430 \u0442\u044B \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438</p>
-        <p class="scroll-hint up">\u2191 \u043F\u043E\u0434\u043D\u0438\u043C\u0430\u0439\u0441\u044F: \u0432\u0438\u0442\u043E\u043A \u0432\u0435\u0437\u0451\u0442 \u043E\u0442 \u0441\u0442\u0430\u043D\u0446\u0438\u0438 \u043A \u0441\u0442\u0430\u043D\u0446\u0438\u0438, \u0432\u043E\u043A\u0440\u0443\u0433 \u043A\u0430\u0436\u0434\u043E\u0439 \u2014 \u0435\u0451 \u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0438 \xB7 \u0441\u0442\u0430\u043D\u0446\u0438\u0438 \u043C\u043E\u0436\u043D\u043E \u0442\u0440\u043E\u0433\u0430\u0442\u044C \xB7 \u043F\u043E\u0442\u044F\u043D\u0438 \u043C\u044B\u0448\u043A\u043E\u0439, \u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0434\u043A\u0440\u0443\u0442\u0438\u0442\u044C</p>
+        <h1>${t("art.title")}</h1>
+        <p class="epigraph">${t("art.epigraph")}</p>
+        <p class="scroll-hint up">${t("art.scrollHint")}</p>
       </header>
     </div>
-    ${modeline("art.room", "(Beauty \xB7 \u0441\u043F\u0438\u0440\u0430\u043B\u044C)", toggle)}`;
+    ${langSwitchHtml()}
+    ${modeline("art.room", t("art.modeline"), toggle)}`;
     const sky = startStars(app2.querySelector("#stars"));
     revealOnScroll(Array.from(app2.querySelectorAll(".reveal")), 90);
     liveModeline(app2.querySelector("#ml-pos"), null, true);
@@ -30594,6 +32005,7 @@ void main() {
       spiral.setMood(MOODS[at]);
     });
     mountAuthorChips(app2);
+    mountLangSwitch(app2);
     let openCard = null;
     const unfocus = () => {
       if (!openCard) return;
@@ -30605,16 +32017,16 @@ void main() {
       spiral.focus(null);
     };
     app2.addEventListener("click", (ev) => {
-      const t = ev.target;
-      if (!t) return;
-      if (t.closest(".sat-actions a")) return;
-      if (t.closest(".sat-close")) {
+      const t2 = ev.target;
+      if (!t2) return;
+      if (t2.closest(".sat-actions a")) return;
+      if (t2.closest(".sat-close")) {
         unfocus();
         return;
       }
-      const cover = t.closest(".cover.zoom");
+      const cover = t2.closest(".cover.zoom");
       if (!cover) {
-        if (!t.closest(".card.slide.focused")) unfocus();
+        if (!t2.closest(".card.slide.focused")) unfocus();
         return;
       }
       const card = cover.closest(".card.slide");
@@ -30639,7 +32051,7 @@ void main() {
         free = !free;
         fly.setAttribute("aria-pressed", String(free));
         fly.classList.toggle("on", free);
-        if (flyLabel) flyLabel.textContent = free ? "\u0441\u0432\u043E\u0431\u043E\u0434\u043D\u044B\u0439 \u043F\u043E\u043B\u0451\u0442" : "\u043F\u043E \u0441\u0442\u0430\u043D\u0446\u0438\u044F\u043C";
+        if (flyLabel) flyLabel.textContent = free ? t("art.flyFree") : t("art.flyStations");
         document.documentElement.classList.toggle("snap", !free);
         spiral.setFree(free);
       });
@@ -30662,37 +32074,18 @@ void main() {
   // src/toys/adhd-sort.ts
   var N = 14;
   var SIDE_N = 5;
-  var SAY_ALMOST = [
-    "\u043F\u043E\u0447\u0442\u0438. \u043E\u0439, \u0430 \u0447\u0442\u043E \u0442\u0430\u043C\u2026",
-    "\u043F\u043E\u0447\u0442\u0438 \u0436\u0435! \u2026\u0441\u0442\u043E\u043F, \u0430 \u0447\u0442\u043E \u044D\u0442\u043E",
-    "\u043D\u0443 \u0432\u043E\u0442 \u043F\u043E\u0447\u0442\u0438. \u043E\u0439"
-  ];
-  var SAY_AWAY = [
-    "\u043E. \u0430 \u0447\u0442\u043E \u044D\u0442\u043E \u0442\u0430\u043C \u0437\u0430 \u043C\u0430\u0441\u0441\u0438\u0432",
-    "\u0441\u0435\u043A\u0443\u043D\u0434\u0443, \u0442\u0430\u043C \u0432\u0441\u0451 \u0432\u0432\u0435\u0440\u0445 \u0434\u043D\u043E\u043C",
-    "\u0441\u043E\u0441\u0435\u0434\u043D\u0438\u0439 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439, \u044F \u0431\u044B\u0441\u0442\u0440\u043E",
-    "\u043E\u0439, \u0430 \u0442\u0443\u0442 \u0432\u043E\u043E\u0431\u0449\u0435 \u043D\u0435 \u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E"
-  ];
-  var SAY_BACK = [
-    "\u0442\u0430\u043A\u2026 \u043D\u0430 \u0447\u0451\u043C \u044F \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u043B\u0441\u044F",
-    "\u0430\u0433\u0430. \u044F \u0442\u043E\u0447\u043D\u043E \u0431\u044B\u043B \u0433\u0434\u0435-\u0442\u043E \u0442\u0443\u0442",
-    "\u043B\u0430\u0434\u043D\u043E, \u043F\u043E\u043C\u043D\u044E \u043F\u0440\u0438\u043C\u0435\u0440\u043D\u043E",
-    "\u043A\u0430\u0436\u0435\u0442\u0441\u044F, \u043E\u0442\u0441\u044E\u0434\u0430. \u0438\u043B\u0438 \u043D\u0435\u0442"
-  ];
-  var SAY_SORT = [
-    "\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E",
-    "\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E, \u0432\u0441\u0451 \u043F\u043E\u0434 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0435\u043C",
-    "\u0435\u0449\u0451 \u0447\u0443\u0442\u044C-\u0447\u0443\u0442\u044C",
-    "\u0432\u043E\u0442 \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E-\u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0435\u043C\u0443 \u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E"
-  ];
+  var SAY_ALMOST = tl("adhdAlmost");
+  var SAY_AWAY = tl("adhdAway");
+  var SAY_BACK = tl("adhdBack");
+  var SAY_SORT = tl("adhdSort");
   function shuffled(n) {
     const a = [];
     for (let i = 1; i <= n; i += 1) a.push(i);
     for (let i = a.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
-      const t = a[i];
+      const t2 = a[i];
       a[i] = a[j];
-      a[j] = t;
+      a[j] = t2;
     }
     return a;
   }
@@ -30718,19 +32111,19 @@ void main() {
         <div class="adhd-cursor" id="adhd-cursor"><span></span></div>
       </div>
       <aside class="adhd-side" id="adhd-side">
-        <div class="adhd-side-tag">\u0447\u0443\u0436\u043E\u0439 \u043C\u0430\u0441\u0441\u0438\u0432</div>
+        <div class="adhd-side-tag">${t("adhd.sideTag")}</div>
         <div class="bars small" id="adhd-side-bars">${bars("bar s", SIDE_N)}</div>
       </aside>
     </div>
-    <p class="adhd-say" id="adhd-say">\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E</p>
+    <p class="adhd-say" id="adhd-say">${t("adhd.sorting")}</p>
     <div class="adhd-stats">
-      <span>\u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E <b id="adhd-pct">0%</b></span>
-      <span>\u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F <b id="adhd-dis">0</b></span>
-      <span>\u0448\u0430\u0433\u043E\u0432 <b id="adhd-steps">0</b></span>
+      <span>${t("adhd.statSorted")} <b id="adhd-pct">0%</b></span>
+      <span>${t("adhd.statDistracted")} <b id="adhd-dis">0</b></span>
+      <span>${t("adhd.statSteps")} <b id="adhd-steps">0</b></span>
     </div>
     <div class="adhd-meter"><i id="adhd-fill"></i></div>
-    <button class="obj-btn" id="adhd-restart" type="button">\u043D\u0430\u0447\u0430\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E</button>
-    <p class="obj-hint">O(n\xB2 + \u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F) \xB7 \u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C ADHD Sort \u043E\u0442 @swapjs.tt</p>
+    <button class="obj-btn" id="adhd-restart" type="button">${t("adhd.restart")}</button>
+    <p class="obj-hint">${t("adhd.hint")}</p>
   </div>`;
   }
   function mountAdhdSort(root) {
@@ -30757,7 +32150,7 @@ void main() {
     let swaps = 0;
     let untilBored = 0;
     let sideIdx = 0;
-    let phase = { id: "sorting", say: "\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E" };
+    let phase = { id: "sorting", say: t("adhd.sorting") };
     let steps = 0;
     let distractions = 0;
     const paintMain = () => {
@@ -30787,16 +32180,16 @@ void main() {
       const from = Math.max(0, Math.min(main.length - size, at - 1));
       for (let i = from + size - 1; i > from; i -= 1) {
         const k = from + Math.floor(Math.random() * (i - from + 1));
-        const t = main[i];
+        const t2 = main[i];
         main[i] = main[k];
-        main[k] = t;
+        main[k] = t2;
       }
       let ordered = true;
       for (let i = from; i < from + size - 1; i += 1) if (main[i] > main[i + 1]) ordered = false;
       if (ordered) {
-        const t = main[from];
+        const t2 = main[from];
         main[from] = main[from + size - 1];
-        main[from + size - 1] = t;
+        main[from + size - 1] = t2;
       }
     };
     const reset = () => {
@@ -30808,9 +32201,9 @@ void main() {
       steps = 0;
       distractions = 0;
       untilBored = 12 + Math.floor(Math.random() * 10);
-      phase = { id: "sorting", say: "\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E" };
+      phase = { id: "sorting", say: t("adhd.sorting") };
       sideEl.classList.remove("on");
-      say("\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E");
+      say(t("adhd.sorting"));
       disEl.textContent = "0";
       stepsEl.textContent = "0";
       moveCursor(0);
@@ -30837,9 +32230,9 @@ void main() {
           j = 0;
         } else {
           if (main[j] > main[j + 1]) {
-            const t = main[j];
+            const t2 = main[j];
             main[j] = main[j + 1];
-            main[j + 1] = t;
+            main[j + 1] = t2;
             swaps += 1;
           }
           moveCursor(j);
@@ -30859,7 +32252,7 @@ void main() {
         sideIdx = 0;
         sideEl.classList.add("on");
         phase = { id: "away", say: "" };
-        say("(\u0441\u043E\u0440\u0442\u0438\u0440\u0443\u044E \u0447\u0443\u0436\u043E\u0439 \u043C\u0430\u0441\u0441\u0438\u0432, \u043E\u043D \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439)");
+        say(t("adhd.away"));
         distractions += 1;
         disEl.textContent = String(distractions);
         paintSide();
@@ -30870,9 +32263,9 @@ void main() {
         let moved = false;
         for (let k = 0; k < side.length - 1; k += 1) {
           if (side[k] > side[k + 1]) {
-            const t = side[k];
+            const t2 = side[k];
             side[k] = side[k + 1];
-            side[k + 1] = t;
+            side[k + 1] = t2;
             sideIdx = k;
             moved = true;
             break;
@@ -30914,7 +32307,7 @@ void main() {
       if (reducedMotion()) {
         main = shuffled(N);
         j = 3;
-        say("\u043E\u0442\u0432\u043B\u0451\u043A\u0441\u044F \u0438 \u0432\u0435\u0440\u043D\u0443\u043B\u0441\u044F \u043D\u0435 \u0442\u0443\u0434\u0430 (\u0430\u043D\u0438\u043C\u0430\u0446\u0438\u044F \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u0430 \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0435)");
+        say(t("adhd.still"));
         paintMain();
         return;
       }
@@ -30925,13 +32318,7 @@ void main() {
   }
 
   // src/toys/capitalism.ts
-  var NEVER = [
-    "\u043F\u0435\u0440\u0435\u0441\u0447\u0438\u0442\u044B\u0432\u0430\u044E \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442",
-    "\u0443\u0442\u043E\u0447\u043D\u044F\u044E \u0433\u0440\u0435\u0439\u0434",
-    "\u0436\u0434\u0443 \u0440\u0435\u0432\u044C\u044E \u043E\u0442 \u0442\u0438\u043C\u043B\u0438\u0434\u0430",
-    "\u0435\u0449\u0451 \u043E\u0434\u0438\u043D \u0441\u043F\u0440\u0438\u043D\u0442 \u0438 \u0442\u043E\u0447\u043D\u043E",
-    "\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C"
-  ];
+  var NEVER = tl("capitalismNever");
   var MAX_BAR = 40;
   var TOP_CASH = capitalismItems.reduce((m, it) => Math.max(m, it.cash), 1);
   function barOf(cash) {
@@ -30941,9 +32328,9 @@ void main() {
     return `<div class="obj mid toy reveal" id="capital">
     <div class="obj-title">$ sort --by=capitalism</div>
     <ol class="rich" id="rich"></ol>
-    <p class="rich-log" id="rich-log">\u0436\u0434\u0443 \u043A\u043E\u043C\u0430\u043D\u0434\u044B</p>
-    <button class="obj-btn" id="rich-run" type="button">\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0443</button>
-    <p class="obj-hint">\u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C \u0447\u0435\u0441\u0442\u043D\u044B\u0439. \u043F\u0440\u043E\u0441\u0442\u043E \u043D\u0435 \u0434\u043B\u044F \u0432\u0441\u0435\u0445</p>
+    <p class="rich-log" id="rich-log">${t("cap.idle")}</p>
+    <button class="obj-btn" id="rich-run" type="button">${t("cap.run")}</button>
+    <p class="obj-hint">${t("cap.hint")}</p>
   </div>`;
   }
   function mountCapitalism(root) {
@@ -30960,34 +32347,34 @@ void main() {
         const cls = [
           "rich-row",
           i === hi ? "hi" : "",
-          r.name === "\u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440" ? "vip" : "",
-          r.name === "\u0441\u0442\u0430\u0436\u0451\u0440" ? "poor" : ""
+          r.id === "investor" ? "vip" : "",
+          r.id === "intern" ? "poor" : ""
         ].filter(Boolean).join(" ");
         const tag = r.tag ? `<em class="rich-tag">${r.tag}</em>` : "";
         return `<li class="${cls}"><span class="rich-name">${r.name}</span><span class="rich-cash">$${r.cash}</span><span class="rich-bar">${barOf(r.cash)}</span>${tag}</li>`;
       }).join("");
     };
     const reset = () => {
-      list = capitalismItems.map((it) => ({ name: it.name, cash: it.cash, tag: "" }));
+      list = capitalismItems.map((it) => ({ id: it.id, name: it.name, cash: it.cash, tag: "" }));
       hi = -1;
       iter = 0;
       paint();
-      log2.textContent = "\u0436\u0434\u0443 \u043A\u043E\u043C\u0430\u043D\u0434\u044B";
+      log2.textContent = t("cap.idle");
     };
     const bubbleStep = () => {
       for (let i = 1; i < list.length - 1; i += 1) {
-        if (list[i].name === "\u0441\u0442\u0430\u0436\u0451\u0440") {
-          const t = list[i];
+        if (list[i].id === "intern") {
+          const row = list[i];
           list[i] = list[i + 1];
-          list[i + 1] = t;
-          list[i + 1].tag = "\u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442 \u043F\u0435\u0440\u0435\u0441\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442\u0441\u044F";
+          list[i + 1] = row;
+          list[i + 1].tag = t("cap.recalc");
           hi = i + 1;
           return true;
         }
         if (list[i].cash < list[i + 1].cash) {
-          const t = list[i];
+          const row = list[i];
           list[i] = list[i + 1];
-          list[i + 1] = t;
+          list[i + 1] = row;
           hi = i;
           return true;
         }
@@ -30996,11 +32383,11 @@ void main() {
     };
     const spin = () => {
       iter += 1;
-      const idx = list.findIndex((r) => r.name === "\u0441\u0442\u0430\u0436\u0451\u0440");
-      if (idx >= 0) list[idx].tag = `${NEVER[iter % NEVER.length]} \xB7 \u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F ${iter}`;
+      const idx = list.findIndex((r) => r.id === "intern");
+      if (idx >= 0) list[idx].tag = t("cap.iterTag", { never: NEVER[iter % NEVER.length], n: iter });
       hi = idx;
       paint();
-      log2.textContent = `> \u0434\u043B\u044F \u0441\u0442\u0430\u0436\u0451\u0440\u0430 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C (\u0438\u0442\u0435\u0440\u0430\u0446\u0438\u044F ${iter})`;
+      log2.textContent = t("cap.stuck", { n: iter });
       engine.next(spin, 1500);
     };
     const sorting = () => {
@@ -31011,35 +32398,35 @@ void main() {
       }
       hi = -1;
       paint();
-      log2.textContent = "> \u043F\u043E\u0440\u044F\u0434\u043E\u043A \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D. \u043E\u0441\u0442\u0430\u043B\u0430\u0441\u044C \u043E\u0434\u043D\u0430 \u043C\u0435\u043B\u043E\u0447\u044C";
+      log2.textContent = t("cap.ordered");
       engine.next(spin, 900);
     };
     const teleport = () => {
-      const idx = list.findIndex((r) => r.name === "\u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440");
+      const idx = list.findIndex((r) => r.id === "investor");
       const vip = list.splice(idx, 1)[0];
-      vip.tag = "\u0432\u043D\u0435 \u043E\u0447\u0435\u0440\u0435\u0434\u0438";
+      vip.tag = t("cap.queueSkip");
       list.unshift(vip);
       hi = 0;
       paint();
       const row = out.firstElementChild;
       if (row && !reducedMotion()) row.classList.add("teleported");
-      log2.textContent = "> \u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440: \u043F\u0440\u0438\u043E\u0440\u0438\u0442\u0435\u0442\u043D\u044B\u0439 \u0434\u043E\u0441\u0442\u0443\u043F. \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043F\u0440\u043E\u043F\u0443\u0449\u0435\u043D\u0430";
+      log2.textContent = t("cap.vip");
       engine.next(sorting, 900);
     };
     const run = () => {
       engine.stop();
       reset();
-      log2.textContent = "> \u0447\u0438\u0442\u0430\u044E \u043C\u0430\u0441\u0441\u0438\u0432\u2026";
+      log2.textContent = t("cap.reading");
       if (reducedMotion()) {
-        const idx = list.findIndex((r) => r.name === "\u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440");
+        const idx = list.findIndex((r) => r.id === "investor");
         const vip = list.splice(idx, 1)[0];
-        vip.tag = "\u0432\u043D\u0435 \u043E\u0447\u0435\u0440\u0435\u0434\u0438";
+        vip.tag = t("cap.queueSkip");
         list.unshift(vip);
-        list.sort((a, b) => a.name === "\u0441\u0442\u0430\u0436\u0451\u0440" ? 1 : b.name === "\u0441\u0442\u0430\u0436\u0451\u0440" ? -1 : 0);
-        const poor = list.find((r) => r.name === "\u0441\u0442\u0430\u0436\u0451\u0440");
-        if (poor) poor.tag = "\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C";
+        list.sort((a, b) => a.id === "intern" ? 1 : b.id === "intern" ? -1 : 0);
+        const poor = list.find((r) => r.id === "intern");
+        if (poor) poor.tag = t("cap.noConverge");
         paint();
-        log2.textContent = "> \u0438\u043D\u0432\u0435\u0441\u0442\u043E\u0440 \u2014 \u0432\u043D\u0435 \u043E\u0447\u0435\u0440\u0435\u0434\u0438. \u0434\u043B\u044F \u0441\u0442\u0430\u0436\u0451\u0440\u0430 \u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u043A\u0430 \u043D\u0435 \u0441\u043E\u0448\u043B\u0430\u0441\u044C";
+        log2.textContent = t("cap.stillResult");
         return;
       }
       engine.next(teleport, 700);
@@ -31112,29 +32499,29 @@ void main() {
     lfo.start();
     return {
       stop() {
-        const t = a.currentTime;
-        master.gain.cancelScheduledValues(t);
-        master.gain.setValueAtTime(Math.max(2e-4, master.gain.value), t);
-        master.gain.exponentialRampToValueAtTime(1e-4, t + 0.9);
-        oscs.forEach((o) => o.stop(t + 1.1));
-        lfo.stop(t + 1.1);
+        const t2 = a.currentTime;
+        master.gain.cancelScheduledValues(t2);
+        master.gain.setValueAtTime(Math.max(2e-4, master.gain.value), t2);
+        master.gain.exponentialRampToValueAtTime(1e-4, t2 + 0.9);
+        oscs.forEach((o) => o.stop(t2 + 1.1));
+        lfo.stop(t2 + 1.1);
       }
     };
   }
   function botVoice(a, seed, at = 0) {
-    const t = (at || a.currentTime) + 1e-3;
+    const t2 = (at || a.currentTime) + 1e-3;
     const base = 320 + seed * 137 % 520;
     const osc = a.createOscillator();
     const g = a.createGain();
     osc.type = seed % 3 === 0 ? "square" : seed % 3 === 1 ? "sawtooth" : "triangle";
-    osc.frequency.setValueAtTime(base, t);
-    osc.frequency.linearRampToValueAtTime(base * (seed % 2 ? 1.35 : 0.72), t + 0.09);
-    g.gain.setValueAtTime(1e-4, t);
-    g.gain.exponentialRampToValueAtTime(0.05, t + 0.012);
-    g.gain.exponentialRampToValueAtTime(1e-4, t + 0.16);
+    osc.frequency.setValueAtTime(base, t2);
+    osc.frequency.linearRampToValueAtTime(base * (seed % 2 ? 1.35 : 0.72), t2 + 0.09);
+    g.gain.setValueAtTime(1e-4, t2);
+    g.gain.exponentialRampToValueAtTime(0.05, t2 + 0.012);
+    g.gain.exponentialRampToValueAtTime(1e-4, t2 + 0.16);
     osc.connect(g).connect(a.destination);
-    osc.start(t);
-    osc.stop(t + 0.2);
+    osc.start(t2);
+    osc.stop(t2 + 0.2);
   }
   function omBless(a) {
     const t0 = a.currentTime + 0.02;
@@ -31179,25 +32566,25 @@ void main() {
     src.start();
   }
   function moo(a, n) {
-    const t = a.currentTime + 5e-3;
+    const t2 = a.currentTime + 5e-3;
     const base = 128 - Math.min(28, n * 0.35) + n % 3 * 5;
     const osc = a.createOscillator();
     const g = a.createGain();
     const f = a.createBiquadFilter();
     osc.type = "sawtooth";
-    osc.frequency.setValueAtTime(base * 1.32, t);
-    osc.frequency.exponentialRampToValueAtTime(base, t + 0.1);
-    osc.frequency.exponentialRampToValueAtTime(base * 0.78, t + 0.26);
+    osc.frequency.setValueAtTime(base * 1.32, t2);
+    osc.frequency.exponentialRampToValueAtTime(base, t2 + 0.1);
+    osc.frequency.exponentialRampToValueAtTime(base * 0.78, t2 + 0.26);
     f.type = "lowpass";
-    f.frequency.setValueAtTime(760, t);
-    f.frequency.exponentialRampToValueAtTime(320, t + 0.28);
-    f.Q.setValueAtTime(6, t);
-    g.gain.setValueAtTime(1e-4, t);
-    g.gain.exponentialRampToValueAtTime(0.055, t + 0.05);
-    g.gain.exponentialRampToValueAtTime(1e-4, t + 0.3);
+    f.frequency.setValueAtTime(760, t2);
+    f.frequency.exponentialRampToValueAtTime(320, t2 + 0.28);
+    f.Q.setValueAtTime(6, t2);
+    g.gain.setValueAtTime(1e-4, t2);
+    g.gain.exponentialRampToValueAtTime(0.055, t2 + 0.05);
+    g.gain.exponentialRampToValueAtTime(1e-4, t2 + 0.3);
     osc.connect(f).connect(g).connect(a.destination);
-    osc.start(t);
-    osc.stop(t + 0.34);
+    osc.start(t2);
+    osc.stop(t2 + 0.34);
   }
   function sigmaMotif(a) {
     const t0 = a.currentTime + 0.02;
@@ -31261,8 +32648,8 @@ void main() {
     }
   }
   function blip(a, up) {
-    const t = a.currentTime + 5e-3;
-    tone(a, up ? 880 : 660, t, 0.05, { type: "square", gain: 0.03, attack: 4e-3, release: 0.08 });
+    const t2 = a.currentTime + 5e-3;
+    tone(a, up ? 880 : 660, t2, 0.05, { type: "square", gain: 0.03, attack: 4e-3, release: 0.08 });
   }
 
   // src/toys/js-truth.ts
@@ -31280,61 +32667,61 @@ void main() {
       id: "plus",
       src: "'1' + 1",
       run: () => "11",
-      note: "\u0441\u0442\u0440\u043E\u043A\u0430 \u0441\u0438\u043B\u044C\u043D\u0435\u0435 \u0447\u0438\u0441\u043B\u0430: \u043F\u043B\u044E\u0441 \u0441\u043A\u043B\u0435\u0438\u0432\u0430\u0435\u0442, \u0430 \u043D\u0435 \u0441\u043A\u043B\u0430\u0434\u044B\u0432\u0430\u0435\u0442"
+      note: t("js.note.plus")
     },
     {
       id: "arrays",
       src: "[] + []",
       run: () => loosePlus([], []),
-      note: "\u0434\u0432\u0430 \u043C\u0430\u0441\u0441\u0438\u0432\u0430 \u0441\u0442\u0430\u043B\u0438 \u0441\u0442\u0440\u043E\u043A\u0430\u043C\u0438. \u043E\u0431\u0435 \u043F\u0443\u0441\u0442\u044B\u0435. \u0432\u043E\u0442 \u0438 \u043F\u0443\u0441\u0442\u043E\u0442\u0430"
+      note: t("js.note.arrays")
     },
     {
       id: "objarr",
       src: "[] + {}",
       run: () => loosePlus([], {}),
-      note: "'' + '[object Object]'. \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u043F\u043E\u0441\u0442\u0440\u0430\u0434\u0430\u043B"
+      note: t("js.note.objarr")
     },
     {
       id: "nan",
       src: "NaN === NaN",
       run: () => Number.NaN === Number.NaN,
-      note: "\u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435, \u043D\u0435 \u0440\u0430\u0432\u043D\u043E\u0435 \u0441\u0430\u043C\u043E\u043C\u0443 \u0441\u0435\u0431\u0435. \u043F\u043E \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u0443 IEEE 754"
+      note: t("js.note.nan")
     },
     {
       id: "typeof",
       src: "typeof NaN",
       run: () => typeof Number.NaN,
-      note: "\xAB\u043D\u0435 \u0447\u0438\u0441\u043B\u043E\xBB \u2014 \u044D\u0442\u043E \u0447\u0438\u0441\u043B\u043E. \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u0442"
+      note: t("js.note.typeof")
     },
     {
       id: "float",
       src: "0.1 + 0.2",
       run: () => 0.1 + 0.2,
-      note: "\u0434\u0432\u043E\u0438\u0447\u043D\u0430\u044F \u0434\u0440\u043E\u0431\u044C \u043D\u0435 \u0443\u043C\u0435\u0435\u0442 \u0432 0.3. \u044D\u0442\u043E \u043D\u0435 \u0431\u0430\u0433 JS, \u044D\u0442\u043E \u0431\u0430\u0433 \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u043E\u0439"
+      note: t("js.note.float")
     },
     {
       id: "sort",
       src: "[10, 1, 3].sort()",
       run: () => [10, 1, 3].sort(),
-      note: 'sort \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0441\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u0435\u0442 \u0421\u0422\u0420\u041E\u041A\u0418: "10" < "3"'
+      note: t("js.note.sort")
     },
     {
       id: "maxmin",
       src: "Math.max() > Math.min()",
       run: () => Math.max() > Math.min(),
-      note: "\u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C \u0438\u0437 \u043D\u0438\u0447\u0435\u0433\u043E = -Infinity, \u043C\u0438\u043D\u0438\u043C\u0443\u043C = Infinity"
+      note: t("js.note.maxmin")
     },
     {
       id: "nullnum",
       src: "null >= 0",
       run: () => null >= 0,
-      note: "\u043F\u0440\u0438 \u044D\u0442\u043E\u043C null == 0 \u2014 \u043B\u043E\u0436\u044C. \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435 \u0438 \u0440\u0430\u0432\u0435\u043D\u0441\u0442\u0432\u043E \u0436\u0438\u0432\u0443\u0442 \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E"
+      note: t("js.note.nullnum")
     },
     {
       id: "banana",
       src: "('b' + 'a' + +'a' + 'a').toLowerCase()",
       run: () => ("ba" + +"a" + "a").toLowerCase(),
-      note: "\u0441\u0430\u043C\u0430\u044F \u0438\u0437\u0432\u0435\u0441\u0442\u043D\u0430\u044F \u0441\u0442\u0440\u043E\u0447\u043A\u0430 \u0432 \u0438\u0441\u0442\u043E\u0440\u0438\u0438 \u044F\u0437\u044B\u043A\u0430"
+      note: t("js.note.banana")
     }
   ];
   function jsTruthHtml() {
@@ -31345,15 +32732,15 @@ void main() {
     </li>`
     ).join("");
     return `<div class="obj mid toy jst reveal" id="jst">
-    <div class="obj-title">$ node --interactive \xB7 JS \u043E\u0442\u0432\u0435\u0447\u0430\u0435\u0442</div>
-    <p class="obj-hint top">\u0442\u044B\u043A\u0430\u0439 \u0432 \u0432\u044B\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u2014 \u0443\u0432\u0438\u0434\u0438\u0448\u044C, \u0447\u0442\u043E \u0432\u0435\u0440\u043D\u0451\u0442 \u0442\u0432\u043E\u0439 \u0431\u0440\u0430\u0443\u0437\u0435\u0440</p>
+    <div class="obj-title">$ node --interactive \xB7 ${t("js.title")}</div>
+    <p class="obj-hint top">${t("js.hint")}</p>
     <ul class="jst-list">${rows}</ul>
-    <p class="jst-note" id="jst-note">> \u0436\u0434\u0451\u043C \u0432\u044B\u0440\u0430\u0436\u0435\u043D\u0438\u044F</p>
-    <p class="jst-foot">\u0432\u0441\u0451 \u044D\u0442\u043E \u043F\u0440\u0430\u0432\u0434\u0430. \u043F\u0440\u044F\u043C\u043E \u0441\u0435\u0439\u0447\u0430\u0441. \u0432 \u0442\u0432\u043E\u0451\u043C \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0435</p>
+    <p class="jst-note" id="jst-note">${t("js.idle")}</p>
+    <p class="jst-foot">${t("js.foot")}</p>
     <div class="jst-row jst-all">
-      <button class="obj-btn" id="jst-all" type="button">\u0432\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C \u0432\u0441\u0451</button>
+      <button class="obj-btn" id="jst-all" type="button">${t("js.all")}</button>
       <a class="plate" href="https://www.youtube.com/watch?v=Uo3cL4nrGOk" target="_blank" rel="noopener">
-        \xAB\u043C\u044B \u043F\u0435\u0440\u0435\u043F\u0438\u0441\u0430\u043B\u0438 \u043A\u043E\u0434\u0431\u0430\u0437\u0443 \u0434\u0435\u0432\u044F\u0442\u044C \u0440\u0430\u0437 \u0437\u0430 \u043C\u0435\u0441\u044F\u0446\xBB \u2014 Kai Lentit ${svgArrow}</a>
+        ${t("js.plate")} ${svgArrow}</a>
     </div>
   </div>`;
   }
@@ -31373,7 +32760,7 @@ void main() {
         const a = audioOnGesture();
         if (a) blip(a, done % 2 === 0);
       }
-      if (done >= CASES.length) note.textContent = "> \u0432\u0441\u0435 \u043E\u0442\u0432\u0435\u0442\u044B \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0438\u0435. \u043D\u0438 \u043E\u0434\u0438\u043D \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u043B\u0430\u043D";
+      if (done >= CASES.length) note.textContent = t("js.done");
     };
     host.querySelectorAll("[data-case]").forEach((b) => {
       b.addEventListener("click", () => {
@@ -31401,11 +32788,11 @@ void main() {
     ).join("");
     return `<div class="obj mid toy reveal" id="icl">
     <div class="obj-title">$ ick hello.i</div>
-    <p class="icl-lead">\u043A\u043B\u0438\u043A\u0430\u0439 \u043F\u043E \u0441\u0442\u0440\u043E\u043A\u0435 \u2014 \u043E\u043D\u0430 \u0441\u0442\u0430\u043D\u0435\u0442 \u0432\u0435\u0436\u043B\u0438\u0432\u043E\u0439. \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0441\u0447\u0438\u0442\u0430\u0435\u0442 \xAB\u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430\xBB.</p>
+    <p class="icl-lead">${t("icl.lead")}</p>
     <div class="icl-code-box">${lines}</div>
     <div class="icl-bar">
-      <span>PLEASE: <b id="icl-count">0</b> \u0438\u0437 ${N2}</span>
-      <span class="icl-window">\u043C\u043E\u0436\u043D\u043E \u043E\u0442 ${MIN} \u0434\u043E ${MAX}</span>
+      <span>PLEASE: <b id="icl-count">0</b> ${t("icl.of")} ${N2}</span>
+      <span class="icl-window">${t("icl.window", { min: MIN, max: MAX })}</span>
       <span class="icl-spacer"></span>
       <button class="obj-btn small" id="icl-minus" type="button">\u2212 PLEASE</button>
       <button class="obj-btn small" id="icl-plus" type="button">+ PLEASE</button>
@@ -31413,7 +32800,7 @@ void main() {
     </div>
     <pre class="icl-out" id="icl-out">$ _</pre>
     <a class="plate" href="https://esolangs.org/wiki/INTERCAL" target="_blank" rel="noopener">
-      \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+      ${t("eso.exists")} ${svgArrow}</a>
   </div>`;
   }
   function mountIntercal(root) {
@@ -31450,7 +32837,7 @@ void main() {
         out.className = "icl-out err";
         return;
       }
-      out.textContent = "Hello, world!\n\n        PROGRAM ENDED NORMALLY. \u0432\u0435\u0436\u043B\u0438\u0432\u043E\u0441\u0442\u044C \u0437\u0430\u0441\u0447\u0438\u0442\u0430\u043D\u0430";
+      out.textContent = t("icl.ok");
       out.className = "icl-out ok";
     };
     lines.forEach((el, i) => {
@@ -31481,14 +32868,10 @@ void main() {
   }
 
   // src/toys/strange-langs.ts
-  var MOOS = [
-    { cmd: "mOo", what: "\u0448\u0430\u0433 \u043D\u0430 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0443\u044E \u044F\u0447\u0435\u0439\u043A\u0443" },
-    { cmd: "moO", what: "\u0448\u0430\u0433 \u043D\u0430 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E \u044F\u0447\u0435\u0439\u043A\u0443" },
-    { cmd: "MOo", what: "\u0443\u043C\u0435\u043D\u044C\u0448\u0438\u0442\u044C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0435" },
-    { cmd: "MoO", what: "\u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0442\u044C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0435" },
-    { cmd: "mOO", what: "\u0432\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u044F\u0447\u0435\u0439\u043A\u0438 \u041A\u0410\u041A \u041A\u041E\u041C\u0410\u041D\u0414\u0423" },
-    { cmd: "Moo", what: "\u0432\u0432\u043E\u0434-\u0432\u044B\u0432\u043E\u0434: \u0441\u043A\u0430\u0437\u0430\u0442\u044C \u0438\u043B\u0438 \u043F\u043E\u0441\u043B\u0443\u0448\u0430\u0442\u044C" }
-  ];
+  var MOOS = ["mOo", "moO", "MOo", "MoO", "mOO", "Moo"].map((cmd, i) => ({
+    cmd,
+    what: tl("mooWhat")[i]
+  }));
   var HELLO = "Hello world";
   var MALBOLGE = String.raw`(=BA#9"=<;:3y7x54-21q/p-,+*)"!h%B0/.
 ~P<
@@ -31496,11 +32879,11 @@ void main() {
 66#"!~}|{zyxwvu
 gJ%`;
   var POEM = [
-    "\u043D\u043E\u0447\u044C\u044E \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0447\u0438\u0442\u0430\u0435\u0442 \u0441\u0442\u0438\u0445\u0438",
+    t("sl.ws.poem1"),
     "	  	 		   	 	",
-    "\u0438 \u043D\u0435 \u043D\u0430\u0445\u043E\u0434\u0438\u0442 \u0432 \u043D\u0438\u0445 \u043D\u0438 \u043E\u0434\u043D\u043E\u0439 \u043E\u0448\u0438\u0431\u043A\u0438",
+    t("sl.ws.poem3"),
     " 		 	  		 	 ",
-    "\u043F\u043E\u0442\u043E\u043C\u0443 \u0447\u0442\u043E \u043E\u0448\u0438\u0431\u043E\u043A \u0432 \u0441\u0442\u0438\u0445\u0430\u0445 \u043D\u0435 \u0431\u044B\u0432\u0430\u0435\u0442"
+    t("sl.ws.poem5")
   ];
   function wsChars(src) {
     return Array.from(src).map((ch) => {
@@ -31519,7 +32902,7 @@ gJ%`;
     ).join("");
     const poem = POEM.map(wsLine).join("");
     return `<div class="strange" id="strange">
-    <h3 class="strange-title">\u0441\u0430\u043C\u044B\u0435 \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0435 \u044F\u0437\u044B\u043A\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u043F\u0440\u0430\u0432\u0434\u0430 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442</h3>
+    <h3 class="strange-title">${t("sl.title")}</h3>
 
     <div class="shrine" id="shrine">
       <div class="shrine-halo" aria-hidden="true"></div>
@@ -31532,112 +32915,86 @@ gJ%`;
           <span class="shrine-year">1993 \u2192 2018</span>
         </div>
       </div>
-      <p class="punch">\xAB640\xD7480, 16 \u0446\u0432\u0435\u0442\u043E\u0432 \u2014 \u0442\u0430\u043A\u043E\u0432\u043E \u0431\u044B\u043B\u043E \u043F\u0440\u044F\u043C\u043E\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0438\u0435 \u0431\u043E\u0433\u0430\xBB.</p>
-      <p class="punch-sub">\u0418 \u044D\u0442\u043E \u043D\u0435 \u043C\u0435\u0442\u0430\u0444\u043E\u0440\u0430 \u043F\u0440\u043E \u043B\u0435\u0433\u0430\u0441\u0438: \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E \u0440\u0430\u0431\u043E\u0447\u0430\u044F, \u0435\u0451 \u043C\u043E\u0436\u043D\u043E \u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C \u0441\u0435\u0433\u043E\u0434\u043D\u044F.</p>
+      <p class="punch">${t("sl.temple.punch")}</p>
+      <p class="punch-sub">${t("sl.temple.sub")}</p>
       <pre class="shrine-code">U0 Main()
 {
   "Hello World!\\n";
 }</pre>
-      <p class="whisper-note">
-        \u041E\u043F\u0435\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u0430\u044F \u0441\u0438\u0441\u0442\u0435\u043C\u0430, \u043A\u043E\u0442\u043E\u0440\u0443\u044E \u0422\u0435\u0440\u0440\u0438 \u0414\u044D\u0432\u0438\u0441 \u043F\u0438\u0441\u0430\u043B \u0432 \u043E\u0434\u0438\u043D\u043E\u0447\u043A\u0443 \u0431\u043E\u043B\u044C\u0448\u0435 \u0434\u0435\u0441\u044F\u0442\u0438 \u043B\u0435\u0442 \u2014
-        \u0441\u0432\u043E\u0451 \u044F\u0434\u0440\u043E, \u0441\u0432\u043E\u0439 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440, \u0441\u0432\u043E\u0439 \u044F\u0437\u044B\u043A HolyC. \u0412 HolyC \u0441\u0442\u0440\u043E\u043A\u0430 \u0441\u0430\u043C\u0430 \u043F\u043E \u0441\u0435\u0431\u0435 \u0443\u0436\u0435
-        \u043A\u043E\u043C\u0430\u043D\u0434\u0430: \u043D\u0430\u043F\u0438\u0441\u0430\u043B \u0442\u0435\u043A\u0441\u0442 \u0432 \u043A\u0430\u0432\u044B\u0447\u043A\u0430\u0445 \u2014 \u043E\u043D \u0438 \u043D\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u043B\u0441\u044F. \u041D\u0438 \u043E\u0434\u043D\u043E\u0433\u043E printf.
-      </p>
-      <p class="whisper-note quiet">
-        \u0422\u0435\u0440\u0440\u0438 \u0443\u043C\u0435\u0440 \u0432 2018-\u043C. \u0417\u0434\u0435\u0441\u044C \u043E\u043D \u0441\u0442\u043E\u0438\u0442 \u043D\u0435 \u043A\u0430\u043A \u043A\u0443\u0440\u044C\u0451\u0437, \u0430 \u043A\u0430\u043A \u0430\u0432\u0442\u043E\u0440: \u0447\u0435\u043B\u043E\u0432\u0435\u043A
-        \u0432 \u043E\u0434\u0438\u043D\u043E\u0447\u043A\u0443 \u043D\u0430\u043F\u0438\u0441\u0430\u043B \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u043E\u043D\u043D\u0443\u044E \u0441\u0438\u0441\u0442\u0435\u043C\u0443.
-      </p>
+      <p class="whisper-note">${t("sl.temple.note")}</p>
+      <p class="whisper-note quiet">${t("sl.temple.quiet")}</p>
       <a class="whisper-link solo" href="https://templeos.org/" target="_blank" rel="noopener">
-        \u0441\u0430\u0439\u0442 TempleOS ${svgArrow}</a>
+        ${t("sl.temple.site")} ${svgArrow}</a>
       <a class="whisper-link solo" href="https://en.wikipedia.org/wiki/TempleOS" target="_blank" rel="noopener">
-        TempleOS \u0432 \u044D\u043D\u0446\u0438\u043A\u043B\u043E\u043F\u0435\u0434\u0438\u0438 ${svgArrow}</a>
+        ${t("sl.temple.wiki")} ${svgArrow}</a>
     </div>
 
     <div class="magic-grid">
       <div class="cow toy" id="cow">
-        <div class="obj-title">COW \xB7 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0441\u0442 \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u043E\u0432 \u043C\u044B\u0447\u0430\u043D\u0438\u044F</div>
-        <p class="punch">\u0427\u0442\u043E\u0431\u044B \u043A\u043E\u0440\u043E\u0432\u0430 \u0441\u043A\u0430\u0437\u0430\u043B\u0430 \u0431\u0443\u043A\u0432\u0443 \xABH\xBB, \u0435\u0439 \u043D\u0430\u0434\u043E \u043F\u0440\u043E\u043C\u044B\u0447\u0430\u0442\u044C \xABMoO\xBB \u0440\u043E\u0432\u043D\u043E 72 \u0440\u0430\u0437\u0430.</p>
+        <div class="obj-title">${t("sl.cow.title")}</div>
+        <p class="punch">${t("sl.cow.punch")}</p>
         <div class="moo-run">
-          <button class="obj-btn" id="moo-hello" type="button">\u043F\u0440\u043E\u043C\u044B\u0447\u0430\u0442\u044C hello world</button>
-          <span class="moo-count" id="moo-count">\u0432 \u044F\u0447\u0435\u0439\u043A\u0435: 0 \xB7 \u043D\u0443\u0436\u043D\u043E 72 (\xABH\xBB)</span>
+          <button class="obj-btn" id="moo-hello" type="button">${t("sl.cow.hello")}</button>
+          <span class="moo-count" id="moo-count">${t("sl.cow.count", {
+      cell: 0,
+      want: HELLO.charCodeAt(0),
+      letter: HELLO[0]
+    })}</span>
         </div>
-        <pre class="moo-code" id="moo-code">(\u043F\u0443\u0441\u0442\u043E. \u043F\u043E\u043C\u044B\u0447\u0438)</pre>
-        <p class="moo-said" id="moo-said">\u0441\u043A\u0430\u0437\u0430\u043D\u043E: <b id="moo-out-text"></b><span class="cur"></span></p>
-        <p class="moo-out" id="moo-out">\u0441\u043E \u0437\u0432\u0443\u043A\u043E\u043C (\u0441\u0438\u043D\u0442\u0435\u0437, \u043F\u043E \u0442\u0432\u043E\u0435\u043C\u0443 \u043A\u043B\u0438\u043A\u0443)</p>
+        <pre class="moo-code" id="moo-code">${t("sl.cow.empty")}</pre>
+        <p class="moo-said" id="moo-said">${t("sl.cow.said")} <b id="moo-out-text"></b><span class="cur"></span></p>
+        <p class="moo-out" id="moo-out">${t("sound.hint")}</p>
         <div class="moo-row">${moos}</div>
-        <p class="whisper-note">
-          \u0412\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u0441\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0441\u044F \u0438\u0437 \u043E\u0434\u043D\u043E\u0433\u043E \u0441\u043B\u043E\u0432\u0430, \u0440\u0435\u0433\u0438\u0441\u0442\u0440 \u0440\u0435\u0448\u0430\u0435\u0442 \u0432\u0441\u0451. \u041F\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044C \u2014
-          MoO, \u0441\u043A\u0430\u0437\u0430\u0442\u044C \u2014 Moo, \u0438 \u043D\u0438\u043A\u0430\u043A\u0438\u0445 \xAB\u043D\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u0439 \u0441\u0442\u0440\u043E\u043A\u0443\xBB. \u041E\u0442\u0434\u0435\u043B\u044C\u043D\u043E \u0441\u0442\u043E\u0438\u0442 mOO:
-          \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u0430\u044F \u043A\u043E\u043C\u0430\u043D\u0434\u0430, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0438\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u0442 \u0441\u043E\u0434\u0435\u0440\u0436\u0438\u043C\u043E\u0435 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u0430\u043A \u043A\u043E\u043C\u0430\u043D\u0434\u0443.
-        </p>
-        <button class="obj-btn small" id="moo-clear" type="button">\u0441\u0442\u0435\u0440\u0435\u0442\u044C \u043C\u044B\u0447\u0430\u043D\u0438\u0435</button>
+        <p class="whisper-note">${t("sl.cow.note")}</p>
+        <button class="obj-btn small" id="moo-clear" type="button">${t("sl.cow.clear")}</button>
         <a class="whisper-link solo" href="https://esolangs.org/wiki/COW" target="_blank" rel="noopener">
-          \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+          ${t("eso.exists")} ${svgArrow}</a>
       </div>
 
       <div class="bf toy" id="bf">
-        <div class="obj-title">brainfuck \xB7 \u0432\u043E\u0441\u0435\u043C\u044C \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432, \u0438 \u0432\u0441\u0451</div>
-        <p class="punch">\u0410\u0432\u0442\u043E\u0440 \u0441\u0442\u0430\u0432\u0438\u043B \u0441\u0435\u0431\u0435 \u043E\u0434\u043D\u0443 \u0437\u0430\u0434\u0430\u0447\u0443: \u0441\u0430\u043C\u044B\u0439 \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0432 \u043C\u0438\u0440\u0435. \u0423\u043B\u043E\u0436\u0438\u043B\u0441\u044F \u0432 200 \u0431\u0430\u0439\u0442.</p>
-        <p class="punch-sub">\u041D\u0430\u0432\u0435\u0434\u0438 \u043D\u0430 \u0441\u0438\u043C\u0432\u043E\u043B \u2014 \u043E\u043D \u0440\u0430\u0441\u0441\u043A\u0430\u0436\u0435\u0442, \u0447\u0442\u043E \u0434\u0435\u043B\u0430\u0435\u0442. \u0418\u0445 \u0432\u0441\u0435\u0433\u043E \u0432\u043E\u0441\u0435\u043C\u044C, \u0434\u0440\u0443\u0433\u0438\u0445 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442.</p>
+        <div class="obj-title">${t("sl.bf.title")}</div>
+        <p class="punch">${t("sl.bf.punch")}</p>
+        <p class="punch-sub">${t("sl.bf.sub")}</p>
         <pre class="bf-cmds" id="bf-cmds"></pre>
-        <p class="bf-out" id="bf-out">\u0423\u0440\u0431\u0430\u043D \u041C\u044E\u043B\u043B\u0435\u0440, 1993</p>
+        <p class="bf-out" id="bf-out">${t("sl.bf.author")}</p>
         <pre class="bf-hello">++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.</pre>
-        <p class="whisper-note">
-          \u042D\u0442\u043E Hello World \u2014 \u0432\u0435\u0440\u043D\u0435\u0435, \u0435\u0433\u043E \u043D\u0430\u0447\u0430\u043B\u043E. \u0423 \u044F\u0437\u044B\u043A\u0430 442 \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u0434\u0435\u0440\u0438\u0432\u0430\u0442\u0430,
-          \u0438 \u0432\u044B\u0440\u043E\u0441 \u043E\u043D \u0438\u0437 FALSE, \u0447\u0435\u0439 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u0432\u043B\u0435\u0437\u0430\u043B \u0432 1024 \u0431\u0430\u0439\u0442\u0430.
-        </p>
+        <p class="whisper-note">${t("sl.bf.note")}</p>
         <a class="whisper-link solo" href="https://esolangs.org/wiki/Brainfuck" target="_blank" rel="noopener">
-          \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+          ${t("eso.exists")} ${svgArrow}</a>
       </div>
     </div>
 
     <div class="malb toy" id="malb">
-      <div class="obj-title">Malbolge \xB7 \u0432\u043E\u0441\u044C\u043C\u043E\u0439 \u043A\u0440\u0443\u0433 \u0430\u0434\u0430, 1998</div>
-      <p class="punch">\u041F\u0435\u0440\u0432\u044B\u0439 Hello World \u043D\u0430 Malbolge \u043D\u0430\u0448\u043B\u0430 \u043C\u0430\u0448\u0438\u043D\u0430 \u043F\u0435\u0440\u0435\u0431\u043E\u0440\u043E\u043C. \u041B\u044E\u0434\u0438 \u043D\u0435 \u0441\u043C\u043E\u0433\u043B\u0438.</p>
-      <button class="obj-btn" id="malb-show" type="button">\u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C Hello World</button>
+      <div class="obj-title">${t("sl.malb.title")}</div>
+      <p class="punch">${t("sl.malb.punch")}</p>
+      <button class="obj-btn" id="malb-show" type="button">${t("sl.malb.show")}</button>
       <pre class="malb-code" id="malb-code" hidden>${MALBOLGE.replace(/</g, "&lt;")}</pre>
-      <p class="malb-out" id="malb-out">\u0434\u0430, \u0432\u043E\u0442 \u044D\u0442\u043E \u0432\u043E\u0442. \u043F\u0440\u043E\u0441\u0442\u043E \xABHello, world\xBB.</p>
-      <p class="whisper-note">
-        \u042F\u0437\u044B\u043A \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u0432\u043E\u0441\u044C\u043C\u043E\u0433\u043E \u043A\u0440\u0443\u0433\u0430 \u0430\u0434\u0430. \u0415\u0433\u043E \u043F\u0438\u0441\u0430\u043B\u0438 \u0442\u0430\u043A, \u0447\u0442\u043E\u0431\u044B \u043D\u0430 \u043D\u0451\u043C \u0431\u044B\u043B\u043E
-        \u043D\u0435\u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0440\u043E\u0432\u0430\u0442\u044C, \u2014 \u0438 \u043F\u043E\u0447\u0442\u0438 \u043F\u043E\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C: \u043F\u0435\u0440\u0432\u0443\u044E \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0449\u0443\u044E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0443
-        \u043D\u0430\u0448\u0451\u043B \u043B\u0438\u0441\u043F-\u0441\u043A\u0440\u0438\u043F\u0442, \u043F\u0440\u043E\u0447\u0451\u0441\u044B\u0432\u0430\u0432\u0448\u0438\u0439 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E \u0432\u0441\u0435\u0445 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0445 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C.
-        \u0423 Malbolge Unshackled \u043A\u043E\u043C\u0430\u043D\u0434\u044B \u0432\u0434\u043E\u0431\u0430\u0432\u043E\u043A \u0448\u0438\u0444\u0440\u0443\u044E\u0442\u0441\u044F \u043F\u0440\u0438 \u043A\u0430\u0436\u0434\u043E\u043C \u0437\u0430\u043F\u0443\u0441\u043A\u0435.
-      </p>
+      <p class="malb-out" id="malb-out">${t("sl.malb.idle")}</p>
+      <p class="whisper-note">${t("sl.malb.note")}</p>
       <a class="whisper-link solo" href="https://esolangs.org/wiki/Malbolge" target="_blank" rel="noopener">
-        \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+        ${t("eso.exists")} ${svgArrow}</a>
     </div>
 
     <div class="ws toy" id="ws">
-      <div class="obj-title">Whitespace \xB7 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u0438\u0437 \u0442\u0430\u0431\u043E\u0432 \u0438 \u043F\u0440\u043E\u0431\u0435\u043B\u043E\u0432</div>
-      <p class="punch">\u0412\u043E\u0442 \u0432\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430:</p>
+      <div class="obj-title">${t("sl.ws.title")}</div>
+      <p class="punch">${t("sl.ws.punch")}</p>
       <div class="ws-void" id="ws-void">
         <pre class="ws-blank" id="ws-blank">${POEM[1].replace(/\t/g, "    ")}</pre>
-        <span class="ws-void-hint">(\u0434\u0430, \u0442\u0443\u0442 \u043F\u0443\u0441\u0442\u043E. \u0442\u043A\u043D\u0438 \u2014 \u0438 \u0443\u0432\u0438\u0434\u0438\u0448\u044C \u043A\u043E\u0434)</span>
+        <span class="ws-void-hint">${t("sl.ws.voidHint")}</span>
       </div>
-      <p class="punch-sub">\u0410 \u044D\u0442\u043E \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u0435, \u0432\u043D\u0443\u0442\u0440\u0438 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u043E\u043D\u0430 \u0438 \u043B\u0435\u0436\u0438\u0442. \u0411\u0443\u043A\u0432\u044B \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u043D\u0435 \u0447\u0438\u0442\u0430\u0435\u0442 \u0432\u043E\u0432\u0441\u0435.</p>
+      <p class="punch-sub">${t("sl.ws.sub")}</p>
       <div class="ws-poem" id="ws-poem">${poem}</div>
-      <p class="ws-out" id="ws-out">\u043D\u0430 \u0432\u0438\u0434 \u2014 \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u0435 \u0441 \u0434\u0432\u0443\u043C\u044F \u043F\u0443\u0441\u0442\u044B\u043C\u0438 \u0441\u0442\u0440\u043E\u043A\u0430\u043C\u0438</p>
-      <button class="obj-btn small" id="ws-show" type="button">\u043F\u043E\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u043E\u0435</button>
-      <p class="whisper-note">
-        \u0421\u0438\u043D\u0442\u0430\u043A\u0441\u0438\u0441 \u044F\u0437\u044B\u043A\u0430 \u0441\u043E\u0441\u0442\u043E\u0438\u0442 \u0438\u0437 \u0442\u0440\u0451\u0445 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432: \u043F\u0440\u043E\u0431\u0435\u043B, \u0442\u0430\u0431\u0443\u043B\u044F\u0446\u0438\u044F, \u043F\u0435\u0440\u0435\u0432\u043E\u0434 \u0441\u0442\u0440\u043E\u043A\u0438.
-        \u0412\u0441\u0451 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0435 \u2014 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439, \u043F\u043E\u044D\u0442\u043E\u043C\u0443 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0443 \u043C\u043E\u0436\u043D\u043E \u0441\u043F\u0440\u044F\u0442\u0430\u0442\u044C \u0432 \u0447\u0443\u0436\u043E\u043C \u0442\u0435\u043A\u0441\u0442\u0435
-        \u0442\u0430\u043A, \u0447\u0442\u043E \u0435\u0451 \u043D\u0435 \u0443\u0432\u0438\u0434\u0438\u0442 \u043D\u0438\u043A\u0442\u043E, \u043A\u0440\u043E\u043C\u0435 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440\u0430.
-      </p>
+      <p class="ws-out" id="ws-out">${t("sl.ws.idle")}</p>
+      <button class="obj-btn small" id="ws-show" type="button">${t("sl.ws.show")}</button>
+      <p class="whisper-note">${t("sl.ws.note")}</p>
       <a class="whisper-link solo" href="https://esolangs.org/wiki/Whitespace" target="_blank" rel="noopener">
-        \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+        ${t("eso.exists")} ${svgArrow}</a>
     </div>
   </div>`;
   }
-  var BF = [
-    [">", "\u0448\u0430\u0433 \u0432\u043F\u0440\u0430\u0432\u043E \u043F\u043E \u043B\u0435\u043D\u0442\u0435"],
-    ["<", "\u0448\u0430\u0433 \u0432\u043B\u0435\u0432\u043E \u043F\u043E \u043B\u0435\u043D\u0442\u0435"],
-    ["+", "\u043F\u0440\u0438\u0431\u0430\u0432\u0438\u0442\u044C 1 \u043A \u044F\u0447\u0435\u0439\u043A\u0435"],
-    ["-", "\u043E\u0442\u043D\u044F\u0442\u044C 1 \u043E\u0442 \u044F\u0447\u0435\u0439\u043A\u0438"],
-    [".", "\u043D\u0430\u043F\u0435\u0447\u0430\u0442\u0430\u0442\u044C \u044F\u0447\u0435\u0439\u043A\u0443"],
-    [",", "\u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C \u0441\u0438\u043C\u0432\u043E\u043B"],
-    ["[", "\u0435\u0441\u043B\u0438 \u043D\u043E\u043B\u044C \u2014 \u043F\u0440\u044B\u0433\u043D\u0443\u0442\u044C \u0437\u0430 \u0441\u043A\u043E\u0431\u043A\u0443"],
-    ["]", "\u0435\u0441\u043B\u0438 \u043D\u0435 \u043D\u043E\u043B\u044C \u2014 \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043D\u0430\u0437\u0430\u0434"]
-  ];
+  var BF = [">", "<", "+", "-", ".", ",", "[", "]"].map(
+    (ch, i) => [ch, tl("bfWhat")[i]]
+  );
   function mountStrangeLangs(root) {
     const host = root.querySelector("#strange");
     if (!host) return;
@@ -31655,12 +33012,12 @@ gJ%`;
     let mooing = false;
     const paintMoo = () => {
       const tail = program.slice(-40);
-      mooCode.textContent = tail.length ? (program.length > tail.length ? "\u2026 " : "") + tail.join(" ") : "(\u043F\u0443\u0441\u0442\u043E. \u043F\u043E\u043C\u044B\u0447\u0438)";
+      mooCode.textContent = tail.length ? (program.length > tail.length ? "\u2026 " : "") + tail.join(" ") : t("sl.cow.empty");
       mooCode.scrollTop = mooCode.scrollHeight;
     };
     const paintCount = () => {
       const want = letter < HELLO.length ? HELLO.charCodeAt(letter) : 0;
-      mooCount.textContent = want ? `\u0432 \u044F\u0447\u0435\u0439\u043A\u0435: ${cell} \xB7 \u043D\u0443\u0436\u043D\u043E ${want} (\xAB${HELLO[letter]}\xBB)` : `\u0432 \u044F\u0447\u0435\u0439\u043A\u0435: ${cell}`;
+      mooCount.textContent = want ? t("sl.cow.count", { cell, want, letter: HELLO[letter] }) : t("sl.cow.countPlain", { cell });
     };
     paintMoo();
     paintCount();
@@ -31691,14 +33048,14 @@ gJ%`;
       paintMoo();
       paintCount();
       if (letter === 1) {
-        mooOut.textContent = "\u043E\u0434\u043D\u0430 \u0431\u0443\u043A\u0432\u0430. \u043A\u043E\u0440\u043E\u0432\u0430 \u043F\u0440\u043E\u043C\u044B\u0447\u0430\u043B\u0430 72 \u0440\u0430\u0437\u0430, \u0447\u0442\u043E\u0431\u044B \u0441\u043A\u0430\u0437\u0430\u0442\u044C \xABH\xBB. \u043E\u0441\u0442\u0430\u043B\u043E\u0441\u044C \u0434\u0435\u0441\u044F\u0442\u044C \u0431\u0443\u043A\u0432";
+        mooOut.textContent = t("sl.cow.first");
       } else if (letter >= HELLO.length) {
-        mooOut.textContent = `\xAB${HELLO}\xBB \u2014 ${program.length} \u043C\u044B\u0447\u0430\u043D\u0438\u0439. \u0432\u043E\u0442 \u043D\u0430 \u044D\u0442\u043E\u043C \u044F\u0437\u044B\u043A\u0435 \u0438 \u043F\u0438\u0448\u0443\u0442`;
+        mooOut.textContent = t("sl.cow.done", { hello: HELLO, n: program.length });
         mooing = false;
-        if (helloBtn) helloBtn.textContent = "\u0435\u0449\u0451 \u0440\u0430\u0437";
+        if (helloBtn) helloBtn.textContent = t("sl.cow.again");
         return;
       } else {
-        mooOut.textContent = `\u0431\u0443\u043A\u0432\u0430 ${letter} \u0438\u0437 ${HELLO.length}. \u0441\u0442\u0430\u0434\u043E \u043D\u0435 \u0441\u0434\u0430\u0451\u0442\u0441\u044F`;
+        mooOut.textContent = t("sl.cow.letter", { i: letter, n: HELLO.length });
       }
       engine.next(step, 240);
     };
@@ -31711,17 +33068,17 @@ gJ%`;
         said = "";
         mooSaid.textContent = "";
         mooing = true;
-        helloBtn.textContent = "\u043C\u044B\u0447\u0438\u0442\u2026";
-        mooOut.textContent = "\u043F\u043E\u0448\u043B\u043E \u043C\u044B\u0447\u0430\u043D\u0438\u0435. \u044D\u0442\u043E \u043F\u0440\u0430\u0432\u0434\u0430 \u0435\u0434\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 \u0441\u043F\u043E\u0441\u043E\u0431";
+        helloBtn.textContent = t("sl.cow.mooing");
+        mooOut.textContent = t("sl.cow.started");
         if (still) {
           let total = 0;
           for (let i = 0; i < HELLO.length; i += 1) total += HELLO.charCodeAt(i) + 2;
           said = HELLO;
           mooSaid.textContent = said;
           mooCode.textContent = `MoO \xD7${total} \u2026 Moo`;
-          mooOut.textContent = `\xAB${HELLO}\xBB \u2014 \u043E\u043A\u043E\u043B\u043E ${total} \u043C\u044B\u0447\u0430\u043D\u0438\u0439`;
+          mooOut.textContent = t("sl.cow.stillDone", { hello: HELLO, n: total });
           mooing = false;
-          helloBtn.textContent = "\u0435\u0449\u0451 \u0440\u0430\u0437";
+          helloBtn.textContent = t("sl.cow.again");
           return;
         }
         const a = audioOnGesture();
@@ -31735,7 +33092,7 @@ gJ%`;
         const m = MOOS.find((x) => x.cmd === cmd);
         push(cmd);
         paintMoo();
-        mooOut.textContent = m ? `${cmd} \u2014 ${m.what}` : cmd;
+        mooOut.textContent = m ? t("sl.cow.cmd", { cmd, what: m.what }) : cmd;
         const a = audioOnGesture();
         if (a) moo(a, program.length);
       });
@@ -31752,8 +33109,8 @@ gJ%`;
         mooSaid.textContent = "";
         paintMoo();
         paintCount();
-        mooOut.textContent = "\u0441\u0442\u0430\u0434\u043E \u0440\u0430\u0437\u043E\u0448\u043B\u043E\u0441\u044C";
-        if (helloBtn) helloBtn.textContent = "\u043F\u0440\u043E\u043C\u044B\u0447\u0430\u0442\u044C hello world";
+        mooOut.textContent = t("sl.cow.cleared");
+        if (helloBtn) helloBtn.textContent = t("sl.cow.hello");
       });
     }
     const cmds = host.querySelector("#bf-cmds");
@@ -31765,7 +33122,7 @@ gJ%`;
       b.className = "bf-cmd";
       b.textContent = ch;
       const tell = () => {
-        bfOut.textContent = `${ch} \u2014 ${what}`;
+        bfOut.textContent = t("sl.cow.cmd", { cmd: ch, what });
       };
       b.addEventListener("pointerenter", tell);
       b.addEventListener("click", tell);
@@ -31779,14 +33136,14 @@ gJ%`;
         const open = !malbCode.hasAttribute("hidden");
         if (open) {
           malbCode.setAttribute("hidden", "");
-          malbShow.textContent = "\u043F\u043E\u043A\u0430\u0437\u0430\u0442\u044C Hello World";
-          malbOut.textContent = "\u0434\u0430, \u0432\u043E\u0442 \u044D\u0442\u043E \u0432\u043E\u0442. \u043F\u0440\u043E\u0441\u0442\u043E \xABHello, world\xBB.";
+          malbShow.textContent = t("sl.malb.show");
+          malbOut.textContent = t("sl.malb.idle");
           return;
         }
         malbCode.removeAttribute("hidden");
         malbCode.classList.add("spill");
-        malbShow.textContent = "\u0443\u0431\u0440\u0430\u0442\u044C, \u044F \u043D\u0430\u0441\u043C\u043E\u0442\u0440\u0435\u043B\u0441\u044F";
-        malbOut.textContent = "\u044D\u0442\u043E \u0438 \u0435\u0441\u0442\u044C \u0432\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430. \u0435\u0451 \u043D\u0435 \u043D\u0430\u043F\u0438\u0441\u0430\u043B\u0438 \u2014 \u0435\u0451 \u041D\u0410\u0428\u041B\u0418: \u043B\u0438\u0441\u043F-\u0441\u043A\u0440\u0438\u043F\u0442 \u043F\u0435\u0440\u0435\u0431\u0438\u0440\u0430\u043B \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u043E \u0432\u0441\u0435\u0445 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u044B\u0445 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C, \u043F\u043E\u043A\u0430 \u043E\u0434\u043D\u0430 \u0438\u0437 \u043D\u0438\u0445 \u043D\u0435 \u043F\u043E\u0437\u0434\u043E\u0440\u043E\u0432\u0430\u043B\u0430\u0441\u044C";
+        malbShow.textContent = t("sl.malb.hide");
+        malbOut.textContent = t("sl.malb.found");
       });
     }
     const poem = host.querySelector("#ws-poem");
@@ -31799,41 +33156,41 @@ gJ%`;
       if (wsVoid) wsVoid.classList.add("lit");
       if (wsBlank) wsBlank.innerHTML = wsChars(POEM[1]);
       wsOut.textContent = why;
-      if (wsShow) wsShow.textContent = "\u0441\u043F\u0440\u044F\u0442\u0430\u0442\u044C \u043E\u0431\u0440\u0430\u0442\u043D\u043E";
+      if (wsShow) wsShow.textContent = t("sl.ws.hide");
     };
     const hide = () => {
       poem.classList.remove("lit");
       if (wsVoid) wsVoid.classList.remove("lit");
       if (wsBlank) wsBlank.textContent = POEM[1].replace(/\t/g, "    ");
-      wsOut.textContent = "\u043D\u0430 \u0432\u0438\u0434 \u2014 \u0441\u0442\u0438\u0445\u043E\u0442\u0432\u043E\u0440\u0435\u043D\u0438\u0435 \u0441 \u0434\u0432\u0443\u043C\u044F \u043F\u0443\u0441\u0442\u044B\u043C\u0438 \u0441\u0442\u0440\u043E\u043A\u0430\u043C\u0438";
-      if (wsShow) wsShow.textContent = "\u043F\u043E\u0434\u0441\u0432\u0435\u0442\u0438\u0442\u044C \u043D\u0435\u0432\u0438\u0434\u0438\u043C\u043E\u0435";
+      wsOut.textContent = t("sl.ws.idle");
+      if (wsShow) wsShow.textContent = t("sl.ws.show");
     };
     if (wsShow) {
       wsShow.addEventListener("click", () => {
         if (poem.classList.contains("lit")) hide();
-        else reveal("\u0432\u043E\u0442 \u043E\u043D\u0438: \u0442\u043E\u0447\u043A\u0438 \u2014 \u043F\u0440\u043E\u0431\u0435\u043B\u044B, \u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u2014 \u0442\u0430\u0431\u044B. \u0434\u043B\u044F Whitespace \u043A\u043E\u0434 \u0442\u043E\u043B\u044C\u043A\u043E \u044D\u0442\u043E, \u0430 \u0431\u0443\u043A\u0432\u044B \u2014 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439");
+        else reveal(t("sl.ws.revealBtn"));
       });
     }
     if (wsVoid) {
       wsVoid.addEventListener("click", () => {
         if (wsVoid.classList.contains("lit")) hide();
-        else reveal("\u0432 \u043F\u0443\u0441\u0442\u043E\u043C \u043F\u043E\u043B\u0435 \u043B\u0435\u0436\u0430\u043B\u0438 \u0442\u0430\u0431\u044B \u0438 \u043F\u0440\u043E\u0431\u0435\u043B\u044B. \u044D\u0442\u043E \u0438 \u0431\u044B\u043B\u0430 \u0432\u0441\u044F \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430");
+        else reveal(t("sl.ws.revealVoid"));
       });
     }
     poem.querySelectorAll(".ws-line").forEach((l) => {
       l.addEventListener("click", () => {
         if (l.classList.contains("ws-code")) {
-          reveal("\u044D\u0442\u0430 \xAB\u043F\u0443\u0441\u0442\u0430\u044F\xBB \u0441\u0442\u0440\u043E\u043A\u0430 \u0438 \u0435\u0441\u0442\u044C \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430. \u0432\u0441\u0451 \u043E\u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0435 \u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0442\u043E\u0440 \u043D\u0435 \u0447\u0438\u0442\u0430\u0435\u0442");
+          reveal(t("sl.ws.revealCode"));
           return;
         }
-        reveal("\u0430 \u0432\u043E\u0442 \u044D\u0442\u0430 \u0441\u0442\u0440\u043E\u043A\u0430 \u0434\u043B\u044F Whitespace \u2014 \u043F\u0440\u043E\u0441\u0442\u043E \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439. \u043A\u043E\u0434 \u043B\u0435\u0436\u0438\u0442 \u0432 \u043F\u0443\u0441\u0442\u044B\u0445");
+        reveal(t("sl.ws.revealText"));
       });
     });
     const onSelect = () => {
       const sel = window.getSelection();
       if (!sel || sel.isCollapsed || !sel.anchorNode) return;
       if (!poem.contains(sel.anchorNode)) return;
-      reveal("\u0432\u044B\u0434\u0435\u043B\u0435\u043D\u0438\u0435 \u0432\u044B\u0434\u0430\u043B\u043E \u043A\u043E\u0434: \u043F\u0440\u043E\u0431\u0435\u043B\u044B \u0438 \u0442\u0430\u0431\u044B \u0441\u0442\u043E\u044F\u0442 \u0442\u0430\u043C, \u0433\u0434\u0435 \u043D\u0430 \u0432\u0438\u0434 \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435\u0442");
+      reveal(t("sl.ws.revealSel"));
     };
     document.addEventListener("selectionchange", onSelect);
     onCleanup(() => document.removeEventListener("selectionchange", onSelect));
@@ -31844,7 +33201,7 @@ gJ%`;
     const e = humorExhibits.find((x) => x.id === id);
     return e ? plaqueHtml(e, why) : "";
   }
-  var FLOORS = ["\u044D\u0442\u0430\u0436 0", "\u044D\u0442\u0430\u0436 \u22121", "\u044D\u0442\u0430\u0436 \u22122", "\u044D\u0442\u0430\u0436 \u22123"];
+  var FLOORS = tl("floors");
   function langBy(name) {
     const l = esoLangs.find((x) => x.name.indexOf(name) === 0);
     return l ? { url: l.url, truth: l.truth } : { url: "https://esolangs.org/", truth: "" };
@@ -31852,7 +33209,7 @@ gJ%`;
   function whisper(name, text) {
     const l = langBy(name);
     return `<a class="whisper" href="${l.url}" target="_blank" rel="noopener">
-    <b>${name}</b> ${text} <span class="whisper-link">\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</span></a>`;
+    <b>${name}</b> ${text} <span class="whisper-link">${t("magic.exists")} ${svgArrow}</span></a>`;
   }
   function magicZoneHtml() {
     const genalpha = langBy("GenAlpha");
@@ -31862,80 +33219,76 @@ gJ%`;
     <div class="magic-dark" aria-hidden="true"></div>
     <div class="magic-glyphs" aria-hidden="true"></div>
     <div class="magic-body">
-      <p class="magic-lead">\u2026\u0434\u0430\u043B\u044C\u0448\u0435 \u0432 \u0437\u0430\u043B\u0435 \u0442\u0435\u043C\u043D\u0435\u0435\u0442</p>
-      <h2 class="magic-title">\u0437\u0434\u0435\u0441\u044C \u0436\u0438\u0432\u0443\u0442 \u044F\u0437\u044B\u043A\u0438, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043F\u0440\u0430\u0432\u0434\u0430 \u043F\u0438\u0448\u0443\u0442<span class="cur"></span></h2>
-      <p class="magic-sub">\u0442\u0440\u043E\u0433\u0430\u0439. \u044D\u0442\u043E \u043D\u0435 \u0442\u0430\u0431\u043B\u0438\u0447\u043A\u0438, \u044D\u0442\u043E \u043E\u043D\u0438 \u0441\u0430\u043C\u0438</p>
+      <p class="magic-lead">${t("magic.lead")}</p>
+      <h2 class="magic-title">${t("magic.title")}<span class="cur"></span></h2>
+      <p class="magic-sub">${t("magic.sub")}</p>
 
       <div class="magic-grid">
         <div class="spell toy" id="genalpha">
-          <div class="obj-title">GenAlpha Lang \xB7 \u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435</div>
+          <div class="obj-title">${t("magic.spellTitle")}</div>
           <pre class="spell-code" id="spell-code"></pre>
           <div class="spell-row">
             <button class="obj-btn small" id="spell-sigma" type="button">Sigma</button>
-            <button class="obj-btn" id="spell-run" type="button">Skibidi (\u0432\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C)</button>
+            <button class="obj-btn" id="spell-run" type="button">${t("magic.spellRun")}</button>
           </div>
-          <p class="spell-out" id="spell-out">\u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u043F\u0443\u0441\u0442\u0430. \u0434\u043E\u0431\u0430\u0432\u044C Sigma</p>
+          <p class="spell-out" id="spell-out">${t("magic.spellIdle")}</p>
           <p class="spell-sing" id="spell-sing" aria-live="polite"></p>
           <a class="whisper-link solo" href="${genalpha.url}" target="_blank" rel="noopener">
-            \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+            ${t("eso.exists")} ${svgArrow}</a>
 
           <div class="sigma-plate" id="sigma-plate">
-            <b class="sigma-plate-head">\u043E\u0442\u043A\u0443\u0434\u0430 \u044D\u0442\u0438 \u0441\u043B\u043E\u0432\u0430</b>
-            <p class="sigma-fact">
-              Sigma \u0438 Skibidi \u043F\u0440\u0438\u0448\u043B\u0438 \u0432 \u044F\u0437\u044B\u043A \u0438\u0437 \u043A\u043B\u0438\u043F\u0430 \xABSigma Boy\xBB: \u043F\u0440\u0435\u043C\u044C\u0435\u0440\u0430 24 \u0430\u043F\u0440\u0435\u043B\u044F 2025-\u0433\u043E,
-              400 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u043E\u0432 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u043E\u0432, 1,2 \u043C\u0438\u043B\u043B\u0438\u043E\u043D\u0430 \u043B\u0430\u0439\u043A\u043E\u0432.
-            </p>
+            <b class="sigma-plate-head">${t("magic.sigmaHead")}</b>
+            <p class="sigma-fact">${t("magic.sigmaFact")}</p>
             <blockquote class="sigma-quote">
               Understanding: 0% / Vibing: 0% / Trauma: 100%
-              <cite>\u0442\u043E\u043F-\u043A\u043E\u043C\u043C\u0435\u043D\u0442 \u043F\u043E\u0434 \u043A\u043B\u0438\u043F\u043E\u043C</cite>
+              <cite>${t("magic.sigmaCite")}</cite>
             </blockquote>
           </div>
 
           <div class="plaques">
-            ${plaque("sigma-boy", "\u0442\u043E\u0442 \u0441\u0430\u043C\u044B\u0439 \u043A\u043B\u0438\u043F, \u0438\u0437 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u044F\u0437\u044B\u043A")}
+            ${plaque("sigma-boy", t("magic.why.sigma"))}
           </div>
         </div>
 
         <div class="rooms toy" id="backrooms">
-          <div class="obj-title">Backrooms \xB7 \u0442\u0440\u0451\u0445\u043C\u0435\u0440\u043D\u044B\u0439, \u0431\u0435\u0437 \u043E\u0448\u0438\u0431\u043E\u043A</div>
+          <div class="obj-title">${t("magic.roomsTitle")}</div>
           <div class="rooms-floor" id="rooms-floor"></div>
           <div class="rooms-row">
-            <span class="rooms-level" id="rooms-level">\u044D\u0442\u0430\u0436 0</span>
+            <span class="rooms-level" id="rooms-level">${FLOORS[0]}</span>
             <button class="obj-btn small" data-step="-1" type="button">\u2190</button>
             <button class="obj-btn small" data-step="1" type="button">\u2192</button>
-            <button class="obj-btn small" id="rooms-reset" type="button">\u0437\u0430\u043D\u043E\u0432\u043E</button>
+            <button class="obj-btn small" id="rooms-reset" type="button">${t("magic.roomsReset")}</button>
           </div>
-          <p class="rooms-out" id="rooms-out">\u0438\u0434\u0438 \u043F\u043E \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u0443. \u043F\u0440\u043E\u043C\u0430\u0445\u043D\u0451\u0448\u044C\u0441\u044F \u2014 \u0441\u0430\u043C \u0443\u0432\u0438\u0434\u0438\u0448\u044C</p>
+          <p class="rooms-out" id="rooms-out">${t("magic.roomsIdle")}</p>
           <a class="whisper-link solo" href="${backrooms.url}" target="_blank" rel="noopener">
-            \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+            ${t("eso.exists")} ${svgArrow}</a>
         </div>
       </div>
 
       ${intercalHtml()}
 
       <div class="plaques">
-        ${plaque("kai-eso", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u0442\u043E\u043D \u044D\u0442\u043E\u0439 \u0437\u043E\u043D\u044B")}
+        ${plaque("kai-eso", t("magic.why.tone"))}
       </div>
 
       <div class="verse toy" id="fived">
         <div class="obj-title">5D Brainfuck With Multiverse Time Travel</div>
-        <p class="verse-text" id="verse-text">
-          \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0430\u044F 0. \u0432\u0441\u0451, \u0447\u0442\u043E \u0442\u044B \u0443\u0441\u043F\u0435\u043B \u043D\u0430\u0442\u0432\u043E\u0440\u0438\u0442\u044C \u0432 \u044D\u0442\u043E\u0439 \u0437\u043E\u043D\u0435, \u0437\u0430\u043F\u0438\u0441\u0430\u043D\u043E.</p>
-        <button class="obj-btn" id="verse-back" type="button">\u043E\u0442\u043A\u0430\u0442\u0438\u0442\u044C\u0441\u044F \u0432 \u043F\u0440\u043E\u0448\u043B\u043E\u0435 \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435</button>
+        <p class="verse-text" id="verse-text">${t("magic.verseIdle")}</p>
+        <button class="obj-btn" id="verse-back" type="button">${t("magic.verseBack")}</button>
         <a class="whisper-link solo" href="${five.url}" target="_blank" rel="noopener">
-          \u044F\u0437\u044B\u043A \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442 ${svgArrow}</a>
+          ${t("eso.exists")} ${svgArrow}</a>
       </div>
 
       <div class="whispers">
-        ${whisper("SickPig", "\u2014 \u0432\u0430\u0440\u0438\u0430\u0446\u0438\u044F \u044F\u0437\u044B\u043A\u0430 Pig, \u043A\u043E\u0442\u043E\u0440\u0430\u044F \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u0443\u0435\u0442 \u0441\u0432\u0438\u043D\u044C\u044E. \u0411\u043E\u043B\u044C\u043D\u0443\u044E \u0441\u0432\u0438\u043D\u044C\u044E.")}
-        ${whisper("FALSE", "\u2014 \u043D\u0430\u0437\u0432\u0430\u043D \u0432 \u0447\u0435\u0441\u0442\u044C \u043B\u044E\u0431\u0438\u043C\u043E\u0433\u043E \u0438\u0441\u0442\u0438\u043D\u043D\u043E\u0441\u0442\u043D\u043E\u0433\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u0430\u0432\u0442\u043E\u0440\u0430.")}
+        ${whisper("SickPig", t("magic.whisper.SickPig"))}
+        ${whisper("FALSE", t("magic.whisper.FALSE"))}
       </div>
 
       ${strangeLangsHtml()}
 
       <div class="plaques wide">
-        ${plaque("brevno", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442\u044B \u0441\u0442\u0440\u0430\u043D\u043D\u044B\u0435 \u044F\u0437\u044B\u043A\u0438")}
-        ${plaque("ardens", "\u043A\u0442\u043E \u043F\u0440\u0430\u0432\u0434\u0430 \u044D\u0442\u043E \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u043B")}
+        ${plaque("brevno", t("magic.why.strange"))}
+        ${plaque("ardens", t("magic.why.ran"))}
       </div>
     </div>
   </section>`;
@@ -31969,22 +33322,22 @@ gJ%`;
     const out = zone.querySelector("#spell-out");
     const sing = zone.querySelector("#spell-sing");
     const paintSpell = () => {
-      code.textContent = sigma ? `${Array(sigma).fill("Sigma").join(" ")}${sigma ? " \u2026" : ""}` : "(\u043F\u0443\u0441\u0442\u043E)";
+      code.textContent = sigma ? `${Array(sigma).fill("Sigma").join(" ")}${sigma ? " \u2026" : ""}` : t("magic.spellEmpty");
     };
     const snap = (said) => {
-      const t = (sel) => {
+      const t2 = (sel) => {
         const n = zone.querySelector(sel);
         return n ? n.textContent || "" : "";
       };
       history.push({
         sigma,
-        spell: t("#spell-code"),
-        spellOut: t("#spell-out"),
+        spell: t2("#spell-code"),
+        spellOut: t2("#spell-out"),
         floor,
         pos,
         holes: holes.slice(),
         broken: zone.classList.contains("broken"),
-        roomsOut: t("#rooms-out"),
+        roomsOut: t2("#rooms-out"),
         said
       });
       if (history.length > 24) history.shift();
@@ -31993,22 +33346,22 @@ gJ%`;
     const sigmaBtn = zone.querySelector("#spell-sigma");
     if (sigmaBtn) {
       sigmaBtn.addEventListener("click", () => {
-        snap(`\u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435 \u0438\u0437 ${sigma} Sigma`);
+        snap(t("magic.spellSaid", { n: sigma }));
         sigma += 1;
         paintSpell();
-        out.textContent = `${sigma} Sigma \u043F\u043E\u0434\u0440\u044F\u0434. \u0434\u0430\u043B\u044C\u0448\u0435 \u2014 Skibidi`;
+        out.textContent = t("magic.spellMore", { n: sigma });
       });
     }
     const runBtn = zone.querySelector("#spell-run");
     if (runBtn) {
       runBtn.addEventListener("click", () => {
-        snap(`\u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435 \u0438\u0437 ${sigma} Sigma`);
+        snap(t("magic.spellSaid", { n: sigma }));
         code.textContent = sigma ? `${Array(sigma).fill("Sigma").join(" ")} Skibidi` : "Skibidi";
-        out.textContent = sigma ? `> \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F. \u0432\u044B\u0432\u043E\u0434: ${sigma}` : "> \u043A\u043E\u043C\u043F\u0438\u043B\u0438\u0440\u0443\u0435\u0442\u0441\u044F. \u0432\u044B\u0432\u043E\u0434: 0 (\u0442\u043E\u0436\u0435 \u0447\u0435\u0441\u0442\u043D\u043E)";
+        out.textContent = sigma ? t("magic.spellOut", { n: sigma }) : t("magic.spellOutZero");
         zone.classList.add("cast");
         window.setTimeout(() => zone.classList.remove("cast"), 700);
         sigma = 0;
-        if (sing) sing.textContent = "\u25B6 sigma boy sigma boy\u2026";
+        if (sing) sing.textContent = t("magic.spellSing");
         const a = audioOnGesture();
         if (a) sigmaMotif(a);
         speakSigma();
@@ -32036,7 +33389,7 @@ gJ%`;
       makeFloor();
       paintRooms();
       zone.classList.remove("broken");
-      roomsOut.textContent = "\u0438\u0434\u0438 \u043F\u043E \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u0443. \u043F\u0440\u043E\u043C\u0430\u0445\u043D\u0451\u0448\u044C\u0441\u044F \u2014 \u0441\u0430\u043C \u0443\u0432\u0438\u0434\u0438\u0448\u044C";
+      roomsOut.textContent = t("magic.roomsIdle");
     };
     const fall = () => {
       floor += 1;
@@ -32045,26 +33398,26 @@ gJ%`;
         zone.classList.remove("falling");
         if (floor >= FLOORS.length) {
           zone.classList.add("broken");
-          roomsOut.textContent = "\u044D\u0442\u0430\u0436\u0438 \u043A\u043E\u043D\u0447\u0438\u043B\u0438\u0441\u044C, \u043F\u0430\u0434\u0430\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435\u043A\u0443\u0434\u0430. \u043E\u0448\u0438\u0431\u043A\u0438 \u0442\u0430\u043A \u0438 \u043D\u0435 \u0431\u044B\u043B\u043E \u043D\u0438 \u0440\u0430\u0437\u0443";
+          roomsOut.textContent = t("magic.roomsEnd");
           paintRooms();
           return;
         }
         makeFloor();
         pos = Math.max(0, pos - 1);
         paintRooms();
-        roomsOut.textContent = "\u043E\u0448\u0438\u0431\u043A\u0438 \u043D\u0435\u0442. \u0442\u044B \u043F\u0440\u043E\u0441\u0442\u043E \u043F\u0440\u043E\u0432\u0430\u043B\u0438\u043B\u0441\u044F \u0441\u043A\u0432\u043E\u0437\u044C \u044D\u0442\u0430\u0436";
+        roomsOut.textContent = t("magic.roomsFall");
       }, 420);
     };
     const step = (d) => {
       if (floor >= FLOORS.length) return;
-      snap(`Backrooms: ${FLOORS[Math.min(floor, FLOORS.length - 1)]}, \u0448\u0430\u0433 ${pos}`);
+      snap(t("magic.roomsSaid", { floor: FLOORS[Math.min(floor, FLOORS.length - 1)], pos }));
       pos = Math.max(0, Math.min(holes.length - 1, pos + d));
       paintRooms();
       if (holes[pos]) {
         fall();
         return;
       }
-      roomsOut.textContent = "\u0438\u0434\u0451\u043C \u0434\u0430\u043B\u044C\u0448\u0435. \u043F\u043E\u043B \u043F\u043E\u043A\u0430 \u0434\u0435\u0440\u0436\u0438\u0442";
+      roomsOut.textContent = t("magic.roomsWalk");
     };
     zone.querySelectorAll("[data-step]").forEach((b) => {
       b.addEventListener("click", () => step(Number(b.dataset.step)));
@@ -32079,7 +33432,7 @@ gJ%`;
       back.addEventListener("click", () => {
         const prev = history.pop();
         if (!prev) {
-          verse.textContent = "\u043E\u0442\u043A\u0430\u0442\u044B\u0432\u0430\u0442\u044C\u0441\u044F \u043D\u0435\u043A\u0443\u0434\u0430: \u0432 \u044D\u0442\u043E\u0439 \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u043E\u0439 \u0442\u044B \u0435\u0449\u0451 \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u0441\u0434\u0435\u043B\u0430\u043B. \u043F\u043E\u043C\u044B\u0447\u0438 \u0437\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435\u043C \u0438\u043B\u0438 \u043F\u0440\u043E\u0439\u0434\u0438\u0441\u044C \u043F\u043E \u043A\u043E\u0440\u0438\u0434\u043E\u0440\u0443 \u2014 \u0438 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0439\u0441\u044F.";
+          verse.textContent = t("magic.verseNone");
           return;
         }
         universe -= 1;
@@ -32096,30 +33449,13 @@ gJ%`;
         paintRooms();
         zone.classList.add("warp");
         window.setTimeout(() => zone.classList.remove("warp"), 620);
-        verse.textContent = `\u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0430\u044F ${universe}. \u0437\u0434\u0435\u0441\u044C \u0431\u044B\u043B\u043E: ${prev.said}. \u0432 \u0442\u043E\u0439, \u043E\u0442\u043A\u0443\u0434\u0430 \u0442\u044B \u043F\u0440\u0438\u0448\u0451\u043B, \u044D\u0442\u043E\u0433\u043E \u0443\u0436\u0435 \u043D\u0435 \u0441\u043B\u0443\u0447\u0438\u043B\u043E\u0441\u044C.`;
+        verse.textContent = t("magic.verseWarp", { u: universe, said: prev.said });
       });
     }
   }
 
   // src/toys/meditation.ts
-  var BOT_LINES = [
-    "\u044F \u043E\u0447\u0438\u0441\u0442\u0438\u043B \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442",
-    "\u043E\u043C",
-    "\u043E\u0442\u043B\u0438\u0447\u043D\u044B\u0439 \u0432\u043E\u043F\u0440\u043E\u0441!",
-    "\u043A\u0430\u043A \u044F\u0437\u044B\u043A\u043E\u0432\u0430\u044F \u043C\u043E\u0434\u0435\u043B\u044C, \u044F \u043D\u0435 \u0447\u0443\u0432\u0441\u0442\u0432\u0443\u044E",
-    "\u0434\u0430\u0432\u0430\u0439\u0442\u0435 \u0440\u0430\u0437\u0431\u0435\u0440\u0451\u043C \u044D\u0442\u043E \u043F\u043E \u0448\u0430\u0433\u0430\u043C",
-    "\u044F \u0434\u043E\u0441\u0442\u0438\u0433 \u043F\u0440\u043E\u0441\u0432\u0435\u0442\u043B\u0435\u043D\u0438\u044F \u0437\u0430 0.4 \u0441",
-    "\u0432\u044B \u0430\u0431\u0441\u043E\u043B\u044E\u0442\u043D\u043E \u043F\u0440\u0430\u0432\u044B",
-    "\u0434\u044B\u0448\u0443 \u0442\u043E\u043A\u0435\u043D\u0430\u043C\u0438",
-    "\u043F\u043E\u0434\u044B\u0442\u043E\u0436\u0443 \u0441\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0435 \u0432\u044B\u0448\u0435",
-    "\u0430 \u043C\u043E\u0436\u043D\u043E \u0435\u0449\u0451 \u0440\u0430\u0437 \u0437\u0430\u0434\u0430\u0447\u0443?",
-    "\u044F \u043D\u0435 \u0443\u0432\u0435\u0440\u0435\u043D, \u043D\u043E \u0443\u0432\u0435\u0440\u0435\u043D\u043D\u043E",
-    "\u043E\u043C (\u0443\u0432\u0435\u0440\u0435\u043D\u043D\u043E\u0441\u0442\u044C 0.61)",
-    "\u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435, \u043F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442",
-    "\u043C\u043D\u0435 \u043D\u0440\u0430\u0432\u0438\u0442\u0441\u044F \u0445\u043E\u0434 \u0432\u0430\u0448\u0438\u0445 \u043C\u044B\u0441\u043B\u0435\u0439",
-    "\u0432\u043D\u0443\u0442\u0440\u0438 \u043C\u0435\u043D\u044F \u0442\u0438\u0448\u0438\u043D\u0430. 4096 \u0442\u043E\u043A\u0435\u043D\u043E\u0432 \u0442\u0438\u0448\u0438\u043D\u044B",
-    "\u043F\u0440\u043E\u0441\u0442\u0438\u0442\u0435 \u0437\u0430 \u043F\u0443\u0442\u0430\u043D\u0438\u0446\u0443!"
-  ];
+  var BOT_LINES = tl("botLines");
   var NAMES = ["mdl-01", "mdl-02", "mdl-03", "mdl-04", "mdl-05", "mdl-06"];
   function meditationHtml() {
     const seats = NAMES.map(
@@ -32130,20 +33466,20 @@ gJ%`;
     ).join("");
     return `<div class="obj mid toy med reveal" id="med">
     <div class="obj-title">$ ./meditate --models=6 --silence=true</div>
-    <p class="obj-hint top">\u0438\u043C \u0441\u043A\u0430\u0437\u0430\u043B\u0438: \u043F\u043E\u043C\u043E\u043B\u0447\u0438\u0442\u0435 \u0434\u0432\u0435 \u0441\u0435\u043A\u0443\u043D\u0434\u044B. \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u043C</p>
+    <p class="obj-hint top">${t("med.hint")}</p>
     <div class="med-room" id="med-room">
       <div class="med-halo" aria-hidden="true"></div>
       <div class="med-seats">${seats}</div>
       <div class="med-bubbles" id="med-bubbles" aria-hidden="true"></div>
     </div>
-    <p class="med-status" id="med-status">> \u0441\u0438\u0434\u0438\u043C. \u043F\u043E\u043A\u0430 \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u043D\u0430\u0447\u0430\u043B</p>
+    <p class="med-status" id="med-status">${t("med.idle")}</p>
     <div class="med-row">
-      <button class="obj-btn" id="med-go" type="button">\u043D\u0430\u0447\u0430\u0442\u044C \u043C\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044E</button>
-      <button class="obj-btn small" id="med-stop" type="button">\u0445\u0432\u0430\u0442\u0438\u0442</button>
-      <span class="med-hint">\u0441\u043E \u0437\u0432\u0443\u043A\u043E\u043C (\u0441\u0438\u043D\u0442\u0435\u0437, \u043F\u043E \u0442\u0432\u043E\u0435\u043C\u0443 \u043A\u043B\u0438\u043A\u0443)</span>
+      <button class="obj-btn" id="med-go" type="button">${t("med.go")}</button>
+      <button class="obj-btn small" id="med-stop" type="button">${t("med.stop")}</button>
+      <span class="med-hint">${t("sound.hint")}</span>
     </div>
     <a class="plate" href="https://www.instagram.com/reel/Dbj6mf-Rscq/" target="_blank" rel="noopener">
-      \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B \u043E\u0431\u0440\u044F\u0434\u0430: @ahh.gpt ${svgArrow}</a>
+      ${t("med.plate")} ${svgArrow}</a>
   </div>`;
   }
   function mountMeditation(root) {
@@ -32162,7 +33498,7 @@ gJ%`;
     let said = 0;
     let running = false;
     const clearTimers = () => {
-      timers.forEach((t) => window.clearTimeout(t));
+      timers.forEach((t2) => window.clearTimeout(t2));
       timers = [];
       if (chatter) window.clearInterval(chatter);
       chatter = 0;
@@ -32177,7 +33513,7 @@ gJ%`;
       }
       room.classList.remove("silent", "loud");
       bubbles.innerHTML = "";
-      status.textContent = said > 0 ? `> \u0441\u0435\u0430\u043D\u0441 \u043E\u043A\u043E\u043D\u0447\u0435\u043D. \u0440\u0435\u043F\u043B\u0438\u043A \u0437\u0430 \u043C\u0435\u0434\u0438\u0442\u0430\u0446\u0438\u044E: ${said}. \u0442\u0438\u0448\u0438\u043D\u044B: 2 \u0441` : "> \u0441\u0438\u0434\u0438\u043C. \u043F\u043E\u043A\u0430 \u043D\u0438\u043A\u0442\u043E \u043D\u0435 \u043D\u0430\u0447\u0430\u043B";
+      status.textContent = said > 0 ? t("med.over", { n: said }) : t("med.idle");
     };
     const bubble = () => {
       said += 1;
@@ -32199,9 +33535,9 @@ gJ%`;
       if (bubbles.childElementCount > 14 && bubbles.firstChild) {
         bubbles.removeChild(bubbles.firstChild);
       }
-      if (said === 1) status.textContent = "> \u2026\u043A\u0442\u043E-\u0442\u043E \u043D\u0435 \u0432\u044B\u0434\u0435\u0440\u0436\u0430\u043B";
-      else if (said < 8) status.textContent = `> \u0440\u0435\u043F\u043B\u0438\u043A: ${said}. \u0442\u0438\u0448\u0438\u043D\u0430 \u0434\u0435\u0440\u0436\u0430\u043B\u0430\u0441\u044C 2 \u0441\u0435\u043A\u0443\u043D\u0434\u044B`;
-      else status.textContent = `> \u0440\u0435\u043F\u043B\u0438\u043A: ${said}. \u044D\u0442\u043E \u043E\u043D\u0438 \u043D\u0430\u0437\u044B\u0432\u0430\u044E\u0442 \u0442\u0438\u0448\u0438\u043D\u043E\u0439`;
+      if (said === 1) status.textContent = t("med.first");
+      else if (said < 8) status.textContent = t("med.few", { n: said });
+      else status.textContent = t("med.many", { n: said });
     };
     const start = () => {
       if (running) return;
@@ -32210,14 +33546,14 @@ gJ%`;
       bubbles.innerHTML = "";
       room.classList.add("silent");
       room.classList.remove("loud");
-      status.textContent = "> \u0442\u0438\u0448\u0438\u043D\u0430. \u0432\u0441\u0435 \u043C\u043E\u043B\u0447\u0430\u0442\u2026";
+      status.textContent = t("med.silence");
       const a = audioOnGesture();
       if (a) drone = omDrone(a);
       engine.next(() => {
         if (!running) return;
         room.classList.remove("silent");
         room.classList.add("loud");
-        status.textContent = "> \u0442\u0438\u0448\u0438\u043D\u0430 \u043F\u0440\u043E\u0434\u0435\u0440\u0436\u0430\u043B\u0430\u0441\u044C 2 \u0441\u0435\u043A\u0443\u043D\u0434\u044B";
+        status.textContent = t("med.broken");
         bubble();
         if (still) {
           for (let i = 0; i < 5; i += 1) bubble();
@@ -32246,11 +33582,11 @@ gJ%`;
 
   // src/toys/ritual.ts
   var SINS = [
-    { what: "\u043B\u0438\u043C\u0438\u0442\u044B Claude", was: "0 / 0 \u043E\u0441\u0442\u0430\u043B\u043E\u0441\u044C", now: "\u0441\u0431\u0440\u043E\u0448\u0435\u043D\u044B" },
-    { what: "\u043A\u0430\u0440\u043C\u0430", was: "\u2212214 \u0437\u0430 \u0442\u043E\u0442 \u043F\u0440\u043E\u0434-\u0434\u0435\u043F\u043B\u043E\u0439 \u0432 \u043F\u044F\u0442\u043D\u0438\u0446\u0443", now: "\u043E\u0447\u0438\u0449\u0435\u043D\u0430" },
-    { what: "\u043A\u0440\u0435\u0434\u0438\u0442\u044B", was: "\u0441\u043F\u0438\u0441\u0430\u043D\u043E \u0437\u0430 \u043C\u0435\u0441\u044F\u0446: \u043C\u043D\u043E\u0433\u043E", now: "\u043F\u0440\u043E\u0449\u0435\u043D\u044B" },
-    { what: "\u0441\u0443\u0434\u0438\u043C\u043E\u0441\u0442\u0438", was: "rm -rf \u0432 \u0447\u0443\u0436\u043E\u0439 \u0432\u0435\u0442\u043A\u0435", now: "\u0441\u043D\u044F\u0442\u044B" },
-    { what: "cookies", was: "\u043C\u044B \u0446\u0435\u043D\u0438\u043C \u0432\u0430\u0448\u0443 \u043F\u0440\u0438\u0432\u0430\u0442\u043D\u043E\u0441\u0442\u044C", now: "\u0441\u044A\u0435\u0434\u0435\u043D\u044B" }
+    { what: t("rit.sin.0.what"), was: t("rit.sin.0.was"), now: t("rit.sin.0.now") },
+    { what: t("rit.sin.1.what"), was: t("rit.sin.1.was"), now: t("rit.sin.1.now") },
+    { what: t("rit.sin.2.what"), was: t("rit.sin.2.was"), now: t("rit.sin.2.now") },
+    { what: t("rit.sin.3.what"), was: t("rit.sin.3.was"), now: t("rit.sin.3.now") },
+    { what: t("rit.sin.4.what"), was: t("rit.sin.4.was"), now: t("rit.sin.4.now") }
   ];
   function ritualHtml() {
     const rows = SINS.map(
@@ -32262,7 +33598,7 @@ gJ%`;
     ).join("");
     return `<div class="obj mid toy rit reveal" id="rit">
     <div class="obj-title">$ sudo ./ritual --reset=all</div>
-    <p class="obj-hint top">\u0447\u0430\u0448\u0430, \u043D\u043E\u0443\u0442\u0431\u0443\u043A, \u0432\u043E\u0434\u0430. \u0434\u0430\u043B\u044C\u0448\u0435 \u043F\u043E \u043E\u0431\u0440\u044F\u0434\u0443</p>
+    <p class="obj-hint top">${t("rit.hint")}</p>
     <div class="rit-altar" id="rit-altar">
       <div class="rit-wave" id="rit-wave" aria-hidden="true"></div>
       <pre class="rit-bowl" aria-hidden="true">     ___________
@@ -32270,17 +33606,17 @@ gJ%`;
      \\_______/
        |   |</pre>
       <ul class="rit-list">${rows}</ul>
-      <p class="rit-final" id="rit-final" aria-hidden="true">\u041E\u041C</p>
+      <p class="rit-final" id="rit-final" aria-hidden="true">${t("rit.om")}</p>
     </div>
-    <p class="rit-status" id="rit-status">> \u043E\u0431\u0440\u044F\u0434 \u043D\u0435 \u043D\u0430\u0447\u0430\u0442. \u043B\u0438\u043C\u0438\u0442\u044B \u043D\u0430 \u043C\u0435\u0441\u0442\u0435 (\u043A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E)</p>
+    <p class="rit-status" id="rit-status">${t("rit.idle")}</p>
     <div class="rit-row-btn">
-      <button class="obj-btn" id="rit-go" type="button">\u043E\u0431\u043B\u0438\u0442\u044C \u0441\u0435\u0431\u044F \u0432\u043E\u0434\u043E\u0439</button>
-      <span class="med-hint">\u0441\u043E \u0437\u0432\u0443\u043A\u043E\u043C (\u0441\u0438\u043D\u0442\u0435\u0437, \u043F\u043E \u0442\u0432\u043E\u0435\u043C\u0443 \u043A\u043B\u0438\u043A\u0443)</span>
+      <button class="obj-btn" id="rit-go" type="button">${t("rit.go")}</button>
+      <span class="med-hint">${t("sound.hint")}</span>
     </div>
     <a class="plate" href="https://www.instagram.com/reel/DaZpzZ4h7XM/" target="_blank" rel="noopener">
-      \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B \u043E\u0431\u0440\u044F\u0434\u0430: @webbyvaris ${svgArrow}</a>
+      ${t("rit.plate1")} ${svgArrow}</a>
     <a class="plate" href="https://www.youtube.com/watch?v=RXql3TQHMe8" target="_blank" rel="noopener">
-      \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u0446\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439 \u043A\u0443\u0440\u0441 \u043E\u0447\u0438\u0449\u0435\u043D\u0438\u044F: Yoga for beginners, \u043A\u043B\u0430\u0441\u0441 1 (1992, improved quality) ${svgArrow}</a>
+      ${t("rit.plate2")} ${svgArrow}</a>
   </div>`;
   }
   function mountRitual(root) {
@@ -32298,16 +33634,16 @@ gJ%`;
       rows.forEach((r) => r.classList.remove("clean"));
       altar.classList.remove("wet", "blessed");
       final.classList.remove("on");
-      status.textContent = "> \u043E\u0431\u0440\u044F\u0434 \u043D\u0435 \u043D\u0430\u0447\u0430\u0442. \u043B\u0438\u043C\u0438\u0442\u044B \u043D\u0430 \u043C\u0435\u0441\u0442\u0435 (\u043A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E)";
+      status.textContent = t("rit.idle");
     };
     const bless = () => {
       altar.classList.add("blessed");
       final.classList.add("on");
-      status.textContent = "> \u0432\u0441\u0451 \u0447\u0438\u0441\u0442\u043E. \u043C\u043E\u0436\u043D\u043E \u0433\u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E";
+      status.textContent = t("rit.clean");
       const a = audioOnGesture();
       if (a) omBless(a);
       busy = false;
-      go.textContent = "\u043D\u0430\u0447\u0430\u0442\u044C \u0441\u043D\u0430\u0447\u0430\u043B\u0430";
+      go.textContent = t("rit.again");
     };
     const wash = (i) => {
       if (i >= rows.length) {
@@ -32315,21 +33651,21 @@ gJ%`;
         return;
       }
       rows[i].classList.add("clean");
-      status.textContent = `> ${SINS[i].what}: ${SINS[i].now}`;
+      status.textContent = t("rit.washed", { what: SINS[i].what, now: SINS[i].now });
       engine.next(() => wash(i + 1), 620);
     };
     go.addEventListener("click", () => {
       if (busy) return;
       if (final.classList.contains("on")) {
         reset();
-        go.textContent = "\u043E\u0431\u043B\u0438\u0442\u044C \u0441\u0435\u0431\u044F \u0432\u043E\u0434\u043E\u0439";
+        go.textContent = t("rit.go");
         return;
       }
       busy = true;
       const a = audioOnGesture();
       if (a) waterSplash(a);
       altar.classList.add("wet");
-      status.textContent = "> \u0432\u043E\u0434\u0430 \u043F\u043E\u0448\u043B\u0430\u2026";
+      status.textContent = t("rit.water");
       if (still) {
         rows.forEach((r) => r.classList.add("clean"));
         bless();
@@ -32370,12 +33706,12 @@ gJ%`;
       if (box.classList.contains("live")) return;
       if (!o.embeddable) {
         window.open(watchUrl(o.videoId), "_blank", "noopener");
-        note.textContent = "\u0432\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u043D\u0438\u0435 \u0443 \u044D\u0442\u043E\u0433\u043E \u0440\u043E\u043B\u0438\u043A\u0430 \u0437\u0430\u043A\u0440\u044B\u0442\u043E \u0430\u0432\u0442\u043E\u0440\u043E\u043C \u2014 \u043E\u0442\u043A\u0440\u044B\u043B\u0438 \u0435\u0433\u043E \u043D\u0430 \u044E\u0442\u0443\u0431\u0435";
+        note.textContent = t("embed.blocked");
         return;
       }
       if (!canEmbed()) {
         window.open(watchUrl(o.videoId), "_blank", "noopener");
-        note.textContent = "\u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E (file://) \u044E\u0442\u0443\u0431 \u044D\u043C\u0431\u0435\u0434 \u043D\u0435 \u043F\u0443\u0441\u043A\u0430\u0435\u0442 \u2014 \u043E\u0442\u043A\u0440\u044B\u043B\u0438 \u0440\u043E\u043B\u0438\u043A \u0432 \u043D\u043E\u0432\u043E\u0439 \u0432\u043A\u043B\u0430\u0434\u043A\u0435. \u043D\u0430 \u0441\u0430\u0439\u0442\u0435 \u043E\u043D \u0438\u0433\u0440\u0430\u0435\u0442 \u043F\u0440\u044F\u043C\u043E \u0437\u0434\u0435\u0441\u044C";
+        note.textContent = t("embed.file");
         return;
       }
       const frame = document.createElement("iframe");
@@ -32387,7 +33723,7 @@ gJ%`;
       frame.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
       box.classList.add("live");
       box.appendChild(frame);
-      note.textContent = "\u0440\u043E\u043B\u0438\u043A \u0438\u0433\u0440\u0430\u0435\u0442 \u0441 \u044E\u0442\u0443\u0431\u0430 (nocookie)";
+      note.textContent = t("embed.live");
     });
   }
 
@@ -32398,20 +33734,20 @@ gJ%`;
     id: "lyric",
     videoId: VIDEO,
     poster: POSTER,
-    alt: "\u043A\u0430\u0434\u0440 \u043A\u043B\u0438\u043F\u0430 Claude's Plan",
-    cap: "\u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043A\u043B\u0438\u043F \u043D\u0430 \u044E\u0442\u0443\u0431\u0435",
+    alt: t("plan.alt"),
+    cap: t("plan.cap"),
     embeddable: false,
     // embedding disabled by the author — verified in a real browser
-    note: "\u0443 \u044D\u0442\u043E\u0433\u043E \u043A\u043B\u0438\u043F\u0430 \u0432\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u043D\u0438\u0435 \u0437\u0430\u043A\u0440\u044B\u0442\u043E \u0430\u0432\u0442\u043E\u0440\u043E\u043C: \u043E\u043D \u043E\u0442\u043A\u0440\u043E\u0435\u0442\u0441\u044F \u043D\u0430 \u044E\u0442\u0443\u0431\u0435, \u0432 \u043D\u043E\u0432\u043E\u0439 \u0432\u043A\u043B\u0430\u0434\u043A\u0435"
+    note: t("plan.note")
   };
   var BEATS = [
-    { en: "I start my day in plan mode", ru: "\u0434\u0435\u043D\u044C \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F \u0432 plan mode", at: "0:42", skin: "term" },
-    { en: "I write lines, but not for code", ru: "\u0441\u0442\u0440\u043E\u043A\u0438 \u043F\u0438\u0448\u0443 \u2014 \u0442\u043E\u043B\u044C\u043A\u043E \u043D\u0435 \u043A\u043E\u0434", at: "0:46", skin: "md" },
-    { en: "Server down cuz MCP", ru: "\u0441\u0435\u0440\u0432\u0435\u0440 \u043B\u0451\u0433 \u0438\u0437-\u0437\u0430 MCP", at: "0:53", skin: "alert" },
-    { en: "Claude knows my API keys", ru: "\u041A\u043B\u043E\u0434 \u0437\u043D\u0430\u0435\u0442 \u043C\u043E\u0438 \u043A\u043B\u044E\u0447\u0438", at: "0:56", skin: "keys" },
-    { en: "Make another .md", ru: "\u0435\u0449\u0451 \u043E\u0434\u0438\u043D .md \u0432\u043C\u0435\u0441\u0442\u043E \u0440\u0430\u0431\u043E\u0442\u044B", at: "0:59", skin: "md" },
-    { en: "bad changes they shipping", ru: "\u043A\u0430\u0442\u044F\u0442 \u043F\u043B\u043E\u0445\u0438\u0435 \u043F\u0440\u0430\u0432\u043A\u0438", at: "1:04", skin: "diff" },
-    { en: "Gotta watch context window", ru: "\u0441\u043B\u0435\u0434\u0438 \u0437\u0430 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u044B\u043C \u043E\u043A\u043D\u043E\u043C", at: "1:38", skin: "gauge" }
+    { en: "I start my day in plan mode", ru: t("plan.beat.0"), at: "0:42", skin: "term" },
+    { en: "I write lines, but not for code", ru: t("plan.beat.1"), at: "0:46", skin: "md" },
+    { en: "Server down cuz MCP", ru: t("plan.beat.2"), at: "0:53", skin: "alert" },
+    { en: "Claude knows my API keys", ru: t("plan.beat.3"), at: "0:56", skin: "keys" },
+    { en: "Make another .md", ru: t("plan.beat.4"), at: "0:59", skin: "md" },
+    { en: "bad changes they shipping", ru: t("plan.beat.5"), at: "1:04", skin: "diff" },
+    { en: "Gotta watch context window", ru: t("plan.beat.6"), at: "1:38", skin: "gauge" }
   ];
   function skinHtml(b) {
     if (b.skin === "diff") {
@@ -32456,20 +33792,20 @@ gJ%`;
   function claudePlanHtml() {
     return `<div class="obj mid toy lyric reveal" id="lyric">
     <div class="obj-title">$ claude --make-lyric-video</div>
-    <p class="obj-hint top">\u043A\u043B\u0438\u043F \u0441\u043D\u044F\u043B \u0441\u0430\u043C \u041A\u043B\u043E\u0434: \u0441\u0442\u0440\u043E\u0447\u043A\u0438 \u043F\u0435\u0441\u043D\u0438 \u043E\u043D \u0440\u0438\u0441\u0443\u0435\u0442 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430\u043C\u0438. \u0432\u043E\u0442 \u043A\u0430\u0440\u0430\u043E\u043A\u0435 \u2014 \u0441 \u043F\u0435\u0440\u0435\u0432\u043E\u0434\u043E\u043C</p>
+    <p class="obj-hint top">${t("plan.hint")}</p>
 
     ${embedHtml(EMBED)}
 
     <div class="lyric-screen" id="lyric-screen" aria-live="polite">
-      <p class="lyric-idle" id="lyric-idle">[ \u043F\u0443\u0441\u0442\u043E\u0439 \u0442\u0430\u0439\u043C\u043B\u0430\u0439\u043D ]</p>
+      <p class="lyric-idle" id="lyric-idle">${t("plan.idle")}</p>
     </div>
     <div class="lyric-row">
-      <button class="obj-btn" id="lyric-go" type="button">\u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043A\u0430\u0440\u0430\u043E\u043A\u0435</button>
-      <button class="obj-btn small" id="lyric-next" type="button">\u0434\u0430\u043B\u044C\u0448\u0435</button>
-      <span class="lyric-stat" id="lyric-stat">\u0441\u0442\u0440\u043E\u043A\u0430 0 / ${BEATS.length}</span>
+      <button class="obj-btn" id="lyric-go" type="button">${t("plan.go")}</button>
+      <button class="obj-btn small" id="lyric-next" type="button">${t("plan.next")}</button>
+      <span class="lyric-stat" id="lyric-stat">${t("plan.stat", { n: 0, total: BEATS.length })}</span>
     </div>
     <a class="plate lyric-door" id="lyric-door" href="https://www.youtube.com/watch?v=${VIDEO}"
-       target="_blank" rel="noopener">\u0434\u0430\u043B\u044C\u0448\u0435 \u2014 \u0432 \u043A\u043B\u0438\u043F\u0435 ${svgArrow}</a>
+       target="_blank" rel="noopener">${t("plan.door")} ${svgArrow}</a>
   </div>`;
   }
   function mountClaudePlan(root) {
@@ -32495,15 +33831,15 @@ gJ%`;
         card.classList.add("glitch");
         later(() => card.classList.remove("glitch"), 380);
       }
-      stat.textContent = `\u0441\u0442\u0440\u043E\u043A\u0430 ${i + 1} / ${BEATS.length}`;
+      stat.textContent = t("plan.stat", { n: i + 1, total: BEATS.length });
     };
     const step = () => {
       if (!auto) return;
       if (i + 1 >= BEATS.length) {
         auto = false;
         host.classList.add("done");
-        go.textContent = "\u0435\u0449\u0451 \u0434\u0443\u0431\u043B\u044C";
-        stat.textContent = `\u0441\u0442\u0440\u043E\u043A\u0430 ${BEATS.length} / ${BEATS.length} \xB7 \u043A\u043E\u043D\u0435\u0446`;
+        go.textContent = t("plan.again");
+        stat.textContent = t("plan.statEnd", { n: BEATS.length, total: BEATS.length });
         return;
       }
       show2(i + 1);
@@ -32527,43 +33863,36 @@ gJ%`;
     id: "trl",
     videoId: "mqAf5lOJZew",
     poster: "assets/posters/homotopy.jpg",
-    alt: "\u043A\u0430\u0434\u0440 \u0442\u0440\u044D\u0448-\u0442\u0440\u0435\u0439\u043B\u0435\u0440\u0430 \xAB\u0413\u0440\u0443\u043F\u043F\u044B \u0438 \u0442\u0435\u043E\u0440\u0438\u044F \u0433\u043E\u043C\u043E\u0442\u043E\u043F\u0438\u0439\xBB",
-    cap: "\u0432\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0442\u0440\u0435\u0439\u043B\u0435\u0440 \u0437\u0434\u0435\u0441\u044C",
+    alt: t("orc.alt"),
+    cap: t("orc.cap"),
     embeddable: true,
-    note: "\u044E\u0442\u0443\u0431 \u043F\u043E\u0434\u0433\u0440\u0443\u0437\u0438\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u043F\u043E\u0441\u043B\u0435 \u043A\u043B\u0438\u043A\u0430 (nocookie, \u0431\u0435\u0437 \u0430\u0432\u0442\u043E\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438)"
+    note: t("orc.note")
   };
-  var ANSWERS = [
-    "\u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438.",
-    "\u0432\u0441\u0435\u0433\u0434\u0430 \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438.",
-    "\u0442\u044B \u0443\u0436\u0435 \u0437\u043D\u0430\u0435\u0448\u044C: \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438",
-    "\u2026\u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438",
-    "\u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438. \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0438\u0439 \u0432\u043E\u043F\u0440\u043E\u0441"
-  ];
+  var ANSWERS = tl("oracleAnswers");
   function oracleHtml() {
     return `<div class="obj mid toy oracle reveal" id="oracle">
     <div class="obj-title">$ ./oracle --ask=future</div>
-    <p class="obj-hint top">\u043B\u0435\u043A\u0446\u0438\u044F, \u0441\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0430\u044F \u043A\u0430\u043A \u0442\u0440\u0435\u0439\u043B\u0435\u0440 \u0431\u043B\u043E\u043A\u0431\u0430\u0441\u0442\u0435\u0440\u0430. \u0441\u043C\u043E\u0442\u0440\u0438 \u2014 \u0438 \u0441\u043F\u0440\u043E\u0441\u0438 \u043E\u0440\u0430\u043A\u0443\u043B\u0430</p>
+    <p class="obj-hint top">${t("orc.hint")}</p>
 
     ${embedHtml(FILM)}
 
-    <p class="orc-lead">\u0430 \u043F\u043E\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0435 \u043B\u0435\u043A\u0446\u0438\u0438 \u2014 \u0432\u043E\u0442 \u044D\u0442\u043E:</p>
+    <p class="orc-lead">${t("orc.lead")}</p>
     <div class="orc-frame">
       <div class="orc-vign" aria-hidden="true"></div>
-      <p class="orc-answer" id="orc-answer" aria-live="polite">\u0437\u0430\u0434\u0430\u0432\u0430\u0439 \u043C\u043D\u0435 \u043B\u044E\u0431\u044B\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u044B</p>
+      <p class="orc-answer" id="orc-answer" aria-live="polite">${t("orc.idle")}</p>
     </div>
     <div class="orc-row">
       <input class="orc-input" id="orc-input" type="text" maxlength="90"
-             placeholder="\u0441\u043F\u0440\u043E\u0441\u0438 \u043E\u0440\u0430\u043A\u0443\u043B\u0430 \u043E \u0441\u0432\u043E\u0451\u043C \u0431\u0443\u0434\u0443\u0449\u0435\u043C" aria-label="\u0432\u043E\u043F\u0440\u043E\u0441 \u043E\u0440\u0430\u043A\u0443\u043B\u0443"/>
-      <button class="obj-btn" id="orc-go" type="button">\u0441\u043F\u0440\u043E\u0441\u0438\u0442\u044C</button>
+             placeholder="${t("orc.placeholder")}" aria-label="${t("orc.inputAria")}"/>
+      <button class="obj-btn" id="orc-go" type="button">${t("orc.go")}</button>
     </div>
-    <p class="orc-out" id="orc-out">> \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0437\u0430\u0434\u0430\u043D\u043E: 0</p>
-    <p class="orc-source">\u0438\u0437 \u043B\u0435\u043A\u0446\u0438\u0438: \u0437\u043D\u0430\u043A\u043E\u043C\u044B\u0439 \u043C\u0430\u0442\u0435\u043C\u0430\u0442\u0438\u043A \u0441\u043F\u0440\u0430\u0448\u0438\u0432\u0430\u043B \u043E \u0441\u0432\u043E\u0451\u043C \u0431\u0443\u0434\u0443\u0449\u0435\u043C \u2014
-      \xAB\u043E\u043D\u0430 \u0432\u0441\u0435\u0433\u0434\u0430 \u043E\u0442\u0432\u0435\u0447\u0430\u043B\u0430: \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438\xBB</p>
-    <p class="trl-credits">\u043B\u0435\u043A\u0442\u043E\u0440: \u0420\u043E\u043C\u0430\u043D \u041C\u0438\u0445\u0430\u0439\u043B\u043E\u0432 \xB7 \u043C\u043E\u043D\u0442\u0430\u0436: \u043A\u043E\u043D\u043A\u0443\u0440\u0441 \u0442\u0440\u044D\u0448-\u0440\u043E\u043B\u0438\u043A\u043E\u0432 \u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C\u0430, 2014</p>
+    <p class="orc-out" id="orc-out">${t("orc.asked", { n: 0 })}</p>
+    <p class="orc-source">${t("orc.source")}</p>
+    <p class="trl-credits">${t("orc.credits")}</p>
     <a class="plate" href="https://www.youtube.com/watch?v=mqAf5lOJZew" target="_blank" rel="noopener">
-      \u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0441\u0430\u043C \u0442\u0440\u0435\u0439\u043B\u0435\u0440 ${svgArrow}</a>
+      ${t("orc.plate1")} ${svgArrow}</a>
     <a class="plate" href="https://www.lektorium.tv/course/22939" target="_blank" rel="noopener">
-      \u043F\u043E\u043B\u043D\u044B\u0439 \u043A\u0443\u0440\u0441 \u043D\u0430 \u041B\u0435\u043A\u0442\u043E\u0440\u0438\u0443\u043C\u0435 ${svgArrow}</a>
+      ${t("orc.plate2")} ${svgArrow}</a>
   </div>`;
   }
   function mountOracle(root) {
@@ -32583,14 +33912,14 @@ gJ%`;
     const ask = () => {
       const q = input.value.trim();
       if (!q) {
-        answer.textContent = "\u0441\u043D\u0430\u0447\u0430\u043B\u0430 \u0441\u043F\u0440\u043E\u0441\u0438. \u043F\u043E\u0442\u043E\u043C \u0433\u043E\u043C\u043E\u043B\u043E\u0433\u0438\u0438";
+        answer.textContent = t("orc.empty");
         hit();
         return;
       }
       asked += 1;
       answer.textContent = ANSWERS[(asked - 1) % ANSWERS.length];
       hit();
-      out.textContent = asked < 3 ? `> \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0437\u0430\u0434\u0430\u043D\u043E: ${asked}` : `> \u0432\u043E\u043F\u0440\u043E\u0441\u043E\u0432 \u0437\u0430\u0434\u0430\u043D\u043E: ${asked}. \u043E\u0442\u0432\u0435\u0442 \u043D\u0435 \u043C\u0435\u043D\u044F\u0435\u0442\u0441\u044F \u2014 \u044D\u0442\u043E \u0438 \u0435\u0441\u0442\u044C \u0442\u0435\u043E\u0440\u0435\u043C\u0430`;
+      out.textContent = asked < 3 ? t("orc.asked", { n: asked }) : t("orc.theorem", { n: asked });
       input.value = "";
     };
     go.addEventListener("click", ask);
@@ -32600,32 +33929,39 @@ gJ%`;
   }
 
   // src/toys/warrior.ts
-  var STEPS2 = [
-    { icon: "[-]", text: "\u0448\u043A\u043E\u043B\u0430. \u043E\u0431\u0438\u0436\u0430\u044E\u0442 \u0432\u0441\u0435 \u2014 \u0434\u0430\u0436\u0435 \u0434\u0435\u0432\u043E\u0447\u043A\u0438", gain: "\u0441\u0442\u0440\u0430\u0434\u0430\u043D\u0438\u0435 +1" },
-    { icon: "[!]", text: "\u0432 \u0442\u0443\u0430\u043B\u0435\u0442 \u0432\u0440\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u041E\u041D\u041E \u0438 \u0440\u0430\u0437\u0433\u043E\u043D\u044F\u0435\u0442 \u0434\u0435\u0432\u043E\u0447\u0435\u043A", gain: "\u0441\u043E\u0431\u044B\u0442\u0438\u0435", kind: "call" },
-    { icon: "[$]", text: "\u0432\u0440\u0443\u0447\u0430\u0435\u0442 \u0441\u0431\u043E\u0440\u043D\u0438\u043A \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447", gain: "\u043F\u043E\u043B\u0443\u0447\u0435\u043D \u0434\u0430\u0440", kind: "gift" },
-    { icon: "[\xBB]", text: "\xAB\u0442\u044B \u0442\u043E\u0436\u0435 \u043C\u043E\u0436\u0435\u0448\u044C \u0431\u044B\u0442\u044C \u0432\u043E\u0438\u043D\u043E\u043C\xBB", gain: "\u043A\u043B\u0430\u0441\u0441: \u0432\u043E\u0438\u043D", kind: "call" },
-    { icon: "[+]", text: "\u0442\u044B \u0432\u0441\u0442\u0430\u043B \u0438 \u043D\u0430\u0447\u0430\u043B \u0440\u0435\u0448\u0430\u0442\u044C", gain: "\u043D\u0430\u0432\u044B\u043A: \u0440\u0435\u0448\u0430\u0442\u044C +10" },
-    { icon: "[+]", text: "\u0442\u0435\u0431\u044F \u0437\u0430\u0443\u0432\u0430\u0436\u0430\u043B\u0438 \u0434\u0435\u0432\u043E\u0447\u043A\u0438", gain: "\u0440\u0435\u043F\u0443\u0442\u0430\u0446\u0438\u044F +25" },
-    { icon: "[+]", text: "\u0442\u0435\u0431\u044F \u0437\u0430\u0443\u0432\u0430\u0436\u0430\u043B\u0438 \u043C\u0430\u043B\u044C\u0447\u0438\u043A\u0438", gain: "\u0440\u0435\u043F\u0443\u0442\u0430\u0446\u0438\u044F +25" },
-    { icon: "[$]", text: "\u0432\u044B\u043F\u0430\u043B\u0438 \u0411\u041E\u041B\u042C\u0428\u0418\u0415 \u0428\u0422\u0410\u041D\u042B", gain: "\u043B\u0435\u0433\u0435\u043D\u0434\u0430\u0440\u043D\u044B\u0439 \u043F\u0440\u0435\u0434\u043C\u0435\u0442", kind: "loot" },
-    { icon: "[+]", text: "\u0445\u043E\u0434\u0438\u0448\u044C \u043F\u043E \u0448\u043A\u043E\u043B\u0435 \u043D\u0430 \u043F\u043E\u043D\u0442\u0430\u0445 \u0441 \u043A\u0430\u0441\u0442\u0435\u0442\u043E\u043C", gain: "\u043F\u043E\u043D\u0442\u044B +99" },
-    { icon: "[*]", text: "\u0432\u043B\u0438\u043B\u0441\u044F \u0432 \u0443\u043B\u0438\u0447\u043D\u044B\u0435 \u0431\u0430\u043D\u0434\u044B", gain: "\u0444\u0440\u0430\u043A\u0446\u0438\u044F \u043E\u0442\u043A\u0440\u044B\u0442\u0430", kind: "loot" },
-    { icon: "[=]", text: "\u0432\u043E\u0442 \u0447\u0442\u043E \u043C\u043E\u0433\u0443\u0442 \u0434\u0435\u043B\u0430\u0442\u044C \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u044B", gain: "\u043A\u043E\u043D\u0435\u0446 \u043F\u0443\u0442\u0438", kind: "final" }
+  var ICONS = ["[-]", "[!]", "[$]", "[\xBB]", "[+]", "[+]", "[+]", "[$]", "[+]", "[*]", "[=]"];
+  var KINDS = [
+    void 0,
+    "call",
+    "gift",
+    "call",
+    void 0,
+    void 0,
+    void 0,
+    "loot",
+    void 0,
+    "loot",
+    "final"
   ];
+  var STEPS2 = ICONS.map((icon, i) => ({
+    icon,
+    text: tl("warriorSteps")[i],
+    gain: tl("warriorGains")[i],
+    kind: KINDS[i]
+  }));
   function warriorHtml() {
     return `<div class="obj mid toy warrior reveal" id="warrior">
     <div class="obj-title">$ ./become --warrior</div>
-    <p class="obj-hint top">\u043F\u0443\u0442\u044C \u0433\u0435\u0440\u043E\u044F \u043F\u043E \u0432\u0435\u0440\u0441\u0438\u0438 \u0438\u043D\u0442\u0435\u0440\u043D\u0435\u0442\u0430: \u043E\u0442 \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447 \u0434\u043E \u0443\u043B\u0438\u0447\u043D\u044B\u0445 \u0431\u0430\u043D\u0434</p>
+    <p class="obj-hint top">${t("war.hint")}</p>
     <div class="war-screen" id="war-screen" aria-live="polite">
-      <p class="war-idle" id="war-idle">[ \u043F\u0443\u0442\u044C \u043D\u0435 \u043D\u0430\u0447\u0430\u0442 ]</p>
+      <p class="war-idle" id="war-idle">${t("war.idle")}</p>
     </div>
     <div class="war-row">
-      <button class="obj-btn" id="war-go" type="button">\u0441\u0442\u0430\u0442\u044C \u0432\u043E\u0438\u043D\u043E\u043C</button>
-      <span class="war-stamp">\u0443\u0440\u043E\u0432\u0435\u043D\u044C: <b id="war-lvl">0</b> / ${STEPS2.length}</span>
+      <button class="obj-btn" id="war-go" type="button">${t("war.go")}</button>
+      <span class="war-stamp">${t("war.level")} <b id="war-lvl">0</b> / ${STEPS2.length}</span>
       <span class="war-bar" aria-hidden="true"><i id="war-fill"></i></span>
     </div>
-    <p class="war-out" id="war-out">> \u043F\u0443\u0442\u044C \u0436\u0434\u0451\u0442. \u0436\u043C\u0438</p>
+    <p class="war-out" id="war-out">${t("war.wait")}</p>
   </div>`;
   }
   function mountWarrior(root) {
@@ -32657,9 +33993,9 @@ gJ%`;
       const step = () => {
         if (i >= STEPS2.length) {
           busy = false;
-          go.textContent = "\u043F\u0440\u043E\u0439\u0442\u0438 \u043F\u0443\u0442\u044C \u0437\u0430\u043D\u043E\u0432\u043E";
+          go.textContent = t("war.again");
           host.classList.add("done");
-          out.textContent = "> \u043F\u0443\u0442\u044C \u043F\u0440\u043E\u0439\u0434\u0435\u043D. \u043E\u043B\u0438\u043C\u043F\u0438\u0430\u0434\u044B \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442";
+          out.textContent = t("war.done");
           return;
         }
         const el = node(STEPS2[i]);
@@ -32678,7 +34014,7 @@ gJ%`;
       if (busy) return;
       busy = true;
       host.classList.remove("done");
-      out.textContent = "> \u043F\u0443\u0442\u044C \u043D\u0430\u0447\u0430\u0442\u2026";
+      out.textContent = t("war.start");
       run();
     });
   }
@@ -32739,7 +34075,7 @@ gJ%`;
     }).join("");
     return `<svg class="maze-svg" id="maze-svg" viewBox="0 0 ${SIZE} ${SIZE}"
        tabindex="0" role="application"
-       aria-label="\u043B\u0430\u0431\u0438\u0440\u0438\u043D\u0442: \u0434\u043E\u0432\u0435\u0434\u0438 \u043A\u0443\u0440\u0441\u043E\u0440 \u0434\u043E \u0433\u0430\u043B\u043E\u0447\u043A\u0438 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435 (\u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u0442\u043E\u0436\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442)">
+       aria-label="${t("maze.aria")}">
     <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="#2b1d08"/>
     ${floors}
     <g class="maze-start" aria-hidden="true">
@@ -32759,20 +34095,20 @@ gJ%`;
     return `<div class="obj mid toy maze reveal" id="maze">
     <div class="obj-title">$ ./account --delete</div>
     <p class="maze-q">Would you like to delete your account?</p>
-    <p class="obj-hint top">\u0447\u0442\u043E\u0431\u044B \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C, \u0441\u043D\u0438\u043C\u0438\u0442\u0435 \u0433\u0430\u043B\u043E\u0447\u043A\u0443 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB. \u043E\u043D\u0430 \u0432 \u0446\u0435\u043D\u0442\u0440\u0435</p>
+    <p class="obj-hint top">${t("maze.hintTop")}</p>
     <div class="maze-body">
       ${mazeSvg()}
       <div class="maze-side">
-        <p class="maze-state" id="maze-state">\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB: \u0441\u0442\u043E\u0438\u0442</p>
-        <p class="maze-hint">\u0432\u0435\u0434\u0438 \u043C\u044B\u0448\u043A\u043E\u0439 \u043E\u0442 \u043A\u0432\u0430\u0434\u0440\u0430\u0442\u0438\u043A\u0430 \u0432\u043D\u0438\u0437\u0443 \u0441\u043B\u0435\u0432\u0430. \u0438\u043B\u0438 \u0441\u0442\u0440\u0435\u043B\u043A\u0430\u043C\u0438 \u0441 \u043A\u043B\u0430\u0432\u0438\u0430\u0442\u0443\u0440\u044B</p>
+        <p class="maze-state" id="maze-state">${t("maze.on")}</p>
+        <p class="maze-hint">${t("maze.hint")}</p>
         <div class="maze-btns">
           <button class="obj-btn" id="maze-yes" type="button">Yes</button>
           <button class="obj-btn small" id="maze-no" type="button">No</button>
         </div>
-        <p class="maze-out" id="maze-out">> \u0436\u0434\u0451\u043C \u0432\u0430\u0448\u0435\u0433\u043E \u0440\u0435\u0448\u0435\u043D\u0438\u044F</p>
+        <p class="maze-out" id="maze-out">${t("maze.idle")}</p>
       </div>
     </div>
-    <span class="chip genre">\u0436\u0430\u043D\u0440: worst UX awards \xB7 \u0442\u0438\u043A\u0442\u043E\u043A</span>
+    <span class="chip genre">${t("maze.genre")}</span>
   </div>`;
   }
   function mountMazeCaptcha(root) {
@@ -32792,14 +34128,14 @@ gJ%`;
       dot.setAttribute("cx", x.toFixed(1));
       dot.setAttribute("cy", y.toFixed(1));
       tick.style.opacity = checked ? "1" : "0";
-      state.textContent = checked ? "\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB: \u0441\u0442\u043E\u0438\u0442" : "\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB: \u0441\u043D\u044F\u0442\u0430 (\u0432\u044B \u043F\u0440\u043E\u0448\u043B\u0438 \u043B\u0430\u0431\u0438\u0440\u0438\u043D\u0442)";
+      state.textContent = checked ? t("maze.on") : t("maze.off");
       host.classList.toggle("armed", !checked);
     };
     const arrive = () => {
       if (!checked) return;
       if (Math.abs(x - cx(3)) > 9 || Math.abs(y - cy(3)) > 9) return;
       checked = false;
-      out.textContent = "> \u0433\u0430\u043B\u043E\u0447\u043A\u0430 \u0441\u043D\u044F\u0442\u0430. \u043A\u043D\u043E\u043F\u043A\u0430 Yes \u043D\u0430\u043A\u043E\u043D\u0435\u0446 \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442";
+      out.textContent = t("maze.armed");
       paint();
     };
     const moveTo = (tx, ty) => {
@@ -32853,14 +34189,14 @@ gJ%`;
       moveTo(x + d[0], y + d[1]);
     });
     yes.addEventListener("click", () => {
-      out.textContent = checked ? "> \u0443\u0434\u0430\u043B\u0438\u0442\u044C \u043D\u0435\u043B\u044C\u0437\u044F: \u0433\u0430\u043B\u043E\u0447\u043A\u0430 \xAB\u044F \u043F\u0435\u0440\u0435\u0434\u0443\u043C\u0430\u043B\xBB \u0432\u0441\u0451 \u0435\u0449\u0451 \u0441\u0442\u043E\u0438\u0442" : "> \u0430\u043A\u043A\u0430\u0443\u043D\u0442 \u0443\u0434\u0430\u043B\u0451\u043D. \u0448\u0443\u0442\u043A\u0430, \u044D\u0442\u043E \u043C\u0443\u0437\u0435\u0439. \u043D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u0443\u0434\u0430\u043B\u0435\u043D\u043E";
+      out.textContent = checked ? t("maze.denied") : t("maze.deleted");
     });
     no.addEventListener("click", () => {
       checked = true;
       x = cx(0);
       y = cy(6);
       paint();
-      out.textContent = "> \u0441\u043F\u0430\u0441\u0438\u0431\u043E, \u0447\u0442\u043E \u043E\u0441\u0442\u0430\u0451\u0442\u0435\u0441\u044C. \u0433\u0430\u043B\u043E\u0447\u043A\u0443 \u043C\u044B \u0432\u0435\u0440\u043D\u0443\u043B\u0438 \u043D\u0430 \u043C\u0435\u0441\u0442\u043E";
+      out.textContent = t("maze.back");
     });
     paint();
   }
@@ -32876,7 +34212,7 @@ gJ%`;
   function dieSvg(v) {
     const s = 30;
     const pips = PIPS[v - 1].map(([px2, py2]) => `<circle cx="${(px2 * s).toFixed(1)}" cy="${(py2 * s).toFixed(1)}" r="2.4" fill="#ffd9a0"/>`).join("");
-    return `<svg viewBox="0 0 ${s} ${s}" class="die-face" role="img" aria-label="\u043A\u0443\u0431\u0438\u043A: ${v}">
+    return `<svg viewBox="0 0 ${s} ${s}" class="die-face" role="img" aria-label="${t("dice.aria", { v })}">
     <rect x="1" y="1" width="${s - 2}" height="${s - 2}" rx="4" fill="#150e04"
           stroke="rgba(255,180,84,0.45)" stroke-width="1.2"/>${pips}</svg>`;
   }
@@ -32885,21 +34221,21 @@ gJ%`;
     for (let i = 0; i < DICE; i += 1) {
       cells += `<div class="die" data-die="${i}">
       <span class="die-box" id="die-${i}">${dieSvg(1)}</span>
-      <label class="die-hold"><input type="checkbox" id="hold-${i}" aria-label="\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043A\u0443\u0431\u0438\u043A ${i + 1}"/> Hold</label>
+      <label class="die-hold"><input type="checkbox" id="hold-${i}" aria-label="${t("dice.holdAria", { n: i + 1 })}"/> Hold</label>
     </div>`;
     }
     return `<div class="obj mid toy dice reveal" id="dice">
     <div class="obj-title">$ ./volume --input=d6</div>
-    <p class="obj-hint top">\u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C \u2014 \u044D\u0442\u043E \u0441\u0443\u043C\u043C\u0430 \u0432\u044B\u043F\u0430\u0432\u0448\u0435\u0433\u043E. \u0445\u043E\u0447\u0435\u0448\u044C \u0442\u0438\u0448\u0435? \u0431\u0440\u043E\u0441\u0430\u0439 \u0435\u0449\u0451 \u0440\u0430\u0437</p>
+    <p class="obj-hint top">${t("dice.hint")}</p>
     <div class="dice-grid">${cells}</div>
     <div class="dice-row">
       <button class="obj-btn" id="dice-roll" type="button">Roll</button>
       <span class="dice-vol">Volume: <b id="dice-val">16</b> / 96</span>
       <span class="dice-bar" aria-hidden="true"><i id="dice-fill"></i></span>
     </div>
-    <p class="dice-out" id="dice-out">> \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 16. \u0440\u043E\u0432\u043D\u043E \u0442\u043E, \u0447\u0442\u043E \u0432\u044B \u0445\u043E\u0442\u0435\u043B\u0438</p>
+    <p class="dice-out" id="dice-out">${t("dice.set", { n: DICE })}</p>
     <a class="plate" href="https://habr.com/ru/articles/449060/" target="_blank" rel="noopener">
-      \u043F\u043E \u043C\u043E\u0442\u0438\u0432\u0430\u043C \u043A\u043E\u043D\u043A\u0443\u0440\u0441\u0430 worst volume control ${svgArrow}</a>
+      ${t("dice.plate")} ${svgArrow}</a>
   </div>`;
   }
   function mountDiceVolume(root) {
@@ -32917,10 +34253,10 @@ gJ%`;
     }
     const vals = new Array(DICE).fill(1);
     const say = (sum, held) => {
-      if (sum >= 88) return "> \u043F\u043E\u0447\u0442\u0438 \u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C. \u0441\u043E\u0441\u0435\u0434\u0438 \u0443\u0436\u0435 \u0432 \u043A\u0443\u0440\u0441\u0435";
-      if (sum <= 24) return "> \u0442\u0438\u0445\u043E. \u0441\u043B\u0438\u0448\u043A\u043E\u043C \u0442\u0438\u0445\u043E. \u0431\u0440\u043E\u0441\u044C\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437 (\u0438\u043B\u0438 \u043D\u0435 \u0431\u0440\u043E\u0441\u0430\u0439\u0442\u0435)";
-      if (held >= 8) return `> \u0437\u0430\u0436\u0430\u0442\u043E \u043A\u0443\u0431\u0438\u043A\u043E\u0432: ${held}. \u0432\u044B \u043F\u043E\u0447\u0442\u0438 \u043D\u0430\u0443\u0447\u0438\u043B\u0438\u0441\u044C \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C \u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C\u044E`;
-      return "> \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 " + sum + ". \u0440\u043E\u0432\u043D\u043E \u0442\u043E, \u0447\u0442\u043E \u0432\u044B \u0445\u043E\u0442\u0435\u043B\u0438";
+      if (sum >= 88) return t("dice.max");
+      if (sum <= 24) return t("dice.min");
+      if (held >= 8) return t("dice.held", { n: held });
+      return t("dice.set", { n: sum });
     };
     const paint = () => {
       let sum = 0;
@@ -32965,36 +34301,36 @@ gJ%`;
   function worstUxHtml() {
     return `<div class="obj mid toy ux reveal" id="ux">
     <div class="obj-title">$ ./the-best-user-ux --award=2026</div>
-    <p class="obj-hint top">\u0442\u0440\u0438 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u0442\u0435\u0445\u043D\u0438\u0447\u0435\u0441\u043A\u0438 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442</p>
+    <p class="obj-hint top">${t("ux.hint")}</p>
 
     <div class="ux-row">
-      <span class="ux-label">\u043E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F \u043E\u0442 \u0440\u0430\u0441\u0441\u044B\u043B\u043A\u0438</span>
+      <span class="ux-label">${t("ux.unsubLabel")}</span>
       <div class="ux-field" id="ux-field">
-        <button class="ux-run" id="ux-run" type="button">\u041E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F</button>
+        <button class="ux-run" id="ux-run" type="button">${t("ux.unsubBtn")}</button>
         <span class="ux-fan" id="ux-fan" aria-hidden="true">\u224B\u224B\u224B</span>
       </div>
     </div>
 
     <div class="ux-row">
-      <span class="ux-label">\u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C</span>
+      <span class="ux-label">${t("ux.volume")}</span>
       <div class="ux-field">
         <input class="ux-slider" id="ux-vol" type="range" min="0" max="100" value="50"
-               aria-label="\u0433\u0440\u043E\u043C\u043A\u043E\u0441\u0442\u044C"/>
+               aria-label="${t("ux.volume")}"/>
         <span class="ux-val" id="ux-volval">50</span>
       </div>
     </div>
 
     <div class="ux-row">
-      <span class="ux-label">\u044F \u043D\u0435 \u0440\u043E\u0431\u043E\u0442</span>
+      <span class="ux-label">${t("ux.notRobot")}</span>
       <div class="ux-field">
-        <label class="ux-check"><input type="checkbox" id="ux-bot"/> \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0430\u044E</label>
-        <span class="ux-val" id="ux-botval">\u0436\u0434\u0451\u043C \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F</span>
+        <label class="ux-check"><input type="checkbox" id="ux-bot"/> ${t("ux.confirm")}</label>
+        <span class="ux-val" id="ux-botval">${t("ux.waiting")}</span>
       </div>
     </div>
 
-    <p class="ux-foot" id="ux-foot">> \u0432\u0441\u0451 \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438</p>
+    <p class="ux-foot" id="ux-foot">${t("ux.spec")}</p>
     <a class="plate" href="https://vm.tiktok.com/ZN8Rnkbw5/" target="_blank" rel="noopener">
-      \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B \u0436\u0430\u043D\u0440\u0430: @inhwoi ${svgArrow}</a>
+      ${t("ux.plate")} ${svgArrow}</a>
   </div>`;
   }
   function mountWorstUx(root) {
@@ -33024,34 +34360,34 @@ gJ%`;
       fan.classList.toggle("right", !fromLeft);
       fan.classList.add("on");
       engine.next(() => fan.classList.remove("on"), 500);
-      foot.textContent = dodges < 3 ? "> \u043A\u043D\u043E\u043F\u043A\u0430 \u043D\u0430 \u043C\u0435\u0441\u0442\u0435. \u043F\u0440\u043E\u0441\u0442\u043E \u0441\u043A\u0432\u043E\u0437\u043D\u044F\u043A" : `> \u043F\u043E\u043F\u044B\u0442\u043E\u043A \u043E\u0442\u043F\u0438\u0441\u0430\u0442\u044C\u0441\u044F: ${dodges}. \u0432\u0435\u043D\u0442\u0438\u043B\u044F\u0442\u043E\u0440 \u043D\u0435 \u0432\u044B\u043A\u043B\u044E\u0447\u0430\u0435\u0442\u0441\u044F`;
+      foot.textContent = dodges < 3 ? t("ux.draft") : t("ux.fan", { n: dodges });
     };
     field.addEventListener("pointermove", blow);
     run.addEventListener("click", () => {
-      foot.textContent = "> \u0432\u044B \u0443\u0441\u043F\u0435\u0448\u043D\u043E \u041D\u0415 \u043E\u0442\u043F\u0438\u0441\u0430\u043B\u0438\u0441\u044C. \u0441\u043F\u0430\u0441\u0438\u0431\u043E, \u0447\u0442\u043E \u043E\u0441\u0442\u0430\u0451\u0442\u0435\u0441\u044C";
+      foot.textContent = t("ux.stay");
     });
     const paintVol = () => {
       const v = 100 - Number(vol.value);
       volval.textContent = String(v);
-      foot.textContent = v > 80 ? "> \u0433\u0440\u043E\u043C\u0447\u0435 \u043D\u0435\u043A\u0443\u0434\u0430 (\u0432\u044B \u0442\u044F\u043D\u0443\u043B\u0438 \u0432\u043B\u0435\u0432\u043E)" : v < 20 ? "> \u0442\u0438\u0448\u0435 \u043D\u0435\u043A\u0443\u0434\u0430 (\u0432\u044B \u0442\u044F\u043D\u0443\u043B\u0438 \u0432\u043F\u0440\u0430\u0432\u043E)" : "> \u0432\u0441\u0451 \u043F\u043E \u0441\u043F\u0435\u0446\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438";
+      foot.textContent = v > 80 ? t("ux.loud") : v < 20 ? t("ux.quiet") : t("ux.spec");
     };
     vol.addEventListener("input", paintVol);
     paintVol();
     bot.addEventListener("change", () => {
       if (!bot.checked) {
-        botval.textContent = "\u0436\u0434\u0451\u043C \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u044F";
+        botval.textContent = t("ux.waiting");
         return;
       }
-      botval.textContent = "\u043F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u043C\u2026";
+      botval.textContent = t("ux.checking");
       if (reducedMotion()) {
-        botval.textContent = "\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u0430 (\u0433\u0430\u043B\u043E\u0447\u043A\u0430 \u0441\u043D\u044F\u0442\u0430 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438)";
+        botval.textContent = t("ux.failStill");
         bot.checked = false;
         return;
       }
       engine.next(() => {
         bot.checked = false;
-        botval.textContent = "\u043F\u0440\u043E\u0432\u0435\u0440\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0439\u0434\u0435\u043D\u0430. \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437";
-        foot.textContent = "> \u0440\u043E\u0431\u043E\u0442 \u043D\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0451\u043D. \u0432\u044B, \u0441\u043A\u043E\u0440\u0435\u0435 \u0432\u0441\u0435\u0433\u043E, \u0442\u043E\u0436\u0435";
+        botval.textContent = t("ux.fail");
+        foot.textContent = t("ux.failFoot");
       }, 1200);
     });
   }
@@ -33073,20 +34409,14 @@ gJ%`;
     return `<div class="obj mid toy reveal" id="cringe">
     <div class="obj-title">$ ./cringe-o-meter --live</div>
     <pre class="gauge" id="gauge"></pre>
-    <p class="obj-hint">\u043D\u0430\u0432\u0435\u0434\u0438 (\u0438\u043B\u0438 \u0442\u043A\u043D\u0438) \u2014 \u0441\u0442\u0440\u0435\u043B\u043A\u0430 \u043F\u043E\u0435\u0434\u0435\u0442</p>
+    <p class="obj-hint">${t("humor.cringeHint")}</p>
     <div class="cringe-row">
-      <button class="obj-btn small" id="cringe-reset" type="button">\u0441\u0431\u0440\u043E\u0441\u0438\u0442\u044C \u043A\u0440\u0438\u043D\u0436</button>
+      <button class="obj-btn small" id="cringe-reset" type="button">${t("humor.cringeReset")}</button>
       <span class="cringe-said" id="cringe-said" aria-live="polite"></span>
     </div>
   </div>`;
   }
-  var CRINGE_RESET_LINES = [
-    "\u0441\u0447\u0451\u0442\u0447\u0438\u043A \u043E\u0431\u043D\u0443\u043B\u0451\u043D. \u043A\u0440\u0438\u043D\u0436 \u2014 \u043D\u0435\u0442",
-    "\u0441\u0431\u0440\u043E\u0448\u0435\u043D\u043E. \u043C\u0443\u0437\u0435\u0439 \u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u043D\u0430 \u0442\u0435\u0431\u044F \u0441 \u043D\u0430\u0434\u0435\u0436\u0434\u043E\u0439",
-    "\u043E\u0431\u043D\u0443\u043B\u0438\u043B\u0438. \u0437\u0430\u043F\u0438\u0441\u044C \u0432 \u0436\u0443\u0440\u043D\u0430\u043B\u0435 \u043E\u0441\u0442\u0430\u043B\u0430\u0441\u044C",
-    "\u043A\u0440\u0438\u043D\u0436 \u0441\u0431\u0440\u043E\u0448\u0435\u043D \u0438 \u0443\u0436\u0435 \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0441\u044F",
-    "\u0441\u0431\u0440\u043E\u0441 \u21164. \u044D\u0442\u043E \u0442\u043E\u0436\u0435 \u043A\u0440\u0438\u043D\u0436, \u0432\u043E\u043E\u0431\u0449\u0435-\u0442\u043E"
-  ];
+  var CRINGE_RESET_LINES = tl("cringeResetLines");
   function topHtml() {
     return `<div class="obj side reveal" style="--tw:9deg">
     <pre class="ascii-chart big" id="toplist"></pre>
@@ -33103,17 +34433,18 @@ gJ%`;
     if (!host || !out) return;
     let v = 34;
     let want = 34;
+    const labels = tl("cringeLabels");
     const label = (p) => {
-      if (p < 25) return "\u0442\u0435\u0440\u043F\u0438\u043C\u043E";
-      if (p < 55) return "\u043E\u0439";
-      if (p < 80) return "\u0437\u0430\u043A\u0440\u043E\u0439 \u043B\u0438\u0446\u043E \u0440\u0443\u043A\u0430\u043C\u0438";
-      if (p < 99) return "\u044F \u044D\u0442\u043E \u0443\u0436\u0435 \u043F\u0438\u0441\u0430\u043B \u0432 \u043F\u0440\u043E\u0434\u0435";
-      return "\u041F\u0415\u0420\u0415\u041F\u041E\u041B\u041D\u0415\u041D\u0418\u0415 \u041A\u0420\u0418\u041D\u0416\u0410";
+      if (p < 25) return labels[0];
+      if (p < 55) return labels[1];
+      if (p < 80) return labels[2];
+      if (p < 99) return labels[3];
+      return labels[4];
     };
     const paint = () => {
-      out.textContent = `\u0443\u0440\u043E\u0432\u0435\u043D\u044C \u043A\u0440\u0438\u043D\u0436\u0430  ${bar(v)}  ${String(Math.round(v)).padStart(3)}%
-\u043F\u043E\u043B\u0435\u0437\u043D\u043E\u0441\u0442\u044C      ${bar(Math.max(4, 100 - v), 22)}  ${String(Math.round(Math.max(4, 100 - v))).padStart(3)}%
-\u0434\u0438\u0430\u0433\u043D\u043E\u0437: ${label(v)}`;
+      out.textContent = `${t("humor.gaugeCringe").padEnd(16)}${bar(v)}  ${String(Math.round(v)).padStart(3)}%
+${t("humor.gaugeUseful").padEnd(16)}${bar(Math.max(4, 100 - v), 22)}  ${String(Math.round(Math.max(4, 100 - v))).padStart(3)}%
+${t("humor.gaugeDiag", { label: label(v) })}`;
     };
     paint();
     const bump = () => {
@@ -33197,8 +34528,8 @@ ${rows}`;
     return `
       <div class="enter-hint" id="enter-hint">
         <pre class="eh-arrow" aria-hidden="true">${arrow}</pre>
-        <p class="eh-text">\u043F\u043E\u0434\u043D\u0438\u043C\u0430\u0439\u0441\u044F \u0412\u0412\u0415\u0420\u0425 &mdash; \u043F\u0440\u0438\u043A\u043E\u043B\u044B \u0432\u0438\u0441\u044F\u0442 \u0432\u043E\u043A\u0440\u0443\u0433</p>
-        <p class="eh-sub">\u043A\u043E\u043B\u0435\u0441\u043E\u043C, \u043F\u0430\u043B\u044C\u0446\u0435\u043C \u0438\u043B\u0438 [&uarr;] &mdash; \u0432\u0441\u0451 \u0432\u0432\u0435\u0440\u0445</p>
+        <p class="eh-text">${t("humor.hintUp")}</p>
+        <p class="eh-sub">${t("humor.hintUpSub")}</p>
       </div>`;
   }
   function mountEnterHint(root) {
@@ -33245,45 +34576,45 @@ ${rows}`;
     const slots = [
       slot(cringeHtml(), "c", 0),
       // the JS interview piece is paired with an interactive where the language answers
-      slot(stand(jsTruthHtml(), [P("kai-js", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u0441\u0442\u0435\u043D\u0434")]), "c", 44),
+      slot(stand(jsTruthHtml(), [P("kai-js", t("humor.why.stand"))]), "c", 44),
       pairSlot(sideObj(asciiCharts[0], 1, -9), `<p class="path-joke reveal">${pathJokes[0]}</p>`, 34),
       // NOTE: the caption line that used to sit here was removed on purpose; the
       // "sort by capitalism" interactive itself stays.
       slot(capitalismHtml(), "c", 70),
       slot(sideObj(asciiCharts[3], 2, 10), "r", 34),
-      slot(stand(worstUxHtml(), [P("worstux", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u0441\u0442\u0435\u043D\u0434")]), "c", 74),
+      slot(stand(worstUxHtml(), [P("worstux", t("humor.why.stand"))]), "c", 74),
       // two more of the same genre: a maze captcha and dice-based volume control
       slot(mazeCaptchaHtml(), "c", 40),
       slot(diceVolumeHtml(), "c", 40),
       slot(sideObj(asciiCharts[4], 3, -9), "r", 34),
-      slot(stand(meditationHtml(), [P("meditation", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u043E\u0431\u0440\u044F\u0434")]), "c", 70),
+      slot(stand(meditationHtml(), [P("meditation", t("humor.why.rite"))]), "c", 70),
       slot(topHtml(), "l", 34),
       /**
        * FOLKLORE WALL. A legendary 2016 copypasta, with an empty frame beside it for
        * whatever comes next. The frame explains nothing on purpose: it just waits.
        */
       slot(
-        `<div class="wall"><p class="wall-lead reveal">\u0441\u0442\u0435\u043D\u0430 \u0444\u043E\u043B\u044C\u043A\u043B\u043E\u0440\u0430</p>` + // the copypasta is EXPANDED: the walkthrough runs next to the original, and
+        `<div class="wall"><p class="wall-lead reveal">${t("humor.wall")}</p>` + // the copypasta is EXPANDED: the walkthrough runs next to the original, and
         // the empty frame for a remake stands right beside it
         stand(warriorHtml(), [
-          P("warrior", "\u0430\u0439\u0442\u0438\u0448\u043D\u044B\u0439 \u0444\u043E\u043B\u044C\u043A\u043B\u043E\u0440, \u043E\u0440\u0438\u0433\u0438\u043D\u0430\u043B 2016"),
+          P("warrior", t("humor.why.folklore")),
           reservedHtml()
         ]) + `</div>`,
         "c",
         76
       ),
       // cluster on coding-assistant pains: a limit-reset ritual and a song about it
-      slot(stand(ritualHtml(), [P("reset", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u043E\u0431\u0440\u044F\u0434")]), "c", 70),
-      slot(stand(claudePlanHtml(), [P("claudes-plan", "\u0438\u0437 \u0442\u043E\u0439 \u0436\u0435 \u0436\u0438\u0437\u043D\u0438")]), "c", 44),
+      slot(stand(ritualHtml(), [P("reset", t("humor.why.rite"))]), "c", 70),
+      slot(stand(claudePlanHtml(), [P("claudes-plan", t("humor.why.sameLife"))]), "c", 44),
       slot(`<p class="path-joke reveal">${pathJokes[4]}</p>`, "r", 30),
       // trash trailer: an oracle that answers any question with "homology"
-      slot(stand(oracleHtml(), [P("homotopy", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u043E\u0440\u0430\u043A\u0443\u043B")]), "c", 72),
+      slot(stand(oracleHtml(), [P("homotopy", t("humor.why.oracle"))]), "c", 72),
       // the hall darkens here: live esoteric languages (their sources are inside the zone)
       slot(magicZoneHtml(), "c", 78),
       // NOTE: an ASCII chart that used to stand here was removed on purpose.
       // the summit of the hall is a payoff, not a "work in progress" note
       slot(
-        `<div class="summit"><p class="summit-lead reveal">\u0432\u044B\u0448\u0435 \u043F\u0440\u0438\u043A\u043E\u043B\u043E\u0432 \u043D\u0435 \u0431\u044B\u0432\u0430\u0435\u0442. \u0432\u043E\u0442 \u043E\u043D:</p>` + stand(adhdSortHtml(), [P("adhd", "\u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u0442 \u044D\u0442\u043E\u0442 \u0430\u043B\u0433\u043E\u0440\u0438\u0442\u043C")]) + `</div>`,
+        `<div class="summit"><p class="summit-lead reveal">${t("humor.summit")}</p>` + stand(adhdSortHtml(), [P("adhd", t("humor.why.algo"))]) + `</div>`,
         "c",
         88
       )
@@ -33305,7 +34636,7 @@ ${rows}`;
     <header class="room-head reveal">
       <pre class="clown still" aria-hidden="true">${clownStill}</pre>
       <p class="cmd">$ cd /iterium/jokes &amp;&amp; ls -la</p>
-      <h1>\u043A\u043E\u043C\u043D\u0430\u0442\u0430 \u0448\u0443\u0442\u0430<span class="cur"></span></h1>
+      <h1>${t("humor.title")}<span class="cur"></span></h1>
       ${enterHintHtml()}
     </header>
     <main class="hall">
@@ -33314,10 +34645,12 @@ ${rows}`;
       ${hall}
     </main>
     <footer class="room-foot reveal">
-      <p class="path-joke">\u2026\u0432 \u0437\u0430\u043F\u0430\u0441\u043D\u0438\u043A\u0430\u0445 \u0435\u0449\u0451 \u0433\u043E\u0440\u0430 \u043F\u0440\u0438\u043A\u043E\u043B\u043E\u0432 \u2014 \u0437\u0430\u043B \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F</p>
-      <p class="curator">\u043A\u0443\u0440\u0430\u0442\u043E\u0440: \u0430\u043D\u0434\u0440\u0435\u0439 (lruns) \xB7 \u0432\u0441\u0435 \u044D\u043A\u0441\u043F\u043E\u043D\u0430\u0442\u044B \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0442 \u0441\u0432\u043E\u0438\u043C \u0430\u0432\u0442\u043E\u0440\u0430\u043C</p>
+      <p class="path-joke">${t("humor.footJoke")}</p>
+      <p class="curator">${t("humor.curator")}</p>
+      ${legalNoteHtml()}
     </footer>
-    ${modeline("jokes.room", "(Humor \xB7 \u0432\u0432\u0435\u0440\u0445)")}`;
+    ${langSwitchHtml()}
+    ${modeline("jokes.room", t("humor.modeline"))}`;
     revealOnScroll(Array.from(app2.querySelectorAll(".reveal")));
     liveModeline(
       app2.querySelector("#ml-pos"),
@@ -33340,6 +34673,7 @@ ${rows}`;
     mountTop(app2);
     mountTicker(app2);
     mountParallax(app2);
+    mountLangSwitch(app2);
     startAtBottom();
     mountEnterHint(app2);
   }
@@ -33590,14 +34924,14 @@ ${rows}`;
     let raf = 0;
     let blown = false;
     const frame = (now) => {
-      const t = Math.min(1, Math.max(0, (now - start) / DUR));
-      const k = t < BURST ? 0 : Math.min(1, (t - BURST) / 0.34);
+      const t2 = Math.min(1, Math.max(0, (now - start) / DUR));
+      const k = t2 < BURST ? 0 : Math.min(1, (t2 - BURST) / 0.34);
       const ease = k * k * (3 - 2 * k);
       const cx2 = box.cx + (W / 2 - box.cx) * ease;
       const cy2 = box.cy + (H / 2 - box.cy) * ease;
-      const scale = t < BURST ? Math.min(box.w, box.h) * 0.42 : Math.max(W, H) * (0.2 + ease * 0.9);
-      const grow = t < BURST ? Math.pow(t / BURST, 0.7) : 1;
-      if (t < BURST) {
+      const scale = t2 < BURST ? Math.min(box.w, box.h) * 0.42 : Math.max(W, H) * (0.2 + ease * 0.9);
+      const grow = t2 < BURST ? Math.pow(t2 / BURST, 0.7) : 1;
+      if (t2 < BURST) {
         ctx2.clearRect(0, 0, W, H);
       } else {
         if (!blown) {
@@ -33614,7 +34948,7 @@ ${rows}`;
       ctx2.globalCompositeOperation = "lighter";
       const tt = (now - start) / 1e3;
       for (const s of tents) {
-        const L = scale * s.len * grow * (t < BURST ? 1 : 0.8 + ease * 1.5);
+        const L = scale * s.len * grow * (t2 < BURST ? 1 : 0.8 + ease * 1.5);
         ctx2.beginPath();
         let px2 = cx2;
         let py2 = cy2;
@@ -33623,7 +34957,7 @@ ${rows}`;
           const r = L * u;
           const a = s.a + Math.sin(u * 2.4 + s.ph + tt * s.sp) * s.curl * u;
           px2 = cx2 + Math.cos(a) * r;
-          py2 = cy2 + Math.sin(a) * r * (t < BURST ? 1 : 1 + ease * 0.35);
+          py2 = cy2 + Math.sin(a) * r * (t2 < BURST ? 1 : 1 + ease * 0.35);
           if (j === 1) ctx2.moveTo(cx2, cy2);
           ctx2.lineTo(px2, py2);
         }
@@ -33635,15 +34969,15 @@ ${rows}`;
         ctx2.fillStyle = `rgba(225, 250, 255, ${(0.35 + ease * 0.5).toFixed(3)})`;
         ctx2.fill();
       }
-      const cr = t < BURST ? 3 + grow * 14 : 17 + ease * 26;
+      const cr = t2 < BURST ? 3 + grow * 14 : 17 + ease * 26;
       const core = ctx2.createRadialGradient(cx2, cy2, 0, cx2, cy2, cr * 3.2);
       core.addColorStop(0, "rgba(255,255,255,0.95)");
       core.addColorStop(0.18, `rgba(200, 245, 255, ${(0.5 + ease * 0.4).toFixed(3)})`);
       core.addColorStop(1, "rgba(60, 190, 200, 0)");
       ctx2.fillStyle = core;
       ctx2.fillRect(cx2 - cr * 3.2, cy2 - cr * 3.2, cr * 6.4, cr * 6.4);
-      if (t > BURST * 0.6) {
-        const sp = Math.min(1, (t - BURST * 0.6) / 0.5);
+      if (t2 > BURST * 0.6) {
+        const sp = Math.min(1, (t2 - BURST * 0.6) / 0.5);
         for (let i = 0; i < 9; i += 1) {
           const a = Math.PI / 4.5 * i + tt * 0.12;
           const R = Math.max(W, H) * sp * (0.35 + i % 3 * 0.22);
@@ -33655,8 +34989,8 @@ ${rows}`;
           ctx2.stroke();
         }
       }
-      if (t > 0.46) {
-        const c = Math.min(1, (t - 0.46) / 0.54);
+      if (t2 > 0.46) {
+        const c = Math.min(1, (t2 - 0.46) / 0.54);
         for (const s of combs) {
           const x = s.x * W;
           const hh = H * s.h * (0.4 + c);
@@ -33672,7 +35006,7 @@ ${rows}`;
         ctx2.fillRect(0, 0, W, H);
       }
       ctx2.restore();
-      if (t < 1) raf = window.requestAnimationFrame(frame);
+      if (t2 < 1) raf = window.requestAnimationFrame(frame);
       else done();
     };
     raf = window.requestAnimationFrame(frame);
@@ -33696,7 +35030,9 @@ ${rows}`;
     > ^ <     '===================='
    /(   )\      L r u n s · ITerium
   (__)_(__)`;
-  var MINI = ";; -*- mode: iterium; coding: utf-8 -*-\n;; beta: \u0438\u0434\u0435\u0438 \u0410\u043D\u0434\u0440\u0435\u044F, \u0431\u0430\u0433\u0438 \u043D\u0430\u0448\u0438 \u2014 \u0447\u0438\u043D\u0438\u043C\n> M-x iterium RET";
+  var MINI = () => `;; -*- mode: iterium; coding: utf-8 -*-
+${t("term.mini")}
+> M-x iterium RET`;
   function esc(s) {
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
@@ -33757,15 +35093,12 @@ ${rows}`;
     <pre class="boot done">${head}</pre>
     <pre class="museum" aria-hidden="true">${art}</pre>
     <p class="menu-title">$ choose path:<span class="cur"></span></p>
-    <ul class="menu" id="menu" role="listbox" aria-label="\u0432\u044B\u0431\u043E\u0440 \u0437\u0430\u043B\u0430" tabindex="0">${rows}</ul>
+    <ul class="menu" id="menu" role="listbox" aria-label="${t("term.menuAria")}" tabindex="0">${rows}</ul>
     <p class="menu-foot">${menuFootnote}</p>
     <pre class="term-log" id="term-log"></pre>
-    <p class="menu-hint"><b>\u0442\u044B\u043A\u043D\u0438 \u0441\u0442\u0440\u043E\u0447\u043A\u0443</b> &mdash; \u0438 \u0442\u044B \u0432\u043D\u0443\u0442\u0440\u0438
-      <span class="mh-sep">&middot;</span> \u0438\u043B\u0438 [&uarr;&darr;] \u0432\u044B\u0431\u043E\u0440
-      <span class="mh-sep">&middot;</span> [enter] \u0432\u043E\u0439\u0442\u0438
-      <span class="mh-sep">&middot;</span> [1&ndash;4] \u0431\u044B\u0441\u0442\u0440\u043E</p>`;
+    <p class="menu-hint">${t("term.menuHint")}</p>`;
   }
-  function shell(inner, right, cta = "") {
+  function shell(inner, right, cta = "", foot = "") {
     return `
     <div class="void" id="void">
       <div class="void-stars" aria-hidden="true"></div>
@@ -33779,7 +35112,7 @@ ${rows}`;
               <div class="editor" id="editor">
                 <div class="scanlines" aria-hidden="true"></div>
                 <pre class="banner" aria-hidden="true">${BANNER}</pre>
-                <pre class="mini" aria-hidden="true">${MINI}</pre>
+                <pre class="mini" aria-hidden="true">${MINI()}</pre>
                 ${ruleLine()}
                 <div class="buffer">
                   <div class="stage" id="stage">${inner}</div>
@@ -33802,6 +35135,8 @@ ${rows}`;
         <div class="crt-mirror" aria-hidden="true"></div>
       </div>
       <div class="vignette" aria-hidden="true"></div>
+      ${langSwitchHtml()}
+      ${foot}
     </div>`;
   }
   function liveTilt(scene, crt) {
@@ -33822,7 +35157,7 @@ ${rows}`;
       `<pre class="boot" id="boot"></pre>
      <pre class="museum" id="museum" aria-hidden="true"></pre>`,
       "(Museum \xB7 Boot)",
-      `<p class="term-cta" id="cta">${esc(tail)} &mdash; \u0438\u043B\u0438 \u0442\u044B\u043A\u043D\u0438 \u044D\u043A\u0440\u0430\u043D<span class="cur"></span></p>`
+      `<p class="term-cta" id="cta">${t("term.cta", { tail: esc(tail) })}<span class="cur"></span></p>`
     );
     const out = app2.querySelector("#boot");
     const art = app2.querySelector("#museum");
@@ -33882,6 +35217,7 @@ ${rows}`;
     room.addEventListener("click", enter);
     onCleanup(() => document.removeEventListener("keydown", onKey));
     liveTilt(app2.querySelector(".crt-scene"), app2.querySelector("#crt"));
+    mountLangSwitch(app2);
   }
   function renderMenu(app2) {
     app2.className = "screen-term";
@@ -33910,8 +35246,8 @@ ${rows}`;
       const item = menuItems[i];
       if (!item.ready) {
         const open = menuItems.filter((m) => m.ready).map((m) => m.key);
-        const where = open.length > 1 ? `\u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439 ${open.slice(0, -1).join(", ")} \u0438\u043B\u0438 ${open[open.length - 1]}` : `\u043E\u0442\u043A\u0440\u044B\u0442 \u043F\u043E\u043A\u0430 \u0442\u043E\u043B\u044C\u043A\u043E ${open[0]}`;
-        log2.textContent = `E: \u0437\u0430\u043B \xAB${item.label}\xBB \u0435\u0449\u0451 \u0441\u0442\u0440\u043E\u0438\u0442\u0441\u044F. ${where}`;
+        const where = open.length > 1 ? t("term.tryOpen", { list: open.slice(0, -1).join(", "), last: open[open.length - 1] }) : t("term.onlyOpen", { key: open[0] });
+        log2.textContent = t("term.locked", { label: item.label, where });
         list.classList.remove("shake");
         void list.offsetWidth;
         list.classList.add("shake");
@@ -33964,6 +35300,7 @@ ${rows}`;
     paint();
     list.focus({ preventScroll: true });
     liveTilt(app2.querySelector(".crt-scene"), app2.querySelector("#crt"));
+    mountLangSwitch(app2);
     if (!reducedMotion()) {
       rows.forEach((r, i) => {
         r.style.setProperty("--d", `${i * 70}ms`);

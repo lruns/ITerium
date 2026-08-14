@@ -5,6 +5,7 @@
 import { audioOnGesture, sigmaMotif, speakSigma } from '../audio';
 import { plaqueHtml, svgArrow } from '../chrome';
 import { esoLangs, humorExhibits } from '../data';
+import { t, tl } from '../i18n';
 import { reducedMotion, stepEngine } from '../runtime';
 import { intercalHtml, mountIntercal } from './intercal';
 import { mountStrangeLangs, strangeLangsHtml } from './strange-langs';
@@ -15,7 +16,7 @@ function plaque(id: string, why: string): string {
   return e ? plaqueHtml(e, why) : '';
 }
 
-const FLOORS = ['этаж 0', 'этаж −1', 'этаж −2', 'этаж −3'];
+const FLOORS = tl('floors');
 
 /**
  * Full snapshot of everything visible in the zone, not just a couple of counters.
@@ -44,7 +45,7 @@ function langBy(name: string): { url: string; truth: string } {
 function whisper(name: string, text: string): string {
   const l = langBy(name);
   return `<a class="whisper" href="${l.url}" target="_blank" rel="noopener">
-    <b>${name}</b> ${text} <span class="whisper-link">существует ${svgArrow}</span></a>`;
+    <b>${name}</b> ${text} <span class="whisper-link">${t('magic.exists')} ${svgArrow}</span></a>`;
 }
 
 export function magicZoneHtml(): string {
@@ -55,80 +56,76 @@ export function magicZoneHtml(): string {
     <div class="magic-dark" aria-hidden="true"></div>
     <div class="magic-glyphs" aria-hidden="true"></div>
     <div class="magic-body">
-      <p class="magic-lead">…дальше в зале темнеет</p>
-      <h2 class="magic-title">здесь живут языки, на которых правда пишут<span class="cur"></span></h2>
-      <p class="magic-sub">трогай. это не таблички, это они сами</p>
+      <p class="magic-lead">${t('magic.lead')}</p>
+      <h2 class="magic-title">${t('magic.title')}<span class="cur"></span></h2>
+      <p class="magic-sub">${t('magic.sub')}</p>
 
       <div class="magic-grid">
         <div class="spell toy" id="genalpha">
-          <div class="obj-title">GenAlpha Lang · заклинание</div>
+          <div class="obj-title">${t('magic.spellTitle')}</div>
           <pre class="spell-code" id="spell-code"></pre>
           <div class="spell-row">
             <button class="obj-btn small" id="spell-sigma" type="button">Sigma</button>
-            <button class="obj-btn" id="spell-run" type="button">Skibidi (выполнить)</button>
+            <button class="obj-btn" id="spell-run" type="button">${t('magic.spellRun')}</button>
           </div>
-          <p class="spell-out" id="spell-out">программа пуста. добавь Sigma</p>
+          <p class="spell-out" id="spell-out">${t('magic.spellIdle')}</p>
           <p class="spell-sing" id="spell-sing" aria-live="polite"></p>
           <a class="whisper-link solo" href="${genalpha.url}" target="_blank" rel="noopener">
-            язык реально существует ${svgArrow}</a>
+            ${t('eso.exists')} ${svgArrow}</a>
 
           <div class="sigma-plate" id="sigma-plate">
-            <b class="sigma-plate-head">откуда эти слова</b>
-            <p class="sigma-fact">
-              Sigma и Skibidi пришли в язык из клипа «Sigma Boy»: премьера 24 апреля 2025-го,
-              400 миллионов просмотров, 1,2 миллиона лайков.
-            </p>
+            <b class="sigma-plate-head">${t('magic.sigmaHead')}</b>
+            <p class="sigma-fact">${t('magic.sigmaFact')}</p>
             <blockquote class="sigma-quote">
               Understanding: 0% / Vibing: 0% / Trauma: 100%
-              <cite>топ-коммент под клипом</cite>
+              <cite>${t('magic.sigmaCite')}</cite>
             </blockquote>
           </div>
 
           <div class="plaques">
-            ${plaque('sigma-boy', 'тот самый клип, из которого язык')}
+            ${plaque('sigma-boy', t('magic.why.sigma'))}
           </div>
         </div>
 
         <div class="rooms toy" id="backrooms">
-          <div class="obj-title">Backrooms · трёхмерный, без ошибок</div>
+          <div class="obj-title">${t('magic.roomsTitle')}</div>
           <div class="rooms-floor" id="rooms-floor"></div>
           <div class="rooms-row">
-            <span class="rooms-level" id="rooms-level">этаж 0</span>
+            <span class="rooms-level" id="rooms-level">${FLOORS[0]}</span>
             <button class="obj-btn small" data-step="-1" type="button">←</button>
             <button class="obj-btn small" data-step="1" type="button">→</button>
-            <button class="obj-btn small" id="rooms-reset" type="button">заново</button>
+            <button class="obj-btn small" id="rooms-reset" type="button">${t('magic.roomsReset')}</button>
           </div>
-          <p class="rooms-out" id="rooms-out">иди по коридору. промахнёшься — сам увидишь</p>
+          <p class="rooms-out" id="rooms-out">${t('magic.roomsIdle')}</p>
           <a class="whisper-link solo" href="${backrooms.url}" target="_blank" rel="noopener">
-            язык реально существует ${svgArrow}</a>
+            ${t('eso.exists')} ${svgArrow}</a>
         </div>
       </div>
 
       ${intercalHtml()}
 
       <div class="plaques">
-        ${plaque('kai-eso', 'откуда взят тон этой зоны')}
+        ${plaque('kai-eso', t('magic.why.tone'))}
       </div>
 
       <div class="verse toy" id="fived">
         <div class="obj-title">5D Brainfuck With Multiverse Time Travel</div>
-        <p class="verse-text" id="verse-text">
-          вселенная 0. всё, что ты успел натворить в этой зоне, записано.</p>
-        <button class="obj-btn" id="verse-back" type="button">откатиться в прошлое состояние</button>
+        <p class="verse-text" id="verse-text">${t('magic.verseIdle')}</p>
+        <button class="obj-btn" id="verse-back" type="button">${t('magic.verseBack')}</button>
         <a class="whisper-link solo" href="${five.url}" target="_blank" rel="noopener">
-          язык реально существует ${svgArrow}</a>
+          ${t('eso.exists')} ${svgArrow}</a>
       </div>
 
       <div class="whispers">
-        ${whisper('SickPig', '— вариация языка Pig, которая симулирует свинью. Больную свинью.')}
-        ${whisper('FALSE', '— назван в честь любимого истинностного значения автора.')}
+        ${whisper('SickPig', t('magic.whisper.SickPig'))}
+        ${whisper('FALSE', t('magic.whisper.FALSE'))}
       </div>
 
       ${strangeLangsHtml()}
 
       <div class="plaques wide">
-        ${plaque('brevno', 'откуда взяты странные языки')}
-        ${plaque('ardens', 'кто правда это запускал')}
+        ${plaque('brevno', t('magic.why.strange'))}
+        ${plaque('ardens', t('magic.why.ran'))}
       </div>
     </div>
   </section>`;
@@ -170,7 +167,7 @@ export function mountMagicZone(root: HTMLElement): void {
   const paintSpell = (): void => {
     code.textContent = sigma
       ? `${Array(sigma).fill('Sigma').join(' ')}${sigma ? ' …' : ''}`
-      : '(пусто)';
+      : t('magic.spellEmpty');
   };
   /**
    * Take a full snapshot BEFORE an action. Values are read from the DOM rather
@@ -199,22 +196,22 @@ export function mountMagicZone(root: HTMLElement): void {
   const sigmaBtn = zone.querySelector('#spell-sigma') as HTMLButtonElement | null;
   if (sigmaBtn) {
     sigmaBtn.addEventListener('click', () => {
-      snap(`заклинание из ${sigma} Sigma`);
+      snap(t('magic.spellSaid', { n: sigma }));
       sigma += 1;
       paintSpell();
-      out.textContent = `${sigma} Sigma подряд. дальше — Skibidi`;
+      out.textContent = t('magic.spellMore', { n: sigma });
     });
   }
   const runBtn = zone.querySelector('#spell-run') as HTMLButtonElement | null;
   if (runBtn) {
     runBtn.addEventListener('click', () => {
-      snap(`заклинание из ${sigma} Sigma`);
+      snap(t('magic.spellSaid', { n: sigma }));
       code.textContent = sigma
         ? `${Array(sigma).fill('Sigma').join(' ')} Skibidi`
         : 'Skibidi';
       out.textContent = sigma
-        ? `> компилируется. вывод: ${sigma}`
-        : '> компилируется. вывод: 0 (тоже честно)';
+        ? t('magic.spellOut', { n: sigma })
+        : t('magic.spellOutZero');
       zone.classList.add('cast');
       window.setTimeout(() => zone.classList.remove('cast'), 700);
       sigma = 0;
@@ -226,7 +223,7 @@ export function mountMagicZone(root: HTMLElement): void {
        */
       // The motif always plays (synthesized locally), and the voice is layered on
       // top only if the system has speech voices, so the exhibit is never mute.
-      if (sing) sing.textContent = '▶ sigma boy sigma boy…';
+      if (sing) sing.textContent = t('magic.spellSing');
       const a = audioOnGesture();
       if (a) sigmaMotif(a);
       speakSigma();
@@ -259,7 +256,7 @@ export function mountMagicZone(root: HTMLElement): void {
     makeFloor();
     paintRooms();
     zone.classList.remove('broken');
-    roomsOut.textContent = 'иди по коридору. промахнёшься — сам увидишь';
+    roomsOut.textContent = t('magic.roomsIdle');
   };
   const fall = (): void => {
     floor += 1;
@@ -268,26 +265,26 @@ export function mountMagicZone(root: HTMLElement): void {
       zone.classList.remove('falling');
       if (floor >= FLOORS.length) {
         zone.classList.add('broken');
-        roomsOut.textContent = 'этажи кончились, падать больше некуда. ошибки так и не было ни разу';
+        roomsOut.textContent = t('magic.roomsEnd');
         paintRooms();
         return;
       }
       makeFloor();
       pos = Math.max(0, pos - 1);
       paintRooms();
-      roomsOut.textContent = 'ошибки нет. ты просто провалился сквозь этаж';
+      roomsOut.textContent = t('magic.roomsFall');
     }, 420);
   };
   const step = (d: number): void => {
     if (floor >= FLOORS.length) return;
-    snap(`Backrooms: ${FLOORS[Math.min(floor, FLOORS.length - 1)]}, шаг ${pos}`);
+    snap(t('magic.roomsSaid', { floor: FLOORS[Math.min(floor, FLOORS.length - 1)], pos }));
     pos = Math.max(0, Math.min(holes.length - 1, pos + d));
     paintRooms();
     if (holes[pos]) {
       fall();
       return;
     }
-    roomsOut.textContent = 'идём дальше. пол пока держит';
+    roomsOut.textContent = t('magic.roomsWalk');
   };
   zone.querySelectorAll('[data-step]').forEach((b) => {
     b.addEventListener('click', () => step(Number((b as HTMLElement).dataset.step)));
@@ -305,9 +302,7 @@ export function mountMagicZone(root: HTMLElement): void {
       const prev = history.pop();
       if (!prev) {
         // NOTE: the copy must not point "to the left" — the zone is a single column.
-        verse.textContent =
-          'откатываться некуда: в этой вселенной ты ещё ничего не сделал. ' +
-          'помычи заклинанием или пройдись по коридору — и возвращайся.';
+        verse.textContent = t('magic.verseNone');
         return;
       }
       universe -= 1;
@@ -325,7 +320,7 @@ export function mountMagicZone(root: HTMLElement): void {
       paintRooms();
       zone.classList.add('warp');
       window.setTimeout(() => zone.classList.remove('warp'), 620);
-      verse.textContent = `вселенная ${universe}. здесь было: ${prev.said}. в той, откуда ты пришёл, этого уже не случилось.`;
+      verse.textContent = t('magic.verseWarp', { u: universe, said: prev.said });
     });
   }
 }

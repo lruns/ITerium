@@ -11,6 +11,7 @@
 // IMPORTANT: about a real person, state only their work and confirmed facts.
 
 import { svgArrow } from '../chrome';
+import { t, tl } from '../i18n';
 import { later, reducedMotion } from '../runtime';
 import { embedHtml, mountEmbed, type EmbedOpts } from './embed';
 
@@ -19,45 +20,38 @@ const FILM: EmbedOpts = {
   id: 'trl',
   videoId: 'mqAf5lOJZew',
   poster: 'assets/posters/homotopy.jpg',
-  alt: 'кадр трэш-трейлера «Группы и теория гомотопий»',
-  cap: 'включить трейлер здесь',
+  alt: t('orc.alt'),
+  cap: t('orc.cap'),
   embeddable: true,
-  note: 'ютуб подгрузится только после клика (nocookie, без автозагрузки)',
+  note: t('orc.note'),
 };
 
-const ANSWERS = [
-  'гомологии.',
-  'всегда гомологии.',
-  'ты уже знаешь: гомологии',
-  '…гомологии',
-  'гомологии. следующий вопрос',
-];
+const ANSWERS = tl('oracleAnswers');
 
 export function oracleHtml(): string {
   return `<div class="obj mid toy oracle reveal" id="oracle">
     <div class="obj-title">$ ./oracle --ask=future</div>
-    <p class="obj-hint top">лекция, смонтированная как трейлер блокбастера. смотри — и спроси оракула</p>
+    <p class="obj-hint top">${t('orc.hint')}</p>
 
     ${embedHtml(FILM)}
 
-    <p class="orc-lead">а посередине лекции — вот это:</p>
+    <p class="orc-lead">${t('orc.lead')}</p>
     <div class="orc-frame">
       <div class="orc-vign" aria-hidden="true"></div>
-      <p class="orc-answer" id="orc-answer" aria-live="polite">задавай мне любые вопросы</p>
+      <p class="orc-answer" id="orc-answer" aria-live="polite">${t('orc.idle')}</p>
     </div>
     <div class="orc-row">
       <input class="orc-input" id="orc-input" type="text" maxlength="90"
-             placeholder="спроси оракула о своём будущем" aria-label="вопрос оракулу"/>
-      <button class="obj-btn" id="orc-go" type="button">спросить</button>
+             placeholder="${t('orc.placeholder')}" aria-label="${t('orc.inputAria')}"/>
+      <button class="obj-btn" id="orc-go" type="button">${t('orc.go')}</button>
     </div>
-    <p class="orc-out" id="orc-out">> вопросов задано: 0</p>
-    <p class="orc-source">из лекции: знакомый математик спрашивал о своём будущем —
-      «она всегда отвечала: гомологии»</p>
-    <p class="trl-credits">лектор: Роман Михайлов · монтаж: конкурс трэш-роликов Лекториума, 2014</p>
+    <p class="orc-out" id="orc-out">${t('orc.asked', { n: 0 })}</p>
+    <p class="orc-source">${t('orc.source')}</p>
+    <p class="trl-credits">${t('orc.credits')}</p>
     <a class="plate" href="https://www.youtube.com/watch?v=mqAf5lOJZew" target="_blank" rel="noopener">
-      смотреть сам трейлер ${svgArrow}</a>
+      ${t('orc.plate1')} ${svgArrow}</a>
     <a class="plate" href="https://www.lektorium.tv/course/22939" target="_blank" rel="noopener">
-      полный курс на Лекториуме ${svgArrow}</a>
+      ${t('orc.plate2')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -81,17 +75,14 @@ export function mountOracle(root: HTMLElement): void {
   const ask = (): void => {
     const q = input.value.trim();
     if (!q) {
-      answer.textContent = 'сначала спроси. потом гомологии';
+      answer.textContent = t('orc.empty');
       hit();
       return;
     }
     asked += 1;
     answer.textContent = ANSWERS[(asked - 1) % ANSWERS.length];
     hit();
-    out.textContent =
-      asked < 3
-        ? `> вопросов задано: ${asked}`
-        : `> вопросов задано: ${asked}. ответ не меняется — это и есть теорема`;
+    out.textContent = asked < 3 ? t('orc.asked', { n: asked }) : t('orc.theorem', { n: asked });
     input.value = '';
   };
 

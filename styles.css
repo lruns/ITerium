@@ -714,6 +714,47 @@ img { max-width: 100%; display: block; }
 .chip.link:hover { opacity: 1; }
 .pico { width: 11px; height: 11px; flex: none; }
 
+/* ru-only: warning shown while hovering the neutral mark on an Instagram card.
+   A small terminal-styled panel; touch has no hover, so the hall footer note
+   carries that case. */
+.pnote { display: inline-flex; position: relative; align-items: center; }
+.pnote-tip {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  z-index: 30;
+  width: 30ch;
+  max-width: 74vw;
+  padding: 7px 9px;
+  transform: translateX(-50%) translateY(-3px);
+  background: #05090c;
+  border: 1px solid rgba(255, 180, 84, 0.42);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.66);
+  color: #e2d3b6;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  white-space: normal;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease,
+    visibility 0.16s;
+}
+.pnote:hover .pnote-tip,
+.chip:hover .pnote-tip,
+.chip:focus-visible .pnote-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pnote-tip { transition: none; }
+}
+
 .card-cmd {
   font-size: 11.5px;
   color: #ffc46a;
@@ -2739,4 +2780,63 @@ html.snap { scroll-snap-type: y proximity; }
   .finale-pix, .finale-sky, .finale-body { transition: none; }
   .slot.l .drift .card.in, .slot.r .drift .card.in, .slot.c .drift .card.in,
   .obj.side.reveal, .obj.side.reveal.in, .obj.mid.reveal, .obj.mid.reveal.in { transform: none; }
+}
+
+/* ============ LANGUAGE SWITCH AND LEGAL FOOTNOTE ============ */
+/* [ru] · [en] — same typeface as everything around it, tucked into the corner so it
+   covers nothing. The active language glows, the other one waits in a whisper. */
+
+.langsw {
+  position: fixed;
+  top: 38px;
+  right: 12px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(125, 255, 160, 0.22);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1;
+}
+.langsw-b {
+  padding: 2px 3px;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: #4d6b56;
+  cursor: pointer;
+}
+.langsw-b:hover { color: #9fe8b2; }
+.langsw-b.on { color: var(--green); cursor: default; }
+.langsw-sep { color: #33473a; }
+
+.screen-humor .langsw { border-color: rgba(255, 180, 84, 0.24); }
+.screen-humor .langsw-b { color: #7a5f34; }
+.screen-humor .langsw-b:hover { color: #ffd9a0; }
+.screen-humor .langsw-b.on { color: var(--amber); }
+.screen-humor .langsw-sep { color: #4a3a20; }
+
+.screen-art .langsw { border-color: rgba(141, 245, 232, 0.26); }
+.screen-art .langsw-b { color: #46706e; }
+.screen-art .langsw-b:hover { color: #d6fcf8; }
+.screen-art .langsw-b.on { color: var(--teal); }
+.screen-art .langsw-sep { color: #2c4a48; }
+
+/* ru-only legal footnote: small, grey, no play — a legal line, not an exhibit */
+.legal-note {
+  margin: 14px auto 0;
+  max-width: 62ch;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #3f4a43;
+  text-align: center;
+}
+.room-foot .legal-note { color: #4a4438; }
+
+@media (max-width: 700px) {
+  .langsw { top: 8px; right: 8px; font-size: 11px; padding: 3px 6px; }
+  .legal-note { font-size: 9.5px; }
 }

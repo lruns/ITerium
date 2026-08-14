@@ -4,8 +4,20 @@
 // viewport to 1200px. Horizontal scrolling IS allowed in that mode — a deliberate
 // choice by the visitor, the only exception to the no-hscroll rule.
 
+import { langSwitchHtml, mountLangSwitch, t } from './i18n';
+
 const SMALL = 700;
 let forced = false;
+
+/** The plate is drawn with characters and its words come from the dictionary, so each
+    line is centred to the width of the frame. */
+const PLATE = 15;
+
+function plateLine(text: string): string {
+  const s = text.length > PLATE ? text.slice(0, PLATE) : text;
+  const left = Math.ceil((PLATE - s.length) / 2);
+  return `|${' '.repeat(left)}${s}${' '.repeat(PLATE - s.length - left)}|`;
+}
 
 export function smallScreen(): boolean {
   return window.innerWidth < SMALL;
@@ -26,21 +38,20 @@ export function renderMobileGate(app: HTMLElement, room: 'humor' | 'art', onGo: 
       <div class="gate">
         <pre class="gate-art" aria-hidden="true">  .---------------.
   |  []  []  []   |
-  |   мобильный   |
-  |  зал строится |
+  ${plateLine(t('mobile.art1'))}
+  ${plateLine(t('mobile.art2'))}
   '---------------'
        /|     |\\</pre>
         <p class="cmd">$ cd /iterium/${room}</p>
         <h1>${title}</h1>
-        <p class="gate-note">
-          зал уже есть, но он большой и объёмный — на маленьком экране пока
-          разъезжается. мобильную версию собираем к 1.0.
-        </p>
-        <button class="obj-btn" id="gate-go" type="button">очень хочется — посмотреть как на компе</button>
-        <p class="gate-warn">будет как на большом экране: мелко и с прокруткой вбок. так и задумано</p>
-        <a class="gate-back" href="#menu">&lt; cd .. вернуться в терминал</a>
+        <p class="gate-note">${t('mobile.note')}</p>
+        <button class="obj-btn" id="gate-go" type="button">${t('mobile.go')}</button>
+        <p class="gate-warn">${t('mobile.warn')}</p>
+        <a class="gate-back" href="#menu">&lt; cd .. ${t('mobile.back')}</a>
       </div>
+      ${langSwitchHtml()}
     </div>`;
+  mountLangSwitch(app);
   const btn = app.querySelector('#gate-go') as HTMLButtonElement | null;
   if (btn) {
     btn.addEventListener('click', () => {

@@ -6,6 +6,7 @@
 
 import { intercalProgram } from '../data';
 import { svgArrow } from '../chrome';
+import { t } from '../i18n';
 
 const N = intercalProgram.length;
 const MIN = Math.ceil(N / 5); // below a fifth: "insufficiently polite"
@@ -22,11 +23,11 @@ export function intercalHtml(): string {
     .join('');
   return `<div class="obj mid toy reveal" id="icl">
     <div class="obj-title">$ ick hello.i</div>
-    <p class="icl-lead">кликай по строке — она станет вежливой. компилятор считает «пожалуйста».</p>
+    <p class="icl-lead">${t('icl.lead')}</p>
     <div class="icl-code-box">${lines}</div>
     <div class="icl-bar">
-      <span>PLEASE: <b id="icl-count">0</b> из ${N}</span>
-      <span class="icl-window">можно от ${MIN} до ${MAX}</span>
+      <span>PLEASE: <b id="icl-count">0</b> ${t('icl.of')} ${N}</span>
+      <span class="icl-window">${t('icl.window', { min: MIN, max: MAX })}</span>
       <span class="icl-spacer"></span>
       <button class="obj-btn small" id="icl-minus" type="button">− PLEASE</button>
       <button class="obj-btn small" id="icl-plus" type="button">+ PLEASE</button>
@@ -34,7 +35,7 @@ export function intercalHtml(): string {
     </div>
     <pre class="icl-out" id="icl-out">$ _</pre>
     <a class="plate" href="https://esolangs.org/wiki/INTERCAL" target="_blank" rel="noopener">
-      язык реально существует ${svgArrow}</a>
+      ${t('eso.exists')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -81,7 +82,7 @@ export function mountIntercal(root: HTMLElement): void {
       out.className = 'icl-out err';
       return;
     }
-    out.textContent = 'Hello, world!\n\n        PROGRAM ENDED NORMALLY. вежливость засчитана';
+    out.textContent = t('icl.ok');
     out.className = 'icl-out ok';
   };
 

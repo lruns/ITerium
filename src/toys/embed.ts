@@ -10,6 +10,8 @@
 //  2. the video's author disabled embedding — the player says "Video unavailable".
 // In both cases the click opens the video on YouTube in a new tab instead.
 
+import { t } from '../i18n';
+
 const playIcon =
   '<svg viewBox="0 0 64 64" class="play-ico" aria-hidden="true">' +
   '<circle cx="32" cy="32" r="27" fill="rgba(10,7,3,0.72)" stroke="currentColor" stroke-width="2"/>' +
@@ -59,14 +61,12 @@ export function mountEmbed(root: HTMLElement, o: EmbedOpts): void {
     if (box.classList.contains('live')) return;
     if (!o.embeddable) {
       window.open(watchUrl(o.videoId), '_blank', 'noopener');
-      note.textContent = 'встраивание у этого ролика закрыто автором — открыли его на ютубе';
+      note.textContent = t('embed.blocked');
       return;
     }
     if (!canEmbed()) {
       window.open(watchUrl(o.videoId), '_blank', 'noopener');
-      note.textContent =
-        'локально (file://) ютуб эмбед не пускает — открыли ролик в новой вкладке. ' +
-        'на сайте он играет прямо здесь';
+      note.textContent = t('embed.file');
       return;
     }
     const frame = document.createElement('iframe');
@@ -78,6 +78,6 @@ export function mountEmbed(root: HTMLElement, o: EmbedOpts): void {
     frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
     box.classList.add('live');
     box.appendChild(frame);
-    note.textContent = 'ролик играет с ютуба (nocookie)';
+    note.textContent = t('embed.live');
   });
 }

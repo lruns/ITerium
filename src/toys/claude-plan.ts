@@ -15,6 +15,7 @@
 //    belong to the author, who is credited with a link to the clip next to this.
 
 import { svgArrow } from '../chrome';
+import { t } from '../i18n';
 import { later, reducedMotion } from '../runtime';
 import { embedHtml, mountEmbed, type EmbedOpts } from './embed';
 
@@ -25,10 +26,10 @@ const EMBED: EmbedOpts = {
   id: 'lyric',
   videoId: VIDEO,
   poster: POSTER,
-  alt: "кадр клипа Claude's Plan",
-  cap: 'открыть клип на ютубе',
+  alt: t('plan.alt'),
+  cap: t('plan.cap'),
   embeddable: false, // embedding disabled by the author — verified in a real browser
-  note: 'у этого клипа встраивание закрыто автором: он откроется на ютубе, в новой вкладке',
+  note: t('plan.note'),
 };
 
 type Skin = 'term' | 'diff' | 'md' | 'alert' | 'gauge' | 'keys';
@@ -43,13 +44,13 @@ interface Beat {
 }
 
 const BEATS: Beat[] = [
-  { en: 'I start my day in plan mode', ru: 'день начинается в plan mode', at: '0:42', skin: 'term' },
-  { en: 'I write lines, but not for code', ru: 'строки пишу — только не код', at: '0:46', skin: 'md' },
-  { en: 'Server down cuz MCP', ru: 'сервер лёг из-за MCP', at: '0:53', skin: 'alert' },
-  { en: 'Claude knows my API keys', ru: 'Клод знает мои ключи', at: '0:56', skin: 'keys' },
-  { en: 'Make another .md', ru: 'ещё один .md вместо работы', at: '0:59', skin: 'md' },
-  { en: 'bad changes they shipping', ru: 'катят плохие правки', at: '1:04', skin: 'diff' },
-  { en: 'Gotta watch context window', ru: 'следи за контекстным окном', at: '1:38', skin: 'gauge' },
+  { en: 'I start my day in plan mode', ru: t('plan.beat.0'), at: '0:42', skin: 'term' },
+  { en: 'I write lines, but not for code', ru: t('plan.beat.1'), at: '0:46', skin: 'md' },
+  { en: 'Server down cuz MCP', ru: t('plan.beat.2'), at: '0:53', skin: 'alert' },
+  { en: 'Claude knows my API keys', ru: t('plan.beat.3'), at: '0:56', skin: 'keys' },
+  { en: 'Make another .md', ru: t('plan.beat.4'), at: '0:59', skin: 'md' },
+  { en: 'bad changes they shipping', ru: t('plan.beat.5'), at: '1:04', skin: 'diff' },
+  { en: 'Gotta watch context window', ru: t('plan.beat.6'), at: '1:38', skin: 'gauge' },
 ];
 
 /** Each line gets its own UI skin, as in the clip. All markup is drawn by us. */
@@ -97,20 +98,20 @@ function skinHtml(b: Beat): string {
 export function claudePlanHtml(): string {
   return `<div class="obj mid toy lyric reveal" id="lyric">
     <div class="obj-title">$ claude --make-lyric-video</div>
-    <p class="obj-hint top">клип снял сам Клод: строчки песни он рисует интерфейсами. вот караоке — с переводом</p>
+    <p class="obj-hint top">${t('plan.hint')}</p>
 
     ${embedHtml(EMBED)}
 
     <div class="lyric-screen" id="lyric-screen" aria-live="polite">
-      <p class="lyric-idle" id="lyric-idle">[ пустой таймлайн ]</p>
+      <p class="lyric-idle" id="lyric-idle">${t('plan.idle')}</p>
     </div>
     <div class="lyric-row">
-      <button class="obj-btn" id="lyric-go" type="button">включить караоке</button>
-      <button class="obj-btn small" id="lyric-next" type="button">дальше</button>
-      <span class="lyric-stat" id="lyric-stat">строка 0 / ${BEATS.length}</span>
+      <button class="obj-btn" id="lyric-go" type="button">${t('plan.go')}</button>
+      <button class="obj-btn small" id="lyric-next" type="button">${t('plan.next')}</button>
+      <span class="lyric-stat" id="lyric-stat">${t('plan.stat', { n: 0, total: BEATS.length })}</span>
     </div>
     <a class="plate lyric-door" id="lyric-door" href="https://www.youtube.com/watch?v=${VIDEO}"
-       target="_blank" rel="noopener">дальше — в клипе ${svgArrow}</a>
+       target="_blank" rel="noopener">${t('plan.door')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -140,7 +141,7 @@ export function mountClaudePlan(root: HTMLElement): void {
       card.classList.add('glitch');
       later(() => card.classList.remove('glitch'), 380);
     }
-    stat.textContent = `строка ${i + 1} / ${BEATS.length}`;
+    stat.textContent = t('plan.stat', { n: i + 1, total: BEATS.length });
   };
 
   const step = (): void => {
@@ -148,8 +149,8 @@ export function mountClaudePlan(root: HTMLElement): void {
     if (i + 1 >= BEATS.length) {
       auto = false;
       host.classList.add('done');
-      go.textContent = 'ещё дубль';
-      stat.textContent = `строка ${BEATS.length} / ${BEATS.length} · конец`;
+      go.textContent = t('plan.again');
+      stat.textContent = t('plan.statEnd', { n: BEATS.length, total: BEATS.length });
       return;
     }
     show(i + 1);

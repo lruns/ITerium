@@ -6,6 +6,7 @@
 // code is copied; the originals are credited with links instead.
 
 import { authorChipHtml } from '../chrome';
+import { t, tl } from '../i18n';
 import { onCleanup, reducedMotion } from '../runtime';
 
 const INK = ' .·:-=+*#%@';
@@ -15,9 +16,9 @@ const INK = ' .·:-=+*#%@';
 export function inkHtml(): string {
   return `<section class="station ink">
     <p class="station-cmd">$ ./ink --alive</p>
-    <h3>чернила ещё не высохли</h3>
+    <h3>${t('st.ink.title')}</h3>
     <pre class="ink-field" id="ink-field" aria-hidden="true"></pre>
-    <p class="station-note">буквы — не текст, а вещество. проведи по ним мышкой</p>
+    <p class="station-note">${t('st.ink.note')}</p>
   </section>`;
 }
 
@@ -164,11 +165,11 @@ const PICTURES: string[][] = [
 export function calendarHtml(): string {
   return `<section class="station cal">
     <p class="station-cmd">$ ./calendar --as=canvas</p>
-    <h3>расписание как холст</h3>
+    <h3>${t('st.cal.title')}</h3>
     <div class="cal-grid" id="cal-grid"></div>
-    <p class="station-note" id="cal-note">встречи проступают по одной — а ты закрашивай клетки сам, твои встречи дополнят картинку</p>
+    <p class="station-note" id="cal-note">${t('st.cal.note')}</p>
     ${authorChipHtml(
-      'по мотивам работы @jordan.gladman',
+      t('st.cal.chip'),
       'instagram',
       'https://www.instagram.com/reel/DbBZDozOtz-/',
       'https://www.instagram.com/jordan.gladman/',
@@ -213,13 +214,7 @@ export function mountCalendar(root: ParentNode): void {
   // Clicking a cell adds the visitor's own "meeting": those cells get a separate
   // colour and stay on top of whatever picture is currently drawing.
   let mine = 0;
-  const MINE_WORDS = [
-    'первая встреча в календаре. пиксель',
-    'две встречи. уже композиция',
-    'расписание становится холстом',
-    'ты рисуешь неделей',
-    'у художника это заняло тысячи встреч',
-  ];
+  const MINE_WORDS = tl('calendarMine');
   grid.addEventListener('click', (ev) => {
     const cell = ev.target as HTMLElement;
     if (cell.tagName !== 'I') return;
@@ -229,8 +224,8 @@ export function mountCalendar(root: ParentNode): void {
     if (mine < 0) mine = 0;
     if (note) {
       note.textContent = mine
-        ? `${MINE_WORDS[Math.min(mine, MINE_WORDS.length) - 1]} · твоих встреч: ${mine}`
-        : 'встречи проступают по одной — а ты закрашивай клетки сам, твои встречи дополнят картинку';
+        ? t('st.cal.mine', { word: MINE_WORDS[Math.min(mine, MINE_WORDS.length) - 1], n: mine })
+        : t('st.cal.note');
     }
   });
 
@@ -260,9 +255,9 @@ export function mountCalendar(root: ParentNode): void {
 export function graphHtml(): string {
   return `<section class="station graph">
     <p class="station-cmd">$ ./graph --bloom</p>
-    <h3>связи, которых не было</h3>
+    <h3>${t('st.graph.title')}</h3>
     <canvas class="graph-canvas" id="graph-canvas" width="620" height="330"></canvas>
-    <p class="station-note" id="graph-note">каждая новая точка тянется к тем, кто уже здесь. ткни — посадишь свою, узлы потянутся к руке</p>
+    <p class="station-note" id="graph-note">${t('st.graph.note')}</p>
   </section>`;
 }
 
@@ -334,9 +329,7 @@ export function mountGraph(root: ParentNode): void {
     mine += 1;
     if (note) {
       note.textContent =
-        mine < 3
-          ? `твоих связей: ${mine}. каждая нашла себе двух соседей`
-          : `твоих связей: ${mine}. это уже твой граф, а не наш`;
+        mine < 3 ? t('st.graph.few', { n: mine }) : t('st.graph.many', { n: mine });
     }
   });
 
@@ -416,13 +409,8 @@ export function mountGraph(root: ParentNode): void {
 
 /* ------------------------------ machine vision ------------------------------ */
 
-const VISION_TAGS = ['человек? 0.71', 'что-то тёплое 0.63', 'дом 0.94', 'дерево 0.88', 'память 0.12'];
-const VISION_LINES = [
-  'здесь кто-то стоял',
-  'модель уверена на 0.63',
-  'the earth is still warm from you',
-  'объект не найден в словаре',
-];
+const VISION_TAGS = tl('visionTags');
+const VISION_LINES = tl('visionLines');
 
 /**
  * What the model "sees" where the pointer is. The world is split by height into sky,
@@ -430,21 +418,21 @@ const VISION_LINES = [
  * pointer and the labels change with its vertical position.
  */
 const VISION_ZONES: Array<{ upto: number; tag: string; line: string }> = [
-  { upto: 0.3, tag: 'небо 0.98', line: 'небо. распознано с первой попытки, ничего больше не сказано' },
-  { upto: 0.52, tag: 'облако? 0.44', line: 'облако или дым. модель не уверена и всё равно отвечает' },
-  { upto: 0.66, tag: 'горизонт 0.81', line: 'граница между двумя ничем. подписано как объект' },
-  { upto: 0.8, tag: 'кто-то стоял 0.29', line: 'the earth is still warm from you' },
-  { upto: 1.01, tag: 'земля 0.93', line: 'земля. тёплая. это не метрика, это она так сказала' },
+  { upto: 0.3, tag: t('st.vision.zone0.tag'), line: t('st.vision.zone0.line') },
+  { upto: 0.52, tag: t('st.vision.zone1.tag'), line: t('st.vision.zone1.line') },
+  { upto: 0.66, tag: t('st.vision.zone2.tag'), line: t('st.vision.zone2.line') },
+  { upto: 0.8, tag: t('st.vision.zone3.tag'), line: t('st.vision.zone3.line') },
+  { upto: 1.01, tag: t('st.vision.zone4.tag'), line: t('st.vision.zone4.line') },
 ];
 
 export function visionHtml(): string {
   return `<section class="station vision">
     <p class="station-cmd">$ ./vision --read-poetry</p>
-    <h3>машинное зрение читает стихи</h3>
+    <h3>${t('st.vision.title')}</h3>
     <canvas class="vision-canvas" id="vision-canvas" width="620" height="330"></canvas>
-    <p class="station-note" id="vision-line">веди мышкой по кадру — рамки пойдут за тобой и подпишут то место, куда ты смотришь</p>
+    <p class="station-note" id="vision-line">${t('st.vision.note')}</p>
     ${authorChipHtml(
-      'по мотивам работы @drezzdon',
+      t('st.vision.chip'),
       'tiktok',
       'https://www.tiktok.com/@drezzdon/video/7494013737150450990',
       'https://www.tiktok.com/@drezzdon',

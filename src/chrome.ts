@@ -2,6 +2,7 @@
 // Every exhibit must carry an author and a link to the original source.
 
 import type { Exhibit } from './data';
+import { isRu, t } from './i18n';
 import { onCleanup } from './runtime';
 
 export const svgArrow =
@@ -11,7 +12,7 @@ const svgBack =
   '<svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 /** Platform icons are inline SVG only; emoji glyphs are not used anywhere. */
-function platformIcon(p: string): string {
+function platformGlyph(p: string): string {
   const o = '<svg class="pico" viewBox="0 0 16 16" aria-hidden="true">';
   if (p === 'youtube') {
     return `${o}<rect x="1" y="3.5" width="14" height="9" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6.6 6.2 10.4 8l-3.8 1.8z" fill="currentColor"/></svg>`;
@@ -26,13 +27,37 @@ function platformIcon(p: string): string {
 }
 
 /**
+ * Neutral "external video" mark: a circle with a play triangle. Same size and
+ * stroke as the platform icons, just without any brand shape.
+ */
+const svgVideoMark =
+  '<svg class="pico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6.6 5.6 10.6 8l-4 2.4z" fill="currentColor"/></svg>';
+
+function attr(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+/**
+ * Platform mark on a card. In the ru locale Instagram cards get the neutral mark
+ * instead of the brand icon, and hovering it shows the ru-only legal footnote.
+ * Touch has no hover — that case is covered by the same footnote in the hall
+ * footer. The en locale is untouched.
+ */
+function platformIcon(p: string): string {
+  if (p !== 'instagram' || !isRu()) return platformGlyph(p);
+  const note = t('legal.meta');
+  return `<span class="pnote" title="${attr(note)}">${svgVideoMark}<span
+    class="pnote-tip" role="tooltip">${note}</span></span>`;
+}
+
+/**
  * Card image. When no frame of the original exists locally (third-party video is
  * never downloaded, for rights reasons), the exhibit supplies its own inline SVG
  * drawing, which is rendered instead.
  */
 function shotHtml(e: Exhibit): string {
   if (e.art) return `<div class="shot own">${e.art}</div>`;
-  return `<div class="shot"><img src="${e.poster}" alt="кадр: ${e.title}" loading="lazy"/></div>`;
+  return `<div class="shot"><img src="${e.poster}" alt="${t('chrome.shotAlt', { title: e.title })}" loading="lazy"/></div>`;
 }
 
 export function num(i: number): string {
@@ -50,7 +75,7 @@ function metaHtml(e: Exhibit): string {
   return `
       <div class="meta">
         <a class="chip link author" href="${e.authorUrl}" target="_blank" rel="noopener"
-           aria-label="автор ${e.author} — открыть профиль">${platformIcon(e.platform)}${e.author} ${svgArrow}</a>
+           aria-label="${t('chrome.authorAria', { author: e.author })}">${platformIcon(e.platform)}${e.author} ${svgArrow}</a>
         ${extra}
       </div>`;
 }
@@ -79,7 +104,7 @@ export function cardHtml(e: Exhibit, i: number, total: number, room: 'humor' | '
         <p class="hook">${e.hook}</p>
         ${meta}
       </div>
-      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} — смотреть саму работу"></a>
+      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${t('chrome.workAria', { title: e.title })}"></a>
     </div>
   </article>`;
   }
@@ -98,11 +123,11 @@ export function cardHtml(e: Exhibit, i: number, total: number, room: 'humor' | '
         <p class="hook">${e.hook}</p>
         ${meta}
       </div>
-      <button class="cover zoom" type="button" aria-label="${e.title} — приблизить карточку"></button>
+      <button class="cover zoom" type="button" aria-label="${t('chrome.zoomAria', { title: e.title })}"></button>
       <div class="sat-actions">
-        <a class="chip link" href="${e.url}" target="_blank" rel="noopener">ролик ${svgArrow}</a>
-        <a class="chip link" href="${e.authorUrl}" target="_blank" rel="noopener">автор ${svgArrow}</a>
-        <button class="chip sat-close" type="button">закрыть</button>
+        <a class="chip link" href="${e.url}" target="_blank" rel="noopener">${t('chrome.chipVideo')} ${svgArrow}</a>
+        <a class="chip link" href="${e.authorUrl}" target="_blank" rel="noopener">${t('chrome.chipAuthor')} ${svgArrow}</a>
+        <button class="chip sat-close" type="button">${t('chrome.close')}</button>
       </div>
     </div>
   </article>`;
@@ -126,7 +151,7 @@ export function plaqueHtml(e: Exhibit, why: string): string {
         <p class="hook">${e.hook}</p>
         ${meta}
       </div>
-      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} — смотреть саму работу"></a>
+      <a class="cover" href="${e.url}" target="_blank" rel="noopener" aria-label="${t('chrome.workAria', { title: e.title })}"></a>
     </div>
   </article>`;
 }
@@ -136,9 +161,9 @@ export function plaqueHtml(e: Exhibit, why: string): string {
  * IMPORTANT: it deliberately explains nothing. A dashed frame and a short
  * "coming soon" label, nothing else — no name, no link, no quote.
  */
-export function reservedHtml(label = 'скоро'): string {
+export function reservedHtml(label = t('chrome.soon')): string {
   return `
-  <article class="card polaroid reserved o-wide reveal" aria-label="место под будущий экспонат">
+  <article class="card polaroid reserved o-wide reveal" aria-label="${t('chrome.reservedAria')}">
     <div class="frame">
       <div class="shot empty" aria-hidden="true">
         <svg viewBox="0 0 320 180" class="own-shot">
@@ -174,8 +199,8 @@ export function authorChipHtml(
   return `<span class="achip">
     <button class="chip link achip-btn" type="button" aria-expanded="false">${platformIcon(platform)}${label}</button>
     <span class="achip-pop" hidden>
-      <a class="chip link" href="${videoUrl}" target="_blank" rel="noopener">ролик ${svgArrow}</a>
-      <a class="chip link" href="${authorUrl}" target="_blank" rel="noopener">автор ${svgArrow}</a>
+      <a class="chip link" href="${videoUrl}" target="_blank" rel="noopener">${t('chrome.chipVideo')} ${svgArrow}</a>
+      <a class="chip link" href="${authorUrl}" target="_blank" rel="noopener">${t('chrome.chipAuthor')} ${svgArrow}</a>
     </span>
   </span>`;
 }

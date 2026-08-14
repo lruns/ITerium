@@ -7,6 +7,7 @@
 
 import { svgArrow } from '../chrome';
 import { audioOnGesture, omBless, waterSplash } from '../audio';
+import { t } from '../i18n';
 import { reducedMotion, stepEngine } from '../runtime';
 
 interface Sin {
@@ -16,11 +17,11 @@ interface Sin {
 }
 
 const SINS: Sin[] = [
-  { what: 'лимиты Claude', was: '0 / 0 осталось', now: 'сброшены' },
-  { what: 'карма', was: '−214 за тот прод-деплой в пятницу', now: 'очищена' },
-  { what: 'кредиты', was: 'списано за месяц: много', now: 'прощены' },
-  { what: 'судимости', was: 'rm -rf в чужой ветке', now: 'сняты' },
-  { what: 'cookies', was: 'мы ценим вашу приватность', now: 'съедены' },
+  { what: t('rit.sin.0.what'), was: t('rit.sin.0.was'), now: t('rit.sin.0.now') },
+  { what: t('rit.sin.1.what'), was: t('rit.sin.1.was'), now: t('rit.sin.1.now') },
+  { what: t('rit.sin.2.what'), was: t('rit.sin.2.was'), now: t('rit.sin.2.now') },
+  { what: t('rit.sin.3.what'), was: t('rit.sin.3.was'), now: t('rit.sin.3.now') },
+  { what: t('rit.sin.4.what'), was: t('rit.sin.4.was'), now: t('rit.sin.4.now') },
 ];
 
 export function ritualHtml(): string {
@@ -33,7 +34,7 @@ export function ritualHtml(): string {
   ).join('');
   return `<div class="obj mid toy rit reveal" id="rit">
     <div class="obj-title">$ sudo ./ritual --reset=all</div>
-    <p class="obj-hint top">чаша, ноутбук, вода. дальше по обряду</p>
+    <p class="obj-hint top">${t('rit.hint')}</p>
     <div class="rit-altar" id="rit-altar">
       <div class="rit-wave" id="rit-wave" aria-hidden="true"></div>
       <pre class="rit-bowl" aria-hidden="true">     ___________
@@ -41,17 +42,17 @@ export function ritualHtml(): string {
      \\_______/
        |   |</pre>
       <ul class="rit-list">${rows}</ul>
-      <p class="rit-final" id="rit-final" aria-hidden="true">ОМ</p>
+      <p class="rit-final" id="rit-final" aria-hidden="true">${t('rit.om')}</p>
     </div>
-    <p class="rit-status" id="rit-status">> обряд не начат. лимиты на месте (к сожалению)</p>
+    <p class="rit-status" id="rit-status">${t('rit.idle')}</p>
     <div class="rit-row-btn">
-      <button class="obj-btn" id="rit-go" type="button">облить себя водой</button>
-      <span class="med-hint">со звуком (синтез, по твоему клику)</span>
+      <button class="obj-btn" id="rit-go" type="button">${t('rit.go')}</button>
+      <span class="med-hint">${t('sound.hint')}</span>
     </div>
     <a class="plate" href="https://www.instagram.com/reel/DaZpzZ4h7XM/" target="_blank" rel="noopener">
-      оригинал обряда: @webbyvaris ${svgArrow}</a>
+      ${t('rit.plate1')} ${svgArrow}</a>
     <a class="plate" href="https://www.youtube.com/watch?v=RXql3TQHMe8" target="_blank" rel="noopener">
-      сертифицированный курс очищения: Yoga for beginners, класс 1 (1992, improved quality) ${svgArrow}</a>
+      ${t('rit.plate2')} ${svgArrow}</a>
   </div>`;
 }
 
@@ -71,17 +72,17 @@ export function mountRitual(root: HTMLElement): void {
     rows.forEach((r) => r.classList.remove('clean'));
     altar.classList.remove('wet', 'blessed');
     final.classList.remove('on');
-    status.textContent = '> обряд не начат. лимиты на месте (к сожалению)';
+    status.textContent = t('rit.idle');
   };
 
   const bless = (): void => {
     altar.classList.add('blessed');
     final.classList.add('on');
-    status.textContent = '> всё чисто. можно грешить заново';
+    status.textContent = t('rit.clean');
     const a = audioOnGesture();
     if (a) omBless(a);
     busy = false;
-    go.textContent = 'начать сначала';
+    go.textContent = t('rit.again');
   };
 
   const wash = (i: number): void => {
@@ -90,7 +91,7 @@ export function mountRitual(root: HTMLElement): void {
       return;
     }
     rows[i].classList.add('clean');
-    status.textContent = `> ${SINS[i].what}: ${SINS[i].now}`;
+    status.textContent = t('rit.washed', { what: SINS[i].what, now: SINS[i].now });
     engine.next(() => wash(i + 1), 620);
   };
 
@@ -98,14 +99,14 @@ export function mountRitual(root: HTMLElement): void {
     if (busy) return;
     if (final.classList.contains('on')) {
       reset();
-      go.textContent = 'облить себя водой';
+      go.textContent = t('rit.go');
       return;
     }
     busy = true;
     const a = audioOnGesture();
     if (a) waterSplash(a);
     altar.classList.add('wet');
-    status.textContent = '> вода пошла…';
+    status.textContent = t('rit.water');
     if (still) {
       rows.forEach((r) => r.classList.add('clean'));
       bless();

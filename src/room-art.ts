@@ -13,6 +13,7 @@
 
 import { authorChipHtml, backBtn, cardHtml, modeline, mountAuthorChips, startAtBottom } from './chrome';
 import { artExhibits, type Exhibit } from './data';
+import { langSwitchHtml, mountLangSwitch, t } from './i18n';
 import { liveModeline, onCleanup, onScroll, reducedMotion, revealOnScroll } from './runtime';
 import { startSpiral3D, type RopeMood } from './spiral3d';
 import { startStars, type SkyScene } from './stars';
@@ -111,7 +112,7 @@ export function renderArt(app: HTMLElement): void {
 
   const stops = STATIONS.map(() => '<div class="stop"></div>').join('');
   const toggle = `<button class="ml-toggle" id="ml-fly" type="button" aria-pressed="false">
-      <span class="ml-toggle-dot" aria-hidden="true"></span><span id="ml-fly-label">по станциям</span>
+      <span class="ml-toggle-dot" aria-hidden="true"></span><span id="ml-fly-label">${t('art.flyStations')}</span>
     </button>`;
 
   app.innerHTML = `
@@ -127,26 +128,27 @@ export function renderArt(app: HTMLElement): void {
         <div class="finale-sky" aria-hidden="true"></div>
         <canvas class="finale-pix" id="finale-pix" aria-hidden="true"></canvas>
         <div class="finale-body">
-          <p class="finale-line">никто не смотрит вверх — а ты посмотрел</p>
+          <p class="finale-line">${t('art.finaleLine')}</p>
           <span class="finale-chip">${authorChipHtml(
-            'небо: @coolacloy',
+            t('art.finaleChip'),
             'instagram',
             'https://www.instagram.com/reel/CvaIWgJut5d/',
             'https://www.instagram.com/coolacloy/',
           )}</span>
-          <p class="epigraph small">…виток продолжается. зал строится</p>
-          <p class="curator">куратор: андрей (lruns) · все экспонаты принадлежат своим авторам</p>
+          <p class="epigraph small">${t('art.finaleSmall')}</p>
+          <p class="curator">${t('humor.curator')}</p>
         </div>
       </section>
       <div class="spiral-space" id="spiral-space">${stops}</div>
       <header class="room-head reveal">
         <p class="cmd">$ cd /iterium/art</p>
-        <h1>комната красоты</h1>
-        <p class="epigraph">реальность + один невидимый слой. никто не смотрит вверх — а ты посмотри</p>
-        <p class="scroll-hint up">↑ поднимайся: виток везёт от станции к станции, вокруг каждой — её источники · станции можно трогать · потяни мышкой, чтобы подкрутить</p>
+        <h1>${t('art.title')}</h1>
+        <p class="epigraph">${t('art.epigraph')}</p>
+        <p class="scroll-hint up">${t('art.scrollHint')}</p>
       </header>
     </div>
-    ${modeline('art.room', '(Beauty · спираль)', toggle)}`;
+    ${langSwitchHtml()}
+    ${modeline('art.room', t('art.modeline'), toggle)}`;
 
   const sky = startStars(app.querySelector('#stars') as HTMLCanvasElement);
   revealOnScroll(Array.from(app.querySelectorAll('.reveal')), 90);
@@ -184,6 +186,7 @@ export function renderArt(app: HTMLElement): void {
   // page; the card moves toward the camera, and only the zoomed state exposes the
   // "clip" and "author" links.
   mountAuthorChips(app);
+  mountLangSwitch(app);
   let openCard: HTMLElement | null = null;
   const unfocus = (): void => {
     if (!openCard) return;
@@ -233,7 +236,7 @@ export function renderArt(app: HTMLElement): void {
       free = !free;
       fly.setAttribute('aria-pressed', String(free));
       fly.classList.toggle('on', free);
-      if (flyLabel) flyLabel.textContent = free ? 'свободный полёт' : 'по станциям';
+      if (flyLabel) flyLabel.textContent = free ? t('art.flyFree') : t('art.flyStations');
       document.documentElement.classList.toggle('snap', !free);
       spiral.setFree(free);
     });

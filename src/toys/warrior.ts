@@ -10,6 +10,7 @@
 // the copypasta is not named. A card linking to the original stands next to this
 // exhibit.
 
+import { t, tl } from '../i18n';
 import { later, reducedMotion } from '../runtime';
 
 interface Step {
@@ -19,33 +20,41 @@ interface Step {
   kind?: 'gift' | 'call' | 'loot' | 'final';
 }
 
-const STEPS: Step[] = [
-  { icon: '[-]', text: 'школа. обижают все — даже девочки', gain: 'страдание +1' },
-  { icon: '[!]', text: 'в туалет врывается ОНО и разгоняет девочек', gain: 'событие' , kind: 'call' },
-  { icon: '[$]', text: 'вручает сборник олимпиадных задач', gain: 'получен дар', kind: 'gift' },
-  { icon: '[»]', text: '«ты тоже можешь быть воином»', gain: 'класс: воин', kind: 'call' },
-  { icon: '[+]', text: 'ты встал и начал решать', gain: 'навык: решать +10' },
-  { icon: '[+]', text: 'тебя зауважали девочки', gain: 'репутация +25' },
-  { icon: '[+]', text: 'тебя зауважали мальчики', gain: 'репутация +25' },
-  { icon: '[$]', text: 'выпали БОЛЬШИЕ ШТАНЫ', gain: 'легендарный предмет', kind: 'loot' },
-  { icon: '[+]', text: 'ходишь по школе на понтах с кастетом', gain: 'понты +99' },
-  { icon: '[*]', text: 'влился в уличные банды', gain: 'фракция открыта', kind: 'loot' },
-  { icon: '[=]', text: 'вот что могут делать олимпиады', gain: 'конец пути', kind: 'final' },
+const ICONS = ['[-]', '[!]', '[$]', '[»]', '[+]', '[+]', '[+]', '[$]', '[+]', '[*]', '[=]'];
+const KINDS: Array<Step['kind']> = [
+  undefined,
+  'call',
+  'gift',
+  'call',
+  undefined,
+  undefined,
+  undefined,
+  'loot',
+  undefined,
+  'loot',
+  'final',
 ];
+
+const STEPS: Step[] = ICONS.map((icon, i) => ({
+  icon,
+  text: tl('warriorSteps')[i],
+  gain: tl('warriorGains')[i],
+  kind: KINDS[i],
+}));
 
 export function warriorHtml(): string {
   return `<div class="obj mid toy warrior reveal" id="warrior">
     <div class="obj-title">$ ./become --warrior</div>
-    <p class="obj-hint top">путь героя по версии интернета: от олимпиадных задач до уличных банд</p>
+    <p class="obj-hint top">${t('war.hint')}</p>
     <div class="war-screen" id="war-screen" aria-live="polite">
-      <p class="war-idle" id="war-idle">[ путь не начат ]</p>
+      <p class="war-idle" id="war-idle">${t('war.idle')}</p>
     </div>
     <div class="war-row">
-      <button class="obj-btn" id="war-go" type="button">стать воином</button>
-      <span class="war-stamp">уровень: <b id="war-lvl">0</b> / ${STEPS.length}</span>
+      <button class="obj-btn" id="war-go" type="button">${t('war.go')}</button>
+      <span class="war-stamp">${t('war.level')} <b id="war-lvl">0</b> / ${STEPS.length}</span>
       <span class="war-bar" aria-hidden="true"><i id="war-fill"></i></span>
     </div>
-    <p class="war-out" id="war-out">> путь ждёт. жми</p>
+    <p class="war-out" id="war-out">${t('war.wait')}</p>
   </div>`;
 }
 
@@ -80,9 +89,9 @@ export function mountWarrior(root: HTMLElement): void {
     const step = (): void => {
       if (i >= STEPS.length) {
         busy = false;
-        go.textContent = 'пройти путь заново';
+        go.textContent = t('war.again');
         host.classList.add('done');
-        out.textContent = '> путь пройден. олимпиады работают';
+        out.textContent = t('war.done');
         return;
       }
       const el = node(STEPS[i]);
@@ -102,7 +111,7 @@ export function mountWarrior(root: HTMLElement): void {
     if (busy) return;
     busy = true;
     host.classList.remove('done');
-    out.textContent = '> путь начат…';
+    out.textContent = t('war.start');
     run();
   });
 }

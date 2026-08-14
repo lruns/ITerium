@@ -7,6 +7,7 @@
 // a grid; at the ink station stars trail ink tails.
 // A SINGLE canvas draws all of it — no extra layers and no extra frames.
 
+import { tl } from './i18n';
 import { onCleanup, onScroll, reducedMotion } from './runtime';
 
 export type SkyScene = 'none' | 'ink' | 'cal' | 'vision' | 'graph';
@@ -24,7 +25,7 @@ export interface Sky {
   current(): SkyScene;
 }
 
-const VISION_WORDS = ['звезда 0.91', 'точка? 0.38', 'свет 0.77', 'объект', 'ничего 0.12'];
+const VISION_WORDS = tl('skyWords');
 
 export function startStars(canvas: HTMLCanvasElement | null): Sky {
   const noop: Sky = { scene: () => undefined, current: () => 'none' };

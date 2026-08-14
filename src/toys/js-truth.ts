@@ -7,6 +7,7 @@
 
 import { svgArrow } from '../chrome';
 import { audioOnGesture, blip } from '../audio';
+import { t } from '../i18n';
 
 /**
  * Addition of operands the type checker refuses to add, which the engine happily
@@ -39,61 +40,61 @@ const CASES: Case[] = [
     id: 'plus',
     src: "'1' + 1",
     run: () => '1' + 1,
-    note: 'строка сильнее числа: плюс склеивает, а не складывает',
+    note: t('js.note.plus'),
   },
   {
     id: 'arrays',
     src: '[] + []',
     run: () => loosePlus([], []),
-    note: 'два массива стали строками. обе пустые. вот и пустота',
+    note: t('js.note.arrays'),
   },
   {
     id: 'objarr',
     src: '[] + {}',
     run: () => loosePlus([], {}),
-    note: "'' + '[object Object]'. никто не пострадал",
+    note: t('js.note.objarr'),
   },
   {
     id: 'nan',
     src: 'NaN === NaN',
     run: () => Number.NaN === Number.NaN,
-    note: 'единственное значение, не равное самому себе. по стандарту IEEE 754',
+    note: t('js.note.nan'),
   },
   {
     id: 'typeof',
     src: 'typeof NaN',
     run: () => typeof Number.NaN,
-    note: '«не число» — это число. вопросов больше нет',
+    note: t('js.note.typeof'),
   },
   {
     id: 'float',
     src: '0.1 + 0.2',
     run: () => 0.1 + 0.2,
-    note: 'двоичная дробь не умеет в 0.3. это не баг JS, это баг вселенной',
+    note: t('js.note.float'),
   },
   {
     id: 'sort',
     src: '[10, 1, 3].sort()',
     run: () => [10, 1, 3].sort(),
-    note: 'sort по умолчанию сравнивает СТРОКИ: "10" < "3"',
+    note: t('js.note.sort'),
   },
   {
     id: 'maxmin',
     src: 'Math.max() > Math.min()',
     run: () => Math.max() > Math.min(),
-    note: 'максимум из ничего = -Infinity, минимум = Infinity',
+    note: t('js.note.maxmin'),
   },
   {
     id: 'nullnum',
     src: 'null >= 0',
     run: () => (null as unknown as number) >= 0,
-    note: 'при этом null == 0 — ложь. сравнение и равенство живут отдельно',
+    note: t('js.note.nullnum'),
   },
   {
     id: 'banana',
     src: "('b' + 'a' + +'a' + 'a').toLowerCase()",
     run: () => ('b' + 'a' + +'a' + 'a').toLowerCase(),
-    note: 'самая известная строчка в истории языка',
+    note: t('js.note.banana'),
   },
 ];
 
@@ -105,15 +106,15 @@ export function jsTruthHtml(): string {
     </li>`,
   ).join('');
   return `<div class="obj mid toy jst reveal" id="jst">
-    <div class="obj-title">$ node --interactive · JS отвечает</div>
-    <p class="obj-hint top">тыкай в выражение — увидишь, что вернёт твой браузер</p>
+    <div class="obj-title">$ node --interactive · ${t('js.title')}</div>
+    <p class="obj-hint top">${t('js.hint')}</p>
     <ul class="jst-list">${rows}</ul>
-    <p class="jst-note" id="jst-note">> ждём выражения</p>
-    <p class="jst-foot">всё это правда. прямо сейчас. в твоём браузере</p>
+    <p class="jst-note" id="jst-note">${t('js.idle')}</p>
+    <p class="jst-foot">${t('js.foot')}</p>
     <div class="jst-row jst-all">
-      <button class="obj-btn" id="jst-all" type="button">выполнить всё</button>
+      <button class="obj-btn" id="jst-all" type="button">${t('js.all')}</button>
       <a class="plate" href="https://www.youtube.com/watch?v=Uo3cL4nrGOk" target="_blank" rel="noopener">
-        «мы переписали кодбазу девять раз за месяц» — Kai Lentit ${svgArrow}</a>
+        ${t('js.plate')} ${svgArrow}</a>
     </div>
   </div>`;
 }
@@ -135,7 +136,7 @@ export function mountJsTruth(root: HTMLElement): void {
       const a = audioOnGesture();
       if (a) blip(a, done % 2 === 0);
     }
-    if (done >= CASES.length) note.textContent = '> все ответы настоящие. ни один не подделан';
+    if (done >= CASES.length) note.textContent = t('js.done');
   };
 
   host.querySelectorAll('[data-case]').forEach((b) => {

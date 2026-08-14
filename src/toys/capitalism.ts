@@ -3,22 +3,18 @@
 // actively pushed back down, and convergence for the intern never happens — the
 // iteration counter just keeps ticking.
 
-import { capitalismItems } from '../data';
+import { capitalismItems, type RichItem } from '../data';
+import { t, tl } from '../i18n';
 import { reducedMotion, stepEngine } from '../runtime';
 
 interface Row {
+  id: RichItem['id'];
   name: string;
   cash: number;
   tag: string;
 }
 
-const NEVER = [
-  'пересчитываю приоритет',
-  'уточняю грейд',
-  'жду ревью от тимлида',
-  'ещё один спринт и точно',
-  'сортировка не сошлась',
-];
+const NEVER = tl('capitalismNever');
 
 // The bar scale is LINEAR, not logarithmic: a log scale politely hid the gap, and
 // the gap is the joke. The intern gets a single-character stub, the investor a bar
@@ -34,9 +30,9 @@ export function capitalismHtml(): string {
   return `<div class="obj mid toy reveal" id="capital">
     <div class="obj-title">$ sort --by=capitalism</div>
     <ol class="rich" id="rich"></ol>
-    <p class="rich-log" id="rich-log">жду команды</p>
-    <button class="obj-btn" id="rich-run" type="button">запустить сортировку</button>
-    <p class="obj-hint">алгоритм честный. просто не для всех</p>
+    <p class="rich-log" id="rich-log">${t('cap.idle')}</p>
+    <button class="obj-btn" id="rich-run" type="button">${t('cap.run')}</button>
+    <p class="obj-hint">${t('cap.hint')}</p>
   </div>`;
 }
 
@@ -57,8 +53,8 @@ export function mountCapitalism(root: HTMLElement): void {
         const cls = [
           'rich-row',
           i === hi ? 'hi' : '',
-          r.name === 'инвестор' ? 'vip' : '',
-          r.name === 'стажёр' ? 'poor' : '',
+          r.id === 'investor' ? 'vip' : '',
+          r.id === 'intern' ? 'poor' : '',
         ]
           .filter(Boolean)
           .join(' ');
@@ -69,29 +65,29 @@ export function mountCapitalism(root: HTMLElement): void {
   };
 
   const reset = (): void => {
-    list = capitalismItems.map((it) => ({ name: it.name, cash: it.cash, tag: '' }));
+    list = capitalismItems.map((it) => ({ id: it.id, name: it.name, cash: it.cash, tag: '' }));
     hi = -1;
     iter = 0;
     paint();
-    log.textContent = 'жду команды';
+    log.textContent = t('cap.idle');
   };
 
   /** A normal bubble-sort pass, applied only to the rows that queue honestly. */
   const bubbleStep = (): boolean => {
     for (let i = 1; i < list.length - 1; i += 1) {
       // the intern is never allowed up: if he floats, he is swapped back down
-      if (list[i].name === 'стажёр') {
-        const t = list[i];
+      if (list[i].id === 'intern') {
+        const row = list[i];
         list[i] = list[i + 1];
-        list[i + 1] = t;
-        list[i + 1].tag = 'приоритет пересчитывается';
+        list[i + 1] = row;
+        list[i + 1].tag = t('cap.recalc');
         hi = i + 1;
         return true;
       }
       if (list[i].cash < list[i + 1].cash) {
-        const t = list[i];
+        const row = list[i];
         list[i] = list[i + 1];
-        list[i + 1] = t;
+        list[i + 1] = row;
         hi = i;
         return true;
       }
@@ -101,11 +97,11 @@ export function mountCapitalism(root: HTMLElement): void {
 
   const spin = (): void => {
     iter += 1;
-    const idx = list.findIndex((r) => r.name === 'стажёр');
-    if (idx >= 0) list[idx].tag = `${NEVER[iter % NEVER.length]} · итерация ${iter}`;
+    const idx = list.findIndex((r) => r.id === 'intern');
+    if (idx >= 0) list[idx].tag = t('cap.iterTag', { never: NEVER[iter % NEVER.length], n: iter });
     hi = idx;
     paint();
-    log.textContent = `> для стажёра сортировка не сошлась (итерация ${iter})`;
+    log.textContent = t('cap.stuck', { n: iter });
     engine.next(spin, 1500);
   };
 
@@ -117,37 +113,37 @@ export function mountCapitalism(root: HTMLElement): void {
     }
     hi = -1;
     paint();
-    log.textContent = '> порядок установлен. осталась одна мелочь';
+    log.textContent = t('cap.ordered');
     engine.next(spin, 900);
   };
 
   const teleport = (): void => {
-    const idx = list.findIndex((r) => r.name === 'инвестор');
+    const idx = list.findIndex((r) => r.id === 'investor');
     const vip = list.splice(idx, 1)[0];
-    vip.tag = 'вне очереди';
+    vip.tag = t('cap.queueSkip');
     list.unshift(vip);
     hi = 0;
     paint();
     const row = out.firstElementChild as HTMLElement | null;
     if (row && !reducedMotion()) row.classList.add('teleported');
-    log.textContent = '> инвестор: приоритетный доступ. сортировка пропущена';
+    log.textContent = t('cap.vip');
     engine.next(sorting, 900);
   };
 
   const run = (): void => {
     engine.stop();
     reset();
-    log.textContent = '> читаю массив…';
+    log.textContent = t('cap.reading');
     if (reducedMotion()) {
-      const idx = list.findIndex((r) => r.name === 'инвестор');
+      const idx = list.findIndex((r) => r.id === 'investor');
       const vip = list.splice(idx, 1)[0];
-      vip.tag = 'вне очереди';
+      vip.tag = t('cap.queueSkip');
       list.unshift(vip);
-      list.sort((a, b) => (a.name === 'стажёр' ? 1 : b.name === 'стажёр' ? -1 : 0));
-      const poor = list.find((r) => r.name === 'стажёр');
-      if (poor) poor.tag = 'сортировка не сошлась';
+      list.sort((a, b) => (a.id === 'intern' ? 1 : b.id === 'intern' ? -1 : 0));
+      const poor = list.find((r) => r.id === 'intern');
+      if (poor) poor.tag = t('cap.noConverge');
       paint();
-      log.textContent = '> инвестор — вне очереди. для стажёра сортировка не сошлась';
+      log.textContent = t('cap.stillResult');
       return;
     }
     engine.next(teleport, 700);

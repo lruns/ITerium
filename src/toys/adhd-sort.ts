@@ -5,6 +5,7 @@
 // "sorted" meter falls back. The exhibit NEVER terminates: right at the moment
 // of success it gets distracted again. Author credit is on the exhibit itself.
 
+import { t, tl } from '../i18n';
 import { reducedMotion, stepEngine } from '../runtime';
 
 const N = 14;
@@ -16,30 +17,10 @@ interface Phase {
 }
 
 // "almost there" lines: this is exactly where it gets distracted again. There is no terminal success state.
-const SAY_ALMOST = [
-  'почти. ой, а что там…',
-  'почти же! …стоп, а что это',
-  'ну вот почти. ой',
-];
-
-const SAY_AWAY = [
-  'о. а что это там за массив',
-  'секунду, там всё вверх дном',
-  'соседний маленький, я быстро',
-  'ой, а тут вообще не отсортировано',
-];
-const SAY_BACK = [
-  'так… на чём я остановился',
-  'ага. я точно был где-то тут',
-  'ладно, помню примерно',
-  'кажется, отсюда. или нет',
-];
-const SAY_SORT = [
-  'сортирую',
-  'сортирую, всё под контролем',
-  'ещё чуть-чуть',
-  'вот теперь по-настоящему сортирую',
-];
+const SAY_ALMOST = tl('adhdAlmost');
+const SAY_AWAY = tl('adhdAway');
+const SAY_BACK = tl('adhdBack');
+const SAY_SORT = tl('adhdSort');
 
 function shuffled(n: number): number[] {
   const a: number[] = [];
@@ -53,7 +34,7 @@ function shuffled(n: number): number[] {
   return a;
 }
 
-function pick<T>(a: T[]): T {
+function pick<T>(a: readonly T[]): T {
   return a[Math.floor(Math.random() * a.length)];
 }
 
@@ -78,19 +59,19 @@ export function adhdSortHtml(): string {
         <div class="adhd-cursor" id="adhd-cursor"><span></span></div>
       </div>
       <aside class="adhd-side" id="adhd-side">
-        <div class="adhd-side-tag">чужой массив</div>
+        <div class="adhd-side-tag">${t('adhd.sideTag')}</div>
         <div class="bars small" id="adhd-side-bars">${bars('bar s', SIDE_N)}</div>
       </aside>
     </div>
-    <p class="adhd-say" id="adhd-say">сортирую</p>
+    <p class="adhd-say" id="adhd-say">${t('adhd.sorting')}</p>
     <div class="adhd-stats">
-      <span>отсортировано <b id="adhd-pct">0%</b></span>
-      <span>отвлёкся <b id="adhd-dis">0</b></span>
-      <span>шагов <b id="adhd-steps">0</b></span>
+      <span>${t('adhd.statSorted')} <b id="adhd-pct">0%</b></span>
+      <span>${t('adhd.statDistracted')} <b id="adhd-dis">0</b></span>
+      <span>${t('adhd.statSteps')} <b id="adhd-steps">0</b></span>
     </div>
     <div class="adhd-meter"><i id="adhd-fill"></i></div>
-    <button class="obj-btn" id="adhd-restart" type="button">начать заново</button>
-    <p class="obj-hint">O(n² + отвлёкся) · по мотивам ADHD Sort от @swapjs.tt</p>
+    <button class="obj-btn" id="adhd-restart" type="button">${t('adhd.restart')}</button>
+    <p class="obj-hint">${t('adhd.hint')}</p>
   </div>`;
 }
 
@@ -120,7 +101,7 @@ export function mountAdhdSort(root: HTMLElement): void {
   let swaps = 0;
   let untilBored = 0;
   let sideIdx = 0;
-  let phase: Phase = { id: 'sorting', say: 'сортирую' };
+  let phase: Phase = { id: 'sorting', say: t('adhd.sorting') };
   let steps = 0;
   let distractions = 0;
 
@@ -180,9 +161,9 @@ export function mountAdhdSort(root: HTMLElement): void {
     steps = 0;
     distractions = 0;
     untilBored = 12 + Math.floor(Math.random() * 10);
-    phase = { id: 'sorting', say: 'сортирую' };
+    phase = { id: 'sorting', say: t('adhd.sorting') };
     sideEl.classList.remove('on');
-    say('сортирую');
+    say(t('adhd.sorting'));
     disEl.textContent = '0';
     stepsEl.textContent = '0';
     moveCursor(0);
@@ -236,7 +217,7 @@ export function mountAdhdSort(root: HTMLElement): void {
       sideIdx = 0;
       sideEl.classList.add('on');
       phase = { id: 'away', say: '' };
-      say('(сортирую чужой массив, он маленький)');
+      say(t('adhd.away'));
       distractions += 1;
       disEl.textContent = String(distractions);
       paintSide();
@@ -299,7 +280,7 @@ export function mountAdhdSort(root: HTMLElement): void {
       // Reduced motion: show the outcome as a single still frame, labelled as such.
       main = shuffled(N);
       j = 3;
-      say('отвлёкся и вернулся не туда (анимация выключена в системе)');
+      say(t('adhd.still'));
       paintMain();
       return;
     }
